@@ -106,10 +106,11 @@
 				for(var i = 0; i < game.state.checkers.length; i++) {
 					var checker = game.state.checkers[i];
 
-					if(game.state.checkerMovedID == checker.id) { // then we have to use that checker
+					if(game.state.checkerMovedID === checker.id) { // then we have to use that checker
 						forcedChecker = checker;
 					}
-					else if(checker.ownerID == this.playerID) {
+					
+					if(checker.ownerID === this.playerID) {
 						myCheckers.push(checker);
 					}
 
@@ -117,9 +118,13 @@
 				}
 
 				if(forcedChecker) {
-					myCheckers = [ forcedChecker ];
-					// TODO: smarter after doing a move?
-					return ai.command("done");
+					if(game.state.checkerMovedJumped) { // then it is valid to move again
+						myCheckers = [ forcedChecker ];
+					}
+					else { // it moved but did not jump, so it can't move again
+						return ai.command("done");
+					}
+					
 				}
 
 				shuffle(myCheckers);
@@ -148,20 +153,30 @@
 							continue; // because we can't use this neighor as it is out of bounds
 						}
 
-						if(checkersMap[neighbor.x][neighbor.y]) { // we have to jump it, so add the next tile over
-							if(!neighbor.jump) {
-								var dx = neighbor.x - checker.x;
-								var dy = neighbor.y - checker.y;
-								
-								neighbors.push({
-									jump: true,
-									x: neighbor.x + dx,
-									y: neighbor.y + dy,
-								});
+						if(forcedChecker) { // then we have to jump
+							if(neighbor.jump) {// we can jump!
+								return ai.command("move", checker, neighbor.x, neighbor.y);
 							}
 						}
-						else { // it's valid!
-							return ai.command("move", checker, neighbor.x, neighbor.y);
+						else {
+							var jumpingChecker = checkersMap[neighbor.x][neighbor.y]
+							if(jumpingChecker) { // we have to jump it, so add the next tile over
+								if(jumpingChecker.ownerID !== checker.ownerID) {
+									if(!neighbor.jump) {
+										var dx = neighbor.x - checker.x;
+										var dy = neighbor.y - checker.y;
+										
+										neighbors.push({
+											jump: true,
+											x: neighbor.x + dx,
+											y: neighbor.y + dy,
+										});
+									}
+								}
+							}
+							else { // it's valid!
+								return ai.command("move", checker, neighbor.x, neighbor.y);
+							}
 						}
 					}
 				}
@@ -287,12 +302,17 @@
 			}
 
 			socket.on("disconnect", function(msg) {
-				$("body").html("FUCK THIS SHIT");
+				socket.on("disconnect", function() {});
 				socket.disconnect();
+				print("disconnected from the server");
 			});
 
 			socket.on("connect", function(msg) {
-				send("play", "Player-1 checkers TestSession");
+				send("play", JSON.stringify({
+					playerName: "Javascript Player " + Math.random(),
+					gameName: "checkers",
+					gameSession: "*",
+				}));
 			})
 
 			$('form').submit(function(){
