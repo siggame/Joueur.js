@@ -78,19 +78,18 @@
 				print("AI STARTED!!!", ai.playerID);
 			};
 
-			ai.command = function(/*command, args...*/) {
-				var commands = [];
-				for(var i = 0; i < arguments.length; i++) {
-					var argument = arguments[i];
-
-					if(typeof(argument) == "object") {
-						argument = "#" + argument.id;
+			ai.command = function(command, data) {
+				data = data || {};
+				for(var key in data) {
+					var value = data[key];
+					if(typeof(value) == "object") {
+						data[key] = "#" + value.id; // TODO: get this id prefix from server
 					}
-
-					commands.push(argument);
 				}
 
-				send("command", commands.join(" "));
+				data.command = command;
+
+				send("command", JSON.stringify(data));
 			}
 
 			ai.makeCommand = function() {
@@ -155,7 +154,7 @@
 
 						if(forcedChecker) { // then we have to jump
 							if(neighbor.jump) {// we can jump!
-								return ai.command("move", checker, neighbor.x, neighbor.y);
+								return ai.command("move", {checker: checker, x: neighbor.x, y: neighbor.y});
 							}
 						}
 						else {
@@ -175,7 +174,7 @@
 								}
 							}
 							else { // it's valid!
-								return ai.command("move", checker, neighbor.x, neighbor.y);
+								return ai.command("move", {checker: checker, x: neighbor.x, y: neighbor.y});
 							}
 						}
 					}
