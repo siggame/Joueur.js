@@ -59,7 +59,7 @@
 			var send = function(event, msg) {
 				print("SENDING: ", event, msg);
 				socket.emit(event, msg);
-			}
+			};
 
 			var game = {};
 			game.updateState = function(newState) {
@@ -73,9 +73,16 @@
 
 			var ai = {};
 
+			ai.init = function(data) {
+				this.name = data.name;
+				this.playerName = data.playerName;
+				this.gameName = data.gameName;
+				this.gameSession = data.gameSession;
+				this._serverConstants = data.constants;
+			};
+
 			ai.start = function(startData) {
 				this.playerID = startData.playerID;
-				print("AI STARTED!!!", ai.playerID);
 			};
 
 			ai.command = function(command, data) {
@@ -83,14 +90,14 @@
 				for(var key in data) {
 					var value = data[key];
 					if(typeof(value) == "object") {
-						data[key] = "#" + value.id; // TODO: get this id prefix from server
+						data[key] = this._serverConstants.ID_PREFIX + value.id; // TODO: get this id prefix from server
 					}
 				}
 
 				data.command = command;
 
 				send("command", JSON.stringify(data));
-			}
+			};
 
 			ai.makeCommand = function() {
 				print("MY TURN TO SEND COMMANDS");
@@ -260,11 +267,13 @@
 
 
 			var serverResponseFunctions = {
-				connected: function(){
+				connected: function(json){
+					var data = JSON.parse(json);
+					ai.init(data);
 					print("successfully connected to the server " + serverLocation)
 				},
 				state: function(msg) {
-					var data = JSON.parse(msg)
+					var data = JSON.parse(msg);
 					game.updateState(data);
 					$("#jsonState").html(msg);
 					updateGameBoard(data);
