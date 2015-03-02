@@ -62,8 +62,43 @@
 			};
 
 			var game = {};
-			game.updateState = function(newState) {
-				this.state = newState;
+			game.init = function(data) {
+				this._serverConstants = data.constants;
+			}
+
+			game.setState = function(initialState) {
+				this.state = initialState;
+			};
+
+			game.applyDeltaState = function(delta) {
+				this.mergeDelta(this.state, delta);
+			};
+
+			game.mergeDelta = function(state, delta) {
+				var deltaLength = delta[this._serverConstants.DELTA_ARRAY_LENGTH];
+
+				if(deltaLength !== undefined) { // then this part in the state is an array
+					delete delta[this._serverConstants.DELTA_ARRAY_LENGTH]; // we don't want to copy this key/value over to the state, it was just to signify it is an array
+					console.log("this is an array...");
+					while(state.length > deltaLength) { // pop elements off the array until the array is short enough. an increase in array size will be added below as arrays resize when keys larger are set
+						console.log("popping state", state.length, "once to near", deltaLength);
+						state.pop();
+					}
+				}
+
+				for(var key in delta) {
+					if(delta.hasOwnProperty(key)) {
+						if(delta[key] === this._serverConstants.DELTA_REMOVED) {
+							delete state[key];
+						}
+						else if(typeof(delta[key]) == "object" && typeof(state[key]) == "object") {
+							this.mergeDelta(state[key], delta[key]);
+						}
+						else {
+							state[key] = delta[key];
+						}
+					}
+				}
 			};
 
 			function shuffle(o){ //v1.0
@@ -90,7 +125,7 @@
 				for(var key in data) {
 					var value = data[key];
 					if(typeof(value) == "object") {
-						data[key] = this._serverConstants.ID_PREFIX + value.id; // TODO: get this id prefix from server
+						data[key] = this._serverConstants.ID_PREFIX + value.id;
 					}
 				}
 
@@ -227,6 +262,8 @@
 			};
 
 			var updateGameBoard = function(data) {
+				data = game.state;
+				$("#jsonState").html(JSON.stringify(data));
 				if(!$("#gameBoard").html()) {
 					initGameBoard(data);
 				}
@@ -270,16 +307,20 @@
 				connected: function(json){
 					var data = JSON.parse(json);
 					ai.init(data);
-					print("successfully connected to the server " + serverLocation)
+					game.init(data);
+					print("successfully connected to the server " + serverLocation);
 				},
-				state: function(msg) {
-					var data = JSON.parse(msg);
-					game.updateState(data);
-					$("#jsonState").html(msg);
-					updateGameBoard(data);
+				state: function(json) {
+					var data = JSON.parse(json);
+					game.setState(data);
+					updateGameBoard();
 				},
-				start: function(msg) {
-					ai.start(JSON.parse(msg));
+				delta: function(json) {
+					game.applyDeltaState(JSON.parse(json));
+					updateGameBoard();
+				},
+				start: function(json) {
+					ai.start(JSON.parse(json));
 				},
 				awaiting: function() {
 					print("SERVER IS AWATING ME, I AM " + ai.playerID);
