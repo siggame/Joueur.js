@@ -35,9 +35,9 @@
 		<form action="">
 			<input id="m" autocomplete="off" /><button>Send</button>
 		</form>
-		<pre id="jsonState"></pre>
 		<p>White is player 0, Red is player 1</p>
 		<div id="gameBoard"></div>
+		<pre id="jsonState"></pre>
 		<ul id="messages"></ul>
 		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 		<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
@@ -66,12 +66,13 @@
 				this._serverConstants = data.constants;
 			}
 
-			game.setState = function(initialState) {
-				this.state = initialState;
+			game.setState = function(completeState) {
+				this.state = completeState;
 			};
 
 			game.applyDeltaState = function(delta) {
 				this.mergeDelta(this.state, delta);
+				print("post delta: ", JSON.stringify(this.state));
 			};
 
 			game.mergeDelta = function(state, delta) {
@@ -263,7 +264,7 @@
 
 			var updateGameBoard = function(data) {
 				data = game.state;
-				$("#jsonState").html(JSON.stringify(data));
+				$("#jsonState").html(JSON.stringify(data, null, "    "));
 				if(!$("#gameBoard").html()) {
 					initGameBoard(data);
 				}
