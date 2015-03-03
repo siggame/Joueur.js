@@ -123,16 +123,25 @@
 
 			ai.command = function(command, data) {
 				data = data || {};
-				for(var key in data) {
-					var value = data[key];
-					if(typeof(value) == "object") {
-						data[key] = this._serverConstants.ID_PREFIX + value.id;
-					}
-				}
 
+				this._formatCommandData(data);
 				data.command = command;
 
 				send("command", JSON.stringify(data));
+			};
+
+			ai._formatCommandData = function(data) {
+				for(var key in data) {
+					var value = data[key];
+					if(typeof(value) == "object") {
+						if(data.id !== undefined) {
+							data[key] = {id: value.id};
+						}
+						else {
+							this._formatCommandData(value);
+						}
+					}
+				}
 			};
 
 			ai.makeCommand = function() {
