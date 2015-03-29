@@ -20,8 +20,11 @@ All inspiration taken from [MS&T's SIG-GAME framework](https://github.com/siggam
 
 ## How to Run
 
+Make sure you have Node.js installed and then
+
 ```
-python main.py -g GAME_NAME -s SERVER -p PORT -n PLAYER_NAME
+npm install
+node main.js -g GAME_NAME -s SERVER -p PORT -n PLAYER_NAME
 ```
 
 That's it. Make sure there is a server at `-s`. It defaults to localhost if not given. The game you want to play must be present on the server. 
