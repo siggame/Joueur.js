@@ -3,14 +3,7 @@ var Serializer = require("./utilities/serializer");
 var Class = require("./utilities/class");
 var BaseGameObject = require("./baseGameObject");
 
-function pad(n) {
-	var s = "";
-	for(var i = 0; i < n; i++) {
-		s += "-";
-	}
-	return s;
-}
-
+// @class BaseGame: the basics of any game, basically state management. Competitiors do not modify
 var BaseGame = Class({
 	init: function(session) {
 		this.session = session;
@@ -36,10 +29,12 @@ var BaseGame = Class({
 		this._serverConstants = data.constants;
 	},
 
+	// @returns BaseGameObject with the given id
 	getGameObject: function(id) {
 		return this.gameObjects[id];
 	},
 
+	/// applies a delta state (change in state information) to this game
 	applyDeltaState: function(delta) {
 		var notGotInitialState = !this._gotInitialState;
 		this._gotInitialState = true;
@@ -58,6 +53,7 @@ var BaseGame = Class({
 		this.ai.gameUpdated();
 	},
 
+	/// game objects can be refences in the delta states for cycles, they will all point to the game objects here.
 	_initGameObjects: function(gameObjects) {
 		for(var id in gameObjects) {
 			if(this.gameObjects[id] === undefined) {
@@ -71,7 +67,8 @@ var BaseGame = Class({
 		}
 	},
 
-	_mergeDelta: function(state, delta, depth, name) {
+	/// recursively merges delta changes to the game.
+	_mergeDelta: function(state, delta) {
 		var deltaLength = delta[this._serverConstants.DELTA_ARRAY_LENGTH];
 
 		if(deltaLength !== undefined) { // then this part in the state is an array
@@ -92,7 +89,7 @@ var BaseGame = Class({
 					state[key] = this.getGameObject(d.id);
 				}
 				else if(Serializer.isObject(d) && Serializer.isObject(state[key])) {
-					this._mergeDelta(state[key], d, depth + 1, key);
+					this._mergeDelta(state[key], d);
 				}
 				else {
 					state[key] = d;

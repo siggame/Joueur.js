@@ -2,6 +2,7 @@ var Class = require("./utilities/class");
 var Serializer = require("./utilities/serializer");
 var io = require("socket.io-client");
 
+// @class Client: talks to the server recieving game information and sending commands to execute. Clients perform no game logic
 var Client = Class({
 	init: function(game, ai, server, port) {
 		server = server || 'localhost';
@@ -33,7 +34,7 @@ var Client = Class({
 		}
 	},
 
-
+	/// tells the server this player is ready to play a game
 	ready: function(playerName) {
 		this.socket.emit("play", JSON.stringify({
 			clientType: "JavaScript",
@@ -43,6 +44,7 @@ var Client = Class({
 		}));
 	},
 
+	/// sends a command on behalf of a caller game object to the server
 	sendCommand: function(caller, command, data) {
 		data.caller = caller;
 		data.command = command;
