@@ -1,8 +1,9 @@
 var Class = require("./utilities/class");
 var Serializer = require("./utilities/serializer");
-var io = require("socket.io-client");
+var net = require("net");
+var EOT_CHAR = String.fromCharCode(4);
 
-// @class Client: talks to the server recieving game information and sending commands to execute. Clients perform no game logic
+// @class Client: talks to the server recieving game information and sending commands to execute via TCP socket. Clients perform no game logic
 var Client = Class({
 	init: function(game, ai, server, port) {
 		server = server || 'localhost';
@@ -16,32 +17,75 @@ var Client = Class({
 		this.game.setClient(this);
 		this.game.setAI(this.ai);
 
-		console.log("connecting to: " + this.sever + ":" + this.port)
+		console.log("connecting to: " + this.server + ":" + this.port)
 
-		this.socket = io.connect("http://" + this.server + ":" + this.port, {
-			reconnect: false,
-		});
+		this.socket = new net.Socket();
+		this.socket.setEncoding('utf8');
 
-		for(var key in this) {
-			var value = this[key];
-			if(typeof(key) == "string" && typeof(value) == "function" && key.substr(0, 2) === "on") {
-				(function(self, key) {
-					self.socket.on(key.substr(2).toLowerCase(), function(message) {
-						self[key].call(self, message && JSON.parse(message));
-					});
-				})(this, key);
-			}
-		}
+		(function(self) {
+			self.socket.connect(self.port, self.server, function() {
+				self.connected();
+			});
+
+			var buffer = "";
+			self.socket.on("data", function(str) {
+				buffer += str;
+
+				var split = buffer.split(EOT_CHAR); // split on "end of text" character (basically end of transmition)
+
+				buffer = split.pop(); // the last item will either be "" if the last char was an EOT_CHAR, or a partial data we need to buffer anyways
+
+				for(var i = 0; i < split.length; i++) {
+					self.onJsonData(split[i]);
+				}
+			});
+
+			self.socket.on("close", function() {
+				self.disconnected();
+			});
+
+			self.socket.on("error", function() {
+				console.log("server encountered unexpected error");
+			});
+		})(this);
 	},
+
+	connected: function(data) {
+		console.log("successfully connected to server at:", this.server + ":" + this.port);
+	},
+
+	disconnected: function() {
+		console.log("Disconnected from server...");
+		this.socket.destroy();
+		process.exit();
+	},
+
+	onJsonData: function(json) {
+		var parsed = JSON.parse(json);
+		this['on' + parsed.event.capitalize()].call(this, parsed.data);
+	},
+
+
 
 	/// tells the server this player is ready to play a game
 	ready: function(playerName) {
-		this.socket.emit("play", JSON.stringify({
+		this.sendEvent("play", {
 			clientType: "JavaScript",
 			playerName: playerName || this.ai.getName() || "JavaScript Player",
 			gameName: this.game.name,
 			gameSession: this.game.session || "*",
-		}));
+		});
+	},
+
+	sendEvent: function(event, data) {
+		this.socket.write(
+			JSON.stringify({
+				sendTime: (new Date()).getTime(),
+				event: event,
+				data: data,
+			})
+			+ EOT_CHAR
+		);
 	},
 
 	/// sends a command on behalf of a caller game object to the server
@@ -49,21 +93,17 @@ var Client = Class({
 		data.caller = caller;
 		data.command = command;
 
-		data = Serializer.serialize(data);
-		this.socket.emit("command", JSON.stringify(data));
+		this.sendEvent("command", Serializer.serialize(data));
 	},
 
 
-	//--- Socket On functions ---\\
 
-	onConnected: function(data) {
+	//--- Socket on data functions ---\\
+
+	onPlaying: function(data) {
 		this.game.connected(data);
 		this.ai.connected(data);
 		console.log("Connection successful to game '" + this.game.name + "'' in session '" + this.game.session + "'");
-	},
-
-	onDelta: function(delta) {
-		this.game.applyDeltaState(delta);
 	},
 
 	onStart: function(data) {
@@ -78,15 +118,14 @@ var Client = Class({
 		this.ai.ignoring();
 	},
 
-	onOver: function() {
-		this.ai.over();
-		this.socket.disconnect();
+	onDelta: function(delta) {
+		this.game.applyDeltaState(delta);
 	},
 
-	/*onDisconnect: function() {
-		console.log("Disconnected from server...");
-		process.exit();
-	},*/
+	onOver: function() {
+		this.ai.over();
+		this.disconnected();
+	},
 });
 
 module.exports = Client;

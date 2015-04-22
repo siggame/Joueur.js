@@ -58,7 +58,7 @@ var AI = Class(BaseAI, {
 
 		shuffle(myCheckers);
 
-		var yDirection = this.playerID === 0 ? 1 : -1;
+		var yDirection = (this.player.id === "0" ? 1 : -1); // TODO: server should send this
 
 		for(var i = 0; i < myCheckers.length; i++) {
 			var checker = myCheckers[i];
@@ -111,7 +111,7 @@ var AI = Class(BaseAI, {
 		}
 
 		// if we got here there's nothing to do...
-		this.player.endTurn();
+		return this.player.endTurn();
 	},
 
 	// this is called when the server is no longer taking game commands from you, normally when you turn ends and another players begins.
