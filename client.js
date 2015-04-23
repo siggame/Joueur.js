@@ -80,7 +80,7 @@ var Client = Class({
 	sendEvent: function(event, data) {
 		this.socket.write(
 			JSON.stringify({
-				sendTime: (new Date()).getTime(),
+				sentTime: (new Date()).getTime(),
 				event: event,
 				data: data,
 			})
