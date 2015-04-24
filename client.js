@@ -122,6 +122,11 @@ var Client = Class({
 		this.game.applyDeltaState(delta);
 	},
 
+	onInvalid: function(data) {
+		// TODO: expose to AI to interpret invalid data sent back
+		console.log("sent invalid command data", data);
+	},
+
 	onOver: function() {
 		this.ai.over();
 		this.disconnected();

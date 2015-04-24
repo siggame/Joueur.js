@@ -56,13 +56,15 @@ var BaseGame = Class({
 	/// game objects can be refences in the delta states for cycles, they will all point to the game objects here.
 	_initGameObjects: function(gameObjects) {
 		for(var id in gameObjects) {
-			if(this.gameObjects[id] === undefined) {
-				var gameObject = gameObjects[id];
-				this.gameObjects[id] = new this._gameObjectClasses[gameObject.gameObjectName](extend({
-					game: this,
-					ai: this.ai,
-					client: this.client,
-				}, gameObject));
+			if(gameObjects.hasOwnProperty(id)) {
+				if(this.gameObjects[id] === undefined) { // then this a new game object that we need to create as a class instance
+					var gameObject = gameObjects[id];
+					this.gameObjects[id] = new this._gameObjectClasses[gameObject.gameObjectName]({
+						game: this,
+						ai: this.ai,
+						client: this.client,
+					});
+				}
 			}
 		}
 	},
@@ -92,10 +94,18 @@ var BaseGame = Class({
 					this._mergeDelta(state[key], d);
 				}
 				else {
-					state[key] = d;
+					if(Serializer.isObject(d)) {
+						var dIsArray = (d[this._serverConstants.DELTA_ARRAY_LENGTH] !== undefined);
+						state[key] = this._mergeDelta(dIsArray ? [] : {}, d);
+					}
+					else {
+						state[key] = d;
+					}
 				}
 			}
 		}
+
+		return state;
 	},
 });
 

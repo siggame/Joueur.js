@@ -1,7 +1,7 @@
-var Client = require("./client");
-var argh = require("argh");
-var args = argh.argv;
 require("./extensions/"); // extends built in JavaScript objects. Extend with care, prototypes can get funky if you are not careful
+var Client = require("./client");
+var argh = require("argh"); // TODO: move to something like argparse in python and lua
+var args = argh.argv;
 
 // parse args
 var gameName = args.game;
