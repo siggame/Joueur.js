@@ -7,16 +7,15 @@ var BaseAI = Class({
 	},
 
 	start: function(data) {
-		this.playerID = data.playerID;
-		this.playerName = data.playerName;
+		this._playerID = data.playerID; // will be used to find its in game player
 	},
 
 	connected: function(data) {
 		this._serverConstants = data.constants;
 	},
 
-	connectPlayer: function() {
-		this.player = this.game.getGameObject(this.playerID);
+	connectPlayer: function(id) {
+		this.player = this.game.getGameObject(this._playerID);
 	},
 
 	gameInitialized: function() {
@@ -27,12 +26,21 @@ var BaseAI = Class({
 		// intended to be overridden by the AI class
 	},
 
-	run: function() {
-		// intended to be overridden by the AI class
+	respondTo: function(request, args) {
+		var callback = this[request]; // this function should be generated via Creer in the inherited AI function
+
+		if(callback) {
+			return callback.apply(this, args);
+
+			
+		}
+		else {
+			console.error("AI has no function", request, "to respond with");
+		}
 	},
 
-	ignoring: function() {
-		// intended to be overridden by the AI class
+	invalid: function(data) {
+		console.log("AI was told this is invalid", data);
 	},
 
 	over: function() {

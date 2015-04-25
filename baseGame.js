@@ -12,17 +12,7 @@ var BaseGame = Class({
 		this.players = [];
 		this.currentPlayers = [];
 
-		this._gotInitialState = false;
 		this._gameObjectClasses = {};
-	},
-
-
-	setClient: function(client) {
-		this.client = client;
-	},
-
-	setAI: function(ai) {
-		this.ai = ai;
 	},
 
 	connected: function(data) {
@@ -43,14 +33,7 @@ var BaseGame = Class({
 			this._initGameObjects(delta.gameObjects);
 		}
 
-		this._mergeDelta(this, delta, 0, 'Game');
-
-		if(notGotInitialState) {
-			this.ai.connectPlayer();
-			this.ai.gameInitialized();
-		}
-
-		this.ai.gameUpdated();
+		this._mergeDelta(this, delta);
 	},
 
 	/// game objects can be refences in the delta states for cycles, they will all point to the game objects here.
@@ -59,11 +42,9 @@ var BaseGame = Class({
 			if(gameObjects.hasOwnProperty(id)) {
 				if(this.gameObjects[id] === undefined) { // then this a new game object that we need to create as a class instance
 					var gameObject = gameObjects[id];
-					this.gameObjects[id] = new this._gameObjectClasses[gameObject.gameObjectName]({
-						game: this,
-						ai: this.ai,
-						client: this.client,
-					});
+					var gameObjectClass = this._gameObjectClasses[gameObject.gameObjectName];
+
+					this.gameObjects[id] = new gameObjectClass();
 				}
 			}
 		}

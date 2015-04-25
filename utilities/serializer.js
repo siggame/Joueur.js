@@ -24,17 +24,17 @@ Serializer = {
 	},
 
 	serialize: function(data) {
-		serialized = {};
+		var serialized = {};
 
 		for(var key in data) {
 			if(data.hasOwnProperty(key)) {
 				var value = data[key];
 
-				if(Class.isInstance(value, BaseGameObject)) {
+				if(Class.isInstance(value, BaseGameObject)) { // then make a reference to it via ID
 					serialized[key] = {id: value.id};
 				}
 				else if(typeof(value) == "object") {
-					serialized[key] = serialize(value);
+					serialized[key] = Serializer.serialize(value);
 				}
 				else {
 					serialized[key] = value;

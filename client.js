@@ -14,10 +14,9 @@ var Client = Class({
 		this.server = server;
 		this.port = port;
 
-		this.game.setClient(this);
-		this.game.setAI(this.ai);
+		this._gotInitialState = false;
 
-		console.log("connecting to: " + this.server + ":" + this.port)
+		console.log("connecting to:", this.server + ":" + this.port)
 
 		this.socket = new net.Socket();
 		this.socket.setEncoding('utf8');
@@ -41,7 +40,7 @@ var Client = Class({
 			});
 
 			self.socket.on("close", function() {
-				self.disconnected();
+				self.disconnect();
 			});
 
 			self.socket.on("error", function() {
@@ -54,7 +53,7 @@ var Client = Class({
 		console.log("successfully connected to server at:", this.server + ":" + this.port);
 	},
 
-	disconnected: function() {
+	disconnect: function() {
 		console.log("Disconnected from server...");
 		this.socket.destroy();
 		process.exit();
@@ -69,7 +68,7 @@ var Client = Class({
 
 	/// tells the server this player is ready to play a game
 	ready: function(playerName) {
-		this.sendEvent("play", {
+		this.send("play", {
 			clientType: "JavaScript",
 			playerName: playerName || this.ai.getName() || "JavaScript Player",
 			gameName: this.game.name,
@@ -77,23 +76,19 @@ var Client = Class({
 		});
 	},
 
-	sendEvent: function(event, data) {
-		this.socket.write(
+	sendRaw: function(str) {
+		this.socket.write(str);
+	},
+
+	send: function(event, data) {
+		this.sendRaw(
 			JSON.stringify({
 				sentTime: (new Date()).getTime(),
 				event: event,
-				data: data,
+				data: Serializer.serialize(data),
 			})
 			+ EOT_CHAR
 		);
-	},
-
-	/// sends a command on behalf of a caller game object to the server
-	sendCommand: function(caller, command, data) {
-		data.caller = caller;
-		data.command = command;
-
-		this.sendEvent("command", Serializer.serialize(data));
 	},
 
 
@@ -110,26 +105,42 @@ var Client = Class({
 		this.ai.start(data);
 	},
 
-	onAwaiting: function() {
-		this.ai.run();
-	},
+	onRequest: function(data) {
+		var response = this.ai.respondTo(data.request, data.args);
 
-	onIgnoring: function() {
-		this.ai.ignoring();
+		if(response === undefined) {
+			console.error("no response returned to", data.request, " erroring out.");
+			this.disconnect();
+		}
+		else { // the response was successful
+			this.send("response", {
+				response: data.request,
+				data: response,
+			});
+		}
 	},
 
 	onDelta: function(delta) {
 		this.game.applyDeltaState(delta);
+
+		if(!this._gotInitialState) {
+			this._gotInitialState = true;
+
+			this.ai.connectPlayer();
+			this.ai.gameInitialized();
+		}
+
+		this.ai.gameUpdated();
 	},
 
 	onInvalid: function(data) {
-		// TODO: expose to AI to interpret invalid data sent back
-		console.log("sent invalid command data", data);
+		this.ai.invalid(data);
+		this.disconnect();
 	},
 
 	onOver: function() {
 		this.ai.over();
-		this.disconnected();
+		this.disconnect();
 	},
 });
 
