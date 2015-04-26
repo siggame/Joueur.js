@@ -11,22 +11,24 @@ var AI = Class(BaseAI, {
 	},
 
 	// this is called once the game starts and your AI knows its playerID and game. You can initialize your AI here.
-	gameInitialized: function() {
+	start: function() {
 		// pass
 	},
 
-	// this is called when the game's state updates, so if you are tracking anything you can update it here.
+	// this is called every time the game's state updates, so if you are tracking anything you can update it here.
 	gameUpdated: function() {
 		// pass
 	},
 
-	// this is called when the game closes (ends), you can clean up your data and dump files here if need be
-	close: function(){
+	// this is called when the game ends, you can clean up your data and dump files here if need be
+	// @param {boolean} won == true means you won, won == false means you lost
+	// @param {string} reason you won or lost
+	end: function(won, reason) {
 		// pass
 	},
 
 
-	//--- Response Functions: functions you must fill out to send data to the game server to actually play the game! --\\\
+	//--- Response Functions: functions you must fill out to send data to the game server to actually play the game! ---\\\
 
 % for function_name, function_parms in ai['functions'].items():
 <%
@@ -43,7 +45,7 @@ var AI = Class(BaseAI, {
 	// @param <${arg_parms['type']}> ${arg_parms['name']}: ${arg_parms['description']}
 % endfor
 % endif
-	// @return <${function_parms['return']['type']}> ${function_parms['return']['description']}
+	// @returns <${function_parms['return']['type']}> ${function_parms['return']['description']}
 	${function_name}: function(${argument_string}) {
 		// Put your game logic here for ${function_name}
 	},

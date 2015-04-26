@@ -1,22 +1,15 @@
-var extend = require("extend");
 var Serializer = require("./utilities/serializer");
 var Class = require("./utilities/class");
 var BaseGameObject = require("./baseGameObject");
 
 // @class BaseGame: the basics of any game, basically state management. Competitiors do not modify
 var BaseGame = Class({
-	init: function(session) {
-		this.session = session;
-		this.client = undefined;
-		this.gameObjects = {};
-		this.players = [];
-		this.currentPlayers = [];
-
+	init: function() {
 		this._gameObjectClasses = {};
 	},
 
-	onLobbied: function(data) {
-		this._serverConstants = data.constants;
+	setConstants: function(constants) {
+		this._serverConstants = constants;
 	},
 
 	// @returns BaseGameObject with the given id
@@ -26,9 +19,6 @@ var BaseGame = Class({
 
 	/// applies a delta state (change in state information) to this game
 	applyDeltaState: function(delta) {
-		var notGotInitialState = !this._gotInitialState;
-		this._gotInitialState = true;
-
 		if(delta.gameObjects) {
 			this._initGameObjects(delta.gameObjects);
 		}

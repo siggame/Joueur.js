@@ -12,8 +12,6 @@ parser.addArgument(['--printIO'], {action: 'storeTrue', dest: 'printIO', help: '
 
 var args = parser.parseArgs();
 
-// parse args
-
 var splitServer = args.server.split(':');
 args.server = splitServer[0];
 args.port = splitServer[1] || args.port;
@@ -22,8 +20,8 @@ var gameDir = ("./" + args.game + "/");
 var gameClass = require(gameDir + "game");
 var aiClass = require(gameDir + "ai")
 
-var game = new gameClass(args.session);
+var game = new gameClass();
 var ai = new aiClass(game);
-var client = new Client(game, ai, args.server, args.port, args);
+var client = new Client(game, ai, args.server, args.port, args.session, args);
 
 client.ready(args.name);

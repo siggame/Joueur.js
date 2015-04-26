@@ -6,19 +6,11 @@ var BaseAI = Class({
 		this.game = game;
 	},
 
-	start: function(data) {
-		this._playerID = data.playerID; // will be used to find its in game player
+	setPlayer: function(player) {
+		this.player = player;
 	},
 
-	onLobbied: function(data) {
-		this._serverConstants = data.constants;
-	},
-
-	connectPlayer: function(id) {
-		this.player = this.game.getGameObject(this._playerID);
-	},
-
-	gameInitialized: function() {
+	start: function() {
 		// intended to be overridden by the AI class
 	},
 
@@ -31,8 +23,6 @@ var BaseAI = Class({
 
 		if(callback) {
 			return callback.apply(this, args);
-
-			
 		}
 		else {
 			console.error("AI has no function", request, "to respond with");
@@ -43,7 +33,7 @@ var BaseAI = Class({
 		console.log("AI was told this is invalid", data);
 	},
 
-	over: function() {
+	end: function(won, reason) {
 		// intended to be overridden by the AI class
 	},
 });

@@ -5,16 +5,14 @@ var EOT_CHAR = String.fromCharCode(4);
 
 // @class Client: talks to the server recieving game information and sending commands to execute via TCP socket. Clients perform no game logic
 var Client = Class({
-	init: function(game, ai, server, port, options) {
-		server = server || 'localserver';
-		port = port || 3000;
-
+	init: function(game, ai, server, port, requestedSession, options) {
 		this.game = game;
 		this.ai = ai;
 		this.server = server;
 		this.port = port;
-		this._printIO = options.printIO;
+		this._requestedSession = requestedSession;
 
+		this._printIO = options.printIO;
 		this._gotInitialState = false;
 
 		console.log("connecting to:", this.server + ":" + this.port)
@@ -39,7 +37,7 @@ var Client = Class({
 				buffer = split.pop(); // the last item will either be "" if the last char was an EOT_CHAR, or a partial data we need to buffer anyways
 
 				for(var i = 0; i < split.length; i++) {
-					self._onJsonData(split[i]);
+					self._sentData(JSON.parse(split[i]));
 				}
 			});
 
@@ -63,21 +61,18 @@ var Client = Class({
 		process.exit();
 	},
 
-	_onJsonData: function(json) {
-		var parsed = JSON.parse(json);
-		this['_on' + parsed.event.capitalize()].call(this, parsed.data);
-	},
-
-
-
 	/// tells the server this player is ready to play a game
 	ready: function(playerName) {
 		this.send("play", {
 			clientType: "JavaScript",
 			playerName: playerName || this.ai.getName() || "JavaScript Player",
 			gameName: this.game.name,
-			gameSession: this.game.session || "*",
+			gameSession: this._requestedSession,
 		});
+	},
+
+	_sentData: function(data) {
+		this['_sent' + data.event.capitalize()].call(this, data.data);
 	},
 
 	_sendRaw: function(str) {
@@ -100,19 +95,19 @@ var Client = Class({
 
 
 
-	//--- Socket on data functions ---\\
+	//--- Socket sent data functions ---\\
 
-	_onLobbied: function(data) {
-		this.game.onLobbied(data);
-		this.ai.onLobbied(data);
-		console.log("Connection successful to game '" + this.game.name + "'' in session '" + this.game.session + "'");
+	_sentLobbied: function(data) {
+		this.game.setConstants(data.constants);
+		
+		console.log("Connection successful to game '" + data.gameName + "'' in session '" + data.gameSession + "'");
 	},
 
-	_onStart: function(data) {
-		this.ai.start(data);
+	_sentStart: function(data) {
+		this._playerID = data.playerID;
 	},
 
-	_onRequest: function(data) {
+	_sentRequest: function(data) {
 		var response = this.ai.respondTo(data.request, data.args);
 
 		if(response === undefined) {
@@ -127,26 +122,32 @@ var Client = Class({
 		}
 	},
 
-	_onDelta: function(delta) {
+	_sentDelta: function(delta) {
 		this.game.applyDeltaState(delta);
 
 		if(!this._gotInitialState) {
 			this._gotInitialState = true;
 
-			this.ai.connectPlayer();
-			this.ai.gameInitialized();
+			this.ai.setPlayer(this.game.getGameObject(this._playerID));
+			this.ai.start();
 		}
 
 		this.ai.gameUpdated();
 	},
 
-	_onInvalid: function(data) {
+	_sentInvalid: function(data) {
 		this.ai.invalid(data);
+		console.log("Erroring out because of invalid data...");
 		this.disconnect();
 	},
 
-	_onOver: function() {
-		this.ai.over();
+	_sentOver: function() {
+		var won = this.ai.player.won;
+		var reason = won ? this.ai.player.reasonWon : this.ai.player.reasonLost;
+
+		console.log("Game is over.", won ? "I Won!" : "I Lost :(", "because: " + reason)
+
+		this.ai.end(won, reason);
 		this.disconnect();
 	},
 });
