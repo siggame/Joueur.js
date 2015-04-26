@@ -10,7 +10,7 @@ var BaseAI = Class({
 		this._playerID = data.playerID; // will be used to find its in game player
 	},
 
-	connected: function(data) {
+	onLobbied: function(data) {
 		this._serverConstants = data.constants;
 	},
 

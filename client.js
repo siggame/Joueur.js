@@ -5,14 +5,15 @@ var EOT_CHAR = String.fromCharCode(4);
 
 // @class Client: talks to the server recieving game information and sending commands to execute via TCP socket. Clients perform no game logic
 var Client = Class({
-	init: function(game, ai, server, port) {
-		server = server || 'localhost';
+	init: function(game, ai, server, port, options) {
+		server = server || 'localserver';
 		port = port || 3000;
 
 		this.game = game;
 		this.ai = ai;
 		this.server = server;
 		this.port = port;
+		this._printIO = options.printIO;
 
 		this._gotInitialState = false;
 
@@ -21,13 +22,16 @@ var Client = Class({
 		this.socket = new net.Socket();
 		this.socket.setEncoding('utf8');
 
-		(function(self) {
+		(function socketSetup(self) {
 			self.socket.connect(self.port, self.server, function() {
-				self.connected();
+				self._connected();
 			});
 
 			var buffer = "";
-			self.socket.on("data", function(str) {
+			self.socket.on("data", function onSocketData(str) {
+				if(self._printIO) {
+					console.log("FROM SERVER <--", str, '\n--');
+				}
 				buffer += str;
 
 				var split = buffer.split(EOT_CHAR); // split on "end of text" character (basically end of transmition)
@@ -35,21 +39,21 @@ var Client = Class({
 				buffer = split.pop(); // the last item will either be "" if the last char was an EOT_CHAR, or a partial data we need to buffer anyways
 
 				for(var i = 0; i < split.length; i++) {
-					self.onJsonData(split[i]);
+					self._onJsonData(split[i]);
 				}
 			});
 
-			self.socket.on("close", function() {
+			self.socket.on("close", function onSocketData() {
 				self.disconnect();
 			});
 
-			self.socket.on("error", function() {
+			self.socket.on("error", function onSocketError() {
 				console.log("server encountered unexpected error");
 			});
 		})(this);
 	},
 
-	connected: function(data) {
+	_connected: function(data) {
 		console.log("successfully connected to server at:", this.server + ":" + this.port);
 	},
 
@@ -59,9 +63,9 @@ var Client = Class({
 		process.exit();
 	},
 
-	onJsonData: function(json) {
+	_onJsonData: function(json) {
 		var parsed = JSON.parse(json);
-		this['on' + parsed.event.capitalize()].call(this, parsed.data);
+		this['_on' + parsed.event.capitalize()].call(this, parsed.data);
 	},
 
 
@@ -76,12 +80,15 @@ var Client = Class({
 		});
 	},
 
-	sendRaw: function(str) {
+	_sendRaw: function(str) {
+		if(this._printIO) {
+			console.log("TO SERVER -->", str, '\n--');
+		}
 		this.socket.write(str);
 	},
 
 	send: function(event, data) {
-		this.sendRaw(
+		this._sendRaw(
 			JSON.stringify({
 				sentTime: (new Date()).getTime(),
 				event: event,
@@ -95,17 +102,17 @@ var Client = Class({
 
 	//--- Socket on data functions ---\\
 
-	onPlaying: function(data) {
-		this.game.connected(data);
-		this.ai.connected(data);
+	_onLobbied: function(data) {
+		this.game.onLobbied(data);
+		this.ai.onLobbied(data);
 		console.log("Connection successful to game '" + this.game.name + "'' in session '" + this.game.session + "'");
 	},
 
-	onStart: function(data) {
+	_onStart: function(data) {
 		this.ai.start(data);
 	},
 
-	onRequest: function(data) {
+	_onRequest: function(data) {
 		var response = this.ai.respondTo(data.request, data.args);
 
 		if(response === undefined) {
@@ -120,7 +127,7 @@ var Client = Class({
 		}
 	},
 
-	onDelta: function(delta) {
+	_onDelta: function(delta) {
 		this.game.applyDeltaState(delta);
 
 		if(!this._gotInitialState) {
@@ -133,12 +140,12 @@ var Client = Class({
 		this.ai.gameUpdated();
 	},
 
-	onInvalid: function(data) {
+	_onInvalid: function(data) {
 		this.ai.invalid(data);
 		this.disconnect();
 	},
 
-	onOver: function() {
+	_onOver: function() {
 		this.ai.over();
 		this.disconnect();
 	},

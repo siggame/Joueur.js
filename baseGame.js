@@ -15,7 +15,7 @@ var BaseGame = Class({
 		this._gameObjectClasses = {};
 	},
 
-	connected: function(data) {
+	onLobbied: function(data) {
 		this._serverConstants = data.constants;
 	},
 
