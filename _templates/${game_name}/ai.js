@@ -7,7 +7,7 @@ var BaseAI = require("../baseAI");
 var AI = Class(BaseAI, {
 	// this is the name you send to the server to play as.
 	getName: function() {
-		return "${game_name} Javascript Player";
+		return "${game_name} JavaScript Player";
 	},
 
 	// this is called once the game starts and your AI knows its playerID and game. You can initialize your AI here.

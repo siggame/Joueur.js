@@ -5,12 +5,13 @@ var EOT_CHAR = String.fromCharCode(4);
 
 // @class Client: talks to the server recieving game information and sending commands to execute via TCP socket. Clients perform no game logic
 var Client = Class({
-	init: function(game, ai, server, port, requestedSession, options) {
+	init: function(game, ai, server, port, options) {
 		this.game = game;
 		this.ai = ai;
 		this.server = server;
 		this.port = port;
-		this._requestedSession = requestedSession;
+		this._requestedSession = options.requestedSession;
+		this._playerName = options.playerName;
 
 		this._printIO = options.printIO;
 		this._gotInitialState = false;
@@ -62,12 +63,12 @@ var Client = Class({
 	},
 
 	/// tells the server this player is ready to play a game
-	ready: function(playerName) {
+	ready: function() {
 		this.send("play", {
-			clientType: "JavaScript",
-			playerName: playerName || this.ai.getName() || "JavaScript Player",
 			gameName: this.game.name,
-			gameSession: this._requestedSession,
+			requestedSession: this._requestedSession,
+			playerName: this._playerName || this.ai.getName() || "JavaScript Player",
+			clientType: "JavaScript",
 		});
 	},
 
@@ -93,13 +94,11 @@ var Client = Class({
 		);
 	},
 
-
-
 	//--- Socket sent data functions ---\\
 
 	_sentLobbied: function(data) {
 		this.game.setConstants(data.constants);
-		
+
 		console.log("Connection successful to game '" + data.gameName + "'' in session '" + data.gameSession + "'");
 	},
 

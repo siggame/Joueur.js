@@ -12,7 +12,7 @@ function shuffle(o){ //v1.0
 var AI = Class(BaseAI, {
 	// this is the name you send to the server to play as.
 	getName: function() {
-		return "Checkers Javascript Player";
+		return "Checkers JavaScript Player";
 	},
 
 	// this is called once the game starts and your AI knows its playerID and game. You can initialize your AI here.
@@ -30,6 +30,9 @@ var AI = Class(BaseAI, {
 		for(var i = 0; i < this.game.checkers.length; i++) {
 			var checker = this.game.checkers[i];
 
+			if(checker.id === undefined) {
+				console.log(checker);
+			}
 			this.checkersMap[checker.x][checker.y] = checker;
 		}
 	},

@@ -46,7 +46,7 @@ Class.isClass = function(klass) {
 };
 
 Class.isInstance = function(obj, isClass) {
-	if(!obj._isClass) {
+	if(obj === null || typeof(obj) !== "object" || !obj._isClass) {
 		return false;
 	}
 

@@ -29,6 +29,10 @@ var BaseAI = Class({
 		}
 	},
 
+	getName: function() {
+		return "JavaScript Player"; // intended to be overridden by the AI class
+	},
+
 	invalid: function(data) {
 		console.log("AI was told this is invalid", data);
 	},
