@@ -19,7 +19,7 @@ function handleError(codeName, err, message) {
         message = err;
     }
 
-    console.error("Error:", codeName);
+    console.error("Error:", codeName, "\n---");
 
     if(message) {
         console.error(message, "\n---");
@@ -27,10 +27,14 @@ function handleError(codeName, err, message) {
 
     if(err) {
         console.error(err.message, "\n---");
+    }
+
+    if(err && err.stack) {
         console.error(err.stack, "\n---");
     }
     else {
         console.trace();
+        console.error("---");
     }
 
     var client = require("./client");

@@ -31,7 +31,7 @@ var Client = Class({
 
         try {
             this._socket.connect(this.server, this.port);
-            //this._socket.blocking(false);
+            this._socket.blocking(false);
         }
         catch(err) {
             handleError("COULD_NOT_CONNECT", err, "Could not connect to " + this.server + ":" + this.port + ".");
