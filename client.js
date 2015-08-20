@@ -1,154 +1,240 @@
 var Class = require("./utilities/class");
 var Serializer = require("./utilities/serializer");
-var net = require("net");
+var GameManager = require("./gameManager");
+var handleError = require("./handleError");
+var netlinkwrapper = require("netlinkwrapper");
 var EOT_CHAR = String.fromCharCode(4);
 
 // @class Client: talks to the server recieving game information and sending commands to execute via TCP socket. Clients perform no game logic
 var Client = Class({
-	init: function(game, ai, server, port, options) {
-		this.game = game;
-		this.ai = ai;
-		this.server = server;
-		this.port = port;
-		this._requestedSession = options.requestedSession;
-		this._playerName = options.playerName;
+    init: function() {
+        this._socket = new netlinkwrapper();
 
-		this._printIO = options.printIO;
-		this._gotInitialState = false;
+        this._eventsStack = [];
+        this._bufferSize = 1024;
+        this._receievedBuffer = "";
+        this._connected = false;
+    },
 
-		console.log("connecting to:", this.server + ":" + this.port)
+    setup: function(game, ai, server, port, options) {
+        this.game = game;
+        this.ai = ai;
+        this.gameManager = new GameManager(game);
+        this.server = String(server);
+        this.port = parseInt(port);
+        this._requestedSession = options.requestedSession !== undefined ? options.requestedSession : "*";
+        this._playerName = options.playerName;
+        this._printIO = options.printIO;
+        this._gotInitialState = false;
 
-		this.socket = new net.Socket();
-		this.socket.setEncoding('utf8');
+        console.log("connecting to:", this.server + ":" + this.port)
 
-		(function socketSetup(self) {
-			self.socket.connect(self.port, self.server, function() {
-				self._connected();
-			});
+        try {
+            this._socket.connect(this.server, this.port);
+            //this._socket.blocking(false);
+        }
+        catch(err) {
+            handleError("COULD_NOT_CONNECT", err, "Could not connect to " + this.server + ":" + this.port + ".");
+        }
 
-			var buffer = "";
-			self.socket.on("data", function onSocketData(str) {
-				if(self._printIO) {
-					console.log("FROM SERVER <--", str, '\n--');
-				}
-				buffer += str;
+        this._connected = true;
+    },
 
-				var split = buffer.split(EOT_CHAR); // split on "end of text" character (basically end of transmition)
+    _sendRaw: function(str) {
+        if(this._printIO) {
+            console.log("TO SERVER <--", str);
+        }
 
-				buffer = split.pop(); // the last item will either be "" if the last char was an EOT_CHAR, or a partial data we need to buffer anyways
+        try {
+            this._socket.send(str);
+        }
+        catch(err) {
+            handleError("DISCONNECTED_UNEXPECTEDLY", err, "Could not send string through server.");
+        }
+    },
 
-				for(var i = 0; i < split.length; i++) {
-					self._sentData(JSON.parse(split[i]));
-				}
-			});
+    send: function(event, data) {
+        this._sendRaw(
+            JSON.stringify({
+                sentTime: (new Date()).getTime(),
+                event: event,
+                data: Serializer.serialize(data),
+            })
+            + EOT_CHAR
+        );
+    },
 
-			self.socket.on("close", function onSocketData() {
-				self.disconnect();
-			});
+    disconnect: function() {
+        if(this._connected) {
+            try {
+                this._socket.disconnect();
+            }
+            catch(err) {
+                // ignore errors on disconnecting. should only happen during times we don't care about error, such as handleError()
+            }
+        }
+    },
 
-			self.socket.on("error", function onSocketError() {
-				console.log("server encountered unexpected error");
-			});
-		})(this);
-	},
+    runOnServer: function(caller, functionName, args) {
+        this.send("run", {
+            caller: caller,
+            functionName: functionName,
+            args: args,
+        });
 
-	_connected: function(data) {
-		console.log("successfully connected to server at:", this.server + ":" + this.port);
-	},
+        var ranData = this.waitForEvent("ran");
+        return Serializer.deserialize(ranData);
+    },
 
-	disconnect: function() {
-		console.log("Disconnected from server...");
-		this.socket.destroy();
-		process.exit();
-	},
+    waitForEvent: function(event) {
+        while(true) {
+            this._waitForEvents();
 
-	/// tells the server this player is ready to play a game
-	ready: function() {
-		this.send("play", {
-			gameName: this.game.name,
-			requestedSession: this._requestedSession,
-			playerName: this._playerName || this.ai.getName() || "JavaScript Player",
-			clientType: "JavaScript",
-		});
-	},
+            while(this._eventsStack.length > 0) {
+                var sent = this._eventsStack.pop();
 
-	_sentData: function(data) {
-		this['_sent' + data.event.capitalize()].call(this, data.data);
-	},
+                if(event !== false && sent.event === event) {
+                    return sent.data;
+                }
+                else {
+                    this._autoHandle(sent.event, sent.data);
+                }
+            }
+        }
+    },
 
-	_sendRaw: function(str) {
-		if(this._printIO) {
-			console.log("TO SERVER -->", str, '\n--');
-		}
-		this.socket.write(str);
-	},
+    _waitForEvents: function() {
+        if(this._eventsStack.length > 0) {
+            return; // as we already have events to handle, no need to wait for more
+        }
 
-	send: function(event, data) {
-		this._sendRaw(
-			JSON.stringify({
-				sentTime: (new Date()).getTime(),
-				event: event,
-				data: Serializer.serialize(data),
-			})
-			+ EOT_CHAR
-		);
-	},
+        while(true) {
+            var sent = undefined;
+            try {
+                sent = this._socket.read(this._bufferSize);
+            }
+            catch(err) {
+                handleError("CANNOT_READ_SOCKET", err, "Error reading socket");
+            }
 
-	//--- Socket sent data functions ---\\
+            if(sent !== undefined) {
+                if(this._printIO) {
+                    console.log("FROM SERVER -->", sent);
+                }
 
-	_sentLobbied: function(data) {
-		this.game.setConstants(data.constants);
+                var total = this._receievedBuffer + sent;
+                var split = total.split(EOT_CHAR);
 
-		console.log("Connection successful to game '" + data.gameName + "'' in session '" + data.gameSession + "'");
-	},
+                this._receievedBuffer = split.pop();
 
-	_sentStart: function(data) {
-		this._playerID = data.playerID;
-	},
+                for(var i = split.length - 1; i >= 0; i--) {
+                    var sentStr = split[i];
+                    var parsed = undefined;
+                    try {
+                        parsed = JSON.parse(sentStr);
+                    }
+                    catch(err) {
+                        handleError("MALFORMED_JSON", err, "Error parsing json: '" + sentStr + "'.");
+                    }
 
-	_sentRequest: function(data) {
-		var response = this.ai.respondTo(data.request, data.args);
+                    this._eventsStack.push(parsed);
+                }
 
-		if(response === undefined) {
-			console.error("no response returned to", data.request, " erroring out.");
-			this.disconnect();
-		}
-		else { // the response was successful
-			this.send("response", {
-				response: data.request,
-				data: response,
-			});
-		}
-	},
+                if(this._eventsStack.length > 0) {
+                    return; // as we already have events to handle, no need to wait for more
+                }
+            }
+        }
+    },
 
-	_sentDelta: function(delta) {
-		this.game.applyDeltaState(delta);
+    play: function() {
+        this.waitForEvent(false);
+    },
 
-		if(!this._gotInitialState) {
-			this._gotInitialState = true;
 
-			this.ai.setPlayer(this.game.getGameObject(this._playerID));
-			this.ai.start();
-		}
 
-		this.ai.gameUpdated();
-	},
+    //--- auto handle events ---\\
 
-	_sentInvalid: function(data) {
-		this.ai.invalid(data);
-		console.log("Erroring out because of invalid data...");
-		this.disconnect();
-	},
+    _autoHandle: function(event, data) {
+        var callback = this['_autoHandle' + event.uppercaseFirst()];
 
-	_sentOver: function() {
-		var won = this.ai.player.won;
-		var reason = won ? this.ai.player.reasonWon : this.ai.player.reasonLost;
+        if(callback) {
+            return callback.call(this, data);
+        }
+        else {
+            handleError("UNKNOWN_EVENT_FROM_SERVER", "Cannot auto handle event '" + event + "'.");
+        }
+    },
 
-		console.log("Game is over.", won ? "I Won!" : "I Lost :(", "because: " + reason)
+    _autoHandleOrder: function(data) {
+        var returned = undefined;
+        var aiOrderCallback = this.ai[data.order];
 
-		this.ai.end(won, reason);
-		this.disconnect();
-	},
+        if(aiOrderCallback) {
+            var args = Serializer.deserialize(data.args);
+            try {
+                returned = aiOrderCallback.apply(this.ai, args);
+            }
+            catch(err) {
+                handleError("AI_ERRORED", err, "AI errored in order '" + data.order + "'.");
+            }
+        }
+        else {
+            handleError("RELFECTION_FAILED", "Could not find ai order function '" + data.order + "'.");
+        }
+
+        this.send("finished", {
+            finished: data.order,
+            returned: returned,
+        });
+    },
+
+    _autoHandleDelta: function(delta) {
+        try {
+            this.gameManager.applyDeltaState(delta);
+        }
+        catch(err) {
+            handleError("DELTA_MERGE_FAILURE", err, "Error applying delta state.");
+        }
+
+        if(this.ai.player) { // the AI is ready for updates
+            try {
+                this.ai.gameUpdated();
+            }
+            catch(err) {
+                handleError("AI_ERRORED", err, "AI errored in gameUpdate() after delta.")
+            }
+        }
+    },
+
+    _autoHandleInvalid: function(data) {
+        try {
+            this.ai.invalid(data);
+        }
+        catch(err) {
+            // ignore, as invalid is an erro handling function anyways
+        }
+
+        handleError("INVALID_EVENT", "Got invalid data.");
+    },
+
+    _autoHandleOver: function() {
+        var won = this.ai.player.won;
+        var reason = won ? this.ai.player.reasonWon : this.ai.player.reasonLost;
+
+        console.log("Game is over.", won ? "I Won!" : "I Lost :(", "because: " + reason)
+
+        try {
+            this.ai.ended(won, reason);
+        }
+        catch(err) {
+            handleError("AI_ERRORED", err, "AI errored in ended().");
+        }
+
+        this.disconnect();
+        process.exit(0);
+    },
 });
 
-module.exports = Client;
+var clientSingleton = new Client();
+module.exports = clientSingleton;

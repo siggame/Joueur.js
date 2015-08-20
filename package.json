@@ -2,11 +2,14 @@
   "name": "Joueur.js",
   "version": "0.0.1",
   "description": "JavaScript client for the Cerveau game server.",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/JacobFischer/Joueur.js"
   },
+  "private": true,
   "dependencies": {
-    "argparse": "1.0.2"
+    "argparse": "1.0.2",
+    "netlinkwrapper": "JacobFischer/netlinkwrapper"
   }
 }
