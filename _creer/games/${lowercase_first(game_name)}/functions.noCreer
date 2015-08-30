@@ -18,13 +18,20 @@ if not 'js' in shared:
             else:
                 return "null"
         else:
-            if base_type == "string":
-                return '"' + default + '"'
-            elif base_type == "boolean":
-                return str(default).lower()
-            else:
-                return default
+            return js_value(type_obj, default)
     shared['js']['default'] = js_default
+
+    def js_value(type_obj, default):
+        base_type = type_obj['name']
+        if base_type == "string":
+            return '"' + default + '"'
+        elif base_type == "boolean":
+            return str(default).lower()
+        elif base_type == "int" or base_type == "float":
+            return str(default)
+        else:
+            return "null"
+    shared['js']['value'] = js_value
 
 
     def js_type(type_obj):

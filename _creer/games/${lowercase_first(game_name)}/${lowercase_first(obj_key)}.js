@@ -96,7 +96,17 @@ ${merge("        //", "init", "        // any additional init logic you want can
      * @returns {${shared['js']['type'](function_parms['returns']['type'])}} ${function_parms['returns']['description']}
 % endif
      */
-    ${function_name}: function(${argument_string}) {
+    ${function_name}: function(${", ".join(function_parms['argument_names'])}) {
+% if 'arguments' in function_parms:
+% for i, arg_parms in enumerate(function_parms['arguments']):
+% if arg_parms['optional']:
+        if(arguments.length <= ${i}) {
+            ${arg_parms['name']} = ${shared['js']['value'](arg_parms['type'], arg_parms['default'])};
+        }
+
+% endif
+% endfor
+% endif
         return client.runOnServer(this, "${function_name}", {
 % for argument_name in argument_names:
             ${argument_name}: ${argument_name},
