@@ -89,7 +89,7 @@ ${merge("        //", "init", "        // any additional init logic you want can
      *
 % if 'arguments' in function_parms:
 % for arg_parms in function_parms['arguments']:
-     * @param {${shared['js']['type'](arg_parms['type'])}} ${arg_parms['name']} - ${arg_parms['description']}
+     * @param {${shared['js']['type'](arg_parms['type'])}} ${("[" + arg_parms['name'] + "]") if arg_parms['optional'] else arg_parms['name']} - ${arg_parms['description']}
 % endfor
 % endif
 % if function_parms['returns']:
