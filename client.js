@@ -218,6 +218,10 @@ var Client = Class({
         handleError("INVALID_EVENT", "Got invalid data.");
     },
 
+    _autoHandleUnauthenticated: function(data) {
+        handleError("UNAUTHENTICATED", "Could not log into server.");
+    },
+
     _autoHandleOver: function() {
         var won = this.ai.player.won;
         var reason = won ? this.ai.player.reasonWon : this.ai.player.reasonLost;
