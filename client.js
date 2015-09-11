@@ -168,7 +168,7 @@ var Client = Class({
 
     _autoHandleOrder: function(data) {
         var returned = undefined;
-        var aiOrderCallback = this.ai[data.order];
+        var aiOrderCallback = this.ai[data.name];
 
         if(aiOrderCallback) {
             var args = Serializer.deserialize(data.args);
@@ -176,15 +176,15 @@ var Client = Class({
                 returned = aiOrderCallback.apply(this.ai, args);
             }
             catch(err) {
-                handleError("AI_ERRORED", err, "AI errored in order '" + data.order + "'.");
+                handleError("AI_ERRORED", err, "AI errored in order '" + data.name + "'.");
             }
         }
         else {
-            handleError("RELFECTION_FAILED", "Could not find ai order function '" + data.order + "'.");
+            handleError("RELFECTION_FAILED", "Could not find ai order function '" + data.name + "'.");
         }
 
         this.send("finished", {
-            finished: data.order,
+            orderIndex: data.index,
             returned: returned,
         });
     },
