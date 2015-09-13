@@ -9,7 +9,7 @@ var GameManager = Class({
 
     setConstants: function(constants) {
         this._serverConstants = constants;
-        this._DELTA_LIST_LENGTH = constants.DELTA_ARRAY_LENGTH;
+        this._DELTA_LIST_LENGTH = constants.DELTA_LIST_LENGTH;
         this._DELTA_REMOVED = constants.DELTA_REMOVED;
     },
 
