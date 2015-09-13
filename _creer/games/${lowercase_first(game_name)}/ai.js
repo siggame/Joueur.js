@@ -1,8 +1,8 @@
 // ${header}
 // This is where you build your AI for the ${game_name} game.
 <%include file="functions.noCreer" />
-var Class = require("../../utilities/class");
-var BaseAI = require("../../baseAI");
+var Class = require(__basedir + "/joueur/class");
+var BaseAI = require(__basedir + "/joueur/baseAI");
 
 ${merge("// ", "requires", "// any additional requires you want can be required here safely between creer runs")}
 
@@ -77,6 +77,6 @@ ${merge("        // ", function_name,
 
 ${merge("    //", "functions", "    // any additional functions you want to add for your AI")}
 
-};
+});
 
 module.exports = AI;

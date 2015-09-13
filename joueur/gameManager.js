@@ -1,5 +1,5 @@
-var Serializer = require("./utilities/serializer");
-var Class = require("./utilities/class");
+var Serializer = require("./serializer");
+var Class = require("./class");
 
 // @class GameManager: basically state management. Competitiors do not modify
 var GameManager = Class({

@@ -1,4 +1,4 @@
-var Class = require("./utilities/class");
+var Class = require("./class");
 
 // @class BaseAI: the base functions all AIs should do
 var BaseAI = Class({

@@ -1,5 +1,5 @@
-var Class = require("./utilities/class");
-var Serializer = require("./utilities/serializer");
+var Class = require("./class");
+var Serializer = require("./serializer");
 var GameManager = require("./gameManager");
 var handleError = require("./handleError");
 var netlinkwrapper = require("netlinkwrapper");

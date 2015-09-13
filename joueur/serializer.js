@@ -1,6 +1,6 @@
 // Serializer: functions to serialize and unserialize json communications strings
 var Class = require("./class");
-var BaseGameObject = require("../baseGameObject");
+var BaseGameObject = require("./baseGameObject");
 
 Serializer = {
     isEmpty: function(obj){
