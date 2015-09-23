@@ -10,6 +10,7 @@ parser.addArgument(['-p', '--port'], {action: 'store', dest: 'port', defaultValu
 parser.addArgument(['-n', '--name'], {action: 'store', dest: 'playerName', help: 'the name you want to use as your AI\'s player name'});
 parser.addArgument(['-w', '--password'], {action: 'store', dest: 'password', help: 'the password required for authentication on official servers'});
 parser.addArgument(['-r', '--session'], {action: 'store', dest: 'session', help: 'the requested game session you want to play on the server', defaultValue: '*'});
+parser.addArgument(['--gameSettings'], {action: 'store', dest: 'gameSettings', help: 'Any settings for the game server to force. Must be url parms formatted (key=value&otherKey=otherValue)'});
 parser.addArgument(['--printIO'], {action: 'storeTrue', dest: 'printIO', help: '(debugging) print IO through the TCP socket to the terminal'});
 
 require("./joueur/run")(parser.parseArgs());

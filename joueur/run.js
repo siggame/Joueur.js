@@ -27,6 +27,7 @@ module.exports = function(args) {
         requestedSession: args.session,
         clientType: "JavaScript",
         playerName: args.playerName || ai.getName() || "JavaScript Player",
+        gameSettings: args.gameSettings,
     });
 
     var lobbyData = client.waitForEvent("lobbied");
