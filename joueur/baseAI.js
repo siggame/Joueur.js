@@ -18,8 +18,8 @@ var BaseAI = Class({
         // intended to be overridden by the AI class
     },
 
-    invalid: function(data) {
-        console.error("AI was told this is invalid", data);
+    invalid: function(message, data) {
+        console.error("AI was told this is invalid", message, data);
     },
 
     ended: function(won, reason) {

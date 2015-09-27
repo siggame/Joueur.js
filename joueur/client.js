@@ -202,31 +202,29 @@ var Client = Class({
                 this.ai.gameUpdated();
             }
             catch(err) {
-                handleError("AI_ERRORED", err, "AI errored in gameUpdate() after delta.")
+                handleError("AI_ERRORED", err, "AI errored in gameUpdate() after delta.");
             }
         }
     },
 
     _autoHandleInvalid: function(data) {
         try {
-            this.ai.invalid(data);
+            this.ai.invalid(data.message, data.data);
         }
         catch(err) {
-            // ignore, as invalid is an erro handling function anyways
+            handleError("AI_ERRORED", err, "AI errored in invalid().")
         }
-
-        handleError("INVALID_EVENT", "Got invalid data.");
     },
 
-    _autoHandleUnauthenticated: function(data) {
-        handleError("UNAUTHENTICATED", "Could not log into server.");
+    _autoHandleFatal: function(data) {
+        handleError("FATAL_EVENT", "Got fatal event from server: " + data.message);
     },
 
     _autoHandleOver: function() {
         var won = this.ai.player.won;
         var reason = won ? this.ai.player.reasonWon : this.ai.player.reasonLost;
 
-        console.log("Game is over.", won ? "I Won!" : "I Lost :(", "because: " + reason)
+        console.log("Game is over.", won ? "I Won!" : "I Lost :(", "because: " + reason);
 
         try {
             this.ai.ended(won, reason);
