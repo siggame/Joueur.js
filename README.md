@@ -20,11 +20,26 @@ All inspiration taken from [MST's SIG-GAME framework](https://github.com/siggame
 
 ## How to Run
 
-Make sure you have Node.js installed and then
+The only real requirement is Node.js. If you have the Cerveau server software working you should have everything you need. The only caveat is that this js client will build module that actually uses c++ code, so you'll need a c++ compiler installed.
+
+### Windows
+
+Install NodeJS and a C++ compiler. Having a version of Visual Studio with Visual C++ normally installs these tools for you on Windows, but [MS Build Tools 2013](http://www.microsoft.com/en-us/download/details.aspx?id=40760) should work as well if you have a hatred of Visual Studio on Windows, or get node-gyp build errors complaining of no way to build native V8 addons.
+
+Then from a powershell:
 
 ```
 npm install
-node main.js GAME_NAME -s SERVER -p PORT -n PLAYER_NAME -r REQUESTED_SESSION
+node main.js GAME_NAME -s SERVER -p PORT
+```
+
+### Linux
+
+Having g++ installed should be enough for node-gyp to build the addon. Then:
+
+```
+make
+./run GAME_NAME -s SERVER -p PORT
 ```
 
 ## Requirements
