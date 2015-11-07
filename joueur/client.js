@@ -220,7 +220,7 @@ var Client = Class({
         handleError("FATAL_EVENT", "Got fatal event from server: " + data.message);
     },
 
-    _autoHandleOver: function() {
+    _autoHandleOver: function(data) {
         var won = this.ai.player.won;
         var reason = won ? this.ai.player.reasonWon : this.ai.player.reasonLost;
 
@@ -231,6 +231,10 @@ var Client = Class({
         }
         catch(err) {
             handleError("AI_ERRORED", err, "AI errored in ended().");
+        }
+
+        if(data.message) {
+            console.log(data.message);
         }
 
         this.disconnect();
