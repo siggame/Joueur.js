@@ -61,14 +61,64 @@ var AI = Class(BaseAI, {
      */
     runTurn: function() {
         // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-        // Put your game logic here for runTurn
+
+        // Get my first warehouse
+        var warehouse = this.player.warehouses[0];
+        if(this.canBribe(warehouse)) {
+            //ignite the first enemy building
+            warehouse.ignite(this.player.otherPlayer.buildings[0]);
+        }
+
+        // Get my first fire department
+        var fireDepartment = this.player.fireDepartments[0];
+        if(this.canBribe(fireDepartment)) {
+            //extinguish my first building
+            fireDepartment.extinguish(this.player.buildings[0]);
+        }
+
+        // Get my first police department
+        var policeDepartment = this.player.policeDepartments[0];
+        if(this.canBribe(policeDepartment)) {
+            // Get the first enemy warehouse
+            var toRaid = this.player.otherPlayer.warehouses[0];
+            // Make sure it is alive to be raided
+            if(toRaid.health > 0) {
+                // Raid the first enemy warehouse
+                policeDepartment.raid(this.player.otherPlayer.warehouses[0]);
+            }
+        }
+
+        // Get my first weather station
+        var weatherStation1 = this.player.weatherStations[0];
+        if(this.canBribe(weatherStation1)) {
+            // Make sure the intensity isn't at max
+            if(this.game.nextForecast.intensity < this.game.maxForecastIntensity) {
+                weatherStation1.intensify();
+            }
+            else {
+                // Otherwise decrease the intensity
+                weatherStation1.intensify(true);
+            }
+        }
+
+        // Get my second weather station
+        var weatherStation2 = this.player.weatherStations[1];
+        if(this.canBribe(weatherStation2)) {
+            // Rotate counter-clockwise
+            weatherStation2.rotate();
+        }
+
         return true;
         // <<-- /Creer-Merge: runTurn -->>
     },
 
 
     //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // any additional functions you want to add for your AI
+
+    canBribe: function(building) {
+        return (building && building.health > 0 && !building.bribed && building.owner == this.player)
+    },
+
     //<<-- /Creer-Merge: functions -->>
 
 });
