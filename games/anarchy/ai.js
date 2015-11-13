@@ -72,8 +72,11 @@ var AI = Class(BaseAI, {
         // Get my first fire department
         var fireDepartment = this.player.fireDepartments[0];
         if(this.canBribe(fireDepartment)) {
-            //extinguish my first building
-            fireDepartment.extinguish(this.player.buildings[0]);
+            // extinguish my first building if it's not my headquarters
+            var myBuilding = this.player.buildings[0];
+            if(!myBuilding.isHeadquarters) {
+                fireDepartment.extinguish(myBuilding);
+            }
         }
 
         // Get my first police department
@@ -82,9 +85,9 @@ var AI = Class(BaseAI, {
             // Get the first enemy warehouse
             var toRaid = this.player.otherPlayer.warehouses[0];
             // Make sure it is alive to be raided
-            if(toRaid.health > 0) {
-                // Raid the first enemy warehouse
-                policeDepartment.raid(this.player.otherPlayer.warehouses[0]);
+            if(toRaid.health > 0 && !toRaid.isHeadquarters) {
+                // Raid the first enemy warehouse if it's alive and not a headquarters
+                policeDepartment.raid(toRaid);
             }
         }
 
