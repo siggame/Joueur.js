@@ -27,11 +27,18 @@ var ${game_obj_key} = require("./${lowercase_first(game_obj_key)}");
 ${merge("//", "requires", "// any additional requires you want can be required here safely between creer runs")}
 
 /**
- * ${obj_key} - ${obj['description']}
  * @class
+ * @classdesc ${obj['description']}
+% for parent_class in reversed(parent_classes):
+ * @extends ${parent_class}
+% endfor
  */
 var ${obj_key} = Class(${", ".join(parent_classes)}, {
-    /// initializes a ${obj_key} with basic logic as provided by the Creer code generator
+    /**
+     * initializes a ${obj_key} with basic logic as provided by the Creer code generator
+     *
+     * @memberof ${obj_key}
+     */
     init: function() {
 % for parent_class in reversed(parent_classes):
         ${parent_class}.init.apply(this, arguments);
@@ -87,6 +94,7 @@ ${merge("        //", "init", "        // any additional init logic you want can
     /**
      * ${function_parms['description']}
      *
+     * @memberof ${obj_key}
 % if 'arguments' in function_parms:
 % for arg_parms in function_parms['arguments']:
      * @param {${shared['js']['type'](arg_parms['type'])}} ${("[" + arg_parms['name'] + "]") if arg_parms['optional'] else arg_parms['name']} - ${arg_parms['description']}
