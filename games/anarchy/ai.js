@@ -5,12 +5,14 @@ var BaseAI = require(__basedir + "/joueur/baseAI");
 
 
 /**
- * This is the class to play the Anarchy game. This is where you should build your AI.
  * @class
+ * @classdesc This is the class to play the Anarchy game. This is where you should build your AI.
  */
 var AI = Class(BaseAI, {
     /**
      * this is the name you send to the server to play as.
+     *
+     * @memberof AI
      */
     getName: function() {
         return "Anarchy JavaScript Player"; // REPLACE THIS WITH YOUR TEAM NAME
@@ -18,12 +20,16 @@ var AI = Class(BaseAI, {
 
     /**
      * this is called once the game starts and your AI knows its playerID and game. You can initialize your AI here.
+     *
+     * @memberof AI
      */
     start: function() {
     },
 
     /**
      * this is called every time the game's state updates, so if you are tracking anything you can update it here.
+     *
+     * @memberof AI
      */
     gameUpdated: function() {
     },
@@ -31,6 +37,7 @@ var AI = Class(BaseAI, {
     /**
      * this is called when the game ends, you can clean up your data and dump files here if need be
      *
+     * @memberof AI
      * @param {boolean} won - true means you won, false means you lost
      * @param {string} reason - the human readable string explaining why you won or lost
      */
@@ -42,6 +49,7 @@ var AI = Class(BaseAI, {
     /**
      * This is called every time the AI is asked to respond with a command during their turn
      *
+     * @memberof AI
      * @returns {boolean} represents if you want to end your turn. true means end the turn, false means to keep your turn going and re-call runTurn()
      */
     runTurn: function() {
@@ -98,7 +106,11 @@ var AI = Class(BaseAI, {
     },
 
 
-
+    /**
+     * checks if this AI can bribe a building. This is an example function. you are free to remove/modify.
+     *
+     * @memberof AI
+     */
     canBribe: function(building) {
         return (building && building.health > 0 && !building.bribed && building.owner == this.player)
     },
