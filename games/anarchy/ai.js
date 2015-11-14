@@ -107,7 +107,7 @@ var AI = Class(BaseAI, {
         // Get my second weather station
         var weatherStation2 = this.player.weatherStations[1];
         if(this.canBribe(weatherStation2)) {
-            // Rotate counter-clockwise
+            // Rotate clockwise
             weatherStation2.rotate();
         }
 
