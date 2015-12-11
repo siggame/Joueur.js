@@ -1,3 +1,5 @@
+var color = require("./ansiColorCoder");
+
 var errorCodes = {
     NONE: 0,
     INVALID_ARGS: 20,
@@ -20,7 +22,7 @@ function handleError(codeName, err, message) {
         message = err;
     }
 
-    console.error("Error:", codeName, "\n---");
+    console.error(color.text("red") + "---\nError:", codeName, "\n---");
 
     if(message) {
         console.error(message, "\n---");
@@ -31,12 +33,13 @@ function handleError(codeName, err, message) {
     }
 
     if(err && err.stack) {
-        console.error(err.stack, "\n---");
+        console.error(err.stack, "\n---" + color.reset());
     }
     else {
         console.trace();
-        console.error("---");
+        console.error("---" + color.reset());
     }
+
 
     var client = require("./client");
     client.disconnect();

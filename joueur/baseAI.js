@@ -1,4 +1,5 @@
 var Class = require("./class");
+var color = require("./ansiColorCoder");
 
 // @class BaseAI: the base functions all AIs should do
 var BaseAI = Class({
@@ -18,8 +19,8 @@ var BaseAI = Class({
         // intended to be overridden by the AI class
     },
 
-    invalid: function(message, data) {
-        console.error("AI was told this is invalid", message, data);
+    invalid: function(message) {
+        console.error(color.text("yellow") + "Invalid:", message + color.reset());
     },
 
     ended: function(won, reason) {

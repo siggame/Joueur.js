@@ -3,6 +3,7 @@ var Serializer = require("./serializer");
 var GameManager = require("./gameManager");
 var handleError = require("./handleError");
 var netlinkwrapper = require("netlinkwrapper");
+var color = require("./ansiColorCoder");
 var EOT_CHAR = String.fromCharCode(4);
 
 // @class Client: talks to the server recieving game information and sending commands to execute via TCP socket. Clients perform no game logic
@@ -27,7 +28,7 @@ var Client = Class({
         this._printIO = options.printIO;
         this._gotInitialState = false;
 
-        console.log("connecting to:", this.server + ":" + this.port)
+        console.log(color.text("cyan") + "Connecting to:", this.server + ":" + this.port + color.reset());
 
         try {
             this._socket.connect(this.server, this.port);
@@ -209,7 +210,7 @@ var Client = Class({
 
     _autoHandleInvalid: function(data) {
         try {
-            this.ai.invalid(data.message, data.data);
+            this.ai.invalid(data.message);
         }
         catch(err) {
             handleError("AI_ERRORED", err, "AI errored in invalid().")
@@ -224,7 +225,7 @@ var Client = Class({
         var won = this.ai.player.won;
         var reason = won ? this.ai.player.reasonWon : this.ai.player.reasonLost;
 
-        console.log("Game is over.", won ? "I Won!" : "I Lost :(", "because: " + reason);
+        console.log(color.text("green") + "Game is over.", won ? "I Won!" : "I Lost :(", "because: " + reason + color.reset());
 
         try {
             this.ai.ended(won, reason);
@@ -234,7 +235,7 @@ var Client = Class({
         }
 
         if(data.message) {
-            console.log(data.message);
+            console.log(color.text("cyan") + data.message + color.reset());
         }
 
         this.disconnect();
