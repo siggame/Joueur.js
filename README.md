@@ -1,6 +1,6 @@
-# GAME_NAME JavaScript Client (via Node.js)
+# Chess JavaScript Client (via Node.js)
 
-This is the root of you AI. Stay out of the joueur/ folder, it does most of the heavy lifting to play on our game servers. Your AI, and the game objects it manipulates are all in `games/game_name/`, with your very own AI living in `games/game_name/ai.js` for you to make smarter.
+This is the root of you AI. Stay out of the joueur/ folder, it does most of the heavy lifting to play on our game servers. Your AI, and the game objects it manipulates are all in `games/chess/`, with your very own AI living in `games/chess/ai.js` for you to make smarter.
 
 ## How to Run
 
@@ -23,7 +23,7 @@ Then from a powershell:
 
 ```
 npm install
-node main.js GAME_NAME -s r99acm.device.mst.edu -r MyOwnGameSession
+node main.js Chess -s r99acm.device.mst.edu -r MyOwnGameSession
 ```
 
 ## Requirements
