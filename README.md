@@ -1,26 +1,19 @@
-# Joueur.py
-A simple JavaScript game client for the Cadre framework to connect to [Cerveau](https://github.com/JacobFischer/Cerveau) servers.
+# GAME_NAME JavaScript Client (via Node.js)
 
-![{Cadre}](http://i.imgur.com/17wwI3f.png)
-
-All inspiration taken from [MST's SIG-GAME framework](https://github.com/siggame), and most of the terminology is assuming some familiarity with it as this is a spiritual successor to it.
-
-## Features
-
-* Multi-Game:
-  * One client can have multiple AIs to play different games.
-* Easy generation of new game AIs using the [Creer](https://github.com/JacobFischer/Creer) codegen
-* No game specific logic. All logic is done server side. Here on clients we just merge deltas into the game state.
-* Generated game classes are slim and can be extended by coders without breaking client server communication.
-* A simple Class implimentation that support multiple inheritance, mimicing Python's Classes.
-* Networking via TCP sockets
-  * Communication via json strings with support for cycles within game references
-  * Only deltas in states are send over the network
-  * Requires node-gyp to build the tcp library (it does not use the net module)
+This is the root of you AI. Stay out of the joueur/ folder, it does most of the heavy lifting to play on our game servers. Your AI, and the game objects it manipulates are all in `games/game_name/`, with your very own AI living in `games/game_name/ai.js` for you to make smarter.
 
 ## How to Run
 
-The only real requirement is Node.js. If you have the Cerveau server software working you should have everything you need. The only caveat is that this js client will build module that actually uses c++ code, so you'll need a c++ compiler installed.
+This client has been tested and confirmed to work on the Campus rc##xcs213 Linux machines, but it can work on your own Windows/Linux/Mac machines if you desire.
+
+### Linux
+
+```
+make
+./testRun MyOwnGameSession
+```
+
+If you are using your own Linux/Mac make sure you have g++ installed and Node-gyp can find it.
 
 ### Windows
 
@@ -30,18 +23,9 @@ Then from a powershell:
 
 ```
 npm install
-node main.js GAME_NAME -s SERVER -p PORT
-```
-
-### Linux
-
-Having g++ installed should be enough for node-gyp to build the addon. Then:
-
-```
-make
-./run GAME_NAME -s SERVER -p PORT
+node main.js GAME_NAME -s r99acm.device.mst.edu -r MyOwnGameSession
 ```
 
 ## Requirements
 
-node-gyp is required to build the netlinkwrapper module, which is a wrapper to a simple c++ socket library. For Windows this can be built easily if you have visual studio 2013 installed. You may need the `--msvs_version=2013` flag if `npm install` gives a compiler error.
+[node-gyp](https://github.com/nodejs/node-gyp) is required to build the netlinkwrapper module, which is a wrapper to a simple c++ socket library. For Windows this can be built easily if you have visual studio 2013 installed. You may need the `--msvs_version=2013` flag if `npm install` gives a compiler error.
