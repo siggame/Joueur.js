@@ -42,6 +42,7 @@ module.exports = function(args) {
         requestedSession: args.session,
         clientType: "JavaScript",
         playerName: args.playerName || ai.getName() || "JavaScript Player",
+        playerIndex: args.index,
         gameSettings: args.gameSettings,
     });
 
