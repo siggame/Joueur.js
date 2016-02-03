@@ -12,38 +12,43 @@ ${merge("// ", "requires", "// any additional requires you want can be required 
  */
 var AI = Class(BaseAI, {
     /**
-     * this is the name you send to the server to play as.
+     * This is the name you send to the server so your AI will control the player named this string.
      *
      * @memberof AI
+     * @instance
+     * @returns {string} The name of your Player.
      */
     getName: function() {
 ${merge("        // ", "getName", '        return "' + game_name + ' JavaScript Player";')}
     },
 
     /**
-     * this is called once the game starts and your AI knows its playerID and game. You can initialize your AI here.
+     * This is called once the game starts and your AI knows its playerID and game. You can initialize your AI here.
      *
      * @memberof AI
+     * @instance
      */
     start: function() {
 ${merge("        // ", "start", "        // pass")}
     },
 
     /**
-     * this is called every time the game's state updates, so if you are tracking anything you can update it here.
+     * This is called every time the game's state updates, so if you are tracking anything you can update it here.
      *
      * @memberof AI
+     * @instance
      */
     gameUpdated: function() {
 ${merge("        // ", "gameUpdated", "        // pass")}
     },
 
     /**
-     * this is called when the game ends, you can clean up your data and dump files here if need be
+     * This is called when the game ends, you can clean up your data and dump files here if need be
      *
      * @memberof AI
-     * @param {boolean} won - true means you won, false means you lost
-     * @param {string} reason - the human readable string explaining why you won or lost
+     * @instance
+     * @param {boolean} won - True means you won, false means you lost.
+     * @param {string} reason - The human readable string explaining why you won or lost.
      */
     ended: function(won, reason) {
 ${merge("        // ", "ended", "        // pass")}
@@ -64,6 +69,7 @@ ${merge("        // ", "ended", "        // pass")}
      * ${function_parms['description']}
      *
      * @memberof AI
+     * @instance
 % if 'arguments' in function_parms:
 % for arg_parms in function_parms['arguments']:
      * @param {${shared['js']['type'](arg_parms['type'])}} ${arg_parms['name']} - ${arg_parms['description']}

@@ -1,0 +1,10 @@
+{
+  "name": "Joueur.jsJSDocsScript",
+  "version": "0.0.1",
+  "description": "Used by the python script to make docs",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jaguarjs-jsdoc": "JacobFischer/jaguarjs-jsdoc"
+  }
+}
