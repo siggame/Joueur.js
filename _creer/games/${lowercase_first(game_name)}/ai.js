@@ -12,11 +12,27 @@ ${merge("// ", "requires", "// any additional requires you want can be required 
  */
 var AI = Class(BaseAI, {
     /**
+     * The reference to the Game instance this AI is playing.
+     *
+     * @member {Game} game
+     * @memberof AI
+     * @instance
+     */
+
+    /**
+     * The reference to the Player this AI controls in the Game.
+     *
+     * @member {Player} player
+     * @memberof AI
+     * @instance
+     */
+
+    /**
      * This is the name you send to the server so your AI will control the player named this string.
      *
      * @memberof AI
      * @instance
-     * @returns {string} The name of your Player.
+     * @returns {string} - The name of your Player.
      */
     getName: function() {
 ${merge("        // ", "getName", '        return "' + game_name + ' JavaScript Player";')}
@@ -43,7 +59,7 @@ ${merge("        // ", "gameUpdated", "        // pass")}
     },
 
     /**
-     * This is called when the game ends, you can clean up your data and dump files here if need be
+     * This is called when the game ends, you can clean up your data and dump files here if need be.
      *
      * @memberof AI
      * @instance
@@ -76,7 +92,7 @@ ${merge("        // ", "ended", "        // pass")}
 % endfor
 % endif
 % if function_parms['returns']:
-     * @returns {${shared['js']['type'](function_parms['returns']['type'])}} ${function_parms['returns']['description']}
+     * @returns {${shared['js']['type'](function_parms['returns']['type'])}} - ${function_parms['returns']['description']}
 % endif
      */
     ${function_name}: function(${argument_string}) {

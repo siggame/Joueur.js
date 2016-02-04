@@ -103,7 +103,7 @@ ${merge("        //", "init", "        // any additional init logic you want can
 % endfor
 % endif
 % if function_parms['returns']:
-     * @returns {${shared['js']['type'](function_parms['returns']['type'])}} ${function_parms['returns']['description']}
+     * @returns {${shared['js']['type'](function_parms['returns']['type'])}} - ${function_parms['returns']['description']}
 % endif
      */
     ${function_name}: function(${", ".join(function_parms['argument_names'])}) {
