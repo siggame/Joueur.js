@@ -1,3 +1,6 @@
+// Please do not modify this file.
+// Instead have a look at `README.md` for how to start writing you AI.
+
 process.title = "Joueur.js Game Client"
 global.__basedir = __dirname + '/'; // hackish way to store the base directory we are in now so we don't need require("../../../../whatever") and instead require(__base + "root/path/to/whatever")
 require("./extensions/"); // extends built in JavaScript objects. Extend with care, prototypes can get funky if you are not careful

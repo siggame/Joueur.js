@@ -14,7 +14,7 @@ var errorCodes = {
     GAME_NOT_FOUND: 29,
     MALFORMED_JSON: 30,
     UNAUTHENTICATED: 31,
-    AI_ERRORED:  42,
+    AI_ERRORED: 42,
 }
 
 function handleError(codeName, err, message) {

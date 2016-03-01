@@ -9,38 +9,59 @@ var BaseAI = require(__basedir + "/joueur/baseAI");
  */
 var AI = Class(BaseAI, {
     /**
-     * this is the name you send to the server to play as.
+     * The reference to the Game instance this AI is playing.
+     *
+     * @member {Game} game
+     * @memberof AI
+     * @instance
+     */
+
+    /**
+     * The reference to the Player this AI controls in the Game.
+     *
+     * @member {Player} player
+     * @memberof AI
+     * @instance
+     */
+
+    /**
+     * This is the name you send to the server so your AI will control the player named this string.
      *
      * @memberof AI
+     * @instance
+     * @returns {string} - The name of your Player.
      */
     getName: function() {
         return "Chess JavaScript Player";
     },
 
     /**
-     * this is called once the game starts and your AI knows its playerID and game. You can initialize your AI here.
+     * This is called once the game starts and your AI knows its playerID and game. You can initialize your AI here.
      *
      * @memberof AI
+     * @instance
      */
     start: function() {
         // pass
     },
 
     /**
-     * this is called every time the game's state updates, so if you are tracking anything you can update it here.
+     * This is called every time the game's state updates, so if you are tracking anything you can update it here.
      *
      * @memberof AI
+     * @instance
      */
     gameUpdated: function() {
         // pass
     },
 
     /**
-     * this is called when the game ends, you can clean up your data and dump files here if need be
+     * This is called when the game ends, you can clean up your data and dump files here if need be.
      *
      * @memberof AI
-     * @param {boolean} won - true means you won, false means you lost
-     * @param {string} reason - the human readable string explaining why you won or lost
+     * @instance
+     * @param {boolean} won - True means you won, false means you lost.
+     * @param {string} reason - The human readable string explaining why you won or lost.
      */
     ended: function(won, reason) {
         // pass
@@ -49,10 +70,11 @@ var AI = Class(BaseAI, {
 
 
     /**
-     * This is called every time the AI is asked to respond with a command during their turn
+     * This is called every time it is this AI.player's turn.
      *
      * @memberof AI
-     * @returns {boolean} represents if you want to end your turn. true means end the turn, false means to keep your turn going and re-call runTurn()
+     * @instance
+     * @returns {boolean} - Represents if you want to end your turn. True means end your turn, False means to keep your turn going and re-call this function.
      */
     runTurn: function() {
         // Here is where you'll want to code your AI.
@@ -110,7 +132,7 @@ var AI = Class(BaseAI, {
 
         // 2) print the opponent's last move to the console
         if(this.game.moves.length > 0) {
-            console.log("Opponent's Last Move: '" + this.game.moves[this.game.moves.length - 1] + "'");
+            console.log("Opponent's Last Move: '" + this.game.moves[this.game.moves.length - 1].san + "'");
         }
 
         // 3) print how much time remaining this AI has to calculate moves
@@ -118,9 +140,9 @@ var AI = Class(BaseAI, {
 
         // 4) make a random (and probably invalid) move.
         var randomPiece = this.player.pieces[Math.floor(Math.random()*this.player.pieces.length)];
-        var randomRank = String.fromCharCode("a".charCodeAt(0) + Math.floor(Math.random()*8));
-        var randomFile = Math.floor(Math.random()*8) + 1;
-        randomPiece.move(randomRank, randomFile);
+        var randomFile = String.fromCharCode("a".charCodeAt(0) + Math.floor(Math.random()*8));
+        var randomRank = Math.floor(Math.random()*8) + 1;
+        randomPiece.move(randomFile, randomRank);
 
         return true; // to signify we are done with our turn.
     },
