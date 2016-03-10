@@ -43,7 +43,7 @@ var Client = Class({
 
     _sendRaw: function(str) {
         if(this._printIO) {
-            console.log("TO SERVER <--", str);
+            console.log(color.text("magenta") + "TO SERVER <-- " + str + color.reset());
         }
 
         try {
@@ -120,7 +120,7 @@ var Client = Class({
 
             if(sent !== undefined) {
                 if(this._printIO) {
-                    console.log("FROM SERVER -->", sent);
+                    console.log(color.text("magenta") + "FROM SERVER --> " + sent + color.reset());
                 }
 
                 var total = this._receievedBuffer + sent;
