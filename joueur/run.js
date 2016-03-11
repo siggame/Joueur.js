@@ -8,12 +8,17 @@ module.exports = function(args) {
     var handleError = require("./handleError");
     var client = require("./client");
 
-    var gameDir = (__basedir + "games/" + args.game.lowercaseFirst() + "/");
+    client.connect(args.server, args.port, args);
+
+    client.send("alias", args.game);
+    var gameName = client.waitForEvent("named");
+
+    var gameDir = (__basedir + "games/" + gameName.lowercaseFirst() + "/");
     try {
         require.resolve(gameDir + "game")
     }
     catch(err) {
-        return handleError("GAME_NOT_FOUND", err, "Cannot find Game '" + args.game + "'.");
+        return handleError("GAME_NOT_FOUND", err, "Cannot find Game '" + gameName + "'.");
     }
 
     var gameClass = undefined;
@@ -21,7 +26,7 @@ module.exports = function(args) {
         gameClass = require(gameDir + "game");
     }
     catch(err) {
-        return handleError("REFLECTION_FAILED", err, "Error requiring the Game Class for '" + args.game + "'.");
+        return handleError("REFLECTION_FAILED", err, "Error requiring the Game Class for '" + gameName + "'.");
     }
 
     var aiClass = undefined;
@@ -29,15 +34,15 @@ module.exports = function(args) {
         aiClass = require(gameDir + "ai");
     }
     catch(err) {
-        return handleError("AI_ERRORED", err, "Error requiring the AI Class for '" + args.game + "'. Probably a syntax error.");
+        return handleError("AI_ERRORED", err, "Error requiring the AI Class for '" + gameName + "'. Probably a syntax error.");
     }
 
     var game = new gameClass();
     var ai = new aiClass(game);
-    client.setup(game, ai, args.server, args.port, args);
+    client.setup(game, ai);
 
     client.send("play", {
-        gameName: game.name,
+        gameName: gameName,
         password: args.password,
         requestedSession: args.session,
         clientType: "JavaScript",
