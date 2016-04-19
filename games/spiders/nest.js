@@ -70,7 +70,19 @@ var Nest = Class(GameObject, {
 
 
     //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // any additional functions you want to add to this class can be perserved here
+
+    /**
+     * Calculates the distance from this Nest to another Nest
+     *
+     * @memberof Nest
+     * @instance
+     * @param {Nest} nest - The nest to calculate the distance to
+     * @returns {number} - The euclidean distance between the two Nests
+     */
+    distanceTo: function(nest) {
+        return Math.sqrt( Math.pow(nest.x - this.x, 2) + Math.pow(nest.y - this.y, 2) );
+    },
+
     //<<-- /Creer-Merge: functions -->>
 
 });
