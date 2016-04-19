@@ -38,6 +38,15 @@ var ArrayExtensions = {
 
         return cloned;
     },
+
+    /**
+     * returns a random element from the array
+     *
+     * @returns {*} a random element from the array. this array does not change
+     */
+    randomElement: function() {
+        return this[Math.floor(Math.random() * this.length)];
+    },
 };
 
 for(var extension in ArrayExtensions) {
