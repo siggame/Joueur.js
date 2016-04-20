@@ -172,7 +172,7 @@ var AI = Class(BaseAI, {
             }
         }
 
-        return true;
+        return true; // To signify that we are done with our turn
     },
 });
 
