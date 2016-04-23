@@ -20,10 +20,19 @@ with open("_conf.json", "r") as template_conf:
     with open("conf.json", "w+") as temp_conf:
         temp_conf.write(template_conf.read().replace("###GAME_NAME###", game_name))
 
+with open("../README.md", "r") as f:
+    readme = f.read()
+
+readme = readme.replace("GAME_NAME", game_name).replace("game_name", lower_game_name)
+
+with open("README.md", "w+") as f:
+    f.write(readme)
+
 
 subprocess.call(["npm install"], shell=True)
-subprocess.call(["jsdoc -t node_modules/jaguarjs-jsdoc -c conf.json -r ../README.md -d ./output ../games/{}/".format(lower_game_name)], shell=True)
+subprocess.call(["jsdoc -t node_modules/jaguarjs-jsdoc -c conf.json -r README.md -d ./output ../games/{}/".format(lower_game_name)], shell=True)
 
 # cleanup files we made
 os.remove("conf.json")
+os.remove("README.md")
 shutil.rmtree("./node_modules")
