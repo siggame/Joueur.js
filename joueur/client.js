@@ -17,16 +17,10 @@ var Client = Class({
         this._connected = false;
     },
 
-    setup: function(game, ai, server, port, options) {
-        this.game = game;
-        this.ai = ai;
-        this.gameManager = new GameManager(game);
+    connect: function(server, port, options) {
         this.server = String(server);
         this.port = parseInt(port);
-        this._requestedSession = options.requestedSession !== undefined ? options.requestedSession : "*";
-        this._playerName = options.playerName;
         this._printIO = options.printIO;
-        this._gotInitialState = false;
 
         console.log(color.text("cyan") + "Connecting to:", this.server + ":" + this.port + color.reset());
 
@@ -41,9 +35,15 @@ var Client = Class({
         this._connected = true;
     },
 
+    setup: function(game, ai) {
+        this.game = game;
+        this.ai = ai;
+        this.gameManager = new GameManager(game);
+    },
+
     _sendRaw: function(str) {
         if(this._printIO) {
-            console.log("TO SERVER <--", str);
+            console.log(color.text("magenta") + "TO SERVER <-- " + str + color.reset());
         }
 
         try {
@@ -120,7 +120,7 @@ var Client = Class({
 
             if(sent !== undefined) {
                 if(this._printIO) {
-                    console.log("FROM SERVER -->", sent);
+                    console.log(color.text("magenta") + "FROM SERVER --> " + sent + color.reset());
                 }
 
                 var total = this._receievedBuffer + sent;
