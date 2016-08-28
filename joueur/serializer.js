@@ -41,7 +41,7 @@ Serializer = {
         return serialized;
     },
 
-    deserialize: function(data) {
+    deserialize: function(data, game) {
         if(Serializer.isObject(data)) {
             var result = data.isArray ? [] : {};
 
@@ -49,7 +49,7 @@ Serializer = {
                 var value = data[key];
                 if(typeof(value) == "object") {
                     if(Serializer.isGameObjectReference(value)) { // it's a tracked game object
-                        result[key] = this.game.getGameObject(value.id);
+                        result[key] = game.getGameObject(value.id);
                     }
                     else {
                         result[key] = Serializer.deserialize(value);

@@ -60,8 +60,7 @@ var Client = Class({
                 sentTime: (new Date()).getTime(),
                 event: event,
                 data: Serializer.serialize(data),
-            })
-            + EOT_CHAR
+            }) + EOT_CHAR
         );
     },
 
@@ -168,11 +167,11 @@ var Client = Class({
     },
 
     _autoHandleOrder: function(data) {
-        var returned = undefined;
+        var returned;
         var aiOrderCallback = this.ai[data.name];
 
         if(aiOrderCallback) {
-            var args = Serializer.deserialize(data.args);
+            var args = Serializer.deserialize(data.args, this.game);
             try {
                 returned = aiOrderCallback.apply(this.ai, args);
             }
@@ -213,7 +212,7 @@ var Client = Class({
             this.ai.invalid(data.message);
         }
         catch(err) {
-            handleError("AI_ERRORED", err, "AI errored in invalid().")
+            handleError("AI_ERRORED", err, "AI errored in invalid().");
         }
     },
 
