@@ -30,7 +30,7 @@ with open("README.md", "w+") as f:
 
 
 subprocess.call(["npm install"], shell=True)
-subprocess.call(["jsdoc -t node_modules/jaguarjs-jsdoc -c conf.json -r README.md -d ./output ../games/{}/".format(lower_game_name)], shell=True)
+subprocess.call(["./node_modules/.bin/jsdoc -t node_modules/jaguarjs-jsdoc -c conf.json -r README.md -d ./output ../games/{}/".format(lower_game_name)], shell=True)
 
 # cleanup files we made
 os.remove("conf.json")

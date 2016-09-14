@@ -5,6 +5,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "jaguarjs-jsdoc": "JacobFischer/jaguarjs-jsdoc"
+    "jaguarjs-jsdoc": "JacobFischer/jaguarjs-jsdoc",
+    "jsdoc": "3.4.1"
   }
 }
