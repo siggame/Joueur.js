@@ -4,6 +4,12 @@ import shutil
 import subprocess
 import argparse
 import re
+import sys
+
+def run(*args, **kwargs):
+    error_code = subprocess.call(*args, **kwargs)
+    if error_code != 0: # an error happened
+        sys.exit(error_code)
 
 parser = argparse.ArgumentParser(description='Runs the python 3 client doc generation script.')
 parser.add_argument('game', action='store', help='the name of the game you want to document. Must exist in ../games/')
@@ -29,8 +35,8 @@ with open("README.md", "w+") as f:
     f.write(readme)
 
 
-subprocess.call(["npm install"], shell=True)
-subprocess.call(["./node_modules/.bin/jsdoc -t node_modules/jaguarjs-jsdoc -c conf.json -r README.md -d ./output ../games/{}/".format(lower_game_name)], shell=True)
+run(["npm install"], shell=True)
+run(["./node_modules/.bin/jsdoc -t node_modules/jaguarjs-jsdoc -c conf.json -r README.md -d ./output ../games/{}/".format(lower_game_name)], shell=True)
 
 # cleanup files we made
 os.remove("conf.json")
