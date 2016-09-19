@@ -1,4 +1,4 @@
-var Class = require("./class");
+var Class = require("classe");
 
 // @class BaseGame: the basics of any game, basically state management. Competitiors do not modify
 var BaseGame = Class({

@@ -1,6 +1,6 @@
 // This is where you build your AI for the Chess game.
 
-var Class = require(__basedir + "/joueur/class");
+var Class = require("classe");
 var BaseAI = require(__basedir + "/joueur/baseAI");
 
 /**
@@ -89,7 +89,7 @@ var AI = Class(BaseAI, {
         for(var file = 9; file >= -1; file--) {
             var str = "";
             if(file === 9 || file === 0) { // then the top or bottom of the board
-                str = "   +------------------------+"; 
+                str = "   +------------------------+";
             }
             else if(file === -1) { // then show the ranks
                 str = "     a  b  c  d  e  f  g  h";

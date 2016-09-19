@@ -15,7 +15,7 @@ var errorCodes = {
     MALFORMED_JSON: 30,
     UNAUTHENTICATED: 31,
     AI_ERRORED: 42,
-}
+};
 
 function handleError(codeName, err, message) {
     if(message === undefined) {

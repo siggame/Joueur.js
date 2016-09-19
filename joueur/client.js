@@ -1,4 +1,4 @@
-var Class = require("./class");
+var Class = require("classe");
 var Serializer = require("./serializer");
 var GameManager = require("./gameManager");
 var handleError = require("./handleError");
@@ -17,16 +17,10 @@ var Client = Class({
         this._connected = false;
     },
 
-    setup: function(game, ai, server, port, options) {
-        this.game = game;
-        this.ai = ai;
-        this.gameManager = new GameManager(game);
+    connect: function(server, port, options) {
         this.server = String(server);
         this.port = parseInt(port);
-        this._requestedSession = options.requestedSession !== undefined ? options.requestedSession : "*";
-        this._playerName = options.playerName;
         this._printIO = options.printIO;
-        this._gotInitialState = false;
 
         console.log(color.text("cyan") + "Connecting to:", this.server + ":" + this.port + color.reset());
 
@@ -39,6 +33,12 @@ var Client = Class({
         }
 
         this._connected = true;
+    },
+
+    setup: function(game, ai) {
+        this.game = game;
+        this.ai = ai;
+        this.gameManager = new GameManager(game);
     },
 
     _sendRaw: function(str) {
@@ -60,8 +60,7 @@ var Client = Class({
                 sentTime: (new Date()).getTime(),
                 event: event,
                 data: Serializer.serialize(data),
-            })
-            + EOT_CHAR
+            }) + EOT_CHAR
         );
     },
 
@@ -157,7 +156,7 @@ var Client = Class({
     //--- auto handle events ---\\
 
     _autoHandle: function(event, data) {
-        var callback = this['_autoHandle' + event.uppercaseFirst()];
+        var callback = this['_autoHandle' + event.upcaseFirst()];
 
         if(callback) {
             return callback.call(this, data);
@@ -168,11 +167,11 @@ var Client = Class({
     },
 
     _autoHandleOrder: function(data) {
-        var returned = undefined;
+        var returned;
         var aiOrderCallback = this.ai[data.name];
 
         if(aiOrderCallback) {
-            var args = Serializer.deserialize(data.args);
+            var args = Serializer.deserialize(data.args, this.game);
             try {
                 returned = aiOrderCallback.apply(this.ai, args);
             }
@@ -213,7 +212,7 @@ var Client = Class({
             this.ai.invalid(data.message);
         }
         catch(err) {
-            handleError("AI_ERRORED", err, "AI errored in invalid().")
+            handleError("AI_ERRORED", err, "AI errored in invalid().");
         }
     },
 

@@ -34,7 +34,7 @@ var _background = {
 function ansi(num) {
     num = num || 0;
     return String.fromCharCode(27) + "[" + num + "m";
-};
+}
 
 module.exports = {
     style: function(key) {

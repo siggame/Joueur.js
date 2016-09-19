@@ -1,4 +1,4 @@
-var Class = require("./class");
+var Class = require("classe");
 var color = require("./ansiColorCoder");
 
 // @class BaseAI: the base functions all AIs should do
@@ -20,7 +20,7 @@ var BaseAI = Class({
     },
 
     invalid: function(message) {
-        console.error(color.text("yellow") + "Invalid:", message + color.reset());
+        console.warn(color.text("yellow") + "Invalid:", message + color.reset());
     },
 
     ended: function(won, reason) {
