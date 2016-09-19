@@ -1,7 +1,7 @@
 // This is a simple class to represent the ${obj_key} object in the game. You can extend it by adding utility functions here in this file.
 <%include file="functions.noCreer" />
 <% parent_classes = obj['parentClasses']
-%>var Class = require(__basedir + "/joueur/class");
+%>var Class = require("classe");
 var client = require(__basedir + "/joueur/client");
 % if len(parent_classes) > 0:
 % for parent_class in parent_classes:

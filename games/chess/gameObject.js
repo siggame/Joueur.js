@@ -1,6 +1,6 @@
 // This is a simple class to represent the GameObject object in the game. You can extend it by adding utility functions here in this file.
 
-var Class = require(__basedir + "/joueur/class");
+var Class = require("classe");
 var client = require(__basedir + "/joueur/client");
 var BaseGameObject = require(__basedir + "/joueur/baseGameObject");
 

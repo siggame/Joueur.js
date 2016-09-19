@@ -1,6 +1,6 @@
 // This is where you build your AI for the ${game_name} game.
 <%include file="functions.noCreer" />
-var Class = require(__basedir + "/joueur/class");
+var Class = require("classe");
 var BaseAI = require(__basedir + "/joueur/baseAI");
 
 ${merge("// ", "requires", "// any additional requires you want can be required here safely between creer runs")}

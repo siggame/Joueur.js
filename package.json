@@ -5,11 +5,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/JacobFischer/Joueur.js"
+    "url": "git://github.com/siggame/Joueur.js"
   },
   "private": true,
   "dependencies": {
     "argparse": "1.0.2",
+    "cadre-js-extensions": "siggame/Cadre-js-extensions",
+    "classe": "1.0.0",
     "netlinkwrapper": "JacobFischer/netlinkwrapper"
   }
 }

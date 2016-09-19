@@ -1,6 +1,6 @@
 // This is where you build your AI for the Checkers game.
 
-var Class = require(__basedir + "/joueur/class");
+var Class = require("classe");
 var BaseAI = require(__basedir + "/joueur/baseAI");
 
 // <<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

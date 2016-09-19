@@ -15,13 +15,13 @@ module.exports = function(args) {
 
     var gameDir = (__basedir + "games/" + gameName.lowercaseFirst() + "/");
     try {
-        require.resolve(gameDir + "game")
+        require.resolve(gameDir + "game");
     }
     catch(err) {
         return handleError("GAME_NOT_FOUND", err, "Cannot find Game '" + gameName + "'.");
     }
 
-    var gameClass = undefined;
+    var gameClass;
     try {
         gameClass = require(gameDir + "game");
     }
@@ -29,7 +29,7 @@ module.exports = function(args) {
         return handleError("REFLECTION_FAILED", err, "Error requiring the Game Class for '" + gameName + "'.");
     }
 
-    var aiClass = undefined;
+    var aiClass;
     try {
         aiClass = require(gameDir + "ai");
     }

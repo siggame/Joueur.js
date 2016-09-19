@@ -1,2 +1,0 @@
-require("./string");
-require("./array");

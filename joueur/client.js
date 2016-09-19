@@ -1,4 +1,4 @@
-var Class = require("./class");
+var Class = require("classe");
 var Serializer = require("./serializer");
 var GameManager = require("./gameManager");
 var handleError = require("./handleError");
@@ -156,7 +156,7 @@ var Client = Class({
     //--- auto handle events ---\\
 
     _autoHandle: function(event, data) {
-        var callback = this['_autoHandle' + event.uppercaseFirst()];
+        var callback = this['_autoHandle' + event.upcaseFirst()];
 
         if(callback) {
             return callback.call(this, data);
