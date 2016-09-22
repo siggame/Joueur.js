@@ -17,7 +17,7 @@ else:
 
 % if obj_key == "Game":
 // game object classes
-% for game_obj_key, game_obj in game_objs.items():
+% for game_obj_key in sort_dict_keys(game_objs):
 var ${game_obj_key} = require("./${lowercase_first(game_obj_key)}");
 % endfor
 
