@@ -98,6 +98,22 @@ var Game = Class(BaseGame, {
         this.jobs = [];
 
         /**
+         * The number of Tiles in the map along the y (vertical) axis.
+         *
+         * @name Game#mapHeight
+         * @type number
+         */
+        this.mapHeight = 0;
+
+        /**
+         * The number of Tiles in the map along the x (horizontal) axis.
+         *
+         * @name Game#mapWidth
+         * @type number
+         */
+        this.mapWidth = 0;
+
+        /**
          * The maximum number of Cowboys a Player can bring into the saloon.
          *
          * @name Game#maxCowboys
@@ -137,14 +153,22 @@ var Game = Class(BaseGame, {
          */
         this.session = "";
 
+        /**
+         * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
+         *
+         * @name Game#tiles
+         * @type Array.<Tile>
+         */
+        this.tiles = [];
+
 
         this._gameObjectClasses = {
+            "Furnishing": Furnishing,
+            "Tile": Tile,
+            "Bottle": Bottle,
+            "Cowboy": Cowboy,
             "GameObject": GameObject,
             "Player": Player,
-            "Bottle": Bottle,
-            "Furnishing": Furnishing,
-            "Cowboy": Cowboy,
-            "Tile": Tile,
         };
 
         //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

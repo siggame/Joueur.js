@@ -29,7 +29,7 @@ var Bottle = Class(GameObject, {
 
 
         /**
-         * The direction any Cowboys hit by this will move, can be 'North', 'East', 'South', 'West'.
+         * The direction any Cowboys hit by this will move, can be 'North', 'East', 'South', or 'West'.
          *
          * @name Bottle#drunkDirection
          * @type string
@@ -53,7 +53,7 @@ var Bottle = Class(GameObject, {
         this.location = null;
 
         /**
-         * The Tile this Bottle will fly to next turn, if it does not impact anything on it's path.
+         * The Tile this Bottle will fly to next turn, if it does not impact anything on its path between the two.
          *
          * @name Bottle#nextLocation
          * @type Tile

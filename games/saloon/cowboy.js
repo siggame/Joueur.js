@@ -37,7 +37,7 @@ var Cowboy = Class(GameObject, {
         this.canMove = 0;
 
         /**
-         * The direction this Cowboy is moving, can be 'North', 'East', 'South', 'West'.
+         * The direction this Cowboy is moving while drunk. Will be 'North', 'East', 'South', or 'West' when drunk; or '' (empty string) when not drunk.
          *
          * @name Cowboy#drunkDirection
          * @type string
@@ -129,7 +129,7 @@ var Cowboy = Class(GameObject, {
      * @memberof Cowboy
      * @instance
      * @param {Tile} tile - The Tile you want this Cowboy to act on.
-     * @param {string} [drunkDirection] - The direction the bottle will cause drunk cowboys to be in, can be 'North', 'East', 'South', 'West'.
+     * @param {string} [drunkDirection] - The direction the bottle will cause drunk cowboys to be in, can be 'North', 'East', 'South', or 'West'.
      * @returns {boolean} - True if the act worked, false otherwise.
      */
     act: function(tile, drunkDirection) {
