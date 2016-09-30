@@ -5,10 +5,10 @@ var client = require(__basedir + "/joueur/client");
 var BaseGame = require(__basedir + "/joueur/baseGame");
 
 // game object classes
-var Player = require("./player");
 var GameObject = require("./gameObject");
 var Move = require("./move");
 var Piece = require("./piece");
+var Player = require("./player");
 
 
 //<<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -54,6 +54,14 @@ var Game = Class(BaseGame, {
          * @type number
          */
         this.currentTurn = 0;
+
+        /**
+         * Forsyth–Edwards Notation, a notation that describes the game board.
+         *
+         * @name Game#fen
+         * @type string
+         */
+        this.fen = "";
 
         /**
          * A mapping of every game object's ID to the actual game object. Primarily used by the server and client to easily refer to the game objects via ID.
@@ -113,10 +121,10 @@ var Game = Class(BaseGame, {
 
 
         this._gameObjectClasses = {
+            "Piece": Piece,
             "Player": Player,
             "GameObject": GameObject,
             "Move": Move,
-            "Piece": Piece,
         };
 
         //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
