@@ -132,22 +132,12 @@ var Player = Class(GameObject, {
 
 
     /**
-     * The Cowboy that was previously a 'Young Gun', and has now been promoted to a different job if successful, null otherwise.
-     *
-     * @memberof Player
-     * @instance
-     */
-    returns: function() {
-        return client.runOnServer(this, "returns", {
-        });
-    },
-
-    /**
      * Sends in the Young Gun to the nearest Tile into the Saloon, and promotes them to a new job.
      *
      * @memberof Player
      * @instance
      * @param {string} job - The job you want the Young Gun being brought in to be called in to do, changing their job to it.
+     * @returns {Cowboy} - The Cowboy that was previously a 'Young Gun', and has now been promoted to a different job if successful, null otherwise.
      */
     sendIn: function(job) {
         return client.runOnServer(this, "sendIn", {

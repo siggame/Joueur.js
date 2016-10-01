@@ -163,12 +163,12 @@ var Game = Class(BaseGame, {
 
 
         this._gameObjectClasses = {
-            "Furnishing": Furnishing,
             "Tile": Tile,
-            "Bottle": Bottle,
             "Cowboy": Cowboy,
-            "GameObject": GameObject,
             "Player": Player,
+            "Furnishing": Furnishing,
+            "Bottle": Bottle,
+            "GameObject": GameObject,
         };
 
         //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
