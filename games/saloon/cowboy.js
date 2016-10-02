@@ -93,14 +93,6 @@ var Cowboy = Class(GameObject, {
         this.owner = null;
 
         /**
-         * How many turns this unit has remaining for their siesta. 0 means they are awake, and can act.
-         *
-         * @name Cowboy#siesta
-         * @type number
-         */
-        this.siesta = 0;
-
-        /**
          * The Tile that this Cowboy is located on.
          *
          * @name Cowboy#tile
@@ -115,6 +107,14 @@ var Cowboy = Class(GameObject, {
          * @type number
          */
         this.tolerance = 0;
+
+        /**
+         * How many turns this unit has remaining before it is no longer busy and can `act()` or `play()` again.
+         *
+         * @name Cowboy#turnsBusy
+         * @type number
+         */
+        this.turnsBusy = 0;
 
         //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // any additional init logic you want can go here

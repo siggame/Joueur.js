@@ -109,6 +109,14 @@ var Player = Class(GameObject, {
         this.score = 0;
 
         /**
+         * 0 when not having a team siesta. When greater than 0 represents how many turns left for the team siesta to complete.
+         *
+         * @name Player#siesta
+         * @type number
+         */
+        this.siesta = 0;
+
+        /**
          * The amount of time (in ns) remaining for this AI to send commands.
          *
          * @name Player#timeRemaining
@@ -123,6 +131,14 @@ var Player = Class(GameObject, {
          * @type boolean
          */
         this.won = false;
+
+        /**
+         * The only 'Yong Gun' Cowboy this player owns, or null if they called in their young gun during their turn.
+         *
+         * @name Player#youngGun
+         * @type Cowboy
+         */
+        this.youngGun = null;
 
         //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // any additional init logic you want can go here

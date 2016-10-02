@@ -29,6 +29,14 @@ var Bottle = Class(GameObject, {
 
 
         /**
+         * The Direction this Bottle is flying and will move to between turns, can be 'North', 'East', 'South', or 'West'.
+         *
+         * @name Bottle#direction
+         * @type Tile
+         */
+        this.direction = null;
+
+        /**
          * The direction any Cowboys hit by this will move, can be 'North', 'East', 'South', or 'West'.
          *
          * @name Bottle#drunkDirection
@@ -47,18 +55,10 @@ var Bottle = Class(GameObject, {
         /**
          * The Tile this bottle is currently flying over.
          *
-         * @name Bottle#location
+         * @name Bottle#tile
          * @type Tile
          */
-        this.location = null;
-
-        /**
-         * The Tile this Bottle will fly to next turn, if it does not impact anything on its path between the two.
-         *
-         * @name Bottle#nextLocation
-         * @type Tile
-         */
-        this.nextLocation = null;
+        this.tile = null;
 
         //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // any additional init logic you want can go here

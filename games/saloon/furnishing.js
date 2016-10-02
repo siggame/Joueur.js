@@ -37,6 +37,14 @@ var Furnishing = Class(GameObject, {
         this.health = 0;
 
         /**
+         * If this Furnishing has been destroyed, and has been removed from the game.
+         *
+         * @name Furnishing#isDestroyed
+         * @type boolean
+         */
+        this.isDestroyed = false;
+
+        /**
          * True if this Furnishing is a piano and can be played, False otherwise.
          *
          * @name Furnishing#isPiano

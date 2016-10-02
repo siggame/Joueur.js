@@ -154,6 +154,14 @@ var Game = Class(BaseGame, {
         this.session = "";
 
         /**
+         * How long siestas are for a player's team.
+         *
+         * @name Game#siestaLength
+         * @type number
+         */
+        this.siestaLength = 0;
+
+        /**
          * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
          *
          * @name Game#tiles
@@ -163,12 +171,12 @@ var Game = Class(BaseGame, {
 
 
         this._gameObjectClasses = {
-            "Tile": Tile,
-            "Cowboy": Cowboy,
-            "Player": Player,
             "Furnishing": Furnishing,
             "Bottle": Bottle,
+            "Tile": Tile,
+            "Player": Player,
             "GameObject": GameObject,
+            "Cowboy": Cowboy,
         };
 
         //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

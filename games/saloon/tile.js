@@ -29,12 +29,12 @@ var Tile = Class(GameObject, {
 
 
         /**
-         * All the beer Bottles currently flying over this Tile.
+         * The beer Bottle currently flying over this Tile.
          *
-         * @name Tile#bottles
-         * @type Array.<Bottle>
+         * @name Tile#bottle
+         * @type Bottle
          */
-        this.bottles = [];
+        this.bottle = null;
 
         /**
          * The Cowboy that is on this Tile, or null if empty.
@@ -69,36 +69,36 @@ var Tile = Class(GameObject, {
         this.isWall = false;
 
         /**
-         * The Tile above this one (x, y-1). Null if out of bounds of the map.
+         * The Tile to the 'East' of this one (x+1, y). Null if out of bounds of the map.
          *
-         * @name Tile#tileAbove
+         * @name Tile#tileEast
          * @type Tile
          */
-        this.tileAbove = null;
+        this.tileEast = null;
 
         /**
-         * The Tile below this one (x, y+1). Null if out of bounds of the map.
+         * The Tile to the 'North' of this one (x, y-1). Null if out of bounds of the map.
          *
-         * @name Tile#tileBelow
+         * @name Tile#tileNorth
          * @type Tile
          */
-        this.tileBelow = null;
+        this.tileNorth = null;
 
         /**
-         * The Tile to the left of this one (x-1, y). Null if out of bounds of the map.
+         * The Tile to the 'South' of this one (x, y+1). Null if out of bounds of the map.
          *
-         * @name Tile#tileLeft
+         * @name Tile#tileSouth
          * @type Tile
          */
-        this.tileLeft = null;
+        this.tileSouth = null;
 
         /**
-         * The Tile to the right of this one (x+1, y). Null if out of bounds of the map.
+         * The Tile to the 'West' of this one (x-1, y). Null if out of bounds of the map.
          *
-         * @name Tile#tileRight
+         * @name Tile#tileWest
          * @type Tile
          */
-        this.tileRight = null;
+        this.tileWest = null;
 
         /**
          * The x (horizontal) position of this Tile.
