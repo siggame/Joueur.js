@@ -32,9 +32,9 @@ var Cowboy = Class(GameObject, {
          * If the Cowboy can be moved this turn via its owner.
          *
          * @name Cowboy#canMove
-         * @type number
+         * @type boolean
          */
-        this.canMove = 0;
+        this.canMove = false;
 
         /**
          * The direction this Cowboy is moving while drunk. Will be 'North', 'East', 'South', or 'West' when drunk; or '' (empty string) when not drunk.
