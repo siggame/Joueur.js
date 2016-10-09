@@ -1,4 +1,8 @@
-// This is a simple class to represent the Player object in the game. You can extend it by adding utility functions here in this file.
+// Player: A player in this game. Every AI controls one player.
+
+// DO NOT MODIFY THIS FILE
+// Never try to directly create an instance of this class, or modify its member variables.
+// Instead, you should only be reading its variables and calling its functions.
 
 var Class = require("classe");
 var client = require(__basedir + "/joueur/client");
@@ -133,10 +137,10 @@ var Player = Class(GameObject, {
         this.won = false;
 
         /**
-         * The only 'Yong Gun' Cowboy this player owns, or null if they called in their young gun during their turn.
+         * The YoungGun this Player uses to call in new Cowboys.
          *
          * @name Player#youngGun
-         * @type Cowboy
+         * @type YoungGun
          */
         this.youngGun = null;
 
@@ -146,20 +150,6 @@ var Player = Class(GameObject, {
 
     },
 
-
-    /**
-     * Sends in the Young Gun to the nearest Tile into the Saloon, and promotes them to a new job.
-     *
-     * @memberof Player
-     * @instance
-     * @param {string} job - The job you want the Young Gun being brought in to be called in to do, changing their job to it.
-     * @returns {Cowboy} - The Cowboy that was previously a 'Young Gun', and has now been promoted to a different job if successful, null otherwise.
-     */
-    sendIn: function(job) {
-        return client.runOnServer(this, "sendIn", {
-            job: job,
-        });
-    },
 
 
     //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

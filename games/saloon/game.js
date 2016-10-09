@@ -1,4 +1,8 @@
-// This is a simple class to represent the Game object in the game. You can extend it by adding utility functions here in this file.
+// Game: Use cowboys to have a good time and play some music on a Piano, while brawling with enemy Coyboys.
+
+// DO NOT MODIFY THIS FILE
+// Never try to directly create an instance of this class, or modify its member variables.
+// Instead, you should only be reading its variables and calling its functions.
 
 var Class = require("classe");
 var client = require(__basedir + "/joueur/client");
@@ -11,6 +15,7 @@ var Furnishing = require("./furnishing");
 var GameObject = require("./gameObject");
 var Player = require("./player");
 var Tile = require("./tile");
+var YoungGun = require("./youngGun");
 
 
 //<<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -90,7 +95,7 @@ var Game = Class(BaseGame, {
         this.gameObjects = {};
 
         /**
-         * All the jobs that Cowboys can be assigned within the saloon.
+         * All the jobs that Cowboys can be called in with.
          *
          * @name Game#jobs
          * @type Array.<string>
@@ -114,12 +119,12 @@ var Game = Class(BaseGame, {
         this.mapWidth = 0;
 
         /**
-         * The maximum number of Cowboys a Player can bring into the saloon.
+         * The maximum number of Cowboys a Player can bring into the saloon of each specific job.
          *
-         * @name Game#maxCowboys
+         * @name Game#maxCowboysPerJob
          * @type number
          */
-        this.maxCowboys = 0;
+        this.maxCowboysPerJob = 0;
 
         /**
          * The maximum number of turns before the game will automatically end.
@@ -171,12 +176,13 @@ var Game = Class(BaseGame, {
 
 
         this._gameObjectClasses = {
+            "YoungGun": YoungGun,
             "Bottle": Bottle,
-            "Furnishing": Furnishing,
-            "Cowboy": Cowboy,
-            "GameObject": GameObject,
-            "Player": Player,
             "Tile": Tile,
+            "GameObject": GameObject,
+            "Cowboy": Cowboy,
+            "Furnishing": Furnishing,
+            "Player": Player,
         };
 
         //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

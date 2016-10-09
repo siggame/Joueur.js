@@ -1,4 +1,4 @@
-// Bottle: A bottle thrown by a bartender at a Tile.
+// YoungGun: An eager young person that wants to join your gang, and will call in the veteran Cowboys you need to win the brawl in the saloon.
 
 // DO NOT MODIFY THIS FILE
 // Never try to directly create an instance of this class, or modify its member variables.
@@ -15,14 +15,14 @@ var GameObject = require("./gameObject");
 
 /**
  * @class
- * @classdesc A bottle thrown by a bartender at a Tile.
+ * @classdesc An eager young person that wants to join your gang, and will call in the veteran Cowboys you need to win the brawl in the saloon.
  * @extends GameObject
  */
-var Bottle = Class(GameObject, {
+var YoungGun = Class(GameObject, {
     /**
-     * initializes a Bottle with basic logic as provided by the Creer code generator
+     * initializes a YoungGun with basic logic as provided by the Creer code generator
      *
-     * @memberof Bottle
+     * @memberof YoungGun
      * @private
      */
     init: function() {
@@ -33,33 +33,25 @@ var Bottle = Class(GameObject, {
 
 
         /**
-         * The Direction this Bottle is flying and will move to between turns, can be 'North', 'East', 'South', or 'West'.
+         * True if the YoungGun can call in a Cowboy, false otherwise.
          *
-         * @name Bottle#direction
-         * @type Tile
-         */
-        this.direction = null;
-
-        /**
-         * The direction any Cowboys hit by this will move, can be 'North', 'East', 'South', or 'West'.
-         *
-         * @name Bottle#drunkDirection
-         * @type string
-         */
-        this.drunkDirection = "";
-
-        /**
-         * True if this Bottle has impacted and has been destroyed (removed from the Game). False if still in the game flying through the saloon.
-         *
-         * @name Bottle#isDestroyed
+         * @name YoungGun#canCallIn
          * @type boolean
          */
-        this.isDestroyed = false;
+        this.canCallIn = false;
 
         /**
-         * The Tile this bottle is currently flying over.
+         * The Player that owns and can control this YoungGun.
          *
-         * @name Bottle#tile
+         * @name YoungGun#owner
+         * @type Player
+         */
+        this.owner = null;
+
+        /**
+         * The Tile this YoungGun is currently on. Cowboys they send in will be on the nearest non-balcony Tile.
+         *
+         * @name YoungGun#tile
          * @type Tile
          */
         this.tile = null;
@@ -71,6 +63,20 @@ var Bottle = Class(GameObject, {
     },
 
 
+    /**
+     * Tells the YoungGun to call in a new Cowbow of the given job to the open Tile nearest to them.
+     *
+     * @memberof YoungGun
+     * @instance
+     * @param {string} job - The job you want the Cowboy being brought to have.
+     * @returns {Cowboy} - The new Cowboy that was called in if valid. They will not be added to any `cowboys` lists until the turn ends. Null otherwise.
+     */
+    callIn: function(job) {
+        return client.runOnServer(this, "callIn", {
+            job: job,
+        });
+    },
+
 
     //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // any additional functions you want to add to this class can be perserved here
@@ -78,4 +84,4 @@ var Bottle = Class(GameObject, {
 
 });
 
-module.exports = Bottle;
+module.exports = YoungGun;

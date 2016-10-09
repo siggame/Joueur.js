@@ -1,4 +1,8 @@
-// This is a simple class to represent the Tile object in the game. You can extend it by adding utility functions here in this file.
+// Tile: A Tile in the game that makes up the 2D map grid.
+
+// DO NOT MODIFY THIS FILE
+// Never try to directly create an instance of this class, or modify its member variables.
+// Instead, you should only be reading its variables and calling its functions.
 
 var Class = require("classe");
 var client = require(__basedir + "/joueur/client");
@@ -37,7 +41,7 @@ var Tile = Class(GameObject, {
         this.bottle = null;
 
         /**
-         * The Cowboy that is on this Tile, or null if empty.
+         * The Cowboy that is on this Tile, null otherwise.
          *
          * @name Tile#cowboy
          * @type Cowboy
@@ -45,7 +49,7 @@ var Tile = Class(GameObject, {
         this.cowboy = null;
 
         /**
-         * The furnishing that is on this Tile, or null if empty.
+         * The furnishing that is on this Tile, null otherwise.
          *
          * @name Tile#furnishing
          * @type Furnishing
@@ -61,12 +65,12 @@ var Tile = Class(GameObject, {
         this.hasHazard = false;
 
         /**
-         * If this Tile is a wall of the Saloon, and can never be pathed through.
+         * If this Tile is a balcony of the Saloon that YoungGuns walk around on, and can never be pathed through by Cowboys.
          *
-         * @name Tile#isWall
+         * @name Tile#isBalcony
          * @type boolean
          */
-        this.isWall = false;
+        this.isBalcony = false;
 
         /**
          * The Tile to the 'East' of this one (x+1, y). Null if out of bounds of the map.
@@ -115,6 +119,14 @@ var Tile = Class(GameObject, {
          * @type number
          */
         this.y = 0;
+
+        /**
+         * The YoungGun on this tile, null otherwise.
+         *
+         * @name Tile#youngGun
+         * @type YoungGun
+         */
+        this.youngGun = null;
 
         //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // any additional init logic you want can go here
