@@ -1,4 +1,8 @@
-// This is a simple class to represent the ${obj_key} object in the game. You can extend it by adding utility functions here in this file.
+// ${obj_key}: ${obj['description']}
+
+// DO NOT MODIFY THIS FILE
+// Never try to directly create an instance of this class, or modify its member variables.
+// Instead, you should only be reading its variables and calling its functions.
 <%include file="functions.noCreer" />
 <% parent_classes = obj['parentClasses']
 %>var Class = require("classe");
