@@ -36,9 +36,9 @@ var Bottle = Class(GameObject, {
          * The Direction this Bottle is flying and will move to between turns, can be 'North', 'East', 'South', or 'West'.
          *
          * @name Bottle#direction
-         * @type Tile
+         * @type string
          */
-        this.direction = null;
+        this.direction = "";
 
         /**
          * The direction any Cowboys hit by this will move, can be 'North', 'East', 'South', or 'West'.
