@@ -137,13 +137,14 @@ var AI = Class(BaseAI, {
             //--- 2. Try to move to a Piano ---\\
             var piano; // find a piano
             for(i = 0; i < this.game.furnishings.length; i++) {
-                if(this.game.furnishings[i].isPiano) {
-                    piano = this.game.furnishings[i];
+                var furnishing = this.game.furnishings[i];
+                if(furnishing.isPiano && !furnishing.isDestroyed) {
+                    piano = furnishing;
                     break;
                 }
             }
 
-            // if the cowboy can move and is not dead
+            // if the cowboy can move and is not dead and there is a piano to move to
             if(cowboy.canMove && !cowboy.isDead) {
                 console.log("Trying to do stuff with Cowboy #" + cowboy.id);
 
