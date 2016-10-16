@@ -137,7 +137,60 @@ var Tile = Class(GameObject, {
 
 
     //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // any additional functions you want to add to this class can be perserved here
+
+    /**
+     * The valid directions that tiles can be in, "North", "East", "South", or "West"
+     *
+     * @memberof Tile
+     * @instance
+     * @constant
+     * @static
+     * @type {Array.<string>}
+     */
+    directions: [ "North", "East", "South", "West" ],
+
+    /**
+     * Gets the neighbors of this Tile
+     *
+     * @memberOf Tile
+     * @instance
+     * @returns {Array.<Tile>} - The neighboring (adjacent) Tiles to this tile
+     */
+    getNeighbors: function() {
+        var neighbors = [];
+        for(var i = 0; i < this.directions.length; i++) {
+            var neighbor = this["tile" + this.directions[i]];
+            if(neighbor) {
+                neighbors.push(neighbor);
+            }
+        }
+
+        return neighbors;
+    },
+
+    /**
+     * Checks if a Tile is pathable to units
+     *
+     * @memberOf Tile
+     * @instance
+     * @returns {boolean} - True if pathable, false otherwise
+     */
+    isPathable: function() {
+        return !(this.isBalcony || this.cowboy || this.furnishing);
+    },
+
+    /**
+     * Checks if this Tile has a specific neighboring Tile
+     *
+     * @memberOf Tile
+     * @instance
+     * @param {Tile} tile - tile to check against
+     * @returns {boolean} true if the tile is a neighbor of this Tile, false otherwise
+     */
+    hasNeighbor: function(tile) {
+        return Boolean(tile && (this.tileNorth === tile || this.tileEast === tile || this.tileSouth === tile || this.tileEast === tile));
+    },
+
     //<<-- /Creer-Merge: functions -->>
 
 });
