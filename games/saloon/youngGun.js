@@ -33,6 +33,14 @@ var YoungGun = Class(GameObject, {
 
 
         /**
+         * The Tile that a Cowboy will be called in on if this YoungGun calls in a Cowboy.
+         *
+         * @name YoungGun#callInTile
+         * @type Tile
+         */
+        this.callInTile = null;
+
+        /**
          * True if the YoungGun can call in a Cowboy, false otherwise.
          *
          * @name YoungGun#canCallIn
@@ -49,7 +57,7 @@ var YoungGun = Class(GameObject, {
         this.owner = null;
 
         /**
-         * The Tile this YoungGun is currently on. Cowboys they send in will be on the nearest non-balcony Tile.
+         * The Tile this YoungGun is currently on.
          *
          * @name YoungGun#tile
          * @type Tile
@@ -64,7 +72,7 @@ var YoungGun = Class(GameObject, {
 
 
     /**
-     * Tells the YoungGun to call in a new Cowbow of the given job to the open Tile nearest to them.
+     * Tells the YoungGun to call in a new Cowboy of the given job to the open Tile nearest to them.
      *
      * @memberof YoungGun
      * @instance
