@@ -57,6 +57,14 @@ var Furnishing = Class(GameObject, {
         this.isPiano = false;
 
         /**
+         * If this is a piano and a Cowboy is playing it this turn.
+         *
+         * @name Furnishing#isPlaying
+         * @type boolean
+         */
+        this.isPlaying = false;
+
+        /**
          * The Tile that this Furnishing is located on.
          *
          * @name Furnishing#tile

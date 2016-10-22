@@ -1,4 +1,4 @@
-// Game: Use cowboys to have a good time and play some music on a Piano, while brawling with enemy Coyboys.
+// Game: Use cowboys to have a good time and play some music on a Piano, while brawling with enemy Cowboys.
 
 // DO NOT MODIFY THIS FILE
 // Never try to directly create an instance of this class, or modify its member variables.
@@ -24,7 +24,7 @@ var YoungGun = require("./youngGun");
 
 /**
  * @class
- * @classdesc Use cowboys to have a good time and play some music on a Piano, while brawling with enemy Coyboys.
+ * @classdesc Use cowboys to have a good time and play some music on a Piano, while brawling with enemy Cowboys.
  * @extends BaseGame
  */
 var Game = Class(BaseGame, {
@@ -53,6 +53,14 @@ var Game = Class(BaseGame, {
          * @type Array.<Bottle>
          */
         this.bottles = [];
+
+        /**
+         * How much damage is applied to neighboring things bit by the Sharpshooter between turns.
+         *
+         * @name Game#brawlerDamage
+         * @type number
+         */
+        this.brawlerDamage = 0;
 
         /**
          * Every Cowboy in the game.
@@ -159,6 +167,14 @@ var Game = Class(BaseGame, {
         this.session = "";
 
         /**
+         * How much damage is applied to things hit by Sharpshooters when they act.
+         *
+         * @name Game#sharpshooterDamage
+         * @type number
+         */
+        this.sharpshooterDamage = 0;
+
+        /**
          * How long siestas are for a player's team.
          *
          * @name Game#siestaLength
@@ -176,13 +192,13 @@ var Game = Class(BaseGame, {
 
 
         this._gameObjectClasses = {
-            "Tile": Tile,
             "Furnishing": Furnishing,
             "Bottle": Bottle,
-            "Player": Player,
-            "Cowboy": Cowboy,
             "YoungGun": YoungGun,
+            "Cowboy": Cowboy,
             "GameObject": GameObject,
+            "Player": Player,
+            "Tile": Tile,
         };
 
         //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
