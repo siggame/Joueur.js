@@ -99,10 +99,10 @@ var Player = Class(GameObject, {
         /**
          * How rowdy their team is. When it gets too high their team takes a collective siesta.
          *
-         * @name Player#rowdyness
+         * @name Player#rowdiness
          * @type number
          */
-        this.rowdyness = 0;
+        this.rowdiness = 0;
 
         /**
          * How many times their team has played a piano.

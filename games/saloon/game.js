@@ -47,6 +47,14 @@ var Game = Class(BaseGame, {
 
 
         /**
+         * How many turns a Bartender will be busy for after throwing a Bottle.
+         *
+         * @name Game#bartenderCooldown
+         * @type number
+         */
+        this.bartenderCooldown = 0;
+
+        /**
          * All the beer Bottles currently flying across the saloon in the game.
          *
          * @name Game#bottles
@@ -151,12 +159,12 @@ var Game = Class(BaseGame, {
         this.players = [];
 
         /**
-         * When a player's rowdyness reaches or exceeds this number their Cowboys take a collective siesta.
+         * When a player's rowdiness reaches or exceeds this number their Cowboys take a collective siesta.
          *
-         * @name Game#rowdynessToSiesta
+         * @name Game#rowdinessToSiesta
          * @type number
          */
-        this.rowdynessToSiesta = 0;
+        this.rowdinessToSiesta = 0;
 
         /**
          * A unique identifier for the game instance that is being played.
@@ -190,15 +198,23 @@ var Game = Class(BaseGame, {
          */
         this.tiles = [];
 
+        /**
+         * How many turns a Cowboy will be drunk for if a bottle breaks on it.
+         *
+         * @name Game#turnsDrunk
+         * @type number
+         */
+        this.turnsDrunk = 0;
+
 
         this._gameObjectClasses = {
-            "Furnishing": Furnishing,
-            "Bottle": Bottle,
-            "YoungGun": YoungGun,
             "Cowboy": Cowboy,
+            "Tile": Tile,
             "GameObject": GameObject,
             "Player": Player,
-            "Tile": Tile,
+            "YoungGun": YoungGun,
+            "Bottle": Bottle,
+            "Furnishing": Furnishing,
         };
 
         //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
