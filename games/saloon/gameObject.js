@@ -9,10 +9,6 @@ var client = require(__basedir + "/joueur/client");
 var BaseGameObject = require(__basedir + "/joueur/baseGameObject");
 
 
-//<<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// any additional requires you want can be required here safely between creer runs
-//<<-- /Creer-Merge: requires -->>
-
 /**
  * @class
  * @classdesc An object in the game. The most basic class that all game classes should inherit from automatically.
@@ -56,9 +52,8 @@ var GameObject = Class(BaseGameObject, {
          */
         this.logs = [];
 
-        //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // any additional init logic you want can go here
-        //<<-- /Creer-Merge: init -->>
+
 
     },
 
@@ -75,12 +70,6 @@ var GameObject = Class(BaseGameObject, {
             message: message,
         });
     },
-
-
-    //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // any additional functions you want to add to this class can be perserved here
-    //<<-- /Creer-Merge: functions -->>
-
 });
 
 module.exports = GameObject;

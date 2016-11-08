@@ -8,11 +8,6 @@ var Class = require("classe");
 var client = require(__basedir + "/joueur/client");
 var GameObject = require("./gameObject");
 
-
-//<<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// any additional requires you want can be required here safely between creer runs
-//<<-- /Creer-Merge: requires -->>
-
 /**
  * @class
  * @classdesc A player in this game. Every AI controls one player.
@@ -99,10 +94,10 @@ var Player = Class(GameObject, {
         /**
          * How rowdy their team is. When it gets too high their team takes a collective siesta.
          *
-         * @name Player#rowdyness
+         * @name Player#rowdiness
          * @type number
          */
-        this.rowdyness = 0;
+        this.rowdiness = 0;
 
         /**
          * How many times their team has played a piano.
@@ -144,18 +139,9 @@ var Player = Class(GameObject, {
          */
         this.youngGun = null;
 
-        //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // any additional init logic you want can go here
-        //<<-- /Creer-Merge: init -->>
 
     },
-
-
-
-    //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // any additional functions you want to add to this class can be perserved here
-    //<<-- /Creer-Merge: functions -->>
-
 });
 
 module.exports = Player;

@@ -8,11 +8,6 @@ var Class = require("classe");
 var client = require(__basedir + "/joueur/client");
 var GameObject = require("./gameObject");
 
-
-//<<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// any additional requires you want can be required here safely between creer runs
-//<<-- /Creer-Merge: requires -->>
-
 /**
  * @class
  * @classdesc A Tile in the game that makes up the 2D map grid.
@@ -28,9 +23,7 @@ var Tile = Class(GameObject, {
     init: function() {
         GameObject.init.apply(this, arguments);
 
-
         // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
-
 
         /**
          * The beer Bottle currently flying over this Tile.
@@ -128,15 +121,10 @@ var Tile = Class(GameObject, {
          */
         this.youngGun = null;
 
-        //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // any additional init logic you want can go here
-        //<<-- /Creer-Merge: init -->>
+
 
     },
-
-
-
-    //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
 
     /**
      * The valid directions that tiles can be in, "North", "East", "South", or "West"
@@ -190,9 +178,6 @@ var Tile = Class(GameObject, {
     hasNeighbor: function(tile) {
         return Boolean(tile && (this.tileNorth === tile || this.tileEast === tile || this.tileSouth === tile || this.tileEast === tile));
     },
-
-    //<<-- /Creer-Merge: functions -->>
-
 });
 
 module.exports = Tile;

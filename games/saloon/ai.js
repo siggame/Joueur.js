@@ -3,10 +3,6 @@
 var Class = require("classe");
 var BaseAI = require(__basedir + "/joueur/baseAI");
 
-// <<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// any additional requires you want can be required here safely between creer runs
-// <<-- /Creer-Merge: requires -->>
-
 /**
  * @class
  * @classdesc This is the class to play the Saloon game. This is where you should build your AI.
@@ -36,9 +32,7 @@ var AI = Class(BaseAI, {
      * @returns {string} - The name of your Player.
      */
     getName: function() {
-        // <<-- Creer-Merge: getName -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         return "Saloon JavaScript Player";
-        // <<-- /Creer-Merge: getName -->>
     },
 
     /**
@@ -48,9 +42,7 @@ var AI = Class(BaseAI, {
      * @instance
      */
     start: function() {
-        // <<-- Creer-Merge: start -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // pass
-        // <<-- /Creer-Merge: start -->>
     },
 
     /**
@@ -60,9 +52,7 @@ var AI = Class(BaseAI, {
      * @instance
      */
     gameUpdated: function() {
-        // <<-- Creer-Merge: gameUpdated -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // pass
-        // <<-- /Creer-Merge: gameUpdated -->>
     },
 
     /**
@@ -74,9 +64,7 @@ var AI = Class(BaseAI, {
      * @param {string} reason - The human readable string explaining why you won or lost.
      */
     ended: function(won, reason) {
-        // <<-- Creer-Merge: ended -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // pass
-        // <<-- /Creer-Merge: ended -->>
     },
 
 
@@ -89,12 +77,11 @@ var AI = Class(BaseAI, {
      * @returns {boolean} - Represents if you want to end your turn. True means end your turn, False means to keep your turn going and re-call this function.
      */
     runTurn: function() {
-        // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // Put your game logic here for runTurn
 
         // This is "ShellAI", some basic code we've provided that does
         // everything in the game for demo purposed, but poorly so you
-        // can get to optimzing or overwritting it ASAP
+        // can get to optimizing or overwriting it ASAP
         //
         // ShellAI does a few things:
         // 1. Tries to spawn a new Cowboy
@@ -174,8 +161,9 @@ var AI = Class(BaseAI, {
                     // if the neighboring tile has a piano
                     if(neighbor.furnishing && neighbor.furnishing.isPiano) {
                         // then play it
-                        console.log("3. Playing Furnihsing (piano) #" + neighbor.furnishing.id);
+                        console.log("3. Playing Furnishing (piano) #" + neighbor.furnishing.id);
                         cowboy.play(neighbor.furnishing);
+                        break;
                     }
                 }
             }
@@ -192,7 +180,7 @@ var AI = Class(BaseAI, {
                 switch(cowboy.job) {
                     case "Bartender":
                         // Bartenders throw Bottles in a direction, and the Bottle makes cowboys drunk which causes them to walk in random directions
-                        // so throw the bottle on a random neighoring tile, and make drunks move in a random direction
+                        // so throw the bottle on a random neighboring tile, and make drunks move in a random direction
                         var direction = cowboy.tile.directions.randomElement();
                         console.log("4. Bartender acting on Tile #" + randomNeighbor.id + " in direction " + direction);
                         cowboy.act(randomNeighbor, direction);
@@ -216,11 +204,7 @@ var AI = Class(BaseAI, {
 
         // we are done, returning true tells the game server we are indeed done with our turn.
         return true;
-        // <<-- /Creer-Merge: runTurn -->>
     },
-
-
-    //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
 
     /**
      * A very basic path finding algorithm (Breadth First Search) that when given a starting Tile, will return a valid path to the goal Tile.
@@ -274,9 +258,6 @@ var AI = Class(BaseAI, {
 
         return [];
     },
-
-    //<<-- /Creer-Merge: functions -->>
-
 });
 
 module.exports = AI;

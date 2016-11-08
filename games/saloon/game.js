@@ -18,10 +18,6 @@ var Tile = require("./tile");
 var YoungGun = require("./youngGun");
 
 
-//<<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// any additional requires you want can be required here safely between creer runs
-//<<-- /Creer-Merge: requires -->>
-
 /**
  * @class
  * @classdesc Use cowboys to have a good time and play some music on a Piano, while brawling with enemy Cowboys.
@@ -45,6 +41,14 @@ var Game = Class(BaseGame, {
          */
         this.name = "Saloon";
 
+
+        /**
+         * How many turns a Bartender will be busy for after throwing a Bottle.
+         *
+         * @name Game#bartenderCooldown
+         * @type number
+         */
+        this.bartenderCooldown = 0;
 
         /**
          * All the beer Bottles currently flying across the saloon in the game.
@@ -151,12 +155,12 @@ var Game = Class(BaseGame, {
         this.players = [];
 
         /**
-         * When a player's rowdyness reaches or exceeds this number their Cowboys take a collective siesta.
+         * When a player's rowdiness reaches or exceeds this number their Cowboys take a collective siesta.
          *
-         * @name Game#rowdynessToSiesta
+         * @name Game#rowdinessToSiesta
          * @type number
          */
-        this.rowdynessToSiesta = 0;
+        this.rowdinessToSiesta = 0;
 
         /**
          * A unique identifier for the game instance that is being played.
@@ -190,29 +194,32 @@ var Game = Class(BaseGame, {
          */
         this.tiles = [];
 
+        /**
+         * How many turns a Cowboy will be drunk for if a bottle breaks on it.
+         *
+         * @name Game#turnsDrunk
+         * @type number
+         */
+        this.turnsDrunk = 0;
+
 
         this._gameObjectClasses = {
             "Furnishing": Furnishing,
-            "Bottle": Bottle,
-            "YoungGun": YoungGun,
-            "Cowboy": Cowboy,
-            "GameObject": GameObject,
-            "Player": Player,
             "Tile": Tile,
+            "Cowboy": Cowboy,
+            "Player": Player,
+            "Bottle": Bottle,
+            "GameObject": GameObject,
+            "YoungGun": YoungGun,
         };
 
-        //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // any additional init logic you want can go here
-        //<<-- /Creer-Merge: init -->>
+
 
     },
 
-
-
-    //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-
     /**
-     * Gets the Tile at a specificed (x, y) position
+     * Gets the Tile at a specified (x, y) position
      *
      * @memberOf Game
      * @instance
@@ -227,9 +234,6 @@ var Game = Class(BaseGame, {
 
         return this.tiles[x + y * this.mapWidth] || null;
     },
-
-    //<<-- /Creer-Merge: functions -->>
-
 });
 
 module.exports = Game;

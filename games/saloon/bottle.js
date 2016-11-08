@@ -8,11 +8,6 @@ var Class = require("classe");
 var client = require(__basedir + "/joueur/client");
 var GameObject = require("./gameObject");
 
-
-//<<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// any additional requires you want can be required here safely between creer runs
-//<<-- /Creer-Merge: requires -->>
-
 /**
  * @class
  * @classdesc A bottle thrown by a bartender at a Tile.
@@ -64,17 +59,10 @@ var Bottle = Class(GameObject, {
          */
         this.tile = null;
 
-        //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // any additional init logic you want can go here
-        //<<-- /Creer-Merge: init -->>
+
 
     },
-
-
-
-    //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // any additional functions you want to add to this class can be perserved here
-    //<<-- /Creer-Merge: functions -->>
 
 });
 
