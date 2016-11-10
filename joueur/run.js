@@ -1,4 +1,5 @@
 var color = require("./ansiColorCoder");
+var fs = require("fs");
 
 module.exports = function(args) {
     var splitServer = args.server.split(':');
@@ -14,6 +15,24 @@ module.exports = function(args) {
     var gameName = client.waitForEvent("named");
 
     var gameDir = (__basedir + "games/" + gameName.lowercaseFirst() + "/");
+
+    // get syntax errors in files because the syntax errors node throws are half useless
+    var walk = require("./walk");
+    var check = require('syntax-error');
+    var gameFiles = walk(gameDir);
+    for(var i = 0; i < gameFiles.length; i++) {
+        var filename = gameFiles[i];
+        var file = gameDir + filename;
+        var src = fs.readFileSync(file);
+
+        var err = check(src, file);
+        if(err) {
+            err.message = err.annotated.substr(1); // chop off the newline
+
+            return handleError("AI_ERRORED", err, "Error requiring file {}.".format(file));
+        }
+    }
+
     try {
         require.resolve(gameDir + "game");
     }
