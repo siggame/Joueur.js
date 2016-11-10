@@ -164,7 +164,7 @@ var Tile = Class(GameObject, {
      * @returns {boolean} - True if pathable, false otherwise
      */
     isPathable: function() {
-        return !(this.isBalcony || this.cowboy || this.furnishing);
+        return !this.isBalcony && !this.cowboy && !this.furnishing;
     },
 
     /**

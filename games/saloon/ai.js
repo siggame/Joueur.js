@@ -92,10 +92,10 @@ var AI = Class(BaseAI, {
         console.log("Start of my turn: " + this.game.currentTurn);
 
         // for steps 2, 3, and 4 we will use this cowboy:
-        var cowboy;
+        var activeCowboy;
         for(var i = 0; i < this.player.cowboys.length; i++) {
             if(!this.player.cowboys[i].isDead) {
-                cowboy = this.player.cowboys[i];
+                activeCowboy = this.player.cowboys[i];
                 break;
             }
         }
@@ -104,7 +104,8 @@ var AI = Class(BaseAI, {
 
         //--- 1. Try to spawn a Cowboy --\\
 
-        var callInJob = this.game.jobs.randomElement(); // grab a random job to try to call in
+        // Randomly select a job.
+        var callInJob = this.game.jobs.randomElement();
         var jobCount = 0;
         for(i = 0; i < this.player.cowboys.length; i++) {
             var myCowboy = this.player.cowboys[i];
@@ -113,16 +114,19 @@ var AI = Class(BaseAI, {
             }
         }
 
-        // check to make sure we can call in this job
+        // Call in the new cowboy with that job if there aren't too many
+        //   cowboys with that job already.
         if(this.player.youngGun.canCallIn && jobCount < this.game.maxCowboysPerJob) {
             console.log("1. Calling in: " + callInJob);
             this.player.youngGun.callIn(callInJob);
         }
 
-        // make sure we found a cowboy to try to do things with
-        if(cowboy) {
+        // Now lets use him
+        if(activeCowboy) {
             //--- 2. Try to move to a Piano ---\\
-            var piano; // find a piano
+
+            // find a piano
+            var piano;
             for(i = 0; i < this.game.furnishings.length; i++) {
                 var furnishing = this.game.furnishings[i];
                 if(furnishing.isPiano && !furnishing.isDestroyed) {
@@ -131,19 +135,20 @@ var AI = Class(BaseAI, {
                 }
             }
 
-            // if the cowboy can move and is not dead and there is a piano to move to
-            if(cowboy.canMove && !cowboy.isDead) {
-                console.log("Trying to do stuff with Cowboy #" + cowboy.id);
+            // There will always be pianos or the game will end. No need to check for existence.
+            // Attempt to move toward the piano by finding a path.
+            if(activeCowboy.canMove && !activeCowboy.isDead) {
+                console.log("Trying to do stuff with Cowboy #" + activeCowboy.id);
 
                 // find a path from the Tile this cowboy is on to the tile the piano is on
-                var path = this.findPath(cowboy.tile, piano.tile);
+                var path = this.findPath(activeCowboy.tile, piano.tile);
 
                 // if there is a path, move to it
                 //      length 0 means no path could be found to the tile
                 //      length 1 means the piano is adjacent, and we can't move onto the same tile as the piano
                 if(path.length > 1) {
                     console.log("2. Moving to Tile #" + path[0].id);
-                    cowboy.move(path[0]);
+                    activeCowboy.move(path[0]);
                 }
             }
 
@@ -152,9 +157,9 @@ var AI = Class(BaseAI, {
             //--- 3. Try to play a piano ---\\\
 
             // make sure the cowboy is alive and is not busy
-            if(!cowboy.isDead && cowboy.turnsBusy === 0) {
+            if(!activeCowboy.isDead && activeCowboy.turnsBusy === 0) {
                 // look at all the neighboring (adjacent) tiles, and if they have a piano, play it
-                var neighbors = cowboy.tile.getNeighbors();
+                var neighbors = activeCowboy.tile.getNeighbors();
                 for(i = 0; i < neighbors.length; i++) {
                     var neighbor = neighbors[i];
 
@@ -162,7 +167,7 @@ var AI = Class(BaseAI, {
                     if(neighbor.furnishing && neighbor.furnishing.isPiano) {
                         // then play it
                         console.log("3. Playing Furnishing (piano) #" + neighbor.furnishing.id);
-                        cowboy.play(neighbor.furnishing);
+                        activeCowboy.play(neighbor.furnishing);
                         break;
                     }
                 }
@@ -173,17 +178,18 @@ var AI = Class(BaseAI, {
             //--- 4. Try to act ---\\
 
             // make sure the cowboy is alive and is not busy
-            if(!cowboy.isDead && cowboy.turnsBusy === 0) {
-                // The Cowboy.act() function works differently based on job, and requires a neighboring tile to act on
-                var randomNeighbor = cowboy.tile.getNeighbors().randomElement();
+            if(!activeCowboy.isDead && activeCowboy.turnsBusy === 0) {
+                // Get a random neighboring tile.
+                var randomNeighbor = activeCowboy.tile.getNeighbors().randomElement();
 
-                switch(cowboy.job) {
+                // Based on job, act accordingly.
+                switch(activeCowboy.job) {
                     case "Bartender":
                         // Bartenders throw Bottles in a direction, and the Bottle makes cowboys drunk which causes them to walk in random directions
                         // so throw the bottle on a random neighboring tile, and make drunks move in a random direction
-                        var direction = cowboy.tile.directions.randomElement();
-                        console.log("4. Bartender acting on Tile #" + randomNeighbor.id + " in direction " + direction);
-                        cowboy.act(randomNeighbor, direction);
+                        var direction = activeCowboy.tile.directions.randomElement();
+                        console.log("4. Bartender acting on Tile #" + randomNeighbor.id + " with drunkDirection " + direction);
+                        activeCowboy.act(randomNeighbor, direction);
                         break;
                     case "Brawler":
                         // Brawlers cannot act, they instead automatically attack all neighboring tiles on the end of their owner's turn.
@@ -191,9 +197,12 @@ var AI = Class(BaseAI, {
                         break;
                     case "Sharpshooter":
                         // Sharpshooters build focus by standing still, they can then act(tile) on a neighboring tile to fire in that direction
-                        if(cowboy.focus > 0) {
+                        if(activeCowboy.focus > 0) {
                             console.log("4. Sharpshooter acting on Tile #" + randomNeighbor.id);
-                            cowboy.act(randomNeighbor); // fire in a random direction
+                            activeCowboy.act(randomNeighbor); // fire in a random direction
+                        }
+                        else {
+                            console.log("4. Sharpshooter doesn't have enough focus. (focus == " + activeCowboy.focus + ")");
                         }
                         break;
                 }
@@ -216,42 +225,49 @@ var AI = Class(BaseAI, {
      * @returns {Array.<Tile>} An array of Tiles representing the path, the the first element being a valid adjacent Tile to the start, and the last element being the goal.
      */
     findPath: function(start, goal) {
-        var queue = [ start ];
-        var parents = {};
-        var queued = {};
+        if(start == goal) {
+            // no need to make a path to here...
+            return [];
+        }
 
-        while(queue.length > 0) {
-            // pop the first tile off the front of the queue
-            var tile = queue.shift();
+        // queue of the tiles that will have their neighbors searched for 'goal'
+        var fringe = [];
 
-            // look at all this tile's neighbors
-            var neighbors = tile.getNeighbors();
+        // How we got to each tile that went into the fringe.
+        var cameFrom = {};
+
+        // Enqueue start as the first tile to have its neighbors searched.
+        fringe.push(start);
+
+        // keep exploring neighbors of neighbors... until there are no more.
+        while(fringe.length > 0) {
+            // the tile we are currently exploring.
+            var inspect = fringe.shift();
+
+            // cycle through the tile's neighbors.
+            var neighbors = inspect.getNeighbors();
             for(var i = 0; i < neighbors.length; i++) {
                 var neighbor = neighbors[i];
-
-                if(neighbor === goal) { // we found the path!
-                    // let's reconstruct the path to this end goal, starting and the end and retracing our steps back to the start
+                // if we found the goal, we have the path!
+                if(neighbor === goal) {
+                    // Follow the path backward to the start from the goal and return it.
                     var path = [ goal ];
 
-                    // go backward to build the path till we find the starting tile
-                    while(tile !== start) {
-                        // push the tile in the path on the front (so the end of the path is the end of the array)
-                        path.unshift(tile);
-                        // and set the next tile to look at
-                        tile = parents[tile.id];
+                    // Starting at the tile we are currently at, insert them retracing our steps till we get to the starting tile
+                    while(inspect !== start) {
+                        path.unshift(inspect);
+                        inspect = cameFrom[inspect.id];
                     }
 
                     return path;
                 }
+                // else we did not find the goal, so enqueue this tile's neighbors to be inspected
 
-                // check if the neighbor we are looking at needs to be queued
-                if(!queued[neighbor.id] && neighbor.isPathable()) {
-                    // queue it, and record that it's been queued so we don't investigate it multiple times
-                    queue.push(neighbor);
-                    queued[neighbor.id] = true;
-
-                    // record how we got to this tile, for path reconstruction
-                    parents[neighbor.id] = tile;
+                // if the tile exists, has not been explored or added to the fringe yet, and it is pathable
+                if(neighbor && neighbor.id && !cameFrom[neighbor.id] && neighbor.isPathable()) {
+                    // add it to the tiles to be explored and add where it came from for path reconstruction.
+                    fringe.push(neighbor);
+                    cameFrom[neighbor.id] = inspect;
                 }
             }
         }
