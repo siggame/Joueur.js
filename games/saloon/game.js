@@ -204,18 +204,14 @@ var Game = Class(BaseGame, {
 
 
         this._gameObjectClasses = {
-            "Furnishing": Furnishing,
-            "Tile": Tile,
-            "Cowboy": Cowboy,
-            "Player": Player,
             "Bottle": Bottle,
+            "Cowboy": Cowboy,
+            "Furnishing": Furnishing,
             "GameObject": GameObject,
+            "Player": Player,
+            "Tile": Tile,
             "YoungGun": YoungGun,
         };
-
-        // any additional init logic you want can go here
-
-
     },
 
     /**
