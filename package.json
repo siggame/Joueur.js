@@ -12,6 +12,7 @@
     "argparse": "1.0.2",
     "cadre-js-extensions": "siggame/Cadre-js-extensions",
     "classe": "1.0.0",
-    "netlinkwrapper": "JacobFischer/netlinkwrapper"
+    "netlinkwrapper": "JacobFischer/netlinkwrapper",
+    "syntax-error": "1.1.6"
   }
 }
