@@ -27,7 +27,7 @@ var ${game_obj_key} = require("./${lowercase_first(game_obj_key)}");
 
 % endif
 
-${merge("//", "requires", "// any additional requires you want can be required here safely between creer runs")}
+${merge("//", "requires", "// any additional requires you want can be required here safely between creer runs", optional=True)}
 
 /**
  * @class
@@ -75,13 +75,13 @@ var ${obj_key} = Class(${", ".join(parent_classes)}, {
 
 
         this._gameObjectClasses = {
-% for game_obj_key, game_obj in game_objs.items():
+% for game_obj_key in sort_dict_keys(game_objs):
             "${game_obj_key}": ${game_obj_key},
 % endfor
         };
 % endif
 
-${merge("        //", "init", "        // any additional init logic you want can go here")}
+${merge("        //", "init", "        // any additional init logic you want can go here", optional=True)}
 
     },
 
@@ -129,7 +129,7 @@ ${merge("        //", "init", "        // any additional init logic you want can
 % endfor
 
 
-${merge("    //", "functions", "    // any additional functions you want to add to this class can be perserved here")}
+${merge("    //", "functions", "    // any additional functions you want to add to this class can be preserved here", optional=True)}
 
 });
 

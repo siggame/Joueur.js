@@ -3,7 +3,7 @@
 var Class = require("classe");
 var BaseAI = require(__basedir + "/joueur/baseAI");
 
-${merge("// ", "requires", "// any additional requires you want can be required here safely between creer runs")}
+${merge("// ", "requires", "// any additional requires you want can be required here safely between creer runs", optional=True)}
 
 /**
  * @class
@@ -104,7 +104,7 @@ ${merge("        // ", function_name,
 % endfor
 
 
-${merge("    //", "functions", "    // any additional functions you want to add for your AI")}
+${merge("    //", "functions", "    // any additional functions you want to add for your AI", optional=True)}
 
 });
 
