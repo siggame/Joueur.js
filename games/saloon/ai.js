@@ -121,7 +121,7 @@ var AI = Class(BaseAI, {
             this.player.youngGun.callIn(callInJob);
         }
 
-        // Now lets use him
+        // Now let's use him
         if(activeCowboy) {
             //--- 2. Try to move to a Piano ---\\
 
@@ -272,6 +272,7 @@ var AI = Class(BaseAI, {
             }
         }
 
+        // if we got here, no path was found
         return [];
     },
 });
