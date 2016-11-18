@@ -15,6 +15,7 @@ parser.addArgument(['-i', '--index'], {action: 'store', dest: 'index', help: 'th
 parser.addArgument(['-w', '--password'], {action: 'store', dest: 'password', help: 'the password required for authentication on official servers'});
 parser.addArgument(['-r', '--session'], {action: 'store', dest: 'session', help: 'the requested game session you want to play on the server', defaultValue: '*'});
 parser.addArgument(['--gameSettings'], {action: 'store', dest: 'gameSettings', help: 'Any settings for the game server to force. Must be url parms formatted (key=value&otherKey=otherValue)'});
+parser.addArgument(['--aiSettings'], {action: 'store', dest: 'aiSettings', help: 'Any settings for the AI. Delimit pairs by an ampersand (key=value&otherKey=otherValue)'});
 parser.addArgument(['--printIO'], {action: 'storeTrue', dest: 'printIO', help: '(debugging) print IO through the TCP socket to the terminal'});
 
 require("./joueur/run")(parser.parseArgs());

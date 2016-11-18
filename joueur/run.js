@@ -60,6 +60,8 @@ module.exports = function(args) {
     var ai = new aiClass(game);
     client.setup(game, ai);
 
+    ai.setSettings(args.aiSettings);
+
     client.send("play", {
         gameName: gameName,
         password: args.password,
