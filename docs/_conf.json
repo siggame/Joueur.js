@@ -4,7 +4,9 @@
         "meta": {
             "title": "###GAME_NAME### JavaScript Client",
             "description": "JavaScript Client for ###GAME_NAME### via Node.js",
-            "footer": "&copy; MST ACM SIG-GAME"
+            "footer": "&copy; MST ACM SIG-GAME",
+            "hideOverview": true,
+            "noSourceFiles": true
         },
         "linenums": true
     }

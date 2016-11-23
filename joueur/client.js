@@ -2,19 +2,31 @@ var Class = require("classe");
 var Serializer = require("./serializer");
 var GameManager = require("./gameManager");
 var handleError = require("./handleError");
-var netlinkwrapper = require("netlinkwrapper");
 var color = require("./ansiColorCoder");
 var EOT_CHAR = String.fromCharCode(4);
 
-// @class Client: talks to the server recieving game information and sending commands to execute via TCP socket. Clients perform no game logic
+try {
+    var netlinkwrapper = require("netlinkwrapper");
+}
+catch(err) {
+    // netlinkwrapper could not be found, they probably couldn't get node-gyp setup
+    netlinkwrapper = null;
+}
+
+console.log("using netlink?", netlinkwrapper);
+
+var SyncSocket = require("sync-socket");
+
+// this will be the Socket class we use, we prefer netlinkwrapper but will fallback to SyncSocket if they couldn't get node-gyp working.
+var Socket = netlinkwrapper || SyncSocket;
+
+// @class Client: talks to the server receiving game information and sending commands to execute via TCP socket. Clients perform no game logic
 var Client = Class({
     init: function() {
-        this._socket = new netlinkwrapper();
-
         this._eventsStack = [];
-        this._bufferSize = 1024;
         this._receievedBuffer = "";
         this._connected = false;
+        this._bufferSize = 16*1024;
     },
 
     connect: function(server, port, options) {
@@ -24,9 +36,13 @@ var Client = Class({
 
         console.log(color.text("cyan") + "Connecting to:", this.server + ":" + this.port + color.reset());
 
+        if(!netlinkwrapper) {
+            console.log(color.text("yellow") + "WARNING: Could not use 'netlinkwrapper', falling back to FAR slower 'sync-socket'. (Is your node-gyp configured properly?)" + color.reset());
+        }
+
         try {
-            this._socket.connect(this.server, this.port);
-            this._socket.blocking(false);
+            this._socket = new Socket();
+            this._socket.connect(this.port, this.server);
         }
         catch(err) {
             handleError("COULD_NOT_CONNECT", err, "Could not connect to " + this.server + ":" + this.port + ".");
@@ -47,7 +63,7 @@ var Client = Class({
         }
 
         try {
-            this._socket.send(str);
+            this._socket.write(str);
         }
         catch(err) {
             handleError("DISCONNECTED_UNEXPECTEDLY", err, "Could not send string through server.");
@@ -65,7 +81,7 @@ var Client = Class({
     },
 
     disconnect: function() {
-        if(this._connected) {
+        if(this._socket) {
             try {
                 this._socket.disconnect();
             }
@@ -111,7 +127,7 @@ var Client = Class({
         while(true) {
             var sent = undefined;
             try {
-                sent = this._socket.read(this._bufferSize);
+                sent = this._socket.read(this._bufferSize, !netlinkwrapper);
             }
             catch(err) {
                 handleError("CANNOT_READ_SOCKET", err, "Error reading socket");
@@ -243,4 +259,5 @@ var Client = Class({
 });
 
 var clientSingleton = new Client();
+
 module.exports = clientSingleton;

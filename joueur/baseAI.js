@@ -29,11 +29,12 @@ var BaseAI = Class({
     },
 
     setSettings: function(aiSettings) {
-        console.log("aiSettings", aiSettings);
-        var settings = aiSettings.split("&");
-        for(var i = 0; i < settings.length; i++) {
-            var kv = settings[i].split("=");
-            this._settings[kv[0]] = kv[1];
+        if(aiSettings) {
+            var settings = aiSettings.split("&");
+            for(var i = 0; i < settings.length; i++) {
+                var kv = settings[i].split("=");
+                this._settings[kv[0]] = kv[1];
+            }
         }
     },
 

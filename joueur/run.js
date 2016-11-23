@@ -9,7 +9,12 @@ module.exports = function(args) {
     var handleError = require("./handleError");
     var client = require("./client");
 
-    client.connect(args.server, args.port, args);
+    try {
+        client.connect(args.server, args.port, args)
+    }
+    catch(err) {
+        return handleError("COULD_NOT_CONNECT", err, "Error creating synchronous socket.");
+    }
 
     client.send("alias", args.game);
     var gameName = client.waitForEvent("named");
