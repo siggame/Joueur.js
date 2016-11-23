@@ -8,9 +8,11 @@ This client has been tested and confirmed to work on the Campus rc##xcs213 Linux
 
 ### Requirements
 
-You need [Node.js][1], which should install `node` and `npm` for you. Version 4.6.0 is officially supported, though older versions back to 0.10, and newer versions such as v6.X should work just as well.
+You need [Node.js][1], which should install `node` and `npm` for you. Version 4.6.0 is officially supported, though older versions back to v0.10, and newer versions such as v6.X and v7.X should work just as well.
 
-In addition, [node-gyp][2] is required to build the netlinkwrapper module, which is a wrapper to a simple C++ socket library. Make sure `npm` can build node-gyp projects by following their [installation instructions][3].
+In addition, [node-gyp][2] is highly recommended, but **not** required to build the netlinkwrapper module. Make sure `npm` can build node-gyp projects by following their [installation instructions][3]. Basically you will need a C++ compiler and Python 2.7 hooked up to node-gyp.
+
+If you opt not to install node-gyp because it is annoying to set up, the client will fallback to a pure JavaScript module, but your game client will run much slower. However, in the arena we will build node-gyp correctly so it will run much faster in there.
 
 ### Linux
 
