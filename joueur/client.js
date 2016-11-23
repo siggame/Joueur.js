@@ -99,7 +99,7 @@ var Client = Class({
         });
 
         var ranData = this.waitForEvent("ran");
-        return Serializer.deserialize(ranData);
+        return Serializer.deserialize(ranData, this.game);
     },
 
     waitForEvent: function(event) {

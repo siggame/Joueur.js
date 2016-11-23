@@ -42,28 +42,27 @@ Serializer = {
     },
 
     deserialize: function(data, game) {
-        if(Serializer.isObject(data)) {
-            var result = data.isArray ? [] : {};
-
-            for(var key in data) {
-                var value = data[key];
-                if(typeof(value) == "object") {
-                    if(Serializer.isGameObjectReference(value)) { // it's a tracked game object
-                        result[key] = game.getGameObject(value.id);
-                    }
-                    else {
-                        result[key] = Serializer.deserialize(value);
-                    }
-                }
-                else {
-                    result[key] = value;
-                }
-            }
-
-            return result;
+        if(!Serializer.isObject(data)) {
+            return data;
+        }
+        
+        if(Serializer.isGameObjectReference(data)) { // it's a tracked game object
+            return game.getGameObject(data.id);
         }
 
-        return data;
+        var result = data.isArray ? [] : {};
+
+        for(var key in data) {
+            var value = data[key];
+            if(typeof(value) == "object") {
+                result[key] = Serializer.deserialize(value);
+            }
+            else {
+                result[key] = value;
+            }
+        }
+
+        return result;
     },
 };
 
