@@ -8,7 +8,7 @@ This client has been tested and confirmed to work on the MST campus rc##xcs213 L
 
 ### Requirements
 
-You need [Node.js][1], which should install `node` and `npm` for you. Make sure to install a node version greater than or equal to Version 4.3.2. If you somehow require an older version, look at the [ES5 branch][es5] on GitHub, which is the last version of this client that did not use ES6 features present in more recent node versions.
+You need [Node.js][nodejs], which should install `node` and `npm` for you. Make sure to install a node version greater than or equal to Version 4.3.2. If you somehow require an older version, look at the [ES5 branch][es5] on GitHub, which is the last version of this client that did not use ES6 features present in more recent node versions.
 
 In addition, [node-gyp][node-gyp] is **highly** recommended, but *not* required to build the netlinkwrapper module. Make sure `npm` can build node-gyp projects by following their [installation instructions][node-gyp-install]. Basically you will need a C++ compiler and Python 2.7 hooked up to node-gyp.
 
