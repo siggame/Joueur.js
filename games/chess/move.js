@@ -13,7 +13,6 @@ const GameObject = require('./gameObject');
 
 /**
  * Contains all details about a Piece's move in the game.
- * @extends GameObject
  */
 class Move extends GameObject {
   /**

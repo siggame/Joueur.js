@@ -6,7 +6,7 @@ if not 'js' in shared:
         base_type = type_obj['name']
         if default == None:
             if base_type == "string":
-                return '""'
+                return "''"
             elif base_type == "dictionary":
                 return '{}'
             elif base_type == "list":

@@ -2,16 +2,17 @@ const Serializer = require('./serializer');
 const handleError = require('./handleError');
 const color = require('./ansiColorCoder');
 const EOT_CHAR = String.fromCharCode(4);
+let netlinkwrapper = null;
+let SyncSocket = null;
 
 try {
-  var netlinkwrapper = require('netlinkwrapper');
+  netlinkwrapper = require('netlinkwrapper');
 }
 catch (err) {
-    // netlinkwrapper could not be found, they probably couldn't get node-gyp setup
-  netlinkwrapper = null;
+  // netlinkwrapper could not be found, they probably couldn't get node-gyp setup
+  // so, fallback to SyncSocket
+  SyncSocket = require('sync-socket');
 }
-
-let SyncSocket = require('sync-socket');
 
 // this will be the Socket class we use, we prefer netlinkwrapper but will fallback to SyncSocket if they couldn't get node-gyp working.
 let Socket = netlinkwrapper || SyncSocket;
@@ -30,10 +31,10 @@ class Client{
     this.port = parseInt(port);
     this._printIO = options.printIO;
 
-    console.log(color.text('cyan') + 'Connecting to:', this.server + ':' + this.port + color.reset());
+    console.log(`${color.text('cyan')}Connecting to:${this.server}:${this.port}${color.reset()}`);
 
     if (!netlinkwrapper) {
-      console.log(color.text('yellow') + 'WARNING: Could not use \'netlinkwrapper\', falling back to FAR slower \'sync-socket\'. (Is your node-gyp configured properly?)' + color.reset());
+      console.log(`${color.text('yellow')}WARNING: Could not use 'netlinkwrapper', falling back to FAR slower 'sync-socket'. (Is your node-gyp configured properly?)${color.reset()}`);
     }
 
     try {
@@ -41,7 +42,7 @@ class Client{
       this._socket.connect(this.port, this.server);
     }
     catch (err) {
-      handleError('COULD_NOT_CONNECT', err, 'Could not connect to ' + this.server + ':' + this.port + '.');
+      handleError('COULD_NOT_CONNECT', err, `Could not connect to ${this.server}:${this.port}.`);
     }
 
     this._connected = true;
@@ -57,7 +58,7 @@ class Client{
 
   _sendRaw(str) {
     if (this._printIO) {
-      console.log(color.text('magenta') + 'TO SERVER <-- ' + str + color.reset());
+      console.log(`${color.text('magenta')}TO SERVER <-- ${str}${color.reset()}`);
     }
 
     try {
@@ -133,7 +134,7 @@ class Client{
 
       if (sent !== undefined) {
         if (this._printIO) {
-          console.log(color.text('magenta') + 'FROM SERVER --> ' + sent + color.reset());
+          console.log(`${color.text('magenta')}FROM SERVER --> ${sent}${color.reset()}`);
         }
 
         let total = this._receievedBuffer + sent;
@@ -148,7 +149,7 @@ class Client{
             parsed = JSON.parse(sentStr);
           }
           catch (err) {
-            handleError('MALFORMED_JSON', err, 'Error parsing json: \'' + sentStr + '\'.');
+            handleError('MALFORMED_JSON', err, `Error parsing json: '${sentStr}'.`);
           }
 
           this._eventsStack.push(parsed);
@@ -238,7 +239,7 @@ class Client{
     let won = this.ai.player.won;
     let reason = won ? this.ai.player.reasonWon : this.ai.player.reasonLost;
 
-    console.log(color.text('green') + 'Game is over.', won ? 'I Won!' : 'I Lost :(', 'because: ' + reason + color.reset());
+    console.log(`${color.text('green')}Game is over. ${won ? 'I Won!' : 'I Lost :('} because: ${reason}${color.reset()}`);
 
     try {
       this.ai.ended(won, reason);
