@@ -1,125 +1,196 @@
-// This is a simple class to represent the Player object in the game. You can extend it by adding utility functions here in this file.
+// Player: A player in this game. Every AI controls one player.
 
-var Class = require("classe");
-var client = require(__basedir + "/joueur/client");
-var GameObject = require("./gameObject");
+// DO NOT MODIFY THIS FILE
+// Never try to directly create an instance of this class, or modify its member variables.
+// Instead, you should only be reading its variables and calling its functions.
 
+const client = require(`${__basedir}/joueur/client`);
+const GameObject = require('./gameObject');
 
 //<<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
 // any additional requires you want can be required here safely between creer runs
 //<<-- /Creer-Merge: requires -->>
 
 /**
- * @class
- * @classdesc A player in this game. Every AI controls one player.
+ * A player in this game. Every AI controls one player.
  * @extends GameObject
  */
-var Player = Class(GameObject, {
-    /**
-     * initializes a Player with basic logic as provided by the Creer code generator
-     *
-     * @memberof Player
-     * @private
-     */
-    init: function() {
-        GameObject.init.apply(this, arguments);
+class Player extends GameObject {
+  /**
+   * initializes a Player with basic logic as provided by the Creer code generator
+   *
+   * @memberof Player
+   * @private
+   */
+  constructor(...args) {
+    super(...args);
 
 
-        // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
+    // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
+
+    // default values for private member values
+    this.checkers = [];
+    this.clientType = "";
+    this.lost = false;
+    this.name = "";
+    this.opponent = null;
+    this.reasonLost = "";
+    this.reasonWon = "";
+    this.timeRemaining = 0;
+    this.won = false;
+    this.yDirection = 0;
+
+    //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
+    // any additional init logic you want can go here
+    //<<-- /Creer-Merge: init -->>
+  }
 
 
-        /**
-         * All the checkers currently in the game owned by this player.
-         *
-         * @name Player#checkers
-         * @type Array.<Checker>
-         */
-        this.checkers = [];
+  // Member variables
 
-        /**
-         * What type of client this is, e.g. 'Python', 'JavaScript', or some other language. For potential data mining purposes.
-         *
-         * @name Player#clientType
-         * @type string
-         */
-        this.clientType = "";
+  /**
+   * All the checkers currently in the game owned by this player.
+   *
+   * @type {Array.<Checker>}
+   */
+  get checkers() {
+    return client.gameManager.getMemberValue(this, 'checkers');
+  }
 
-        /**
-         * If the player lost the game or not.
-         *
-         * @name Player#lost
-         * @type boolean
-         */
-        this.lost = false;
-
-        /**
-         * The name of the player.
-         *
-         * @name Player#name
-         * @type string
-         */
-        this.name = "";
-
-        /**
-         * This player's opponent in the game.
-         *
-         * @name Player#otherPlayer
-         * @type Player
-         */
-        this.otherPlayer = null;
-
-        /**
-         * The reason why the player lost the game.
-         *
-         * @name Player#reasonLost
-         * @type string
-         */
-        this.reasonLost = "";
-
-        /**
-         * The reason why the player won the game.
-         *
-         * @name Player#reasonWon
-         * @type string
-         */
-        this.reasonWon = "";
-
-        /**
-         * The amount of time (in ns) remaining for this AI to send commands.
-         *
-         * @name Player#timeRemaining
-         * @type number
-         */
-        this.timeRemaining = 0;
-
-        /**
-         * If the player won the game or not.
-         *
-         * @name Player#won
-         * @type boolean
-         */
-        this.won = false;
-
-        /**
-         * The direction your checkers must go along the y-axis until kinged.
-         *
-         * @name Player#yDirection
-         * @type number
-         */
-        this.yDirection = 0;
-
-        //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-        // any additional init logic you want can go here
-        //<<-- /Creer-Merge: init -->>
-
-    },
+  set checkers(value) {
+    client.gameManager.setMemberValue(this, 'checkers', value);
+  }
 
 
+  /**
+   * What type of client this is, e.g. 'Python', 'JavaScript', or some other language. For potential data mining purposes.
+   *
+   * @type {string}
+   */
+  get clientType() {
+    return client.gameManager.getMemberValue(this, 'clientType');
+  }
 
-    //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // any additional functions you want to add to this class can be perserved here
-    //<<-- /Creer-Merge: functions -->>
+  set clientType(value) {
+    client.gameManager.setMemberValue(this, 'clientType', value);
+  }
 
-});
+
+  /**
+   * If the player lost the game or not.
+   *
+   * @type {boolean}
+   */
+  get lost() {
+    return client.gameManager.getMemberValue(this, 'lost');
+  }
+
+  set lost(value) {
+    client.gameManager.setMemberValue(this, 'lost', value);
+  }
+
+
+  /**
+   * The name of the player.
+   *
+   * @type {string}
+   */
+  get name() {
+    return client.gameManager.getMemberValue(this, 'name');
+  }
+
+  set name(value) {
+    client.gameManager.setMemberValue(this, 'name', value);
+  }
+
+
+  /**
+   * This player's opponent in the game.
+   *
+   * @type {Player}
+   */
+  get opponent() {
+    return client.gameManager.getMemberValue(this, 'opponent');
+  }
+
+  set opponent(value) {
+    client.gameManager.setMemberValue(this, 'opponent', value);
+  }
+
+
+  /**
+   * The reason why the player lost the game.
+   *
+   * @type {string}
+   */
+  get reasonLost() {
+    return client.gameManager.getMemberValue(this, 'reasonLost');
+  }
+
+  set reasonLost(value) {
+    client.gameManager.setMemberValue(this, 'reasonLost', value);
+  }
+
+
+  /**
+   * The reason why the player won the game.
+   *
+   * @type {string}
+   */
+  get reasonWon() {
+    return client.gameManager.getMemberValue(this, 'reasonWon');
+  }
+
+  set reasonWon(value) {
+    client.gameManager.setMemberValue(this, 'reasonWon', value);
+  }
+
+
+  /**
+   * The amount of time (in ns) remaining for this AI to send commands.
+   *
+   * @type {number}
+   */
+  get timeRemaining() {
+    return client.gameManager.getMemberValue(this, 'timeRemaining');
+  }
+
+  set timeRemaining(value) {
+    client.gameManager.setMemberValue(this, 'timeRemaining', value);
+  }
+
+
+  /**
+   * If the player won the game or not.
+   *
+   * @type {boolean}
+   */
+  get won() {
+    return client.gameManager.getMemberValue(this, 'won');
+  }
+
+  set won(value) {
+    client.gameManager.setMemberValue(this, 'won', value);
+  }
+
+
+  /**
+   * The direction your checkers must go along the y-axis until kinged.
+   *
+   * @type {number}
+   */
+  get yDirection() {
+    return client.gameManager.getMemberValue(this, 'yDirection');
+  }
+
+  set yDirection(value) {
+    client.gameManager.setMemberValue(this, 'yDirection', value);
+  }
+
+
+  //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
+  // any additional functions you want to add to this class can be preserved here
+  //<<-- /Creer-Merge: functions -->>
+}
 
 module.exports = Player;

@@ -24,7 +24,7 @@ if not 'js' in shared:
     def js_value(type_obj, default):
         base_type = type_obj['name']
         if base_type == "string":
-            return '"' + default + '"'
+            return "'" + default + "'"
         elif base_type == "boolean":
             return str(default).lower()
         elif base_type == "int" or base_type == "float":

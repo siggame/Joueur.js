@@ -1,100 +1,108 @@
-var color = require("./ansiColorCoder");
-var fs = require("fs");
+const color = require('./ansiColorCoder');
+const fs = require('fs');
 
 module.exports = function(args) {
-    var splitServer = args.server.split(':');
-    args.server = splitServer[0];
-    args.port = splitServer[1] || args.port;
+  const splitServer = args.server.split(':');
+  args.server = splitServer[0];
+  args.port = splitServer[1] || args.port;
 
-    var handleError = require("./handleError");
-    var client = require("./client");
+  const handleError = require('./handleError');
+  const client = require('./client');
 
-    try {
-        client.connect(args.server, args.port, args)
+  try {
+    client.connect(args.server, args.port, args)
+  }
+  catch (err) {
+    return handleError('COULD_NOT_CONNECT', err, 'Error creating synchronous socket.');
+  }
+
+  client.send('alias', args.game);
+  let gameName = client.waitForEvent('named');
+
+  let gameDir = (`${__basedir}games/${gameName[0].toLowerCase() + gameName.substr(1)}/`);
+
+  // get syntax errors in files because the syntax errors node throws are half useless
+  const walk = require('./walk');
+  const check = require('syntax-error');
+  const gameFiles = walk(gameDir);
+  for (let i = 0; i < gameFiles.length; i++) {
+    let filename = gameFiles[i];
+    let file = gameDir + filename;
+    let src = fs.readFileSync(file);
+
+    let err = check(src, file);
+    if (err) {
+      err.message = err.annotated.substr(1); // chop off the newline
+
+      return handleError('AI_ERRORED', err, `Error requiring file ${file}`);
     }
-    catch(err) {
-        return handleError("COULD_NOT_CONNECT", err, "Error creating synchronous socket.");
-    }
+  }
 
-    client.send("alias", args.game);
-    var gameName = client.waitForEvent("named");
+  try {
+    require.resolve(`${gameDir}game`);
+  }
+  catch (err) {
+    return handleError('GAME_NOT_FOUND', err, `Cannot find Game '${gameName}'.`);
+  }
 
-    var gameDir = (__basedir + "games/" + gameName.lowercaseFirst() + "/");
+  let gameClass;
+  try {
+    gameClass = require(`${gameDir}game`);
+  }
+  catch (err) {
+    return handleError('REFLECTION_FAILED', err, `Error requiring the Game Class for '${gameName}'.`);
+  }
 
-    // get syntax errors in files because the syntax errors node throws are half useless
-    var walk = require("./walk");
-    var check = require('syntax-error');
-    var gameFiles = walk(gameDir);
-    for(var i = 0; i < gameFiles.length; i++) {
-        var filename = gameFiles[i];
-        var file = gameDir + filename;
-        var src = fs.readFileSync(file);
+  let gameManagerClass;
+  try {
+    gameManagerClass = require(`${gameDir}gameManager`);
+  }
+  catch (err) {
+    return handleError('REFLECTION_FAILED', err, `Error requiring the GameManager Class for '${gameName}'.`);
+  }
 
-        var err = check(src, file);
-        if(err) {
-            err.message = err.annotated.substr(1); // chop off the newline
+  let aiClass;
+  try {
+    aiClass = require(`${gameDir}ai`);
+  }
+  catch (err) {
+    return handleError('AI_ERRORED', err, `Error requiring the AI Class for '${gameName}'. Probably a syntax error.`);
+  }
 
-            return handleError("AI_ERRORED", err, "Error requiring file {}.".format(file));
-        }
-    }
+  client.setup(gameClass, aiClass, gameManagerClass);
+  let game = client.game;
+  let ai = client.ai;
 
-    try {
-        require.resolve(gameDir + "game");
-    }
-    catch(err) {
-        return handleError("GAME_NOT_FOUND", err, "Cannot find Game '" + gameName + "'.");
-    }
+  ai.setSettings(args.aiSettings);
 
-    var gameClass;
-    try {
-        gameClass = require(gameDir + "game");
-    }
-    catch(err) {
-        return handleError("REFLECTION_FAILED", err, "Error requiring the Game Class for '" + gameName + "'.");
-    }
+  client.send('play', {
+    gameName: gameName,
+    password: args.password,
+    requestedSession: args.session,
+    clientType: 'JavaScript',
+    playerName: args.playerName || ai.getName() || 'JavaScript Player',
+    playerIndex: args.index,
+    gameSettings: args.gameSettings,
+  });
 
-    var aiClass;
-    try {
-        aiClass = require(gameDir + "ai");
-    }
-    catch(err) {
-        return handleError("AI_ERRORED", err, "Error requiring the AI Class for '" + gameName + "'. Probably a syntax error.");
-    }
+  let lobbyData = client.waitForEvent('lobbied');
 
-    var game = new gameClass();
-    var ai = new aiClass(game);
-    client.setup(game, ai);
+  console.log(`${color.text('cyan')}In lobby for game '${lobbyData.gameName}' in session '${lobbyData.gameSession}'.${color.reset()}`);
 
-    ai.setSettings(args.aiSettings);
+  client.gameManager.setConstants(lobbyData.constants, game);
 
-    client.send("play", {
-        gameName: gameName,
-        password: args.password,
-        requestedSession: args.session,
-        clientType: "JavaScript",
-        playerName: args.playerName || ai.getName() || "JavaScript Player",
-        playerIndex: args.index,
-        gameSettings: args.gameSettings,
-    });
+  let startData = client.waitForEvent('start');
 
-    var lobbyData = client.waitForEvent("lobbied");
+  console.log(`${color.text('green')}Game is starting.${color.reset()}`);
 
-    console.log(color.text("cyan") + "In lobby for game '" + lobbyData.gameName + "' in session '" + lobbyData.gameSession + "'." + color.reset());
+  ai.player = game.getGameObject(startData.playerID);
+  try {
+    ai.start();
+    ai.gameUpdated();
+  }
+  catch (err) {
+    handleError('AI_ERRORED', err, 'AI errored when game initially started.');
+  }
 
-    client.gameManager.setConstants(lobbyData.constants);
-
-    var startData = client.waitForEvent("start");
-
-    console.log(color.text("green") + "Game is starting." + color.reset());
-
-    ai.player = game.getGameObject(startData.playerID);
-    try {
-        ai.start();
-        ai.gameUpdated();
-    }
-    catch(err) {
-        handleError("AI_ERRORED", err, "AI errored when game initially started.");
-    }
-
-    client.play();
+  client.play();
 };

@@ -10,8 +10,6 @@
   "private": true,
   "dependencies": {
     "argparse": "1.0.2",
-    "cadre-js-extensions": "siggame/Cadre-js-extensions",
-    "classe": "1.0.0",
     "sync-socket": "1.0.0",
     "syntax-error": "1.1.6"
   },
