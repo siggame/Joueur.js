@@ -36,13 +36,13 @@ class Game extends BaseGame {
     // default values for private member values
     this.currentPlayer = null;
     this.currentTurn = 0;
-    this.fen = "";
+    this.fen = '';
     this.gameObjects = {};
     this.maxTurns = 0;
     this.moves = [];
     this.pieces = [];
     this.players = [];
-    this.session = "";
+    this.session = '';
     this.turnsToDraw = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

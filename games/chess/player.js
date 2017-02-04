@@ -29,17 +29,17 @@ class Player extends GameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
-    this.clientType = "";
-    this.color = "";
+    this.clientType = '';
+    this.color = '';
     this.inCheck = false;
     this.lost = false;
     this.madeMove = false;
-    this.name = "";
+    this.name = '';
     this.opponent = null;
     this.pieces = [];
     this.rankDirection = 0;
-    this.reasonLost = "";
-    this.reasonWon = "";
+    this.reasonLost = '';
+    this.reasonWon = '';
     this.timeRemaining = 0;
     this.won = false;
 

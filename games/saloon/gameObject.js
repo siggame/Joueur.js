@@ -29,8 +29,8 @@ class GameObject extends BaseGameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
-    this.gameObjectName = "";
-    this.id = "";
+    this.gameObjectName = '';
+    this.id = '';
     this.logs = [];
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

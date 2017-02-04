@@ -30,7 +30,7 @@ class Forecast extends GameObject {
 
     // default values for private member values
     this.controllingPlayer = null;
-    this.direction = "";
+    this.direction = '';
     this.intensity = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

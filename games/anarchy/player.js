@@ -31,15 +31,15 @@ class Player extends GameObject {
     // default values for private member values
     this.bribesRemaining = 0;
     this.buildings = [];
-    this.clientType = "";
+    this.clientType = '';
     this.fireDepartments = [];
     this.headquarters = null;
     this.lost = false;
-    this.name = "";
+    this.name = '';
     this.opponent = null;
     this.policeDepartments = [];
-    this.reasonLost = "";
-    this.reasonWon = "";
+    this.reasonLost = '';
+    this.reasonWon = '';
     this.timeRemaining = 0;
     this.warehouses = [];
     this.weatherStations = [];

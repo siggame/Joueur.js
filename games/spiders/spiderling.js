@@ -29,7 +29,7 @@ class Spiderling extends Spider {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
-    this.busy = "";
+    this.busy = '';
     this.movingOnWeb = null;
     this.movingToNest = null;
     this.numberOfCoworkers = 0;

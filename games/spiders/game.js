@@ -44,7 +44,7 @@ class Game extends BaseGame {
     this.movementSpeed = 0;
     this.nests = [];
     this.players = [];
-    this.session = "";
+    this.session = '';
     this.spitSpeed = 0;
     this.weavePower = 0;
     this.weaveSpeed = 0;

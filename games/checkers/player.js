@@ -30,12 +30,12 @@ class Player extends GameObject {
 
     // default values for private member values
     this.checkers = [];
-    this.clientType = "";
+    this.clientType = '';
     this.lost = false;
-    this.name = "";
+    this.name = '';
     this.opponent = null;
-    this.reasonLost = "";
-    this.reasonWon = "";
+    this.reasonLost = '';
+    this.reasonWon = '';
     this.timeRemaining = 0;
     this.won = false;
     this.yDirection = 0;

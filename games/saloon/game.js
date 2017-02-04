@@ -49,7 +49,7 @@ class Game extends BaseGame {
     this.maxTurns = 0;
     this.players = [];
     this.rowdinessToSiesta = 0;
-    this.session = "";
+    this.session = '';
     this.sharpshooterDamage = 0;
     this.siestaLength = 0;
     this.tiles = [];

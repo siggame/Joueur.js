@@ -30,11 +30,11 @@ class Piece extends GameObject {
 
     // default values for private member values
     this.captured = false;
-    this.file = "";
+    this.file = '';
     this.hasMoved = false;
     this.owner = null;
     this.rank = 0;
-    this.type = "";
+    this.type = '';
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // any additional init logic you want can go here

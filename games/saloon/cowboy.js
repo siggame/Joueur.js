@@ -30,12 +30,12 @@ class Cowboy extends GameObject {
 
     // default values for private member values
     this.canMove = false;
-    this.drunkDirection = "";
+    this.drunkDirection = '';
     this.focus = 0;
     this.health = 0;
     this.isDead = false;
     this.isDrunk = false;
-    this.job = "";
+    this.job = '';
     this.owner = null;
     this.tile = null;
     this.tolerance = 0;

@@ -13,6 +13,7 @@ const GameObject = require('./gameObject');
 
 /**
  * Contains all details about a Piece's move in the game.
+ * @extends GameObject
  */
 class Move extends GameObject {
   /**
@@ -29,12 +30,12 @@ class Move extends GameObject {
 
     // default values for private member values
     this.captured = null;
-    this.fromFile = "";
+    this.fromFile = '';
     this.fromRank = 0;
     this.piece = null;
-    this.promotion = "";
-    this.san = "";
-    this.toFile = "";
+    this.promotion = '';
+    this.san = '';
+    this.toFile = '';
     this.toRank = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

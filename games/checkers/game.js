@@ -44,7 +44,7 @@ class Game extends BaseGame {
     this.gameObjects = {};
     this.maxTurns = 0;
     this.players = [];
-    this.session = "";
+    this.session = '';
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // any additional init logic you want can go here

@@ -29,8 +29,8 @@ class Bottle extends GameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
-    this.direction = "";
-    this.drunkDirection = "";
+    this.direction = '';
+    this.drunkDirection = '';
     this.isDestroyed = false;
     this.tile = null;
 

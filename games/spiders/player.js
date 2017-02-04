@@ -30,13 +30,13 @@ class Player extends GameObject {
 
     // default values for private member values
     this.broodMother = null;
-    this.clientType = "";
+    this.clientType = '';
     this.lost = false;
     this.maxSpiderlings = 0;
-    this.name = "";
+    this.name = '';
     this.opponent = null;
-    this.reasonLost = "";
-    this.reasonWon = "";
+    this.reasonLost = '';
+    this.reasonWon = '';
     this.spiders = [];
     this.timeRemaining = 0;
     this.won = false;
