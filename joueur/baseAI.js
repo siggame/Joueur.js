@@ -38,10 +38,8 @@ class BaseAI {
   }
 
   /**
-   * Gets an AI setting passed to the program via the `--aiSettings` flag. If the flag was set it will be returned as a string value, None otherwise.
+   * Gets an AI setting passed to the program via the `--aiSettings` flag. If the flag was set it will be returned as a string value, undefined otherwise.
    *
-   * @memberof BaseAI
-   * @instance
    * @param {string} key - The key of the setting you wish to get the value for
    * @returns {string|undefined} A string representing the value set via command line, or undefined if the key was not set
    */

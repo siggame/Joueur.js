@@ -26,12 +26,12 @@ class Client{
     this._bufferSize = 16*1024;
   }
 
-  connect(server, port, options) {
-    this.server = String(server);
+  connect(hostname, port, options) {
+    this.hostname = String(hostname);
     this.port = parseInt(port);
     this._printIO = options.printIO;
 
-    console.log(`${color.text('cyan')}Connecting to:${this.server}:${this.port}${color.reset()}`);
+    console.log(`${color.text('cyan')}Connecting to:${this.hostname}:${this.port}${color.reset()}`);
 
     if (!netlinkwrapper) {
       console.log(`${color.text('yellow')}WARNING: Could not use 'netlinkwrapper', falling back to FAR slower 'sync-socket'. (Is your node-gyp configured properly?)${color.reset()}`);
@@ -39,10 +39,10 @@ class Client{
 
     try {
       this._socket = new Socket();
-      this._socket.connect(this.port, this.server);
+      this._socket.connect(this.port, this.hostname);
     }
     catch (err) {
-      handleError('COULD_NOT_CONNECT', err, `Could not connect to ${this.server}:${this.port}.`);
+      handleError('COULD_NOT_CONNECT', err, `Could not connect to ${this.hostname}:${this.port}.`);
     }
 
     this._connected = true;
@@ -249,7 +249,8 @@ class Client{
     }
 
     if (data.message) {
-      console.log(color.text('cyan') + data.message + color.reset());
+      const message = data.message.replace('__HOSTNAME__', this.hostname);
+      console.log(color.text('cyan') + message + color.reset());
     }
 
     this.disconnect();
