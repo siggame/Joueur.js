@@ -4,13 +4,15 @@ This is the root of you AI. Stay out of the `joueur/` folder, it does most of th
 
 ## How to Run
 
-This client has been tested and confirmed to work on the Campus rc##xcs213 Linux machines, but it can work on your own Windows/Linux/Mac machines if you desire.
+This client has been tested and confirmed to work on the MST campus rc##xcs213 Linux machines, but it can work on your own Windows/Linux/Mac machines if you desire.
 
 ### Requirements
 
-You need [Node.js][1], which should install `node` and `npm` for you. Version 4.6.0 is officially supported, though older versions back to 0.10, and newer versions such as v6.X should work just as well.
+You need [Node.js][nodejs], which should install `node` and `npm` for you. Make sure to install a node version greater than or equal to Version 4.3.2. If you somehow require an older version, look at the [ES5 branch][es5] on GitHub, which is the last version of this client that did not use ES6 features present in more recent node versions.
 
-In addition, [node-gyp][2] is required to build the netlinkwrapper module, which is a wrapper to a simple C++ socket library. Make sure `npm` can build node-gyp projects by following their [installation instructions][3].
+In addition, [node-gyp][node-gyp] is **highly** recommended, but *not* required to build the netlinkwrapper module. Make sure `npm` can build node-gyp projects by following their [installation instructions][node-gyp-install]. Basically you will need a C++ compiler and Python 2.7 hooked up to node-gyp.
+
+If you opt not to install node-gyp because it is annoying to set up, the client will fallback to a pure JavaScript module, but your game client will run much slower during testing. However, in the arena, we will build node-gyp correctly so it will run much faster in there.
 
 ### Linux
 
@@ -23,7 +25,7 @@ make
 
 ### Windows
 
-Install [Node.js][1] and a C++ compiler. Having a version of Visual Studio with Visual C++ normally installs these tools for you on Windows, but [MS Build Tools 2013](http://www.microsoft.com/en-us/download/details.aspx?id=40760) should work as well if you have a hatred of Visual Studio on Windows, or get node-gyp build errors complaining of no way to build native V8 addons. You may need the `--msvs_version=2013` flag if `npm install` gives a compiler error.
+Install [Node.js][nodejs] and a C++ compiler. Having a version of Visual Studio with Visual C++ normally installs these tools for you on Windows, but [MS Build Tools 2013][ms-build-tools] should work as well if you have a hatred of Visual Studio on Windows, or get node-gyp build errors complaining of no way to build native V8 addons. You may need the `--msvs_version=2013` flag if `npm install` gives a compiler error.
 
 Then from a powershell:
 
@@ -34,8 +36,13 @@ node main.js Chess -s r99acm.device.mst.edu -r MyOwnGameSession
 
 ## Other Notes
 
-It is possible that on your Missouri S&T S-Drive this client will not run properly. This is not a fault with the client, but rather the school's S-Drive implimentation changing some file permissions during run time. We cannot control this. Instead, we recommend cloning your repo outside the S-Drive and use an SCP program like [WinSCP](https://winscp.net/eng/download.php) to edit the files in Windows using whatever IDE you want if you want to code in Windows, but compile in Linux.
+It is possible that on your Missouri S&T S-Drive this client will not run properly. This is not a fault with the client, but rather the school's S-Drive implementation changing some file permissions during run time. We cannot control this. Instead, we recommend cloning your repo outside the S-Drive and use an SCP program like [WinSCP][winscp] to edit the files in Windows using whatever IDE you want if you want to code in Windows, but compile in Linux.
 
-[1]: https://nodejs.org/
-[2]: https://github.com/nodejs/node-gyp
-[3]: https://github.com/nodejs/node-gyp#installation
+The only file you should ever modify to create your AI is the `ai.js` file. All the other files are needed for the game to work. In addition, you should never be creating your own instances of the Game's classes, nor should you ever try to modify their variables. Instead, treat the Game and its members as a read only structure that represents the game state on the game server. You interact with it by calling the game object functions.
+
+[nodejs]: https://nodejs.org/
+[node-gyp]: https://github.com/nodejs/node-gyp
+[node-gyp-install]: https://github.com/nodejs/node-gyp#installation
+[es5]: https://github.com/siggame/Joueur.js/tree/es5
+[winscp]: https://github.com/siggame/Joueur.js/tree/es6
+[ms-build-tools]: http://www.microsoft.com/en-us/download/details.aspx?id=40760

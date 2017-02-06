@@ -1,3 +1,11 @@
 #!/bin/bash
 
-node ./main.js "$@"
+NODE=node
+if  [[ "$(node -v)" == "v4*" ]] ;
+then
+    # some of the ES6 features we need require the harmony flag in node v4.X.X
+    # Note: the next version (v5+) do not require this
+    NODE="node --harmony"
+fi
+
+$NODE ./main.js "$@"
