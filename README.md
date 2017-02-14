@@ -34,6 +34,24 @@ npm install
 node main.js GAME_NAME -s r99acm.device.mst.edu -r MyOwnGameSession
 ```
 
+### Vagrant
+
+Install [Vagrant][vagrant] and [Virtualbox][virtualbox] in order to use the Vagrant configuration we provide which satisfies all build dependencies inside of a virtual machine. This will allow for development with your favorite IDE or editor on your host machine while being able to run the client inside the virtual machine. Vagrant will automatically sync the changes you make into the virutal machine that it creates. In order to use vagrant -- after installing the aforementioned requirements -- simply run:
+
+```bash
+vagrant up
+```
+
+and after the build has completed you can ssh into the virtual environment by running:
+
+```bash
+vagrant ssh
+```
+
+When the competition is over, or the virtual environment becomes corrupted in some way, simply execute `vagrant destroy` to delete the virtual machiine and its contents.
+
+Note: If you are on Windows you will need to use an OpenSSH compatible ssh client.
+
 ## Other Notes
 
 It is possible that on your Missouri S&T S-Drive this client will not run properly. This is not a fault with the client, but rather the school's S-Drive implementation changing some file permissions during run time. We cannot control this. Instead, we recommend cloning your repo outside the S-Drive and use an SCP program like [WinSCP][winscp] to edit the files in Windows using whatever IDE you want if you want to code in Windows, but compile in Linux.
@@ -46,3 +64,5 @@ The only file you should ever modify to create your AI is the `ai.js` file. All 
 [es5]: https://github.com/siggame/Joueur.js/tree/es5
 [winscp]: https://github.com/siggame/Joueur.js/tree/es6
 [ms-build-tools]: http://www.microsoft.com/en-us/download/details.aspx?id=40760
+[vagrant]: https://www.vagrantup.com/
+[virtualbox]: https://www.virtualbox.org/wiki/Downloads
