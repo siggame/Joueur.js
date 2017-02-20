@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
     sudo apt-get update
     sudo apt-get upgrade -y
-    sudo apt-get install -y git python build-essential checkinstall g++
+    sudo apt-get install -y git make python build-essential checkinstall g++
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
     ln -sF /vagrant workspace
     source $HOME/.nvm/nvm.sh
