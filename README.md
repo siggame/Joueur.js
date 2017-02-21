@@ -77,5 +77,6 @@ The only file you should ever modify to create your AI is the `ai.js` file. All 
 [winscp]: https://github.com/siggame/Joueur.js/tree/es6
 [ms-build-tools]: http://www.microsoft.com/en-us/download/details.aspx?id=40760
 [vagrant]: https://www.vagrantup.com/
+[vagrant-guide]: https://www.vagrantup.com/docs/getting-started/
 [virtualbox]: https://www.virtualbox.org/wiki/Downloads
 [gitbash]: https://git-scm.com/downloads
