@@ -34,7 +34,36 @@ npm install
 node main.js GAME_NAME -s r99acm.device.mst.edu -r MyOwnGameSession
 ```
 
+### Vagrant
+
+Install [Vagrant][vagrant] and [Virtualbox][virtualbox] in order to use the Vagrant configuration we provide which satisfies all build dependencies inside of a virtual machine. This will allow for development with your favorite IDE or editor on your host machine while being able to run the client inside the virtual machine. Vagrant will automatically sync the changes you make into the virtual machine that it creates. In order to use vagrant **after installing the aforementioned requirements** simply run from the root of this client:
+
+```bash
+vagrant up
+```
+
+and after the build has completed you can ssh into the virtual environment by running:
+
+```bash
+vagrant ssh
+```
+
+From there you will be in a Linux environment that has all the dependencies you'll need to build and run this client.
+
+When the competition is over, or the virtual environment becomes corrupted in some way, simply execute `vagrant destroy` to delete the virtual machine and its contents.
+
+For a more in depth guide on using vagrant, take a look at [their guide][vagrant-guide]
+
+#### Windows
+
+Using Vagrant with Windows can be a bit of a pain. Here are some tips:
+
+* Use an OpenSSH compatible ssh client. We recommend [Git Bash][gitbash] to serve double duty as your git client and ssh client
+* Launch the terminal of your choice (like Git Bash) as an Administrator to ensure the symbolic links can be created when spinning up your Vagrant virtual machine
+
 ## Other Notes
+
+If you wish to use a different version of node, edit your `.nvmrc`, which will tell [Node Version Manager][nvm] your desired node version.
 
 It is possible that on your Missouri S&T S-Drive this client will not run properly. This is not a fault with the client, but rather the school's S-Drive implementation changing some file permissions during run time. We cannot control this. Instead, we recommend cloning your repo outside the S-Drive and use an SCP program like [WinSCP][winscp] to edit the files in Windows using whatever IDE you want if you want to code in Windows, but compile in Linux.
 
@@ -43,6 +72,11 @@ The only file you should ever modify to create your AI is the `ai.js` file. All 
 [nodejs]: https://nodejs.org/
 [node-gyp]: https://github.com/nodejs/node-gyp
 [node-gyp-install]: https://github.com/nodejs/node-gyp#installation
+[nvm]: https://github.com/creationix/nvm
 [es5]: https://github.com/siggame/Joueur.js/tree/es5
 [winscp]: https://github.com/siggame/Joueur.js/tree/es6
 [ms-build-tools]: http://www.microsoft.com/en-us/download/details.aspx?id=40760
+[vagrant]: https://www.vagrantup.com/
+[vagrant-guide]: https://www.vagrantup.com/docs/getting-started/
+[virtualbox]: https://www.virtualbox.org/wiki/Downloads
+[gitbash]: https://git-scm.com/downloads
