@@ -31,13 +31,14 @@ class Beaver extends GameObject {
     // default values for private member values
     this.actions = 0;
     this.branches = 0;
-    this.distracted = 0;
     this.fish = 0;
     this.health = 0;
     this.job = null;
     this.moves = 0;
     this.owner = null;
+    this.recruited = false;
     this.tile = null;
+    this.turnsDistracted = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // any additional init logic you want can go here
@@ -72,20 +73,6 @@ class Beaver extends GameObject {
 
   set branches(value) {
     client.gameManager.setMemberValue(this, 'branches', value);
-  }
-
-
-  /**
-   * Number of turns this beaver is distracted for (0 means not distracted).
-   *
-   * @type {number}
-   */
-  get distracted() {
-    return client.gameManager.getMemberValue(this, 'distracted');
-  }
-
-  set distracted(value) {
-    client.gameManager.setMemberValue(this, 'distracted', value);
   }
 
 
@@ -160,6 +147,20 @@ class Beaver extends GameObject {
 
 
   /**
+   * True if the Beaver has finished being recruited and can do things, False otherwise.
+   *
+   * @type {boolean}
+   */
+  get recruited() {
+    return client.gameManager.getMemberValue(this, 'recruited');
+  }
+
+  set recruited(value) {
+    client.gameManager.setMemberValue(this, 'recruited', value);
+  }
+
+
+  /**
    * The tile this beaver is on.
    *
    * @type {Tile}
@@ -173,16 +174,30 @@ class Beaver extends GameObject {
   }
 
 
+  /**
+   * Number of turns this beaver is distracted for (0 means not distracted).
+   *
+   * @type {number}
+   */
+  get turnsDistracted() {
+    return client.gameManager.getMemberValue(this, 'turnsDistracted');
+  }
+
+  set turnsDistracted(value) {
+    client.gameManager.setMemberValue(this, 'turnsDistracted', value);
+  }
+
+
 
   /**
    * Attacks another adjacent beaver.
    *
-   * @param {Tile} tile - The tile of the beaver you want to attack.
+   * @param {Beaver} beaver - The beaver to attack. Must be on an adjacent tile.
    * @returns {boolean} - True if successfully attacked, false otherwise.
    */
-  attack(tile) {
+  attack(beaver) {
     return client.runOnServer(this, 'attack', {
-      tile: tile,
+      beaver: beaver,
     });
   }
 
@@ -201,16 +216,18 @@ class Beaver extends GameObject {
   /**
    * Drops some of the given resource on the beaver's tile. Fish dropped in water disappear instantly, and fish dropped on land die one per tile per turn.
    *
+   * @param {Tile} tile - The Tile to drop branches/fish on. Must be the same Tile that the Beaver is on, or an adjacent one.
    * @param {string} resource - The type of resource to drop ('branch' or 'fish').
-   * @param {number} [amount] - The amount of the resource to drop, numbers <= 0 will drop all of that type.
+   * @param {number} [amount] - The amount of the resource to drop, numbers <= 0 will drop all the resource type.
    * @returns {boolean} - True if successfully dropped the resource, false otherwise.
    */
-  drop(resource, amount) {
-    if(arguments.length <= 1) {
+  drop(tile, resource, amount) {
+    if(arguments.length <= 2) {
       amount = 0;
     }
 
     return client.runOnServer(this, 'drop', {
+      tile: tile,
       resource: resource,
       amount: amount,
     });
@@ -220,12 +237,12 @@ class Beaver extends GameObject {
   /**
    * Harvests the branches or fish from a Spawner on an adjacent tile.
    *
-   * @param {Tile} tile - The tile you want to harvest.
+   * @param {Spawner} spawner - The Spawner you want to harvest. Must be on an adjacent tile.
    * @returns {boolean} - True if successfully harvested, false otherwise.
    */
-  harvest(tile) {
+  harvest(spawner) {
     return client.runOnServer(this, 'harvest', {
-      tile: tile,
+      spawner: spawner,
     });
   }
 
@@ -233,7 +250,7 @@ class Beaver extends GameObject {
   /**
    * Moves this beaver from its current tile to an adjacent tile.
    *
-   * @param {Tile} tile - The tile this beaver should move to. Costs 2 moves normally, 3 if moving upstream, and 1 if moving downstream.
+   * @param {Tile} tile - The tile this beaver should move to.
    * @returns {boolean} - True if the move worked, false otherwise.
    */
   move(tile) {
@@ -246,16 +263,18 @@ class Beaver extends GameObject {
   /**
    * Picks up some branches or fish on the beaver's tile.
    *
+   * @param {Tile} tile - The Tile to pickup branches/fish from. Must be the same Tile that the Beaver is on, or an adjacent one.
    * @param {string} resource - The type of resource to pickup ('branch' or 'fish').
-   * @param {number} [amount] - The amount of the resource to drop, numbers <= 0 will pickup all of that type.
+   * @param {number} [amount] - The amount of the resource to drop, numbers <= 0 will pickup all of the resource type.
    * @returns {boolean} - True if successfully picked up a resource, false otherwise.
    */
-  pickup(resource, amount) {
-    if(arguments.length <= 1) {
+  pickup(tile, resource, amount) {
+    if(arguments.length <= 2) {
       amount = 0;
     }
 
     return client.runOnServer(this, 'pickup', {
+      tile: tile,
       resource: resource,
       amount: amount,
     });

@@ -41,6 +41,7 @@ class Game extends BaseGame {
     this.freeBeaversCount = 0;
     this.gameObjects = {};
     this.jobs = [];
+    this.lodgeCostConstant = 0;
     this.lodgesCompleteToWin = 0;
     this.mapHeight = 0;
     this.mapWidth = 0;
@@ -48,6 +49,7 @@ class Game extends BaseGame {
     this.players = [];
     this.session = '';
     this.spawner = [];
+    this.spawnerHarvestConstant = 0;
     this.spawnerTypes = [];
     this.tiles = [];
 
@@ -158,6 +160,20 @@ class Game extends BaseGame {
 
 
   /**
+   * Constant number used to calculate what it costs to spawn a new lodge.
+   *
+   * @type {number}
+   */
+  get lodgeCostConstant() {
+    return client.gameManager.getMemberValue(this, 'lodgeCostConstant');
+  }
+
+  set lodgeCostConstant(value) {
+    client.gameManager.setMemberValue(this, 'lodgeCostConstant', value);
+  }
+
+
+  /**
    * How many lodges must be complete at once to win the game.
    *
    * @type {number}
@@ -252,6 +268,20 @@ class Game extends BaseGame {
 
   set spawner(value) {
     client.gameManager.setMemberValue(this, 'spawner', value);
+  }
+
+
+  /**
+   * Constant number used to calculate how many breanches/fish Beavers harvest from spawners.
+   *
+   * @type {number}
+   */
+  get spawnerHarvestConstant() {
+    return client.gameManager.getMemberValue(this, 'spawnerHarvestConstant');
+  }
+
+  set spawnerHarvestConstant(value) {
+    client.gameManager.setMemberValue(this, 'spawnerHarvestConstant', value);
   }
 
 

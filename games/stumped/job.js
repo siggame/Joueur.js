@@ -34,7 +34,7 @@ class Job extends GameObject {
     this.chopping = 0;
     this.cost = 0;
     this.damage = 0;
-    this.distracts = 0;
+    this.distractionPower = 0;
     this.fishing = 0;
     this.health = 0;
     this.moves = 0;
@@ -123,12 +123,12 @@ class Job extends GameObject {
    *
    * @type {number}
    */
-  get distracts() {
-    return client.gameManager.getMemberValue(this, 'distracts');
+  get distractionPower() {
+    return client.gameManager.getMemberValue(this, 'distractionPower');
   }
 
-  set distracts(value) {
-    client.gameManager.setMemberValue(this, 'distracts', value);
+  set distractionPower(value) {
+    client.gameManager.setMemberValue(this, 'distractionPower', value);
   }
 
 
@@ -192,12 +192,12 @@ class Job extends GameObject {
   /**
    * Recruits a Beaver of this Job to a lodge
    *
-   * @param {Tile} lodge - The Tile that is a lodge owned by you that you wish to spawn the Beaver of this Job on.
+   * @param {Tile} tile - The Tile that is a lodge owned by you that you wish to spawn the Beaver of this Job on.
    * @returns {Beaver} - The recruited Beaver if successful, null otherwise.
    */
-  recruit(lodge) {
+  recruit(tile) {
     return client.runOnServer(this, 'recruit', {
-      lodge: lodge,
+      tile: tile,
     });
   }
 

@@ -29,6 +29,7 @@ class Spawner extends GameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
+    this.hasBeenHarvested = false;
     this.health = 0;
     this.tile = null;
     this.type = '';
@@ -42,7 +43,21 @@ class Spawner extends GameObject {
   // Member variables
 
   /**
-   * How much of the resource is left.
+   * True if this Spawner has been harvested this turn, and it will not heal at the end of the turn, false otherwise.
+   *
+   * @type {boolean}
+   */
+  get hasBeenHarvested() {
+    return client.gameManager.getMemberValue(this, 'hasBeenHarvested');
+  }
+
+  set hasBeenHarvested(value) {
+    client.gameManager.setMemberValue(this, 'hasBeenHarvested', value);
+  }
+
+
+  /**
+   * How much health this spawner has, which is used to calculate how much of its resource can be harvested.
    *
    * @type {number}
    */
@@ -56,7 +71,7 @@ class Spawner extends GameObject {
 
 
   /**
-   * The tile this resource is on.
+   * The tile this Spawner is on.
    *
    * @type {Tile}
    */
