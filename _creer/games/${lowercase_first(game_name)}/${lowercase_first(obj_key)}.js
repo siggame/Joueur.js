@@ -124,6 +124,72 @@ ${merge('    //', 'init', '    // any additional init logic you want can go here
   }
 
 % endfor
+% if 'Tile' in game_objs:
+% if 'TiledGame' in game['serverParentClasses']: #// then we need to add some client side utility functions
+% if obj_key == 'Game':
+  /**
+   * Gets the Tile at a specified (x, y) position
+   *
+   * @param {number} x - integer between 0 and the mapWidth
+   * @param {number} y - integer between 0 and the mapHeight
+   * @returns {Tile|null} - the Tile at (x, y) or null if out of bounds
+   */
+  getTileAt(x, y) {
+    if(x < 0 || y < 0 || x >= this.mapWidth || y >= this.mapHeight) { // out of bounds
+      return null;
+    }
+
+    return this.tiles[x + y * this.mapWidth] || null;
+  }
+% elif obj_key == 'Tile':
+  /**
+   * Gets the valid directions that tiles can be in, "North", "East", "South", or "West"
+   *
+   * @returns {Array.<string>} "North", "East", "South", and "West"
+   */
+  directions() {
+    return ["North", "East", "South", "West"];
+  }
+
+  /**
+   * Gets the neighbors of this Tile
+   *
+   * @returns {Array.<Tile>} - The neighboring (adjacent) Tiles to this tile
+   */
+  getNeighbors() {
+    let neighbors = [];
+
+    for(const direction of this.directions()) {
+      const neighbor = this["tile" + this.directions[i]];
+      if(neighbor) {
+        neighbors.push(neighbor);
+      }
+    }
+
+    return neighbors;
+  }
+
+  /**
+   * Checks if a Tile is pathable to units
+   *
+   * @returns {boolean} - True if pathable, false otherwise
+   */
+  isPathable() {
+${merge("    // ", "is_pathable_builtin", "    return false; // DEVELOPER ADD LOGIC HERE")}
+  }
+
+  /**
+   * Checks if this Tile has a specific neighboring Tile
+   *
+   * @returns {boolean} true if the tile is a neighbor of this Tile, false otherwise
+   */
+  hasNeighbor(tile) {
+    return Boolean(tile && (this.tileNorth === tile || this.tileEast === tile || this.tileSouth === tile || this.tileEast === tile));
+  }
+% endif
+% endif
+
+% endif
 ${merge('  //', 'functions', '  // any additional functions you want to add to this class can be preserved here', optional=True)}
 }
 

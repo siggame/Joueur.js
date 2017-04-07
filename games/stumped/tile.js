@@ -233,6 +233,53 @@ class Tile extends GameObject {
   }
 
 
+  /**
+   * Gets the valid directions that tiles can be in, "North", "East", "South", or "West"
+   *
+   * @returns {Array.<string>} "North", "East", "South", and "West"
+   */
+  directions() {
+    return ["North", "East", "South", "West"];
+  }
+
+  /**
+   * Gets the neighbors of this Tile
+   *
+   * @returns {Array.<Tile>} - The neighboring (adjacent) Tiles to this tile
+   */
+  getNeighbors() {
+    let neighbors = [];
+
+    for(const direction of this.directions()) {
+      const neighbor = this["tile" + this.directions[i]];
+      if(neighbor) {
+        neighbors.push(neighbor);
+      }
+    }
+
+    return neighbors;
+  }
+
+  /**
+   * Checks if a Tile is pathable to units
+   *
+   * @returns {boolean} - True if pathable, false otherwise
+   */
+  isPathable() {
+    // <<-- Creer-Merge: is_pathable_builtin -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
+    return !this.beaver && !this.spawner && !this.lodgeOwner;
+    // <<-- /Creer-Merge: is_pathable_builtin -->>
+  }
+
+  /**
+   * Checks if this Tile has a specific neighboring Tile
+   *
+   * @returns {boolean} true if the tile is a neighbor of this Tile, false otherwise
+   */
+  hasNeighbor(tile) {
+    return Boolean(tile && (this.tileNorth === tile || this.tileEast === tile || this.tileSouth === tile || this.tileEast === tile));
+  }
+
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
   // any additional functions you want to add to this class can be preserved here
   //<<-- /Creer-Merge: functions -->>

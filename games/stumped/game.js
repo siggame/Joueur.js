@@ -298,6 +298,21 @@ class Game extends BaseGame {
   }
 
 
+  /**
+   * Gets the Tile at a specified (x, y) position
+   *
+   * @param {number} x - integer between 0 and the mapWidth
+   * @param {number} y - integer between 0 and the mapHeight
+   * @returns {Tile|null} - the Tile at (x, y) or null if out of bounds
+   */
+  getTileAt(x, y) {
+    if(x < 0 || y < 0 || x >= this.mapWidth || y >= this.mapHeight) { // out of bounds
+      return null;
+    }
+
+    return this.tiles[x + y * this.mapWidth] || null;
+  }
+
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
   // any additional functions you want to add to this class can be preserved here
   //<<-- /Creer-Merge: functions -->>
