@@ -160,7 +160,7 @@ ${merge('    //', 'init', '    // any additional init logic you want can go here
     let neighbors = [];
 
     for (const direction of this.directions()) {
-      const neighbor = this[`tile${direction}`];
+      const neighbor = this[`tile${'$'}{direction}`];
       if (neighbor) {
         neighbors.push(neighbor);
       }
