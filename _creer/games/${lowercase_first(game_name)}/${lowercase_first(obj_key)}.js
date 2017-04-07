@@ -159,9 +159,9 @@ ${merge('    //', 'init', '    // any additional init logic you want can go here
   getNeighbors() {
     let neighbors = [];
 
-    for(const direction of this.directions()) {
+    for (const direction of this.directions()) {
       const neighbor = this[`tile${direction}`];
-      if(neighbor) {
+      if (neighbor) {
         neighbors.push(neighbor);
       }
     }

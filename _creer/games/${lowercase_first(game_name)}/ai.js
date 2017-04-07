@@ -93,7 +93,7 @@ ${merge('    // ', function_name,
    * @returns {Array.<Tile>} An array of Tiles representing the path, the the first element being a valid adjacent Tile to the start, and the last element being the goal.
    */
   findPath(start, goal) {
-    if(start == goal) {
+    if (start === goal) {
       // no need to make a path to here...
       return [];
     }
@@ -108,19 +108,19 @@ ${merge('    // ', function_name,
     fringe.push(start);
 
     // keep exploring neighbors of neighbors... until there are no more.
-    while(fringe.length > 0) {
+    while (fringe.length > 0) {
       // the tile we are currently exploring.
       let inspect = fringe.shift();
 
       // cycle through the tile's neighbors.
-      for(const neighbor of inspect.getNeighbors()) {
+      for (const neighbor of inspect.getNeighbors()) {
         // if we found the goal, we have the path!
-        if(neighbor === goal) {
+        if (neighbor === goal) {
           // Follow the path backward to the start from the goal and return it.
-          let path = [ goal ];
+          let path = [goal];
 
           // Starting at the tile we are currently at, insert them retracing our steps till we get to the starting tile
-          while(inspect !== start) {
+          while (inspect !== start) {
             path.unshift(inspect);
             inspect = cameFrom[inspect.id];
           }
@@ -130,7 +130,7 @@ ${merge('    // ', function_name,
         // else we did not find the goal, so enqueue this tile's neighbors to be inspected
 
         // if the tile exists, has not been explored or added to the fringe yet, and it is pathable
-        if(neighbor && neighbor.id && !cameFrom[neighbor.id] && neighbor.isPathable()) {
+        if (neighbor && neighbor.id && !cameFrom[neighbor.id] && neighbor.isPathable()) {
           // add it to the tiles to be explored and add where it came from for path reconstruction.
           fringe.push(neighbor);
           cameFrom[neighbor.id] = inspect;
