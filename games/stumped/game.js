@@ -7,9 +7,7 @@
 const client = require(`${__basedir}/joueur/client`);
 const BaseGame = require(`${__basedir}/joueur/baseGame`);
 
-//<<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// any additional requires you want can be required here safely between creer runs
-//<<-- /Creer-Merge: requires -->>
+
 
 /**
  * Gather branches and build up your lodge as beavers fight to survive.
@@ -52,9 +50,7 @@ class Game extends BaseGame {
     this.spawnerTypes = [];
     this.tiles = [];
 
-    //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // any additional init logic you want can go here
-    //<<-- /Creer-Merge: init -->>
+
   }
 
 
@@ -313,9 +309,7 @@ class Game extends BaseGame {
     return this.tiles[x + y * this.mapWidth] || null;
   }
 
-  //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-  // any additional functions you want to add to this class can be preserved here
-  //<<-- /Creer-Merge: functions -->>
+
 }
 
 module.exports = Game;

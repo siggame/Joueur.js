@@ -7,9 +7,7 @@
 const client = require(`${__basedir}/joueur/client`);
 const GameObject = require('./gameObject');
 
-//<<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// any additional requires you want can be required here safely between creer runs
-//<<-- /Creer-Merge: requires -->>
+
 
 /**
  * A Tile in the game that makes up the 2D map grid.
@@ -43,9 +41,7 @@ class Tile extends GameObject {
     this.x = 0;
     this.y = 0;
 
-    //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // any additional init logic you want can go here
-    //<<-- /Creer-Merge: init -->>
+
   }
 
 
@@ -250,9 +246,9 @@ class Tile extends GameObject {
   getNeighbors() {
     let neighbors = [];
 
-    for(const direction of this.directions()) {
-      const neighbor = this["tile" + this.directions[i]];
-      if(neighbor) {
+    for (const direction of this.directions()) {
+      const neighbor = this[`tile${direction}`];
+      if (neighbor) {
         neighbors.push(neighbor);
       }
     }
@@ -266,9 +262,7 @@ class Tile extends GameObject {
    * @returns {boolean} - True if pathable, false otherwise
    */
   isPathable() {
-    // <<-- Creer-Merge: is_pathable_builtin -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     return !this.beaver && !this.spawner && !this.lodgeOwner;
-    // <<-- /Creer-Merge: is_pathable_builtin -->>
   }
 
   /**
@@ -280,9 +274,7 @@ class Tile extends GameObject {
     return Boolean(tile && (this.tileNorth === tile || this.tileEast === tile || this.tileSouth === tile || this.tileEast === tile));
   }
 
-  //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-  // any additional functions you want to add to this class can be preserved here
-  //<<-- /Creer-Merge: functions -->>
+
 }
 
 module.exports = Tile;

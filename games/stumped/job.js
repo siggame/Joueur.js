@@ -7,9 +7,7 @@
 const client = require(`${__basedir}/joueur/client`);
 const GameObject = require('./gameObject');
 
-//<<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// any additional requires you want can be required here safely between creer runs
-//<<-- /Creer-Merge: requires -->>
+
 
 /**
  * Information about a beaver's job.
@@ -40,9 +38,7 @@ class Job extends GameObject {
     this.munching = 0;
     this.title = '';
 
-    //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // any additional init logic you want can go here
-    //<<-- /Creer-Merge: init -->>
+
   }
 
 
@@ -202,9 +198,7 @@ class Job extends GameObject {
   }
 
 
-  //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-  // any additional functions you want to add to this class can be preserved here
-  //<<-- /Creer-Merge: functions -->>
+
 }
 
 module.exports = Job;
