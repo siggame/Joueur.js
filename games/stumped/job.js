@@ -35,9 +35,9 @@ class Job extends GameObject {
     this.cost = 0;
     this.damage = 0;
     this.distractionPower = 0;
-    this.fishing = 0;
     this.health = 0;
     this.moves = 0;
+    this.munching = 0;
     this.title = '';
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -49,7 +49,7 @@ class Job extends GameObject {
   // Member variables
 
   /**
-   * The number of actions this job can make per turn.
+   * The number of actions this Job can make per turn.
    *
    * @type {number}
    */
@@ -63,7 +63,7 @@ class Job extends GameObject {
 
 
   /**
-   * How many resources a beaver with this job can hold at once.
+   * How many combined resources a beaver with this Job can hold at once.
    *
    * @type {number}
    */
@@ -77,7 +77,7 @@ class Job extends GameObject {
 
 
   /**
-   * Scalar for how many branches this job harvests at once.
+   * Scalar for how many branches this Job harvests at once.
    *
    * @type {number}
    */
@@ -91,7 +91,7 @@ class Job extends GameObject {
 
 
   /**
-   * How many fish this Job costs to recruit.
+   * How much food this Job costs to recruit.
    *
    * @type {number}
    */
@@ -105,7 +105,7 @@ class Job extends GameObject {
 
 
   /**
-   * The amount of damage this job does per attack.
+   * The amount of damage this Job does per attack.
    *
    * @type {number}
    */
@@ -119,7 +119,7 @@ class Job extends GameObject {
 
 
   /**
-   * How many turns a beaver attacked by this job is distracted by.
+   * How many turns a beaver attacked by this Job is distracted by.
    *
    * @type {number}
    */
@@ -133,21 +133,7 @@ class Job extends GameObject {
 
 
   /**
-   * Scalar for how many fish this job harvests at once.
-   *
-   * @type {number}
-   */
-  get fishing() {
-    return client.gameManager.getMemberValue(this, 'fishing');
-  }
-
-  set fishing(value) {
-    client.gameManager.setMemberValue(this, 'fishing', value);
-  }
-
-
-  /**
-   * The amount of starting health this job has.
+   * The amount of starting health this Job has.
    *
    * @type {number}
    */
@@ -161,7 +147,7 @@ class Job extends GameObject {
 
 
   /**
-   * The number of moves this job can make per turn.
+   * The number of moves this Job can make per turn.
    *
    * @type {number}
    */
@@ -175,7 +161,21 @@ class Job extends GameObject {
 
 
   /**
-   * The job title ('builder', 'fisher', etc).
+   * Scalar for how much food this Job harvests at once.
+   *
+   * @type {number}
+   */
+  get munching() {
+    return client.gameManager.getMemberValue(this, 'munching');
+  }
+
+  set munching(value) {
+    client.gameManager.setMemberValue(this, 'munching', value);
+  }
+
+
+  /**
+   * The Job title.
    *
    * @type {string}
    */

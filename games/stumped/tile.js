@@ -31,8 +31,8 @@ class Tile extends GameObject {
     // default values for private member values
     this.beaver = null;
     this.branches = 0;
-    this.fish = 0;
     this.flowDirection = '';
+    this.food = 0;
     this.lodgeOwner = null;
     this.spawner = null;
     this.tileEast = null;
@@ -52,7 +52,7 @@ class Tile extends GameObject {
   // Member variables
 
   /**
-   * The beaver on this tile if present, otherwise null.
+   * The Beaver on this Tile if present, otherwise null.
    *
    * @type {Beaver}
    */
@@ -66,7 +66,7 @@ class Tile extends GameObject {
 
 
   /**
-   * The number of branches dropped on this tile.
+   * The number of branches dropped on this Tile.
    *
    * @type {number}
    */
@@ -80,21 +80,7 @@ class Tile extends GameObject {
 
 
   /**
-   * The number of fish dropped on this tile.
-   *
-   * @type {number}
-   */
-  get fish() {
-    return client.gameManager.getMemberValue(this, 'fish');
-  }
-
-  set fish(value) {
-    client.gameManager.setMemberValue(this, 'fish', value);
-  }
-
-
-  /**
-   * The cardinal direction water is flowing on this tile ('North', 'East', 'South', 'West').
+   * The cardinal direction water is flowing on this Tile ('North', 'East', 'South', 'West').
    *
    * @type {string}
    */
@@ -108,7 +94,21 @@ class Tile extends GameObject {
 
 
   /**
-   * The owner of the beaver lodge on this tile, if present, otherwise null.
+   * The number of food dropped on this Tile.
+   *
+   * @type {number}
+   */
+  get food() {
+    return client.gameManager.getMemberValue(this, 'food');
+  }
+
+  set food(value) {
+    client.gameManager.setMemberValue(this, 'food', value);
+  }
+
+
+  /**
+   * The owner of the Beaver lodge on this Tile, if present, otherwise null.
    *
    * @type {Player}
    */
@@ -122,7 +122,7 @@ class Tile extends GameObject {
 
 
   /**
-   * The resource spawner on this tile if present, otherwise null.
+   * The resource Spawner on this Tile if present, otherwise null.
    *
    * @type {Spawner}
    */

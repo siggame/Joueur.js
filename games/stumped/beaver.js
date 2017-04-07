@@ -31,7 +31,7 @@ class Beaver extends GameObject {
     // default values for private member values
     this.actions = 0;
     this.branches = 0;
-    this.fish = 0;
+    this.food = 0;
     this.health = 0;
     this.job = null;
     this.moves = 0;
@@ -49,7 +49,7 @@ class Beaver extends GameObject {
   // Member variables
 
   /**
-   * The number of actions remaining for the beaver this turn.
+   * The number of actions remaining for the Beaver this turn.
    *
    * @type {number}
    */
@@ -63,7 +63,7 @@ class Beaver extends GameObject {
 
 
   /**
-   * The number of branches this beaver is holding.
+   * The amount of branches this Beaver is holding.
    *
    * @type {number}
    */
@@ -77,21 +77,21 @@ class Beaver extends GameObject {
 
 
   /**
-   * The number of fish this beaver is holding.
+   * The amount of food this Beaver is holding.
    *
    * @type {number}
    */
-  get fish() {
-    return client.gameManager.getMemberValue(this, 'fish');
+  get food() {
+    return client.gameManager.getMemberValue(this, 'food');
   }
 
-  set fish(value) {
-    client.gameManager.setMemberValue(this, 'fish', value);
+  set food(value) {
+    client.gameManager.setMemberValue(this, 'food', value);
   }
 
 
   /**
-   * How much health this beaver has left.
+   * How much health this Beaver has left.
    *
    * @type {number}
    */
@@ -105,7 +105,7 @@ class Beaver extends GameObject {
 
 
   /**
-   * The Job this beaver was recruited to do.
+   * The Job this Beaver was recruited to do.
    *
    * @type {Job}
    */
@@ -119,7 +119,7 @@ class Beaver extends GameObject {
 
 
   /**
-   * How many moves this beaver has left this turn.
+   * How many moves this Beaver has left this turn.
    *
    * @type {number}
    */
@@ -133,7 +133,7 @@ class Beaver extends GameObject {
 
 
   /**
-   * The Player that owns and can control this beaver.
+   * The Player that owns and can control this Beaver.
    *
    * @type {Player}
    */
@@ -161,7 +161,7 @@ class Beaver extends GameObject {
 
 
   /**
-   * The tile this beaver is on.
+   * The Tile this Beaver is on.
    *
    * @type {Tile}
    */
@@ -175,7 +175,7 @@ class Beaver extends GameObject {
 
 
   /**
-   * Number of turns this beaver is distracted for (0 means not distracted).
+   * Number of turns this Beaver is distracted for (0 means not distracted).
    *
    * @type {number}
    */
@@ -192,7 +192,7 @@ class Beaver extends GameObject {
   /**
    * Attacks another adjacent beaver.
    *
-   * @param {Beaver} beaver - The beaver to attack. Must be on an adjacent tile.
+   * @param {Beaver} beaver - The Beaver to attack. Must be on an adjacent Tile.
    * @returns {boolean} - True if successfully attacked, false otherwise.
    */
   attack(beaver) {
@@ -203,7 +203,7 @@ class Beaver extends GameObject {
 
 
   /**
-   * Builds a lodge on the Beavers current tile.
+   * Builds a lodge on the Beavers current Tile.
    *
    * @returns {boolean} - True if successfully built a lodge, false otherwise.
    */
@@ -214,10 +214,10 @@ class Beaver extends GameObject {
 
 
   /**
-   * Drops some of the given resource on the beaver's tile. Fish dropped in water disappear instantly, and fish dropped on land die one per tile per turn.
+   * Drops some of the given resource on the beaver's Tile.
    *
-   * @param {Tile} tile - The Tile to drop branches/fish on. Must be the same Tile that the Beaver is on, or an adjacent one.
-   * @param {string} resource - The type of resource to drop ('branch' or 'fish').
+   * @param {Tile} tile - The Tile to drop branches/food on. Must be the same Tile that the Beaver is on, or an adjacent one.
+   * @param {string} resource - The type of resource to drop ('branch' or 'food').
    * @param {number} [amount] - The amount of the resource to drop, numbers <= 0 will drop all the resource type.
    * @returns {boolean} - True if successfully dropped the resource, false otherwise.
    */
@@ -235,9 +235,9 @@ class Beaver extends GameObject {
 
 
   /**
-   * Harvests the branches or fish from a Spawner on an adjacent tile.
+   * Harvests the branches or food from a Spawner on an adjacent Tile.
    *
-   * @param {Spawner} spawner - The Spawner you want to harvest. Must be on an adjacent tile.
+   * @param {Spawner} spawner - The Spawner you want to harvest. Must be on an adjacent Tile.
    * @returns {boolean} - True if successfully harvested, false otherwise.
    */
   harvest(spawner) {
@@ -248,9 +248,9 @@ class Beaver extends GameObject {
 
 
   /**
-   * Moves this beaver from its current tile to an adjacent tile.
+   * Moves this Beaver from its current Tile to an adjacent Tile.
    *
-   * @param {Tile} tile - The tile this beaver should move to.
+   * @param {Tile} tile - The Tile this Beaver should move to.
    * @returns {boolean} - True if the move worked, false otherwise.
    */
   move(tile) {
@@ -261,10 +261,10 @@ class Beaver extends GameObject {
 
 
   /**
-   * Picks up some branches or fish on the beaver's tile.
+   * Picks up some branches or food on the beaver's tile.
    *
-   * @param {Tile} tile - The Tile to pickup branches/fish from. Must be the same Tile that the Beaver is on, or an adjacent one.
-   * @param {string} resource - The type of resource to pickup ('branch' or 'fish').
+   * @param {Tile} tile - The Tile to pickup branches/food from. Must be the same Tile that the Beaver is on, or an adjacent one.
+   * @param {string} resource - The type of resource to pickup ('branch' or 'food').
    * @param {number} [amount] - The amount of the resource to drop, numbers <= 0 will pickup all of the resource type.
    * @returns {boolean} - True if successfully picked up a resource, false otherwise.
    */

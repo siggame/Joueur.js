@@ -35,14 +35,13 @@ class Game extends BaseGame {
 
     // default values for private member values
     this.beavers = [];
-    this.branchesToCompleteLodge = 0;
     this.currentPlayer = null;
     this.currentTurn = 0;
     this.freeBeaversCount = 0;
     this.gameObjects = {};
     this.jobs = [];
     this.lodgeCostConstant = 0;
-    this.lodgesCompleteToWin = 0;
+    this.lodgesToWin = 0;
     this.mapHeight = 0;
     this.mapWidth = 0;
     this.maxTurns = 0;
@@ -76,20 +75,6 @@ class Game extends BaseGame {
 
 
   /**
-   * How many branches a lodge must have to be considered complete.
-   *
-   * @type {number}
-   */
-  get branchesToCompleteLodge() {
-    return client.gameManager.getMemberValue(this, 'branchesToCompleteLodge');
-  }
-
-  set branchesToCompleteLodge(value) {
-    client.gameManager.setMemberValue(this, 'branchesToCompleteLodge', value);
-  }
-
-
-  /**
    * The player whose turn it is currently. That player can send commands. Other players cannot.
    *
    * @type {Player}
@@ -118,7 +103,7 @@ class Game extends BaseGame {
 
 
   /**
-   * When a Player has less Beavers than this number, recruiting other Beavers is free.
+   * When a Player has less Beavers than this number, then recruiting other Beavers is free.
    *
    * @type {number}
    */
@@ -174,16 +159,16 @@ class Game extends BaseGame {
 
 
   /**
-   * How many lodges must be complete at once to win the game.
+   * How many lodges must be owned by a Player at once to win the game.
    *
    * @type {number}
    */
-  get lodgesCompleteToWin() {
-    return client.gameManager.getMemberValue(this, 'lodgesCompleteToWin');
+  get lodgesToWin() {
+    return client.gameManager.getMemberValue(this, 'lodgesToWin');
   }
 
-  set lodgesCompleteToWin(value) {
-    client.gameManager.setMemberValue(this, 'lodgesCompleteToWin', value);
+  set lodgesToWin(value) {
+    client.gameManager.setMemberValue(this, 'lodgesToWin', value);
   }
 
 
@@ -272,7 +257,7 @@ class Game extends BaseGame {
 
 
   /**
-   * Constant number used to calculate how many breanches/fish Beavers harvest from spawners.
+   * Constant number used to calculate how many breanches/food Beavers harvest from Spawners.
    *
    * @type {number}
    */
@@ -286,7 +271,7 @@ class Game extends BaseGame {
 
 
   /**
-   * All the types of spawners in the game.
+   * All the types of Spawners in the game.
    *
    * @type {Array.<string>}
    */

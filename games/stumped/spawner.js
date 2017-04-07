@@ -1,4 +1,4 @@
-// Spawner: A resource spawner that generates branches or fish.
+// Spawner: A resource spawner that generates branches or food.
 
 // DO NOT MODIFY THIS FILE
 // Never try to directly create an instance of this class, or modify its member variables.
@@ -12,7 +12,7 @@ const GameObject = require('./gameObject');
 //<<-- /Creer-Merge: requires -->>
 
 /**
- * A resource spawner that generates branches or fish.
+ * A resource spawner that generates branches or food.
  * @extends GameObject
  */
 class Spawner extends GameObject {
@@ -57,7 +57,7 @@ class Spawner extends GameObject {
 
 
   /**
-   * How much health this spawner has, which is used to calculate how much of its resource can be harvested.
+   * How much health this Spawner has, which is used to calculate how much of its resource can be harvested.
    *
    * @type {number}
    */
@@ -71,7 +71,7 @@ class Spawner extends GameObject {
 
 
   /**
-   * The tile this Spawner is on.
+   * The Tile this Spawner is on.
    *
    * @type {Tile}
    */
@@ -85,7 +85,7 @@ class Spawner extends GameObject {
 
 
   /**
-   * What type of resource this is ('Fish' or 'Branch').
+   * What type of resource this is ('food' or 'branches').
    *
    * @type {string}
    */

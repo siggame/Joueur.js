@@ -64,7 +64,7 @@ class Player extends GameObject {
 
 
   /**
-   * How many branches are required to build a lodge for this player.
+   * How many branches are required to build a lodge for this Player.
    *
    * @type {number}
    */
@@ -92,7 +92,7 @@ class Player extends GameObject {
 
 
   /**
-   * A list of tiles that contain lodges owned by this player.
+   * A list of Tiles that contain lodges owned by this player.
    *
    * @type {Array.<Tile>}
    */
