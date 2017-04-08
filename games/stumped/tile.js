@@ -250,9 +250,9 @@ class Tile extends GameObject {
   getNeighbors() {
     let neighbors = [];
 
-    for(const direction of this.directions()) {
-      const neighbor = this["tile" + this.directions[i]];
-      if(neighbor) {
+    for (const direction of this.directions()) {
+      const neighbor = this[`tile${direction}`];
+      if (neighbor) {
         neighbors.push(neighbor);
       }
     }
@@ -267,7 +267,7 @@ class Tile extends GameObject {
    */
   isPathable() {
     // <<-- Creer-Merge: is_pathable_builtin -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    return !this.beaver && !this.spawner && !this.lodgeOwner;
+    return false; // DEVELOPER ADD LOGIC HERE
     // <<-- /Creer-Merge: is_pathable_builtin -->>
   }
 
