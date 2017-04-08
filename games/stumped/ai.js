@@ -112,16 +112,19 @@ class AI extends BaseAI {
           }
         }
 
-        // use the pathfinding algorithm below to make a path to the spawner's target tile
-        const path = this.findPath(beaver.tile, target);
+        // If we found a target tile, path to it
+        if (target) {
+          // use the pathfinding algorithm below to make a path to the spawner's target tile
+          const path = this.findPath(beaver.tile, target);
 
-        // if there is a path, move to it
-        //      length 0 means no path could be found to the tile
-        //      length 1 means the target is adjacent, and we can't move onto the same tile as the spawner
-        //      length 2+ means we have to move towards it
-        if (path.length > 1) {
-          console.log(`Moving ${beaver} towards ${target}`);
-          beaver.move(path[0]);
+          // if there is a path, move to it
+          //      length 0 means no path could be found to the tile
+          //      length 1 means the target is adjacent, and we can't move onto the same tile as the spawner
+          //      length 2+ means we have to move towards it
+          if (path.length > 1) {
+            console.log(`Moving ${beaver} towards ${target}`);
+            beaver.move(path[0]);
+          }
         }
       }
 
@@ -240,13 +243,13 @@ class AI extends BaseAI {
       //    otherwise if that lodge has enough food on it to cover the job's cost
       if (aliveBeavers < this.game.freeBeaversCount || lodge.food >= job.cost) {
         // then spawn a new beaver of that job!
-        console.log(`recruting ${job} to ${lodge}`);
+        console.log(`recuriting ${job} to ${lodge}`);
         job.recruit(lodge);
         aliveBeavers++;
       }
     }
 
-    console.log('Done with out turn');
+    console.log('Done with our turn');
     return true; // to signify that we are truly done with this turn
   }
 
