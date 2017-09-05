@@ -2,7 +2,8 @@ FROM siggame/joueur:js-onbuild as build
 
 FROM node:alpine
 
-COPY --from=build /usr/src/client /client
+RUN mkdir /client
 WORKDIR /client
+COPY --from=build /usr/src/client /client
 
-ENTRYPOINT ["./arenaRun", "Saloon"]
+ENTRYPOINT ["node", "main.js", "Saloon"]
