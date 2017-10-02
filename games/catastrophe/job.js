@@ -29,7 +29,7 @@ class Job extends GameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
-    this.actCost = 0;
+    this.actionCost = 0;
     this.carryLimit = 0;
     this.moves = 0;
     this.regenRate = 0;
@@ -49,12 +49,12 @@ class Job extends GameObject {
    *
    * @type {number}
    */
-  get actCost() {
-    return client.gameManager.getMemberValue(this, 'actCost');
+  get actionCost() {
+    return client.gameManager.getMemberValue(this, 'actionCost');
   }
 
-  set actCost(value) {
-    client.gameManager.setMemberValue(this, 'actCost', value);
+  set actionCost(value) {
+    client.gameManager.setMemberValue(this, 'actionCost', value);
   }
 
 
@@ -115,7 +115,7 @@ class Job extends GameObject {
 
 
   /**
-   * The amount of food per turn this Unit consumes. If there isn't enough food for every Unit, all units become starved and do not consume food.
+   * The amount of food per turn this Unit consumes. If there isn't enough food for every Unit, all Units become starved and do not consume food.
    *
    * @type {number}
    */

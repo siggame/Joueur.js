@@ -37,6 +37,7 @@ class Tile extends GameObject {
     this.tileNorth = null;
     this.tileSouth = null;
     this.tileWest = null;
+    this.turnsToHarvest = 0;
     this.type = '';
     this.unit = null;
     this.x = 0;
@@ -65,7 +66,7 @@ class Tile extends GameObject {
 
 
   /**
-   * The amount of food that can be harvested from this tile per turn.
+   * The amount of food that can be harvested from this Tile per turn.
    *
    * @type {number}
    */
@@ -93,7 +94,7 @@ class Tile extends GameObject {
 
 
   /**
-   * The structure on this Tile if present, otherwise null.
+   * The Structure on this Tile if present, otherwise null.
    *
    * @type {string}
    */
@@ -159,6 +160,20 @@ class Tile extends GameObject {
 
   set tileWest(value) {
     client.gameManager.setMemberValue(this, 'tileWest', value);
+  }
+
+
+  /**
+   * The amount of turns before this resource can be harvested.
+   *
+   * @type {number}
+   */
+  get turnsToHarvest() {
+    return client.gameManager.getMemberValue(this, 'turnsToHarvest');
+  }
+
+  set turnsToHarvest(value) {
+    client.gameManager.setMemberValue(this, 'turnsToHarvest', value);
   }
 
 

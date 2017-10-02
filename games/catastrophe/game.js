@@ -38,6 +38,7 @@ class Game extends BaseGame {
     this.currentPlayer = null;
     this.currentTurn = 0;
     this.gameObjects = {};
+    this.harvestCooldown = 0;
     this.jobs = [];
     this.mapHeight = 0;
     this.mapWidth = 0;
@@ -58,7 +59,7 @@ class Game extends BaseGame {
   // Member variables
 
   /**
-   * The multiplier for the amount of energy regenerated when resting in a base with the cat overlord.
+   * The multiplier for the amount of energy regenerated when resting in a shelter with the cat overlord.
    *
    * @type {number}
    */
@@ -110,6 +111,20 @@ class Game extends BaseGame {
 
   set gameObjects(value) {
     client.gameManager.setMemberValue(this, 'gameObjects', value);
+  }
+
+
+  /**
+   * The amount of turns it takes for a Tile that was just harvested to grow food again.
+   *
+   * @type {number}
+   */
+  get harvestCooldown() {
+    return client.gameManager.getMemberValue(this, 'harvestCooldown');
+  }
+
+  set harvestCooldown(value) {
+    client.gameManager.setMemberValue(this, 'harvestCooldown', value);
   }
 
 

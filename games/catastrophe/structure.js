@@ -58,7 +58,7 @@ class Structure extends GameObject {
 
 
   /**
-   * The number of materials in this Structure.
+   * The number of materials in this Structure. Once this number reaches 0, this Structure is destroyed.
    *
    * @type {number}
    */
@@ -86,7 +86,7 @@ class Structure extends GameObject {
 
 
   /**
-   * The Tile this structure is on.
+   * The Tile this Structure is on.
    *
    * @type {Tile}
    */
@@ -100,7 +100,7 @@ class Structure extends GameObject {
 
 
   /**
-   * The type of structure this is.
+   * The type of Structure this is ('shelter', 'monument', 'wall', 'road').
    *
    * @type {string}
    */
