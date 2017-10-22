@@ -235,7 +235,7 @@ class Unit extends GameObject {
   /**
    * Changes this Unit's Job. Must be at max energy (100.0) to change Jobs.
    *
-   * @param {Job} job - The Job to change to.
+   * @param {string} job - The name of the Job to change to.
    * @returns {boolean} - True if successfully changed Jobs, false otherwise.
    */
   changeJob(job) {

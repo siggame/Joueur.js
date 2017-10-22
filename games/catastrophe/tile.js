@@ -32,13 +32,12 @@ class Tile extends GameObject {
     this.food = 0;
     this.harvestRate = 0;
     this.materials = 0;
-    this.structure = '';
+    this.structure = null;
     this.tileEast = null;
     this.tileNorth = null;
     this.tileSouth = null;
     this.tileWest = null;
     this.turnsToHarvest = 0;
-    this.type = '';
     this.unit = null;
     this.x = 0;
     this.y = 0;
@@ -96,7 +95,7 @@ class Tile extends GameObject {
   /**
    * The Structure on this Tile if present, otherwise null.
    *
-   * @type {string}
+   * @type {Structure}
    */
   get structure() {
     return client.gameManager.getMemberValue(this, 'structure');
@@ -174,20 +173,6 @@ class Tile extends GameObject {
 
   set turnsToHarvest(value) {
     client.gameManager.setMemberValue(this, 'turnsToHarvest', value);
-  }
-
-
-  /**
-   * What type of Tile this is.
-   *
-   * @type {string}
-   */
-  get type() {
-    return client.gameManager.getMemberValue(this, 'type');
-  }
-
-  set type(value) {
-    client.gameManager.setMemberValue(this, 'type', value);
   }
 
 
