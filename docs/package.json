@@ -6,6 +6,6 @@
   "private": true,
   "dependencies": {
     "jaguarjs-jsdoc": "JacobFischer/jaguarjs-jsdoc",
-    "jsdoc": "3.4.1"
+    "jsdoc": "3.5.5"
   }
 }
