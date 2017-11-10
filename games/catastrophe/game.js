@@ -40,15 +40,24 @@ class Game extends BaseGame {
     this.gameObjects = {};
     this.harvestCooldown = 0;
     this.jobs = [];
+    this.lowerHarvestAmount = 0;
     this.mapHeight = 0;
     this.mapWidth = 0;
     this.maxTurns = 0;
+    this.monumentCostMult = 0;
+    this.monumentMaterials = 0;
+    this.neutralMaterials = 0;
     this.players = [];
     this.session = '';
+    this.shelterMaterials = 0;
     this.starvingEnergyMult = 0;
     this.structures = [];
     this.tiles = [];
+    this.turnsBetweenHarvests = 0;
+    this.turnsToCreateHuman = 0;
+    this.turnsToLowerHarvest = 0;
     this.units = [];
+    this.wallMaterials = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // any additional init logic you want can go here
@@ -143,6 +152,20 @@ class Game extends BaseGame {
 
 
   /**
+   * The amount that the harvest rate is lowered each season.
+   *
+   * @type {number}
+   */
+  get lowerHarvestAmount() {
+    return client.gameManager.getMemberValue(this, 'lowerHarvestAmount');
+  }
+
+  set lowerHarvestAmount(value) {
+    client.gameManager.setMemberValue(this, 'lowerHarvestAmount', value);
+  }
+
+
+  /**
    * The number of Tiles in the map along the y (vertical) axis.
    *
    * @type {number}
@@ -185,6 +208,48 @@ class Game extends BaseGame {
 
 
   /**
+   * The multiplier for the cost of actions when performing them in range of a monument. Does not effect pickup cost.
+   *
+   * @type {number}
+   */
+  get monumentCostMult() {
+    return client.gameManager.getMemberValue(this, 'monumentCostMult');
+  }
+
+  set monumentCostMult(value) {
+    client.gameManager.setMemberValue(this, 'monumentCostMult', value);
+  }
+
+
+  /**
+   * The number of materials in a monument.
+   *
+   * @type {number}
+   */
+  get monumentMaterials() {
+    return client.gameManager.getMemberValue(this, 'monumentMaterials');
+  }
+
+  set monumentMaterials(value) {
+    client.gameManager.setMemberValue(this, 'monumentMaterials', value);
+  }
+
+
+  /**
+   * The number of materials in a neutral Structure.
+   *
+   * @type {number}
+   */
+  get neutralMaterials() {
+    return client.gameManager.getMemberValue(this, 'neutralMaterials');
+  }
+
+  set neutralMaterials(value) {
+    client.gameManager.setMemberValue(this, 'neutralMaterials', value);
+  }
+
+
+  /**
    * List of all the players in the game.
    *
    * @type {Array.<Player>}
@@ -209,6 +274,20 @@ class Game extends BaseGame {
 
   set session(value) {
     client.gameManager.setMemberValue(this, 'session', value);
+  }
+
+
+  /**
+   * The number of materials in a shelter.
+   *
+   * @type {number}
+   */
+  get shelterMaterials() {
+    return client.gameManager.getMemberValue(this, 'shelterMaterials');
+  }
+
+  set shelterMaterials(value) {
+    client.gameManager.setMemberValue(this, 'shelterMaterials', value);
   }
 
 
@@ -255,6 +334,48 @@ class Game extends BaseGame {
 
 
   /**
+   * After a food tile is harvested, the number of turns before it can be harvested again.
+   *
+   * @type {number}
+   */
+  get turnsBetweenHarvests() {
+    return client.gameManager.getMemberValue(this, 'turnsBetweenHarvests');
+  }
+
+  set turnsBetweenHarvests(value) {
+    client.gameManager.setMemberValue(this, 'turnsBetweenHarvests', value);
+  }
+
+
+  /**
+   * The number of turns between fresh humans being spawned on the road.
+   *
+   * @type {number}
+   */
+  get turnsToCreateHuman() {
+    return client.gameManager.getMemberValue(this, 'turnsToCreateHuman');
+  }
+
+  set turnsToCreateHuman(value) {
+    client.gameManager.setMemberValue(this, 'turnsToCreateHuman', value);
+  }
+
+
+  /**
+   * The number of turns before the harvest rate is lowered (length of each season basically).
+   *
+   * @type {number}
+   */
+  get turnsToLowerHarvest() {
+    return client.gameManager.getMemberValue(this, 'turnsToLowerHarvest');
+  }
+
+  set turnsToLowerHarvest(value) {
+    client.gameManager.setMemberValue(this, 'turnsToLowerHarvest', value);
+  }
+
+
+  /**
    * Every Unit in the game.
    *
    * @type {Array.<Unit>}
@@ -265,6 +386,20 @@ class Game extends BaseGame {
 
   set units(value) {
     client.gameManager.setMemberValue(this, 'units', value);
+  }
+
+
+  /**
+   * The number of materials in a wall.
+   *
+   * @type {number}
+   */
+  get wallMaterials() {
+    return client.gameManager.getMemberValue(this, 'wallMaterials');
+  }
+
+  set wallMaterials(value) {
+    client.gameManager.setMemberValue(this, 'wallMaterials', value);
   }
 
 
