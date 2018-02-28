@@ -1,8 +1,6 @@
 FROM siggame/joueur:js-onbuild as build
 
-FROM node:alpine
+FROM siggame/joueur:js-base
 
-WORKDIR /client
-COPY --from=build /usr/src/client /client
+COPY --from=build --chown=siggame:siggame /usr/src/client /client
 
-ENTRYPOINT ["node", "main.js", GAME_NAME]
