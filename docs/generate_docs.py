@@ -15,8 +15,8 @@ if os.path.exists("./output"):
 if os.path.isdir("./output"):
     shutil.rmtree("./output")
 
-run(["npm", "install"], shell=True)
-run(["npm", "run", "docs"], shell=True)
+run("npm install", shell=True)
+run("npm run docs", shell=True)
 
 # cleanup files we made
 #shutil.rmtree("./node_modules")
