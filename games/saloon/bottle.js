@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A bottle thrown by a bartender at a Tile.
- * @extends GameObject
+ * @extends Saloon.GameObject
+ * @memberof Saloon
  */
 class Bottle extends GameObject {
   /**
-   * initializes a Bottle with basic logic as provided by the Creer code generator
-   *
-   * @memberof Bottle
-   * @private
+   * Initializes a Bottle with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -87,7 +87,7 @@ class Bottle extends GameObject {
   /**
    * The Tile this bottle is currently flying over.
    *
-   * @type {Tile}
+   * @type {Saloon.Tile}
    */
   get tile() {
     return client.gameManager.getMemberValue(this, 'tile');
@@ -96,6 +96,7 @@ class Bottle extends GameObject {
   set tile(value) {
     client.gameManager.setMemberValue(this, 'tile', value);
   }
+
 
 
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

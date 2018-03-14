@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * The weather effect that will be applied at the end of a turn, which causes fires to spread.
- * @extends GameObject
+ * @extends Anarchy.GameObject
+ * @memberof Anarchy
  */
 class Forecast extends GameObject {
   /**
-   * initializes a Forecast with basic logic as provided by the Creer code generator
-   *
-   * @memberof Forecast
-   * @private
+   * Initializes a Forecast with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -44,7 +44,7 @@ class Forecast extends GameObject {
   /**
    * The Player that can use WeatherStations to control this Forecast when its the nextForecast.
    *
-   * @type {Player}
+   * @type {Anarchy.Player}
    */
   get controllingPlayer() {
     return client.gameManager.getMemberValue(this, 'controllingPlayer');

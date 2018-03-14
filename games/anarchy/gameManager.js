@@ -1,4 +1,12 @@
 // DO NOT MODIFY THIS FILE
+
+/**
+ * Two player grid based game where each player tries to burn down the other player's buildings. Let it burn.
+ *
+ * All this documentation is specific to the Anarchy game.
+ * @namespace Anarchy
+ */
+
 // This manages the game for you
 
 const GameManager = require(`${__basedir}/joueur/gameManager`);

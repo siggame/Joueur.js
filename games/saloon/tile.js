@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A Tile in the game that makes up the 2D map grid.
- * @extends GameObject
+ * @extends Saloon.GameObject
+ * @memberof Saloon
  */
 class Tile extends GameObject {
   /**
-   * initializes a Tile with basic logic as provided by the Creer code generator
-   *
-   * @memberof Tile
-   * @private
+   * Initializes a Tile with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -53,7 +53,7 @@ class Tile extends GameObject {
   /**
    * The beer Bottle currently flying over this Tile.
    *
-   * @type {Bottle}
+   * @type {Saloon.Bottle}
    */
   get bottle() {
     return client.gameManager.getMemberValue(this, 'bottle');
@@ -67,7 +67,7 @@ class Tile extends GameObject {
   /**
    * The Cowboy that is on this Tile, null otherwise.
    *
-   * @type {Cowboy}
+   * @type {Saloon.Cowboy}
    */
   get cowboy() {
     return client.gameManager.getMemberValue(this, 'cowboy');
@@ -81,7 +81,7 @@ class Tile extends GameObject {
   /**
    * The furnishing that is on this Tile, null otherwise.
    *
-   * @type {Furnishing}
+   * @type {Saloon.Furnishing}
    */
   get furnishing() {
     return client.gameManager.getMemberValue(this, 'furnishing');
@@ -123,7 +123,7 @@ class Tile extends GameObject {
   /**
    * The Tile to the 'East' of this one (x+1, y). Null if out of bounds of the map.
    *
-   * @type {Tile}
+   * @type {Saloon.Tile}
    */
   get tileEast() {
     return client.gameManager.getMemberValue(this, 'tileEast');
@@ -137,7 +137,7 @@ class Tile extends GameObject {
   /**
    * The Tile to the 'North' of this one (x, y-1). Null if out of bounds of the map.
    *
-   * @type {Tile}
+   * @type {Saloon.Tile}
    */
   get tileNorth() {
     return client.gameManager.getMemberValue(this, 'tileNorth');
@@ -151,7 +151,7 @@ class Tile extends GameObject {
   /**
    * The Tile to the 'South' of this one (x, y+1). Null if out of bounds of the map.
    *
-   * @type {Tile}
+   * @type {Saloon.Tile}
    */
   get tileSouth() {
     return client.gameManager.getMemberValue(this, 'tileSouth');
@@ -165,7 +165,7 @@ class Tile extends GameObject {
   /**
    * The Tile to the 'West' of this one (x-1, y). Null if out of bounds of the map.
    *
-   * @type {Tile}
+   * @type {Saloon.Tile}
    */
   get tileWest() {
     return client.gameManager.getMemberValue(this, 'tileWest');
@@ -207,7 +207,7 @@ class Tile extends GameObject {
   /**
    * The YoungGun on this tile, null otherwise.
    *
-   * @type {YoungGun}
+   * @type {Saloon.YoungGun}
    */
   get youngGun() {
     return client.gameManager.getMemberValue(this, 'youngGun');
@@ -217,6 +217,53 @@ class Tile extends GameObject {
     client.gameManager.setMemberValue(this, 'youngGun', value);
   }
 
+
+  /**
+   * Gets the valid directions that tiles can be in, "North", "East", "South", or "West"
+   *
+   * @returns {Array.<string>} "North", "East", "South", and "West"
+   */
+  directions() {
+    return ["North", "East", "South", "West"];
+  }
+
+  /**
+   * Gets the neighbors of this Tile
+   *
+   * @returns {Array.<Tile>} - The neighboring (adjacent) Tiles to this tile
+   */
+  getNeighbors() {
+    let neighbors = [];
+
+    for (const direction of this.directions()) {
+      const neighbor = this[`tile${direction}`];
+      if (neighbor) {
+        neighbors.push(neighbor);
+      }
+    }
+
+    return neighbors;
+  }
+
+  /**
+   * Checks if a Tile is pathable to units
+   *
+   * @returns {boolean} - True if pathable, false otherwise
+   */
+  isPathable() {
+    // <<-- Creer-Merge: is_pathable_builtin -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
+    return false; // DEVELOPER ADD LOGIC HERE
+    // <<-- /Creer-Merge: is_pathable_builtin -->>
+  }
+
+  /**
+   * Checks if this Tile has a specific neighboring Tile
+   *
+   * @returns {boolean} true if the tile is a neighbor of this Tile, false otherwise
+   */
+  hasNeighbor(tile) {
+    return Boolean(tile && (this.tileNorth === tile || this.tileEast === tile || this.tileSouth === tile || this.tileEast === tile));
+  }
 
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
   // any additional functions you want to add to this class can be preserved here

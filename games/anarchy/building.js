@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A basic building. It does nothing besides burn down. Other Buildings inherit from this class.
- * @extends GameObject
+ * @extends Anarchy.GameObject
+ * @memberof Anarchy
  */
 class Building extends GameObject {
   /**
-   * initializes a Building with basic logic as provided by the Creer code generator
-   *
-   * @memberof Building
-   * @private
+   * Initializes a Building with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -66,7 +66,7 @@ class Building extends GameObject {
   /**
    * The Building directly to the east of this building, or null if not present.
    *
-   * @type {Building}
+   * @type {Anarchy.Building}
    */
   get buildingEast() {
     return client.gameManager.getMemberValue(this, 'buildingEast');
@@ -80,7 +80,7 @@ class Building extends GameObject {
   /**
    * The Building directly to the north of this building, or null if not present.
    *
-   * @type {Building}
+   * @type {Anarchy.Building}
    */
   get buildingNorth() {
     return client.gameManager.getMemberValue(this, 'buildingNorth');
@@ -94,7 +94,7 @@ class Building extends GameObject {
   /**
    * The Building directly to the south of this building, or null if not present.
    *
-   * @type {Building}
+   * @type {Anarchy.Building}
    */
   get buildingSouth() {
     return client.gameManager.getMemberValue(this, 'buildingSouth');
@@ -108,7 +108,7 @@ class Building extends GameObject {
   /**
    * The Building directly to the west of this building, or null if not present.
    *
-   * @type {Building}
+   * @type {Anarchy.Building}
    */
   get buildingWest() {
     return client.gameManager.getMemberValue(this, 'buildingWest');
@@ -164,7 +164,7 @@ class Building extends GameObject {
   /**
    * The player that owns this building. If it burns down (health reaches 0) that player gets an additional bribe(s).
    *
-   * @type {Player}
+   * @type {Anarchy.Player}
    */
   get owner() {
     return client.gameManager.getMemberValue(this, 'owner');

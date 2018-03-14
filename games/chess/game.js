@@ -14,13 +14,13 @@ const BaseGame = require(`${__basedir}/joueur/baseGame`);
 /**
  * The traditional 8x8 chess board with pieces.
  * @extends BaseGame
+ * @memberof Chess
  */
 class Game extends BaseGame {
   /**
-   * initializes a Game with basic logic as provided by the Creer code generator
-   *
-   * @memberof Game
-   * @private
+   * Initializes a Game with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -30,6 +30,7 @@ class Game extends BaseGame {
 
     /**
      * The name of the game.
+     * @type {string}
      */
     this.name = 'Chess';
 
@@ -56,7 +57,7 @@ class Game extends BaseGame {
   /**
    * The player whose turn it is currently. That player can send commands. Other players cannot.
    *
-   * @type {Player}
+   * @type {Chess.Player}
    */
   get currentPlayer() {
     return client.gameManager.getMemberValue(this, 'currentPlayer');
@@ -82,7 +83,7 @@ class Game extends BaseGame {
 
 
   /**
-   * Forsyth–Edwards Notation, a notation that describes the game board.
+   * Forsythâ€“Edwards Notation, a notation that describes the game board.
    *
    * @type {string}
    */
@@ -98,7 +99,7 @@ class Game extends BaseGame {
   /**
    * A mapping of every game object's ID to the actual game object. Primarily used by the server and client to easily refer to the game objects via ID.
    *
-   * @type {Object.<string, GameObject>}
+   * @type {Object.<string, Chess.GameObject>}
    */
   get gameObjects() {
     return client.gameManager.getMemberValue(this, 'gameObjects');
@@ -126,7 +127,7 @@ class Game extends BaseGame {
   /**
    * The list of Moves that have occurred, in order.
    *
-   * @type {Array.<Move>}
+   * @type {Array.<Chess.Move>}
    */
   get moves() {
     return client.gameManager.getMemberValue(this, 'moves');
@@ -140,7 +141,7 @@ class Game extends BaseGame {
   /**
    * All the uncaptured Pieces in the game.
    *
-   * @type {Array.<Piece>}
+   * @type {Array.<Chess.Piece>}
    */
   get pieces() {
     return client.gameManager.getMemberValue(this, 'pieces');
@@ -154,7 +155,7 @@ class Game extends BaseGame {
   /**
    * List of all the players in the game.
    *
-   * @type {Array.<Player>}
+   * @type {Array.<Chess.Player>}
    */
   get players() {
     return client.gameManager.getMemberValue(this, 'players');

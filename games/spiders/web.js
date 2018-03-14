@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A connection (edge) to a Nest (node) in the game that Spiders can converge on (regardless of owner). Spiders can travel in either direction on Webs.
- * @extends GameObject
+ * @extends Spiders.GameObject
+ * @memberof Spiders
  */
 class Web extends GameObject {
   /**
-   * initializes a Web with basic logic as provided by the Creer code generator
-   *
-   * @memberof Web
-   * @private
+   * Initializes a Web with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -75,7 +75,7 @@ class Web extends GameObject {
   /**
    * The first Nest this Web is connected to.
    *
-   * @type {Nest}
+   * @type {Spiders.Nest}
    */
   get nestA() {
     return client.gameManager.getMemberValue(this, 'nestA');
@@ -89,7 +89,7 @@ class Web extends GameObject {
   /**
    * The second Nest this Web is connected to.
    *
-   * @type {Nest}
+   * @type {Spiders.Nest}
    */
   get nestB() {
     return client.gameManager.getMemberValue(this, 'nestB');
@@ -103,7 +103,7 @@ class Web extends GameObject {
   /**
    * All the Spiderlings currently moving along this Web.
    *
-   * @type {Array.<Spiderling>}
+   * @type {Array.<Spiders.Spiderling>}
    */
   get spiderlings() {
     return client.gameManager.getMemberValue(this, 'spiderlings');

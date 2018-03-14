@@ -14,13 +14,13 @@ const BaseGame = require(`${__basedir}/joueur/baseGame`);
 /**
  * Convert as many humans to as you can to survive in this post-apocalyptic wasteland.
  * @extends BaseGame
+ * @memberof Catastrophe
  */
 class Game extends BaseGame {
   /**
-   * initializes a Game with basic logic as provided by the Creer code generator
-   *
-   * @memberof Game
-   * @private
+   * Initializes a Game with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -30,6 +30,7 @@ class Game extends BaseGame {
 
     /**
      * The name of the game.
+     * @type {string}
      */
     this.name = 'Catastrophe';
 
@@ -84,7 +85,7 @@ class Game extends BaseGame {
   /**
    * The player whose turn it is currently. That player can send commands. Other players cannot.
    *
-   * @type {Player}
+   * @type {Catastrophe.Player}
    */
   get currentPlayer() {
     return client.gameManager.getMemberValue(this, 'currentPlayer');
@@ -112,7 +113,7 @@ class Game extends BaseGame {
   /**
    * A mapping of every game object's ID to the actual game object. Primarily used by the server and client to easily refer to the game objects via ID.
    *
-   * @type {Object.<string, GameObject>}
+   * @type {Object.<string, Catastrophe.GameObject>}
    */
   get gameObjects() {
     return client.gameManager.getMemberValue(this, 'gameObjects');
@@ -140,7 +141,7 @@ class Game extends BaseGame {
   /**
    * All the Jobs that Units can have in the game.
    *
-   * @type {Array.<Job>}
+   * @type {Array.<Catastrophe.Job>}
    */
   get jobs() {
     return client.gameManager.getMemberValue(this, 'jobs');
@@ -252,7 +253,7 @@ class Game extends BaseGame {
   /**
    * List of all the players in the game.
    *
-   * @type {Array.<Player>}
+   * @type {Array.<Catastrophe.Player>}
    */
   get players() {
     return client.gameManager.getMemberValue(this, 'players');
@@ -308,7 +309,7 @@ class Game extends BaseGame {
   /**
    * Every Structure in the game.
    *
-   * @type {Array.<Structure>}
+   * @type {Array.<Catastrophe.Structure>}
    */
   get structures() {
     return client.gameManager.getMemberValue(this, 'structures');
@@ -322,7 +323,7 @@ class Game extends BaseGame {
   /**
    * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
    *
-   * @type {Array.<Tile>}
+   * @type {Array.<Catastrophe.Tile>}
    */
   get tiles() {
     return client.gameManager.getMemberValue(this, 'tiles');
@@ -378,7 +379,7 @@ class Game extends BaseGame {
   /**
    * Every Unit in the game.
    *
-   * @type {Array.<Unit>}
+   * @type {Array.<Catastrophe.Unit>}
    */
   get units() {
     return client.gameManager.getMemberValue(this, 'units');

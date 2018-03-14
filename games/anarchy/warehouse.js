@@ -13,14 +13,14 @@ const Building = require('./building');
 
 /**
  * A typical abandoned warehouse... that anarchists hang out in and can be bribed to burn down Buildings.
- * @extends Building
+ * @extends Anarchy.Building
+ * @memberof Anarchy
  */
 class Warehouse extends Building {
   /**
-   * initializes a Warehouse with basic logic as provided by the Creer code generator
-   *
-   * @memberof Warehouse
-   * @private
+   * Initializes a Warehouse with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -72,7 +72,7 @@ class Warehouse extends Building {
   /**
    * Bribes the Warehouse to light a Building on fire. This adds this building's fireAdded to their fire, and then this building's exposure is increased based on the Manhatten distance between the two buildings.
    *
-   * @param {Building} building - The Building you want to light on fire.
+   * @param {Anarchy.Building} building - The Building you want to light on fire.
    * @returns {number} - The exposure added to this Building's exposure. -1 is returned if there was an error.
    */
   ignite(building) {

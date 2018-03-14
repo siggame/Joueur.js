@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A chess piece.
- * @extends GameObject
+ * @extends Chess.GameObject
+ * @memberof Chess
  */
 class Piece extends GameObject {
   /**
-   * initializes a Piece with basic logic as provided by the Creer code generator
-   *
-   * @memberof Piece
-   * @private
+   * Initializes a Piece with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -89,7 +89,7 @@ class Piece extends GameObject {
   /**
    * The player that controls this chess Piece.
    *
-   * @type {Player}
+   * @type {Chess.Player}
    */
   get owner() {
     return client.gameManager.getMemberValue(this, 'owner');
@@ -115,7 +115,7 @@ class Piece extends GameObject {
 
 
   /**
-   * The type of chess Piece this is, either: 'King', 'Queen', 'Knight', 'Rook', 'Bishop', or 'Pawn'.
+   * The type of chess Piece this is, either 'King, 'Queen', 'Knight', 'Rook', 'Bishop', or 'Pawn'.
    *
    * @type {string}
    */
@@ -135,7 +135,7 @@ class Piece extends GameObject {
    * @param {string} file - The file coordinate to move to. Must be [a-h].
    * @param {number} rank - The rank coordinate to move to. Must be [1-8].
    * @param {string} [promotionType] - If this is a Pawn moving to the end of the board then this parameter is what to promote it to. When used must be 'Queen', 'Knight', 'Rook', or 'Bishop'.
-   * @returns {Move} - The Move you did if successful, otherwise null if invalid. In addition if your move was invalid you will lose.
+   * @returns {Chess.Move} - The Move you did if successful, otherwise null if invalid. In addition if your move was invalid you will lose.
    */
   move(file, rank, promotionType) {
     if(arguments.length <= 2) {

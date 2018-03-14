@@ -13,14 +13,14 @@ const Spiderling = require('./spiderling');
 
 /**
  * A Spiderling that creates and spits new Webs from the Nest it is on to another Nest, connecting them.
- * @extends Spiderling
+ * @extends Spiders.Spiderling
+ * @memberof Spiders
  */
 class Spitter extends Spiderling {
   /**
-   * initializes a Spitter with basic logic as provided by the Creer code generator
-   *
-   * @memberof Spitter
-   * @private
+   * Initializes a Spitter with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -42,7 +42,7 @@ class Spitter extends Spiderling {
   /**
    * The Nest that this Spitter is creating a Web to spit at, thus connecting them. Null if not spitting.
    *
-   * @type {Nest}
+   * @type {Spiders.Nest}
    */
   get spittingWebToNest() {
     return client.gameManager.getMemberValue(this, 'spittingWebToNest');
@@ -57,7 +57,7 @@ class Spitter extends Spiderling {
   /**
    * Creates and spits a new Web from the Nest the Spitter is on to another Nest, connecting them.
    *
-   * @param {Nest} nest - The Nest you want to spit a Web to, thus connecting that Nest and the one the Spitter is on.
+   * @param {Spiders.Nest} nest - The Nest you want to spit a Web to, thus connecting that Nest and the one the Spitter is on.
    * @returns {boolean} - True if the spit was successful, false otherwise.
    */
   spit(nest) {

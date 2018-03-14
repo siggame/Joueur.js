@@ -13,14 +13,14 @@ const Spider = require('./spider');
 
 /**
  * The Spider Queen. She alone can spawn Spiderlings for each Player, and if she dies the owner loses.
- * @extends Spider
+ * @extends Spiders.Spider
+ * @memberof Spiders
  */
 class BroodMother extends Spider {
   /**
-   * initializes a BroodMother with basic logic as provided by the Creer code generator
-   *
-   * @memberof BroodMother
-   * @private
+   * Initializes a BroodMother with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -72,7 +72,7 @@ class BroodMother extends Spider {
   /**
    * Consumes a Spiderling of the same owner to regain some eggs to spawn more Spiderlings.
    *
-   * @param {Spiderling} spiderling - The Spiderling to consume. It must be on the same Nest as this BroodMother.
+   * @param {Spiders.Spiderling} spiderling - The Spiderling to consume. It must be on the same Nest as this BroodMother.
    * @returns {boolean} - True if the Spiderling was consumed. False otherwise.
    */
   consume(spiderling) {
@@ -86,7 +86,7 @@ class BroodMother extends Spider {
    * Spawns a new Spiderling on the same Nest as this BroodMother, consuming an egg.
    *
    * @param {string} spiderlingType - The string name of the Spiderling class you want to Spawn. Must be 'Spitter', 'Weaver', or 'Cutter'.
-   * @returns {Spiderling} - The newly spwaned Spiderling if successful. Null otherwise.
+   * @returns {Spiders.Spiderling} - The newly spwaned Spiderling if successful. Null otherwise.
    */
   spawn(spiderlingType) {
     return client.runOnServer(this, 'spawn', {

@@ -14,13 +14,13 @@ const BaseGame = require(`${__basedir}/joueur/baseGame`);
 /**
  * The simple version of American Checkers. An 8x8 board with 12 checkers on each side that must move diagonally to the opposing side until kinged.
  * @extends BaseGame
+ * @memberof Checkers
  */
 class Game extends BaseGame {
   /**
-   * initializes a Game with basic logic as provided by the Creer code generator
-   *
-   * @memberof Game
-   * @private
+   * Initializes a Game with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -30,6 +30,7 @@ class Game extends BaseGame {
 
     /**
      * The name of the game.
+     * @type {string}
      */
     this.name = 'Checkers';
 
@@ -85,7 +86,7 @@ class Game extends BaseGame {
   /**
    * The checker that last moved and must be moved because only one checker can move during each players turn.
    *
-   * @type {Checker}
+   * @type {Checkers.Checker}
    */
   get checkerMoved() {
     return client.gameManager.getMemberValue(this, 'checkerMoved');
@@ -113,7 +114,7 @@ class Game extends BaseGame {
   /**
    * All the checkers currently in the game.
    *
-   * @type {Array.<Checker>}
+   * @type {Array.<Checkers.Checker>}
    */
   get checkers() {
     return client.gameManager.getMemberValue(this, 'checkers');
@@ -127,7 +128,7 @@ class Game extends BaseGame {
   /**
    * The player whose turn it is currently. That player can send commands. Other players cannot.
    *
-   * @type {Player}
+   * @type {Checkers.Player}
    */
   get currentPlayer() {
     return client.gameManager.getMemberValue(this, 'currentPlayer');
@@ -155,7 +156,7 @@ class Game extends BaseGame {
   /**
    * A mapping of every game object's ID to the actual game object. Primarily used by the server and client to easily refer to the game objects via ID.
    *
-   * @type {Object.<string, GameObject>}
+   * @type {Object.<string, Checkers.GameObject>}
    */
   get gameObjects() {
     return client.gameManager.getMemberValue(this, 'gameObjects');
@@ -183,7 +184,7 @@ class Game extends BaseGame {
   /**
    * List of all the players in the game.
    *
-   * @type {Array.<Player>}
+   * @type {Array.<Checkers.Player>}
    */
   get players() {
     return client.gameManager.getMemberValue(this, 'players');

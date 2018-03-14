@@ -1,0 +1,16 @@
+{
+    "templates": {
+        "applicationName": "JavaScript Joueur Client",
+        "meta": {
+            "title": "JavaScript Joueur Client",
+            "description": "JavaScript Client for Cadre AI Framework via Node.js",
+            "footer": "&copy; MST ACM SIG-GAME",
+            "hideOverview": false,
+            "noSourceFiles": true,
+            "breakAfterNamespaces": true,
+            "namespaceNameOverride": "Game",
+            "nestedNamespaces": true
+        },
+        "linenums": true
+    }
+}

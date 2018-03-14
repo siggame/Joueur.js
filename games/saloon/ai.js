@@ -8,6 +8,7 @@ const BaseAI = require(`${__basedir}/joueur/baseAI`);
 
 /**
  * This is the class to play the Saloon game. This is where you should build your AI.
+ * @memberof Saloon
  */
 class AI extends BaseAI {
   /**
@@ -74,6 +75,63 @@ class AI extends BaseAI {
     // Put your game logic here for runTurn
     return true;
     // <<-- /Creer-Merge: runTurn -->>
+  }
+
+  /**
+   * A very basic path finding algorithm (Breadth First Search) that when given a starting Tile, will return a valid path to the goal Tile.
+   *
+   * @param {Tile} start - the starting Tile
+   * @param {Tile} goal - the goal Tile
+   * @returns {Array.<Tile>} An array of Tiles representing the path, the the first element being a valid adjacent Tile to the start, and the last element being the goal.
+   */
+  findPath(start, goal) {
+    if (start === goal) {
+      // no need to make a path to here...
+      return [];
+    }
+
+    // queue of the tiles that will have their neighbors searched for 'goal'
+    let fringe = [];
+
+    // How we got to each tile that went into the fringe.
+    let cameFrom = {};
+
+    // Enqueue start as the first tile to have its neighbors searched.
+    fringe.push(start);
+
+    // keep exploring neighbors of neighbors... until there are no more.
+    while (fringe.length > 0) {
+      // the tile we are currently exploring.
+      let inspect = fringe.shift();
+
+      // cycle through the tile's neighbors.
+      for (const neighbor of inspect.getNeighbors()) {
+        // if we found the goal, we have the path!
+        if (neighbor === goal) {
+          // Follow the path backward to the start from the goal and return it.
+          let path = [goal];
+
+          // Starting at the tile we are currently at, insert them retracing our steps till we get to the starting tile
+          while (inspect !== start) {
+            path.unshift(inspect);
+            inspect = cameFrom[inspect.id];
+          }
+
+          return path;
+        }
+        // else we did not find the goal, so enqueue this tile's neighbors to be inspected
+
+        // if the tile exists, has not been explored or added to the fringe yet, and it is pathable
+        if (neighbor && neighbor.id && !cameFrom[neighbor.id] && neighbor.isPathable()) {
+          // add it to the tiles to be explored and add where it came from for path reconstruction.
+          fringe.push(neighbor);
+          cameFrom[neighbor.id] = inspect;
+        }
+      }
+    }
+
+    // if we got here, no path was found
+    return [];
   }
 
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

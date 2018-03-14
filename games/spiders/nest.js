@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A location (node) connected to other Nests via Webs (edges) in the game that Spiders can converge on, regardless of owner.
- * @extends GameObject
+ * @extends Spiders.GameObject
+ * @memberof Spiders
  */
 class Nest extends GameObject {
   /**
-   * initializes a Nest with basic logic as provided by the Creer code generator
-   *
-   * @memberof Nest
-   * @private
+   * Initializes a Nest with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -45,7 +45,7 @@ class Nest extends GameObject {
   /**
    * All the Spiders currently located on this Nest.
    *
-   * @type {Array.<Spider>}
+   * @type {Array.<Spiders.Spider>}
    */
   get spiders() {
     return client.gameManager.getMemberValue(this, 'spiders');
@@ -59,7 +59,7 @@ class Nest extends GameObject {
   /**
    * Webs that connect to this Nest.
    *
-   * @type {Array.<Web>}
+   * @type {Array.<Spiders.Web>}
    */
   get webs() {
     return client.gameManager.getMemberValue(this, 'webs');

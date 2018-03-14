@@ -14,13 +14,13 @@ const BaseGame = require(`${__basedir}/joueur/baseGame`);
 /**
  * Gather branches and build up your lodge as beavers fight to survive.
  * @extends BaseGame
+ * @memberof Stumped
  */
 class Game extends BaseGame {
   /**
-   * initializes a Game with basic logic as provided by the Creer code generator
-   *
-   * @memberof Game
-   * @private
+   * Initializes a Game with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -30,6 +30,7 @@ class Game extends BaseGame {
 
     /**
      * The name of the game.
+     * @type {string}
      */
     this.name = 'Stumped';
 
@@ -63,7 +64,7 @@ class Game extends BaseGame {
   /**
    * Every Beaver in the game.
    *
-   * @type {Array.<Beaver>}
+   * @type {Array.<Stumped.Beaver>}
    */
   get beavers() {
     return client.gameManager.getMemberValue(this, 'beavers');
@@ -77,7 +78,7 @@ class Game extends BaseGame {
   /**
    * The player whose turn it is currently. That player can send commands. Other players cannot.
    *
-   * @type {Player}
+   * @type {Stumped.Player}
    */
   get currentPlayer() {
     return client.gameManager.getMemberValue(this, 'currentPlayer');
@@ -119,7 +120,7 @@ class Game extends BaseGame {
   /**
    * A mapping of every game object's ID to the actual game object. Primarily used by the server and client to easily refer to the game objects via ID.
    *
-   * @type {Object.<string, GameObject>}
+   * @type {Object.<string, Stumped.GameObject>}
    */
   get gameObjects() {
     return client.gameManager.getMemberValue(this, 'gameObjects');
@@ -133,7 +134,7 @@ class Game extends BaseGame {
   /**
    * All the Jobs that Beavers can have in the game.
    *
-   * @type {Array.<Job>}
+   * @type {Array.<Stumped.Job>}
    */
   get jobs() {
     return client.gameManager.getMemberValue(this, 'jobs');
@@ -217,7 +218,7 @@ class Game extends BaseGame {
   /**
    * List of all the players in the game.
    *
-   * @type {Array.<Player>}
+   * @type {Array.<Stumped.Player>}
    */
   get players() {
     return client.gameManager.getMemberValue(this, 'players');
@@ -245,7 +246,7 @@ class Game extends BaseGame {
   /**
    * Every Spawner in the game.
    *
-   * @type {Array.<Spawner>}
+   * @type {Array.<Stumped.Spawner>}
    */
   get spawner() {
     return client.gameManager.getMemberValue(this, 'spawner');
@@ -287,7 +288,7 @@ class Game extends BaseGame {
   /**
    * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
    *
-   * @type {Array.<Tile>}
+   * @type {Array.<Stumped.Tile>}
    */
   get tiles() {
     return client.gameManager.getMemberValue(this, 'tiles');

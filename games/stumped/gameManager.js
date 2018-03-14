@@ -1,4 +1,12 @@
 // DO NOT MODIFY THIS FILE
+
+/**
+ * Gather branches and build up your lodge as beavers fight to survive.
+ *
+ * All this documentation is specific to the Stumped game.
+ * @namespace Stumped
+ */
+
 // This manages the game for you
 
 const GameManager = require(`${__basedir}/joueur/gameManager`);

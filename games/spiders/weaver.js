@@ -13,14 +13,14 @@ const Spiderling = require('./spiderling');
 
 /**
  * A Spiderling that can alter existing Webs by weaving to add or remove silk from the Webs, thus altering its strength.
- * @extends Spiderling
+ * @extends Spiders.Spiderling
+ * @memberof Spiders
  */
 class Weaver extends Spiderling {
   /**
-   * initializes a Weaver with basic logic as provided by the Creer code generator
-   *
-   * @memberof Weaver
-   * @private
+   * Initializes a Weaver with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -43,7 +43,7 @@ class Weaver extends Spiderling {
   /**
    * The Web that this Weaver is strengthening. Null if not strengthening.
    *
-   * @type {Web}
+   * @type {Spiders.Web}
    */
   get strengtheningWeb() {
     return client.gameManager.getMemberValue(this, 'strengtheningWeb');
@@ -57,7 +57,7 @@ class Weaver extends Spiderling {
   /**
    * The Web that this Weaver is weakening. Null if not weakening.
    *
-   * @type {Web}
+   * @type {Spiders.Web}
    */
   get weakeningWeb() {
     return client.gameManager.getMemberValue(this, 'weakeningWeb');
@@ -72,7 +72,7 @@ class Weaver extends Spiderling {
   /**
    * Weaves more silk into an existing Web to strengthen it.
    *
-   * @param {Web} web - The web you want to strengthen. Must be connected to the Nest this Weaver is currently on.
+   * @param {Spiders.Web} web - The web you want to strengthen. Must be connected to the Nest this Weaver is currently on.
    * @returns {boolean} - True if the strengthen was successfully started, false otherwise.
    */
   strengthen(web) {
@@ -85,7 +85,7 @@ class Weaver extends Spiderling {
   /**
    * Weaves more silk into an existing Web to strengthen it.
    *
-   * @param {Web} web - The web you want to weaken. Must be connected to the Nest this Weaver is currently on.
+   * @param {Spiders.Web} web - The web you want to weaken. Must be connected to the Nest this Weaver is currently on.
    * @returns {boolean} - True if the weaken was successfully started, false otherwise.
    */
   weaken(web) {

@@ -8,6 +8,7 @@ const BaseAI = require(`${__basedir}/joueur/baseAI`);
 
 /**
  * This is the class to play the Anarchy game. This is where you should build your AI.
+ * @memberof Anarchy
  */
 class AI extends BaseAI {
   /**

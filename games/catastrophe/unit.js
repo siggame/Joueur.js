@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A unit in the game.
- * @extends GameObject
+ * @extends Catastrophe.GameObject
+ * @memberof Catastrophe
  */
 class Unit extends GameObject {
   /**
-   * initializes a Unit with basic logic as provided by the Creer code generator
-   *
-   * @memberof Unit
-   * @private
+   * Initializes a Unit with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -95,7 +95,7 @@ class Unit extends GameObject {
   /**
    * The Job this Unit was recruited to do.
    *
-   * @type {Job}
+   * @type {Catastrophe.Job}
    */
   get job() {
     return client.gameManager.getMemberValue(this, 'job');
@@ -123,7 +123,7 @@ class Unit extends GameObject {
   /**
    * The tile this Unit is moving to. This only applies to neutral fresh humans spawned on the road. Otherwise, the tile this Unit is on.
    *
-   * @type {Tile}
+   * @type {Catastrophe.Tile}
    */
   get movementTarget() {
     return client.gameManager.getMemberValue(this, 'movementTarget');
@@ -151,7 +151,7 @@ class Unit extends GameObject {
   /**
    * The Player that owns and can control this Unit, or null if the Unit is neutral.
    *
-   * @type {Player}
+   * @type {Catastrophe.Player}
    */
   get owner() {
     return client.gameManager.getMemberValue(this, 'owner');
@@ -165,7 +165,7 @@ class Unit extends GameObject {
   /**
    * The Units in the same squad as this Unit. Units in the same squad attack and defend together.
    *
-   * @type {Array.<Unit>}
+   * @type {Array.<Catastrophe.Unit>}
    */
   get squad() {
     return client.gameManager.getMemberValue(this, 'squad');
@@ -193,7 +193,7 @@ class Unit extends GameObject {
   /**
    * The Tile this Unit is on.
    *
-   * @type {Tile}
+   * @type {Catastrophe.Tile}
    */
   get tile() {
     return client.gameManager.getMemberValue(this, 'tile');
@@ -222,7 +222,7 @@ class Unit extends GameObject {
   /**
    * Attacks an adjacent Tile. Costs an action for each Unit in this Unit's squad. Units in the squad without an action don't participate in combat. Units in combat cannot move afterwards. Attacking structures will not give materials.
    *
-   * @param {Tile} tile - The Tile to attack.
+   * @param {Catastrophe.Tile} tile - The Tile to attack.
    * @returns {boolean} - True if successfully attacked, false otherwise.
    */
   attack(tile) {
@@ -248,7 +248,7 @@ class Unit extends GameObject {
   /**
    * Constructs a Structure on an adjacent Tile.
    *
-   * @param {Tile} tile - The Tile to construct the Structure on. It must have enough materials on it for a Structure to be constructed.
+   * @param {Catastrophe.Tile} tile - The Tile to construct the Structure on. It must have enough materials on it for a Structure to be constructed.
    * @param {string} type - The type of Structure to construct on that Tile.
    * @returns {boolean} - True if successfully constructed a structure, false otherwise.
    */
@@ -263,7 +263,7 @@ class Unit extends GameObject {
   /**
    * Converts an adjacent Unit to your side.
    *
-   * @param {Tile} tile - The Tile with the Unit to convert.
+   * @param {Catastrophe.Tile} tile - The Tile with the Unit to convert.
    * @returns {boolean} - True if successfully converted, false otherwise.
    */
   convert(tile) {
@@ -276,7 +276,7 @@ class Unit extends GameObject {
   /**
    * Removes materials from an adjacent Tile's Structure. You cannot deconstruct friendly structures (see Unit.attack).
    *
-   * @param {Tile} tile - The Tile to deconstruct. It must have a Structure on it.
+   * @param {Catastrophe.Tile} tile - The Tile to deconstruct. It must have a Structure on it.
    * @returns {boolean} - True if successfully deconstructed, false otherwise.
    */
   deconstruct(tile) {
@@ -289,7 +289,7 @@ class Unit extends GameObject {
   /**
    * Drops some of the given resource on or adjacent to the Unit's Tile. Does not count as an action.
    *
-   * @param {Tile} tile - The Tile to drop materials/food on.
+   * @param {Catastrophe.Tile} tile - The Tile to drop materials/food on.
    * @param {string} resource - The type of resource to drop ('material' or 'food').
    * @param {number} [amount] - The amount of the resource to drop. Amounts <= 0 will drop as much as possible.
    * @returns {boolean} - True if successfully dropped the resource, false otherwise.
@@ -310,7 +310,7 @@ class Unit extends GameObject {
   /**
    * Harvests the food on an adjacent Tile.
    *
-   * @param {Tile} tile - The Tile you want to harvest.
+   * @param {Catastrophe.Tile} tile - The Tile you want to harvest.
    * @returns {boolean} - True if successfully harvested, false otherwise.
    */
   harvest(tile) {
@@ -323,7 +323,7 @@ class Unit extends GameObject {
   /**
    * Moves this Unit from its current Tile to an adjacent Tile.
    *
-   * @param {Tile} tile - The Tile this Unit should move to.
+   * @param {Catastrophe.Tile} tile - The Tile this Unit should move to.
    * @returns {boolean} - True if it moved, false otherwise.
    */
   move(tile) {
@@ -336,7 +336,7 @@ class Unit extends GameObject {
   /**
    * Picks up some materials or food on or adjacent to the Unit's Tile. Does not count as an action.
    *
-   * @param {Tile} tile - The Tile to pickup materials/food from.
+   * @param {Catastrophe.Tile} tile - The Tile to pickup materials/food from.
    * @param {string} resource - The type of resource to pickup ('material' or 'food').
    * @param {number} [amount] - The amount of the resource to pickup. Amounts <= 0 will pickup as much as possible.
    * @returns {boolean} - True if successfully picked up a resource, false otherwise.

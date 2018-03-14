@@ -23,15 +23,15 @@ ${merge('//', 'requires', '// any additional requires you want can be required h
 /**
  * ${obj['description']}
 % for parent_class in reversed(parent_classes):
- * @extends ${parent_class}
+ * @extends ${(game_name + '.') if not 'Base' in parent_class else ''}${parent_class}
 % endfor
+ * @memberof ${game_name}
  */
 class ${obj_key} extends ${', '.join(parent_classes)} {
   /**
-   * initializes a ${obj_key} with basic logic as provided by the Creer code generator
-   *
-   * @memberof ${obj_key}
-   * @private
+   * Initializes a ${obj_key} with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
 % for parent_class in reversed(parent_classes):
@@ -44,6 +44,7 @@ class ${obj_key} extends ${', '.join(parent_classes)} {
 
     /**
      * The name of the game.
+     * @type {string}
      */
     this.name = '${game_name}';
 % endif

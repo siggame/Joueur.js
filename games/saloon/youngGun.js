@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * An eager young person that wants to join your gang, and will call in the veteran Cowboys you need to win the brawl in the saloon.
- * @extends GameObject
+ * @extends Saloon.GameObject
+ * @memberof Saloon
  */
 class YoungGun extends GameObject {
   /**
-   * initializes a YoungGun with basic logic as provided by the Creer code generator
-   *
-   * @memberof YoungGun
-   * @private
+   * Initializes a YoungGun with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -45,7 +45,7 @@ class YoungGun extends GameObject {
   /**
    * The Tile that a Cowboy will be called in on if this YoungGun calls in a Cowboy.
    *
-   * @type {Tile}
+   * @type {Saloon.Tile}
    */
   get callInTile() {
     return client.gameManager.getMemberValue(this, 'callInTile');
@@ -73,7 +73,7 @@ class YoungGun extends GameObject {
   /**
    * The Player that owns and can control this YoungGun.
    *
-   * @type {Player}
+   * @type {Saloon.Player}
    */
   get owner() {
     return client.gameManager.getMemberValue(this, 'owner');
@@ -87,7 +87,7 @@ class YoungGun extends GameObject {
   /**
    * The Tile this YoungGun is currently on.
    *
-   * @type {Tile}
+   * @type {Saloon.Tile}
    */
   get tile() {
     return client.gameManager.getMemberValue(this, 'tile');
@@ -103,13 +103,14 @@ class YoungGun extends GameObject {
    * Tells the YoungGun to call in a new Cowboy of the given job to the open Tile nearest to them.
    *
    * @param {string} job - The job you want the Cowboy being brought to have.
-   * @returns {Cowboy} - The new Cowboy that was called in if valid. They will not be added to any `cowboys` lists until the turn ends. Null otherwise.
+   * @returns {Saloon.Cowboy} - The new Cowboy that was called in if valid. They will not be added to any `cowboys` lists until the turn ends. Null otherwise.
    */
   callIn(job) {
     return client.runOnServer(this, 'callIn', {
       job: job,
     });
   }
+
 
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
   // any additional functions you want to add to this class can be preserved here

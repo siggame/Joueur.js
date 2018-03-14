@@ -1,6 +1,10 @@
-# GAME_NAME JavaScript Client (via Node.js)
+# JavaScript Joueur Client (via Node.js)
 
-This is the root of your AI. Stay out of the `joueur/` folder, it does most of the heavy lifting to play on our game servers. Your AI, and the game objects it manipulates are all in `games/game_name/`, with your very own AI living in `games/game_name/ai.js` for you to make smarter.
+This is the client for the [Cadre][cadre] AI framework. It can play multiple different games, though you will probably only be interested in one at a time.
+
+In general, try to stay out of the `joueur/` folder, it does most of the heavy lifting to play on our game servers.
+
+Each AI, and the game objects it manipulates are all in `games/game_name/`, with your very own AI living in `games/game_name/ai.js` for you to make smarter.
 
 ## How to Run
 
@@ -42,6 +46,7 @@ It is possible that on your Missouri S&T S-Drive this client will not run proper
 
 The only file you should ever modify to create your AI is the `ai.js` file. All the other files are needed for the game to work. In addition, you should never be creating your own instances of the Game's classes, nor should you ever try to modify their variables. Instead, treat the Game and its members as a read only structure that represents the game state on the game server. You interact with it by calling the game object functions.
 
+[cadre]: https://github.com/siggame/Cadre
 [nodejs]: https://nodejs.org/
 [node-gyp]: https://github.com/nodejs/node-gyp
 [node-gyp-install]: https://github.com/nodejs/node-gyp#installation

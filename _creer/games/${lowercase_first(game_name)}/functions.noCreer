@@ -43,6 +43,8 @@ if not 'js' in shared:
             return "Array.<" + js_type(type_obj['valueType']) + ">"
         elif base_type == "int" or base_type == "float":
             return "number"
+        elif type_obj['is_game_object']:
+            return game_name + '.' + base_type
         else:
             return base_type
     shared['js']['type'] = js_type

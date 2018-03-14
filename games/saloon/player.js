@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A player in this game. Every AI controls one player.
- * @extends GameObject
+ * @extends Saloon.GameObject
+ * @memberof Saloon
  */
 class Player extends GameObject {
   /**
-   * initializes a Player with basic logic as provided by the Creer code generator
-   *
-   * @memberof Player
-   * @private
+   * Initializes a Player with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -69,7 +69,7 @@ class Player extends GameObject {
   /**
    * Every Cowboy owned by this Player.
    *
-   * @type {Array.<Cowboy>}
+   * @type {Array.<Saloon.Cowboy>}
    */
   get cowboys() {
     return client.gameManager.getMemberValue(this, 'cowboys');
@@ -125,7 +125,7 @@ class Player extends GameObject {
   /**
    * This player's opponent in the game.
    *
-   * @type {Player}
+   * @type {Saloon.Player}
    */
   get opponent() {
     return client.gameManager.getMemberValue(this, 'opponent');
@@ -237,7 +237,7 @@ class Player extends GameObject {
   /**
    * The YoungGun this Player uses to call in new Cowboys.
    *
-   * @type {YoungGun}
+   * @type {Saloon.YoungGun}
    */
   get youngGun() {
     return client.gameManager.getMemberValue(this, 'youngGun');
@@ -246,6 +246,7 @@ class Player extends GameObject {
   set youngGun(value) {
     client.gameManager.setMemberValue(this, 'youngGun', value);
   }
+
 
 
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

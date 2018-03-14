@@ -6,6 +6,7 @@ ${merge('// ', 'requires', '// any additional requires you want can be required 
 
 /**
  * This is the class to play the ${game_name} game. This is where you should build your AI.
+ * @memberof ${game_name}
  */
 class AI extends BaseAI {
   /**

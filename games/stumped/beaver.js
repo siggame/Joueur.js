@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A beaver in the game.
- * @extends GameObject
+ * @extends Stumped.GameObject
+ * @memberof Stumped
  */
 class Beaver extends GameObject {
   /**
-   * initializes a Beaver with basic logic as provided by the Creer code generator
-   *
-   * @memberof Beaver
-   * @private
+   * Initializes a Beaver with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -107,7 +107,7 @@ class Beaver extends GameObject {
   /**
    * The Job this Beaver was recruited to do.
    *
-   * @type {Job}
+   * @type {Stumped.Job}
    */
   get job() {
     return client.gameManager.getMemberValue(this, 'job');
@@ -135,7 +135,7 @@ class Beaver extends GameObject {
   /**
    * The Player that owns and can control this Beaver.
    *
-   * @type {Player}
+   * @type {Stumped.Player}
    */
   get owner() {
     return client.gameManager.getMemberValue(this, 'owner');
@@ -163,7 +163,7 @@ class Beaver extends GameObject {
   /**
    * The Tile this Beaver is on.
    *
-   * @type {Tile}
+   * @type {Stumped.Tile}
    */
   get tile() {
     return client.gameManager.getMemberValue(this, 'tile');
@@ -192,7 +192,7 @@ class Beaver extends GameObject {
   /**
    * Attacks another adjacent beaver.
    *
-   * @param {Beaver} beaver - The Beaver to attack. Must be on an adjacent Tile.
+   * @param {Stumped.Beaver} beaver - The Beaver to attack. Must be on an adjacent Tile.
    * @returns {boolean} - True if successfully attacked, false otherwise.
    */
   attack(beaver) {
@@ -216,7 +216,7 @@ class Beaver extends GameObject {
   /**
    * Drops some of the given resource on the beaver's Tile.
    *
-   * @param {Tile} tile - The Tile to drop branches/food on. Must be the same Tile that the Beaver is on, or an adjacent one.
+   * @param {Stumped.Tile} tile - The Tile to drop branches/food on. Must be the same Tile that the Beaver is on, or an adjacent one.
    * @param {string} resource - The type of resource to drop ('branch' or 'food').
    * @param {number} [amount] - The amount of the resource to drop, numbers <= 0 will drop all the resource type.
    * @returns {boolean} - True if successfully dropped the resource, false otherwise.
@@ -237,7 +237,7 @@ class Beaver extends GameObject {
   /**
    * Harvests the branches or food from a Spawner on an adjacent Tile.
    *
-   * @param {Spawner} spawner - The Spawner you want to harvest. Must be on an adjacent Tile.
+   * @param {Stumped.Spawner} spawner - The Spawner you want to harvest. Must be on an adjacent Tile.
    * @returns {boolean} - True if successfully harvested, false otherwise.
    */
   harvest(spawner) {
@@ -250,7 +250,7 @@ class Beaver extends GameObject {
   /**
    * Moves this Beaver from its current Tile to an adjacent Tile.
    *
-   * @param {Tile} tile - The Tile this Beaver should move to.
+   * @param {Stumped.Tile} tile - The Tile this Beaver should move to.
    * @returns {boolean} - True if the move worked, false otherwise.
    */
   move(tile) {
@@ -263,7 +263,7 @@ class Beaver extends GameObject {
   /**
    * Picks up some branches or food on the beaver's tile.
    *
-   * @param {Tile} tile - The Tile to pickup branches/food from. Must be the same Tile that the Beaver is on, or an adjacent one.
+   * @param {Stumped.Tile} tile - The Tile to pickup branches/food from. Must be the same Tile that the Beaver is on, or an adjacent one.
    * @param {string} resource - The type of resource to pickup ('branch' or 'food').
    * @param {number} [amount] - The amount of the resource to drop, numbers <= 0 will pickup all of the resource type.
    * @returns {boolean} - True if successfully picked up a resource, false otherwise.

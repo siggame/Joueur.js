@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * An furnishing in the Saloon that must be pathed around, or destroyed.
- * @extends GameObject
+ * @extends Saloon.GameObject
+ * @memberof Saloon
  */
 class Furnishing extends GameObject {
   /**
-   * initializes a Furnishing with basic logic as provided by the Creer code generator
-   *
-   * @memberof Furnishing
-   * @private
+   * Initializes a Furnishing with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -102,7 +102,7 @@ class Furnishing extends GameObject {
   /**
    * The Tile that this Furnishing is located on.
    *
-   * @type {Tile}
+   * @type {Saloon.Tile}
    */
   get tile() {
     return client.gameManager.getMemberValue(this, 'tile');
@@ -111,6 +111,7 @@ class Furnishing extends GameObject {
   set tile(value) {
     client.gameManager.setMemberValue(this, 'tile', value);
   }
+
 
 
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

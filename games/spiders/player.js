@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A player in this game. Every AI controls one player.
- * @extends GameObject
+ * @extends Spiders.GameObject
+ * @memberof Spiders
  */
 class Player extends GameObject {
   /**
-   * initializes a Player with basic logic as provided by the Creer code generator
-   *
-   * @memberof Player
-   * @private
+   * Initializes a Player with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -52,7 +52,7 @@ class Player extends GameObject {
   /**
    * This player's BroodMother. If it dies they lose the game.
    *
-   * @type {BroodMother}
+   * @type {Spiders.BroodMother}
    */
   get broodMother() {
     return client.gameManager.getMemberValue(this, 'broodMother');
@@ -122,7 +122,7 @@ class Player extends GameObject {
   /**
    * This player's opponent in the game.
    *
-   * @type {Player}
+   * @type {Spiders.Player}
    */
   get opponent() {
     return client.gameManager.getMemberValue(this, 'opponent');
@@ -164,7 +164,7 @@ class Player extends GameObject {
   /**
    * All the Spiders owned by this player.
    *
-   * @type {Array.<Spider>}
+   * @type {Array.<Spiders.Spider>}
    */
   get spiders() {
     return client.gameManager.getMemberValue(this, 'spiders');

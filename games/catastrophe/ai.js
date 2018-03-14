@@ -8,6 +8,7 @@ const BaseAI = require(`${__basedir}/joueur/baseAI`);
 
 /**
  * This is the class to play the Catastrophe game. This is where you should build your AI.
+ * @memberof Catastrophe
  */
 class AI extends BaseAI {
   /**
