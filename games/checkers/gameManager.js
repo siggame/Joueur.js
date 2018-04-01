@@ -2,8 +2,6 @@
 
 /**
  * The simple version of American Checkers. An 8x8 board with 12 checkers on each side that must move diagonally to the opposing side until kinged.
- *
- * All this documentation is specific to the Checkers game.
  * @namespace Checkers
  */
 

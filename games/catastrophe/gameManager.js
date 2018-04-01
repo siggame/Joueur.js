@@ -2,8 +2,6 @@
 
 /**
  * Convert as many humans to as you can to survive in this post-apocalyptic wasteland.
- *
- * All this documentation is specific to the Catastrophe game.
  * @namespace Catastrophe
  */
 

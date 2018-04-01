@@ -2,8 +2,6 @@
 
 /**
  * There's an infestation of enemy spiders challenging your queen broodmother spider! Protect her and attack the other broodmother in this turn based, node based, game.
- *
- * All this documentation is specific to the Spiders game.
  * @namespace Spiders
  */
 

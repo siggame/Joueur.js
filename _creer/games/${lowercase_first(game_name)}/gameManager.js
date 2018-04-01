@@ -2,8 +2,6 @@
 
 /**
  * ${game['description']}
- *
- * All this documentation is specific to the ${game_name} game.
  * @namespace ${game_name}
  */
 

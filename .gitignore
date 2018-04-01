@@ -28,6 +28,7 @@ node_modules
 
 # jsdoc output
 docs/output
+docs/temp
 
 # Vagrant files
 .vagrant/*
