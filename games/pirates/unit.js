@@ -193,7 +193,7 @@ class Unit extends GameObject {
    * Attacks either crew, a ship, or a port on a Tile in range.
    *
    * @param {Tile} tile - The Tile to attack.
-   * @param {string} target - Whether to attack 'crew', 'ship', or 'port'. Crew deal damage to crew, and ships deal damage to ships and ports. Consumes any remaining moves.
+   * @param {string} target - Whether to attack 'crew', 'ship', or 'port'. Crew deal damage to crew, and ships deal damage to ships. Both can attack ports as well. Units cannot attack other units in ports. Consumes any remaining moves.
    * @returns {boolean} - True if successfully attacked, false otherwise.
    */
   attack(tile, target) {
@@ -208,7 +208,7 @@ class Unit extends GameObject {
    * Builds a Port on the given Tile.
    *
    * @param {Tile} tile - The Tile to build the Port on.
-   * @returns {boolean} - True if successfully constructed a Port, false otherwise.
+   * @returns {boolean} - True if successfully built a Port, false otherwise.
    */
   build(tile) {
     return client.runOnServer(this, 'build', {
@@ -220,7 +220,7 @@ class Unit extends GameObject {
   /**
    * Buries gold on this Unit's Tile.
    *
-   * @param {number} amount - How much gold this Unit should bury.
+   * @param {number} amount - How much gold this Unit should bury. Amounts <= 0 will bury as much as possible.
    * @returns {boolean} - True if successfully buried, false otherwise.
    */
   bury(amount) {
@@ -231,7 +231,7 @@ class Unit extends GameObject {
 
 
   /**
-   * Puts gold into an adjacent Port. If that Port is the Player's main port, the gold is added to that Player. If that Port is owned by merchants, adds to the investment.
+   * Puts gold into an adjacent Port. If that Port is the Player's main port, the gold is added to that Player. If that Port is owned by merchants, it adds to that Port's investment.
    *
    * @param {number} [amount] - The amount of gold to deposit. Amounts <= 0 will deposit all the gold on this Unit.
    * @returns {boolean} - True if successfully deposited, false otherwise.
@@ -280,18 +280,10 @@ class Unit extends GameObject {
   /**
    * Regenerates this Unit's health. Must be used in range of a port.
    *
-   * @param {Tile} tile - The Tile to move the crew to.
-   * @param {number} [amount] - The number of crew to move onto that Tile. Amount <= 0 will move all the crew to that Tile.
-   * @returns {boolean} - True if successfully split, false otherwise.
+   * @returns {boolean} - True if successfully rested, false otherwise.
    */
-  rest(tile, amount) {
-    if(arguments.length <= 1) {
-      amount = 1;
-    }
-
+  rest() {
     return client.runOnServer(this, 'rest', {
-      tile: tile,
-      amount: amount,
     });
   }
 
