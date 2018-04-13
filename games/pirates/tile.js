@@ -29,6 +29,7 @@ class Tile extends GameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
+    this.decoration = false;
     this.gold = 0;
     this.port = null;
     this.tileEast = null;
@@ -47,6 +48,20 @@ class Tile extends GameObject {
 
 
   // Member variables
+
+  /**
+   * (Visualizer only) Whether this tile is deep sea or grassy. This has no effect on gameplay, but feel free to use it if you want.
+   *
+   * @type {boolean}
+   */
+  get decoration() {
+    return client.gameManager.getMemberValue(this, 'decoration');
+  }
+
+  set decoration(value) {
+    client.gameManager.setMemberValue(this, 'decoration', value);
+  }
+
 
   /**
    * The amount of gold buried on this tile.

@@ -29,10 +29,7 @@ class Port extends GameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
-    this.cooldown = false;
-    this.destroyable = 0;
     this.gold = 0;
-    this.health = 0;
     this.investment = 0;
     this.owner = null;
     this.tile = null;
@@ -46,35 +43,7 @@ class Port extends GameObject {
   // Member variables
 
   /**
-   * Whether this Port has created a Unit this turn.
-   *
-   * @type {boolean}
-   */
-  get cooldown() {
-    return client.gameManager.getMemberValue(this, 'cooldown');
-  }
-
-  set cooldown(value) {
-    client.gameManager.setMemberValue(this, 'cooldown', value);
-  }
-
-
-  /**
-   * Whether this Port can be destroyed.
-   *
-   * @type {number}
-   */
-  get destroyable() {
-    return client.gameManager.getMemberValue(this, 'destroyable');
-  }
-
-  set destroyable(value) {
-    client.gameManager.setMemberValue(this, 'destroyable', value);
-  }
-
-
-  /**
-   * (Merchants only) How much gold this Port has accumulated. Once this port can afford to create a ship, it will spend gold to construct one.
+   * For players, how much more gold this Port can spend this turn. For merchants, how much gold this Port has accumulated (it will spawn a ship when the Port can afford one).
    *
    * @type {number}
    */
@@ -88,21 +57,7 @@ class Port extends GameObject {
 
 
   /**
-   * How much health this Port has.
-   *
-   * @type {number}
-   */
-  get health() {
-    return client.gameManager.getMemberValue(this, 'health');
-  }
-
-  set health(value) {
-    client.gameManager.setMemberValue(this, 'health', value);
-  }
-
-
-  /**
-   * (Merchants only) How much gold this Port accumulates each turn.
+   * (Merchants only) How much gold was invested into this Port. Investment determines the strength and value of the next ship.
    *
    * @type {number}
    */

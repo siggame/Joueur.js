@@ -34,6 +34,7 @@ class Game extends BaseGame {
     this.name = 'Pirates';
 
     // default values for private member values
+    this.buryInterestRate = 0;
     this.crewCost = 0;
     this.crewDamage = 0;
     this.crewHealth = 0;
@@ -45,16 +46,12 @@ class Game extends BaseGame {
     this.healFactor = 0;
     this.mapHeight = 0;
     this.mapWidth = 0;
-    this.maxInterestDistance = 0;
-    this.maxInterestRate = 0;
     this.maxTurns = 0;
-    this.merchantCrewCost = 0;
-    this.merchantInvestmentRate = 0;
-    this.merchantShipCost = 0;
+    this.merchantGoldRate = 0;
+    this.merchantInterestRate = 0;
+    this.merchantPorts = [];
+    this.minInterestDistance = 0;
     this.players = [];
-    this.portCost = 0;
-    this.portHealth = 0;
-    this.ports = [];
     this.restRange = 0;
     this.session = '';
     this.shipCost = 0;
@@ -72,6 +69,20 @@ class Game extends BaseGame {
 
 
   // Member variables
+
+  /**
+   * The rate buried gold increases each turn.
+   *
+   * @type {number}
+   */
+  get buryInterestRate() {
+    return client.gameManager.getMemberValue(this, 'buryInterestRate');
+  }
+
+  set buryInterestRate(value) {
+    client.gameManager.setMemberValue(this, 'buryInterestRate', value);
+  }
+
 
   /**
    * How much gold it costs to construct a single crew.
@@ -228,34 +239,6 @@ class Game extends BaseGame {
 
 
   /**
-   * The Euclidean distance from a Player Port required to reach maxInterestRate.
-   *
-   * @type {number}
-   */
-  get maxInterestDistance() {
-    return client.gameManager.getMemberValue(this, 'maxInterestDistance');
-  }
-
-  set maxInterestDistance(value) {
-    client.gameManager.setMemberValue(this, 'maxInterestDistance', value);
-  }
-
-
-  /**
-   * The maximum rate buried gold can increase over time.
-   *
-   * @type {number}
-   */
-  get maxInterestRate() {
-    return client.gameManager.getMemberValue(this, 'maxInterestRate');
-  }
-
-  set maxInterestRate(value) {
-    client.gameManager.setMemberValue(this, 'maxInterestRate', value);
-  }
-
-
-  /**
    * The maximum number of turns before the game will automatically end.
    *
    * @type {number}
@@ -270,44 +253,58 @@ class Game extends BaseGame {
 
 
   /**
-   * How much gold it costs a merchant Port to create a crew member.
+   * How much gold merchant Ports get each turn.
    *
    * @type {number}
    */
-  get merchantCrewCost() {
-    return client.gameManager.getMemberValue(this, 'merchantCrewCost');
+  get merchantGoldRate() {
+    return client.gameManager.getMemberValue(this, 'merchantGoldRate');
   }
 
-  set merchantCrewCost(value) {
-    client.gameManager.setMemberValue(this, 'merchantCrewCost', value);
+  set merchantGoldRate(value) {
+    client.gameManager.setMemberValue(this, 'merchantGoldRate', value);
   }
 
 
   /**
-   * How much gold merchant Ports get per turn. They gain (Port.investment * merchantInvestmentRate) gold each turn.
+   * When a merchant ship spawns, the amount of additional gold it has relative to the Port's investment.
    *
    * @type {number}
    */
-  get merchantInvestmentRate() {
-    return client.gameManager.getMemberValue(this, 'merchantInvestmentRate');
+  get merchantInterestRate() {
+    return client.gameManager.getMemberValue(this, 'merchantInterestRate');
   }
 
-  set merchantInvestmentRate(value) {
-    client.gameManager.setMemberValue(this, 'merchantInvestmentRate', value);
+  set merchantInterestRate(value) {
+    client.gameManager.setMemberValue(this, 'merchantInterestRate', value);
   }
 
 
   /**
-   * How much gold it costs a merchant Port to create a ship.
+   * Every Port in the game. Merchant ports have owner set to null.
+   *
+   * @type {Array.<Port>}
+   */
+  get merchantPorts() {
+    return client.gameManager.getMemberValue(this, 'merchantPorts');
+  }
+
+  set merchantPorts(value) {
+    client.gameManager.setMemberValue(this, 'merchantPorts', value);
+  }
+
+
+  /**
+   * The Euclidean distance buried gold must be from the Player's Port to accumulate interest.
    *
    * @type {number}
    */
-  get merchantShipCost() {
-    return client.gameManager.getMemberValue(this, 'merchantShipCost');
+  get minInterestDistance() {
+    return client.gameManager.getMemberValue(this, 'minInterestDistance');
   }
 
-  set merchantShipCost(value) {
-    client.gameManager.setMemberValue(this, 'merchantShipCost', value);
+  set minInterestDistance(value) {
+    client.gameManager.setMemberValue(this, 'minInterestDistance', value);
   }
 
 
@@ -322,48 +319,6 @@ class Game extends BaseGame {
 
   set players(value) {
     client.gameManager.setMemberValue(this, 'players', value);
-  }
-
-
-  /**
-   * How much gold it costs to construct a port.
-   *
-   * @type {number}
-   */
-  get portCost() {
-    return client.gameManager.getMemberValue(this, 'portCost');
-  }
-
-  set portCost(value) {
-    client.gameManager.setMemberValue(this, 'portCost', value);
-  }
-
-
-  /**
-   * The maximum amount of health a Port can have.
-   *
-   * @type {number}
-   */
-  get portHealth() {
-    return client.gameManager.getMemberValue(this, 'portHealth');
-  }
-
-  set portHealth(value) {
-    client.gameManager.setMemberValue(this, 'portHealth', value);
-  }
-
-
-  /**
-   * Every Port in the game.
-   *
-   * @type {Array.<Port>}
-   */
-  get ports() {
-    return client.gameManager.getMemberValue(this, 'ports');
-  }
-
-  set ports(value) {
-    client.gameManager.setMemberValue(this, 'ports', value);
   }
 
 
@@ -480,7 +435,7 @@ class Game extends BaseGame {
 
 
   /**
-   * Every Unit in the game.
+   * Every Unit in the game. Merchant units have targetPort set to a port.
    *
    * @type {Array.<Unit>}
    */
