@@ -49,9 +49,9 @@ class Game extends BaseGame {
     this.maxTurns = 0;
     this.merchantGoldRate = 0;
     this.merchantInterestRate = 0;
-    this.merchantPorts = [];
     this.minInterestDistance = 0;
     this.players = [];
+    this.ports = [];
     this.restRange = 0;
     this.session = '';
     this.shipCost = 0;
@@ -281,20 +281,6 @@ class Game extends BaseGame {
 
 
   /**
-   * Every Port in the game. Merchant ports have owner set to null.
-   *
-   * @type {Array.<Port>}
-   */
-  get merchantPorts() {
-    return client.gameManager.getMemberValue(this, 'merchantPorts');
-  }
-
-  set merchantPorts(value) {
-    client.gameManager.setMemberValue(this, 'merchantPorts', value);
-  }
-
-
-  /**
    * The Euclidean distance buried gold must be from the Player's Port to accumulate interest.
    *
    * @type {number}
@@ -319,6 +305,20 @@ class Game extends BaseGame {
 
   set players(value) {
     client.gameManager.setMemberValue(this, 'players', value);
+  }
+
+
+  /**
+   * Every Port in the game. Merchant ports have owner set to null.
+   *
+   * @type {Array.<Port>}
+   */
+  get ports() {
+    return client.gameManager.getMemberValue(this, 'ports');
+  }
+
+  set ports(value) {
+    client.gameManager.setMemberValue(this, 'ports', value);
   }
 
 
