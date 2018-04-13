@@ -35,7 +35,7 @@ class Player extends GameObject {
     this.lost = false;
     this.name = '';
     this.opponent = null;
-    this.ports = null;
+    this.port = null;
     this.reasonLost = '';
     this.reasonWon = '';
     this.timeRemaining = 0;
@@ -139,12 +139,12 @@ class Player extends GameObject {
    *
    * @type {Port}
    */
-  get ports() {
-    return client.gameManager.getMemberValue(this, 'ports');
+  get port() {
+    return client.gameManager.getMemberValue(this, 'port');
   }
 
-  set ports(value) {
-    client.gameManager.setMemberValue(this, 'ports', value);
+  set port(value) {
+    client.gameManager.setMemberValue(this, 'port', value);
   }
 
 
