@@ -1,4 +1,10 @@
 // DO NOT MODIFY THIS FILE
+
+/**
+ * ${game['description']}
+ * @namespace ${game_name}
+ */
+
 // This manages the game for you
 
 const GameManager = require(`${'$'}{__basedir}/joueur/gameManager`);

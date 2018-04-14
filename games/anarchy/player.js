@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A player in this game. Every AI controls one player.
- * @extends GameObject
+ * @extends Anarchy.GameObject
+ * @memberof Anarchy
  */
 class Player extends GameObject {
   /**
-   * initializes a Player with basic logic as provided by the Creer code generator
-   *
-   * @memberof Player
-   * @private
+   * Initializes a Player with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -70,7 +70,7 @@ class Player extends GameObject {
   /**
    * All the buildings owned by this player.
    *
-   * @type {Array.<Building>}
+   * @type {Array.<Anarchy.Building>}
    */
   get buildings() {
     return client.gameManager.getMemberValue(this, 'buildings');
@@ -98,7 +98,7 @@ class Player extends GameObject {
   /**
    * All the FireDepartments owned by this player.
    *
-   * @type {Array.<FireDepartment>}
+   * @type {Array.<Anarchy.FireDepartment>}
    */
   get fireDepartments() {
     return client.gameManager.getMemberValue(this, 'fireDepartments');
@@ -112,7 +112,7 @@ class Player extends GameObject {
   /**
    * The Warehouse that serves as this player's headquarters and has extra health. If this gets destroyed they lose.
    *
-   * @type {Warehouse}
+   * @type {Anarchy.Warehouse}
    */
   get headquarters() {
     return client.gameManager.getMemberValue(this, 'headquarters');
@@ -154,7 +154,7 @@ class Player extends GameObject {
   /**
    * This player's opponent in the game.
    *
-   * @type {Player}
+   * @type {Anarchy.Player}
    */
   get opponent() {
     return client.gameManager.getMemberValue(this, 'opponent');
@@ -168,7 +168,7 @@ class Player extends GameObject {
   /**
    * All the PoliceDepartments owned by this player.
    *
-   * @type {Array.<PoliceDepartment>}
+   * @type {Array.<Anarchy.PoliceDepartment>}
    */
   get policeDepartments() {
     return client.gameManager.getMemberValue(this, 'policeDepartments');
@@ -224,7 +224,7 @@ class Player extends GameObject {
   /**
    * All the warehouses owned by this player. Includes the Headquarters.
    *
-   * @type {Array.<Warehouse>}
+   * @type {Array.<Anarchy.Warehouse>}
    */
   get warehouses() {
     return client.gameManager.getMemberValue(this, 'warehouses');
@@ -238,7 +238,7 @@ class Player extends GameObject {
   /**
    * All the WeatherStations owned by this player.
    *
-   * @type {Array.<WeatherStation>}
+   * @type {Array.<Anarchy.WeatherStation>}
    */
   get weatherStations() {
     return client.gameManager.getMemberValue(this, 'weatherStations');

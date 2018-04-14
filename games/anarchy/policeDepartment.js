@@ -13,14 +13,14 @@ const Building = require('./building');
 
 /**
  * Used to keep cities under control and raid Warehouses.
- * @extends Building
+ * @extends Anarchy.Building
+ * @memberof Anarchy
  */
 class PoliceDepartment extends Building {
   /**
-   * initializes a PoliceDepartment with basic logic as provided by the Creer code generator
-   *
-   * @memberof PoliceDepartment
-   * @private
+   * Initializes a PoliceDepartment with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -42,7 +42,7 @@ class PoliceDepartment extends Building {
   /**
    * Bribe the police to raid a Warehouse, dealing damage equal based on the Warehouse's current exposure, and then resetting it to 0.
    *
-   * @param {Warehouse} warehouse - The warehouse you want to raid.
+   * @param {Anarchy.Warehouse} warehouse - The warehouse you want to raid.
    * @returns {number} - The amount of damage dealt to the warehouse, or -1 if there was an error.
    */
   raid(warehouse) {

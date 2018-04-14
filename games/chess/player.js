@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A player in this game. Every AI controls one player.
- * @extends GameObject
+ * @extends Chess.GameObject
+ * @memberof Chess
  */
 class Player extends GameObject {
   /**
-   * initializes a Player with basic logic as provided by the Creer code generator
-   *
-   * @memberof Player
-   * @private
+   * Initializes a Player with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -138,7 +138,7 @@ class Player extends GameObject {
   /**
    * This player's opponent in the game.
    *
-   * @type {Player}
+   * @type {Chess.Player}
    */
   get opponent() {
     return client.gameManager.getMemberValue(this, 'opponent');
@@ -152,7 +152,7 @@ class Player extends GameObject {
   /**
    * All the uncaptured chess Pieces owned by this player.
    *
-   * @type {Array.<Piece>}
+   * @type {Array.<Chess.Piece>}
    */
   get pieces() {
     return client.gameManager.getMemberValue(this, 'pieces');
@@ -164,7 +164,7 @@ class Player extends GameObject {
 
 
   /**
-   * The direction your Pieces must go along the rank axis until they reach the other side.
+   * The direction your Pieces must go along the rank axis until they reach the other side. Will be +1 if the Player is 'White', or -1 if the Player is 'Black'.
    *
    * @type {number}
    */

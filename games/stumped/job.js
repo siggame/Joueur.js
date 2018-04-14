@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * Information about a beaver's job.
- * @extends GameObject
+ * @extends Stumped.GameObject
+ * @memberof Stumped
  */
 class Job extends GameObject {
   /**
-   * initializes a Job with basic logic as provided by the Creer code generator
-   *
-   * @memberof Job
-   * @private
+   * Initializes a Job with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -192,8 +192,8 @@ class Job extends GameObject {
   /**
    * Recruits a Beaver of this Job to a lodge
    *
-   * @param {Tile} tile - The Tile that is a lodge owned by you that you wish to spawn the Beaver of this Job on.
-   * @returns {Beaver} - The recruited Beaver if successful, null otherwise.
+   * @param {Stumped.Tile} tile - The Tile that is a lodge owned by you that you wish to spawn the Beaver of this Job on.
+   * @returns {Stumped.Beaver} - The recruited Beaver if successful, null otherwise.
    */
   recruit(tile) {
     return client.runOnServer(this, 'recruit', {

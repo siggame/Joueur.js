@@ -14,13 +14,13 @@ const BaseGame = require(`${__basedir}/joueur/baseGame`);
 /**
  * Use cowboys to have a good time and play some music on a Piano, while brawling with enemy Cowboys.
  * @extends BaseGame
+ * @memberof Saloon
  */
 class Game extends BaseGame {
   /**
-   * initializes a Game with basic logic as provided by the Creer code generator
-   *
-   * @memberof Game
-   * @private
+   * Initializes a Game with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -30,6 +30,7 @@ class Game extends BaseGame {
 
     /**
      * The name of the game.
+     * @type {string}
      */
     this.name = 'Saloon';
 
@@ -80,7 +81,7 @@ class Game extends BaseGame {
   /**
    * All the beer Bottles currently flying across the saloon in the game.
    *
-   * @type {Array.<Bottle>}
+   * @type {Array.<Saloon.Bottle>}
    */
   get bottles() {
     return client.gameManager.getMemberValue(this, 'bottles');
@@ -108,7 +109,7 @@ class Game extends BaseGame {
   /**
    * Every Cowboy in the game.
    *
-   * @type {Array.<Cowboy>}
+   * @type {Array.<Saloon.Cowboy>}
    */
   get cowboys() {
     return client.gameManager.getMemberValue(this, 'cowboys');
@@ -122,7 +123,7 @@ class Game extends BaseGame {
   /**
    * The player whose turn it is currently. That player can send commands. Other players cannot.
    *
-   * @type {Player}
+   * @type {Saloon.Player}
    */
   get currentPlayer() {
     return client.gameManager.getMemberValue(this, 'currentPlayer');
@@ -150,7 +151,7 @@ class Game extends BaseGame {
   /**
    * Every furnishing in the game.
    *
-   * @type {Array.<Furnishing>}
+   * @type {Array.<Saloon.Furnishing>}
    */
   get furnishings() {
     return client.gameManager.getMemberValue(this, 'furnishings');
@@ -164,7 +165,7 @@ class Game extends BaseGame {
   /**
    * A mapping of every game object's ID to the actual game object. Primarily used by the server and client to easily refer to the game objects via ID.
    *
-   * @type {Object.<string, GameObject>}
+   * @type {Object.<string, Saloon.GameObject>}
    */
   get gameObjects() {
     return client.gameManager.getMemberValue(this, 'gameObjects');
@@ -248,7 +249,7 @@ class Game extends BaseGame {
   /**
    * List of all the players in the game.
    *
-   * @type {Array.<Player>}
+   * @type {Array.<Saloon.Player>}
    */
   get players() {
     return client.gameManager.getMemberValue(this, 'players');
@@ -318,7 +319,7 @@ class Game extends BaseGame {
   /**
    * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
    *
-   * @type {Array.<Tile>}
+   * @type {Array.<Saloon.Tile>}
    */
   get tiles() {
     return client.gameManager.getMemberValue(this, 'tiles');
@@ -342,6 +343,21 @@ class Game extends BaseGame {
     client.gameManager.setMemberValue(this, 'turnsDrunk', value);
   }
 
+
+  /**
+   * Gets the Tile at a specified (x, y) position
+   *
+   * @param {number} x - integer between 0 and the mapWidth
+   * @param {number} y - integer between 0 and the mapHeight
+   * @returns {Tile|null} - the Tile at (x, y) or null if out of bounds
+   */
+  getTileAt(x, y) {
+    if(x < 0 || y < 0 || x >= this.mapWidth || y >= this.mapHeight) { // out of bounds
+      return null;
+    }
+
+    return this.tiles[x + y * this.mapWidth] || null;
+  }
 
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
   // any additional functions you want to add to this class can be preserved here

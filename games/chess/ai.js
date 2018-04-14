@@ -8,6 +8,7 @@ const BaseAI = require(`${__basedir}/joueur/baseAI`);
 
 /**
  * This is the class to play the Chess game. This is where you should build your AI.
+ * @memberof Chess
  */
 class AI extends BaseAI {
   /**

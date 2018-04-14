@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A person on the map that can move around and interact within the saloon.
- * @extends GameObject
+ * @extends Saloon.GameObject
+ * @memberof Saloon
  */
 class Cowboy extends GameObject {
   /**
-   * initializes a Cowboy with basic logic as provided by the Creer code generator
-   *
-   * @memberof Cowboy
-   * @private
+   * Initializes a Cowboy with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -150,7 +150,7 @@ class Cowboy extends GameObject {
   /**
    * The Player that owns and can control this Cowboy.
    *
-   * @type {Player}
+   * @type {Saloon.Player}
    */
   get owner() {
     return client.gameManager.getMemberValue(this, 'owner');
@@ -164,7 +164,7 @@ class Cowboy extends GameObject {
   /**
    * The Tile that this Cowboy is located on.
    *
-   * @type {Tile}
+   * @type {Saloon.Tile}
    */
   get tile() {
     return client.gameManager.getMemberValue(this, 'tile');
@@ -207,7 +207,7 @@ class Cowboy extends GameObject {
   /**
    * Does their job's action on a Tile.
    *
-   * @param {Tile} tile - The Tile you want this Cowboy to act on.
+   * @param {Saloon.Tile} tile - The Tile you want this Cowboy to act on.
    * @param {string} [drunkDirection] - The direction the bottle will cause drunk cowboys to be in, can be 'North', 'East', 'South', or 'West'.
    * @returns {boolean} - True if the act worked, false otherwise.
    */
@@ -226,7 +226,7 @@ class Cowboy extends GameObject {
   /**
    * Moves this Cowboy from its current Tile to an adjacent Tile.
    *
-   * @param {Tile} tile - The Tile you want to move this Cowboy to.
+   * @param {Saloon.Tile} tile - The Tile you want to move this Cowboy to.
    * @returns {boolean} - True if the move worked, false otherwise.
    */
   move(tile) {
@@ -239,7 +239,7 @@ class Cowboy extends GameObject {
   /**
    * Sits down and plays a piano.
    *
-   * @param {Furnishing} piano - The Furnishing that is a piano you want to play.
+   * @param {Saloon.Furnishing} piano - The Furnishing that is a piano you want to play.
    * @returns {boolean} - True if the play worked, false otherwise.
    */
   play(piano) {
@@ -247,6 +247,7 @@ class Cowboy extends GameObject {
       piano: piano,
     });
   }
+
 
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
   // any additional functions you want to add to this class can be preserved here

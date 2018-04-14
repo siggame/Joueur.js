@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A resource spawner that generates branches or food.
- * @extends GameObject
+ * @extends Stumped.GameObject
+ * @memberof Stumped
  */
 class Spawner extends GameObject {
   /**
-   * initializes a Spawner with basic logic as provided by the Creer code generator
-   *
-   * @memberof Spawner
-   * @private
+   * Initializes a Spawner with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -73,7 +73,7 @@ class Spawner extends GameObject {
   /**
    * The Tile this Spawner is on.
    *
-   * @type {Tile}
+   * @type {Stumped.Tile}
    */
   get tile() {
     return client.gameManager.getMemberValue(this, 'tile');

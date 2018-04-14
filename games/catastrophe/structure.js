@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A structure on a Tile.
- * @extends GameObject
+ * @extends Catastrophe.GameObject
+ * @memberof Catastrophe
  */
 class Structure extends GameObject {
   /**
-   * initializes a Structure with basic logic as provided by the Creer code generator
-   *
-   * @memberof Structure
-   * @private
+   * Initializes a Structure with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -74,7 +74,7 @@ class Structure extends GameObject {
   /**
    * The owner of this Structure if any, otherwise null.
    *
-   * @type {Player}
+   * @type {Catastrophe.Player}
    */
   get owner() {
     return client.gameManager.getMemberValue(this, 'owner');
@@ -88,7 +88,7 @@ class Structure extends GameObject {
   /**
    * The Tile this Structure is on.
    *
-   * @type {Tile}
+   * @type {Catastrophe.Tile}
    */
   get tile() {
     return client.gameManager.getMemberValue(this, 'tile');

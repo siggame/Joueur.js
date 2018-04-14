@@ -13,14 +13,14 @@ const Spiderling = require('./spiderling');
 
 /**
  * A Spiderling that can cut existing Webs.
- * @extends Spiderling
+ * @extends Spiders.Spiderling
+ * @memberof Spiders
  */
 class Cutter extends Spiderling {
   /**
-   * initializes a Cutter with basic logic as provided by the Creer code generator
-   *
-   * @memberof Cutter
-   * @private
+   * Initializes a Cutter with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -42,7 +42,7 @@ class Cutter extends Spiderling {
   /**
    * The Web that this Cutter is trying to cut. Null if not cutting.
    *
-   * @type {Web}
+   * @type {Spiders.Web}
    */
   get cuttingWeb() {
     return client.gameManager.getMemberValue(this, 'cuttingWeb');
@@ -57,7 +57,7 @@ class Cutter extends Spiderling {
   /**
    * Cuts a web, destroying it, and any Spiderlings on it.
    *
-   * @param {Web} web - The web you want to Cut. Must be connected to the Nest this Cutter is currently on.
+   * @param {Spiders.Web} web - The web you want to Cut. Must be connected to the Nest this Cutter is currently on.
    * @returns {boolean} - True if the cut was successfully started, false otherwise.
    */
   cut(web) {

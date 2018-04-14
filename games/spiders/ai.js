@@ -8,6 +8,7 @@ const BaseAI = require(`${__basedir}/joueur/baseAI`);
 
 /**
  * This is the class to play the Spiders game. This is where you should build your AI.
+ * @memberof Spiders
  */
 class AI extends BaseAI {
   /**

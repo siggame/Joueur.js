@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A Spider in the game. The most basic unit.
- * @extends GameObject
+ * @extends Spiders.GameObject
+ * @memberof Spiders
  */
 class Spider extends GameObject {
   /**
-   * initializes a Spider with basic logic as provided by the Creer code generator
-   *
-   * @memberof Spider
-   * @private
+   * Initializes a Spider with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -58,7 +58,7 @@ class Spider extends GameObject {
   /**
    * The Nest that this Spider is currently on. Null when moving on a Web.
    *
-   * @type {Nest}
+   * @type {Spiders.Nest}
    */
   get nest() {
     return client.gameManager.getMemberValue(this, 'nest');
@@ -72,7 +72,7 @@ class Spider extends GameObject {
   /**
    * The Player that owns this Spider, and can command it.
    *
-   * @type {Player}
+   * @type {Spiders.Player}
    */
   get owner() {
     return client.gameManager.getMemberValue(this, 'owner');

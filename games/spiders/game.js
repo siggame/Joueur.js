@@ -14,13 +14,13 @@ const BaseGame = require(`${__basedir}/joueur/baseGame`);
 /**
  * There's an infestation of enemy spiders challenging your queen broodmother spider! Protect her and attack the other broodmother in this turn based, node based, game.
  * @extends BaseGame
+ * @memberof Spiders
  */
 class Game extends BaseGame {
   /**
-   * initializes a Game with basic logic as provided by the Creer code generator
-   *
-   * @memberof Game
-   * @private
+   * Initializes a Game with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -30,6 +30,7 @@ class Game extends BaseGame {
 
     /**
      * The name of the game.
+     * @type {string}
      */
     this.name = 'Spiders';
 
@@ -61,7 +62,7 @@ class Game extends BaseGame {
   /**
    * The player whose turn it is currently. That player can send commands. Other players cannot.
    *
-   * @type {Player}
+   * @type {Spiders.Player}
    */
   get currentPlayer() {
     return client.gameManager.getMemberValue(this, 'currentPlayer');
@@ -117,7 +118,7 @@ class Game extends BaseGame {
   /**
    * A mapping of every game object's ID to the actual game object. Primarily used by the server and client to easily refer to the game objects via ID.
    *
-   * @type {Object.<string, GameObject>}
+   * @type {Object.<string, Spiders.GameObject>}
    */
   get gameObjects() {
     return client.gameManager.getMemberValue(this, 'gameObjects');
@@ -173,7 +174,7 @@ class Game extends BaseGame {
   /**
    * Every Nest in the game.
    *
-   * @type {Array.<Nest>}
+   * @type {Array.<Spiders.Nest>}
    */
   get nests() {
     return client.gameManager.getMemberValue(this, 'nests');
@@ -187,7 +188,7 @@ class Game extends BaseGame {
   /**
    * List of all the players in the game.
    *
-   * @type {Array.<Player>}
+   * @type {Array.<Spiders.Player>}
    */
   get players() {
     return client.gameManager.getMemberValue(this, 'players');
@@ -257,7 +258,7 @@ class Game extends BaseGame {
   /**
    * Every Web in the game.
    *
-   * @type {Array.<Web>}
+   * @type {Array.<Spiders.Web>}
    */
   get webs() {
     return client.gameManager.getMemberValue(this, 'webs');

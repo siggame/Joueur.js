@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A player in this game. Every AI controls one player.
- * @extends GameObject
+ * @extends Catastrophe.GameObject
+ * @memberof Catastrophe
  */
 class Player extends GameObject {
   /**
-   * initializes a Player with basic logic as provided by the Creer code generator
-   *
-   * @memberof Player
-   * @private
+   * Initializes a Player with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -54,7 +54,7 @@ class Player extends GameObject {
   /**
    * The overlord cat Unit owned by this Player.
    *
-   * @type {Unit}
+   * @type {Catastrophe.Unit}
    */
   get cat() {
     return client.gameManager.getMemberValue(this, 'cat');
@@ -124,7 +124,7 @@ class Player extends GameObject {
   /**
    * This player's opponent in the game.
    *
-   * @type {Player}
+   * @type {Catastrophe.Player}
    */
   get opponent() {
     return client.gameManager.getMemberValue(this, 'opponent');
@@ -166,7 +166,7 @@ class Player extends GameObject {
   /**
    * Every Structure owned by this Player.
    *
-   * @type {Array.<Structure>}
+   * @type {Array.<Catastrophe.Structure>}
    */
   get structures() {
     return client.gameManager.getMemberValue(this, 'structures');
@@ -194,7 +194,7 @@ class Player extends GameObject {
   /**
    * Every Unit owned by this Player.
    *
-   * @type {Array.<Unit>}
+   * @type {Array.<Catastrophe.Unit>}
    */
   get units() {
     return client.gameManager.getMemberValue(this, 'units');

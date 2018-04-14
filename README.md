@@ -1,6 +1,10 @@
-# GAME_NAME JavaScript Client (via Node.js)
+# JavaScript Joueur Client (via Node.js)
 
-This is the root of your AI. Stay out of the `joueur/` folder, it does most of the heavy lifting to play on our game servers. Your AI, and the game objects it manipulates are all in `games/game_name/`, with your very own AI living in `games/game_name/ai.js` for you to make smarter.
+This is the client for the [Cadre][cadre] AI framework. It can play multiple different games, though you will probably only be interested in one at a time.
+
+In general, try to stay out of the `joueur/` folder, it does most of the heavy lifting to play on our game servers.
+
+Each AI, and the game objects it manipulates are all in `games/game_name/`, with your very own AI living in `games/game_name/ai.js` for you to make smarter.
 
 ## How to Run
 
@@ -34,33 +38,6 @@ npm install
 node main.js GAME_NAME -s r99acm.device.mst.edu -r MyOwnGameSession
 ```
 
-### Vagrant
-
-Install [Vagrant][vagrant] and [Virtualbox][virtualbox] in order to use the Vagrant configuration we provide which satisfies all build dependencies inside of a virtual machine. This will allow for development with your favorite IDE or editor on your host machine while being able to run the client inside the virtual machine. Vagrant will automatically sync the changes you make into the virtual machine that it creates. In order to use vagrant **after installing the aforementioned requirements** simply run from the root of this client:
-
-```bash
-vagrant up
-```
-
-and after the build has completed you can ssh into the virtual environment by running:
-
-```bash
-vagrant ssh
-```
-
-From there you will be in a Linux environment that has all the dependencies you'll need to build and run this client.
-
-When the competition is over, or the virtual environment becomes corrupted in some way, simply execute `vagrant destroy` to delete the virtual machine and its contents.
-
-For a more in depth guide on using vagrant, take a look at [their guide][vagrant-guide]
-
-#### Windows
-
-Using Vagrant with Windows can be a bit of a pain. Here are some tips:
-
-* Use an OpenSSH compatible ssh client. We recommend [Git Bash][gitbash] to serve double duty as your git client and ssh client
-* Launch the terminal of your choice (like Git Bash) as an Administrator to ensure the symbolic links can be created when spinning up your Vagrant virtual machine
-
 ## Other Notes
 
 If you wish to use a different version of node, edit your `.nvmrc`, which will tell [Node Version Manager][nvm] your desired node version.
@@ -69,6 +46,7 @@ It is possible that on your Missouri S&T S-Drive this client will not run proper
 
 The only file you should ever modify to create your AI is the `ai.js` file. All the other files are needed for the game to work. In addition, you should never be creating your own instances of the Game's classes, nor should you ever try to modify their variables. Instead, treat the Game and its members as a read only structure that represents the game state on the game server. You interact with it by calling the game object functions.
 
+[cadre]: https://github.com/siggame/Cadre
 [nodejs]: https://nodejs.org/
 [node-gyp]: https://github.com/nodejs/node-gyp
 [node-gyp-install]: https://github.com/nodejs/node-gyp#installation

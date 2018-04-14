@@ -8,6 +8,7 @@ const BaseAI = require(`${__basedir}/joueur/baseAI`);
 
 /**
  * This is the class to play the Checkers game. This is where you should build your AI.
+ * @memberof Checkers
  */
 class AI extends BaseAI {
   /**
@@ -67,7 +68,7 @@ class AI extends BaseAI {
   /**
    * This is called whenever your checker gets captured (during an opponent's turn).
    *
-   * @param {Checker} checker - The checker that was captured.
+   * @param {Checkers.Checker} checker - The checker that was captured.
    */
   gotCaptured(checker) {
     // <<-- Creer-Merge: gotCaptured -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

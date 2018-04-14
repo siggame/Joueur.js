@@ -14,13 +14,13 @@ const BaseGame = require(`${__basedir}/joueur/baseGame`);
 /**
  * Two player grid based game where each player tries to burn down the other player's buildings. Let it burn.
  * @extends BaseGame
+ * @memberof Anarchy
  */
 class Game extends BaseGame {
   /**
-   * initializes a Game with basic logic as provided by the Creer code generator
-   *
-   * @memberof Game
-   * @private
+   * Initializes a Game with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -30,6 +30,7 @@ class Game extends BaseGame {
 
     /**
      * The name of the game.
+     * @type {string}
      */
     this.name = 'Anarchy';
 
@@ -75,7 +76,7 @@ class Game extends BaseGame {
   /**
    * All the buildings in the game.
    *
-   * @type {Array.<Building>}
+   * @type {Array.<Anarchy.Building>}
    */
   get buildings() {
     return client.gameManager.getMemberValue(this, 'buildings');
@@ -89,7 +90,7 @@ class Game extends BaseGame {
   /**
    * The current Forecast, which will be applied at the end of the turn.
    *
-   * @type {Forecast}
+   * @type {Anarchy.Forecast}
    */
   get currentForecast() {
     return client.gameManager.getMemberValue(this, 'currentForecast');
@@ -103,7 +104,7 @@ class Game extends BaseGame {
   /**
    * The player whose turn it is currently. That player can send commands. Other players cannot.
    *
-   * @type {Player}
+   * @type {Anarchy.Player}
    */
   get currentPlayer() {
     return client.gameManager.getMemberValue(this, 'currentPlayer');
@@ -131,7 +132,7 @@ class Game extends BaseGame {
   /**
    * All the forecasts in the game, indexed by turn number.
    *
-   * @type {Array.<Forecast>}
+   * @type {Array.<Anarchy.Forecast>}
    */
   get forecasts() {
     return client.gameManager.getMemberValue(this, 'forecasts');
@@ -145,7 +146,7 @@ class Game extends BaseGame {
   /**
    * A mapping of every game object's ID to the actual game object. Primarily used by the server and client to easily refer to the game objects via ID.
    *
-   * @type {Object.<string, GameObject>}
+   * @type {Object.<string, Anarchy.GameObject>}
    */
   get gameObjects() {
     return client.gameManager.getMemberValue(this, 'gameObjects');
@@ -229,7 +230,7 @@ class Game extends BaseGame {
   /**
    * The next Forecast, which will be applied at the end of your opponent's turn. This is also the Forecast WeatherStations can control this turn.
    *
-   * @type {Forecast}
+   * @type {Anarchy.Forecast}
    */
   get nextForecast() {
     return client.gameManager.getMemberValue(this, 'nextForecast');
@@ -243,7 +244,7 @@ class Game extends BaseGame {
   /**
    * List of all the players in the game.
    *
-   * @type {Array.<Player>}
+   * @type {Array.<Anarchy.Player>}
    */
   get players() {
     return client.gameManager.getMemberValue(this, 'players');

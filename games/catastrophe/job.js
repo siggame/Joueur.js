@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * Information about a Unit's job.
- * @extends GameObject
+ * @extends Catastrophe.GameObject
+ * @memberof Catastrophe
  */
 class Job extends GameObject {
   /**
-   * initializes a Job with basic logic as provided by the Creer code generator
-   *
-   * @memberof Job
-   * @private
+   * Initializes a Job with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);

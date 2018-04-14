@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A Tile in the game that makes up the 2D map grid.
- * @extends GameObject
+ * @extends Stumped.GameObject
+ * @memberof Stumped
  */
 class Tile extends GameObject {
   /**
-   * initializes a Tile with basic logic as provided by the Creer code generator
-   *
-   * @memberof Tile
-   * @private
+   * Initializes a Tile with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -54,7 +54,7 @@ class Tile extends GameObject {
   /**
    * The Beaver on this Tile if present, otherwise null.
    *
-   * @type {Beaver}
+   * @type {Stumped.Beaver}
    */
   get beaver() {
     return client.gameManager.getMemberValue(this, 'beaver');
@@ -110,7 +110,7 @@ class Tile extends GameObject {
   /**
    * The owner of the Beaver lodge on this Tile, if present, otherwise null.
    *
-   * @type {Player}
+   * @type {Stumped.Player}
    */
   get lodgeOwner() {
     return client.gameManager.getMemberValue(this, 'lodgeOwner');
@@ -124,7 +124,7 @@ class Tile extends GameObject {
   /**
    * The resource Spawner on this Tile if present, otherwise null.
    *
-   * @type {Spawner}
+   * @type {Stumped.Spawner}
    */
   get spawner() {
     return client.gameManager.getMemberValue(this, 'spawner');
@@ -138,7 +138,7 @@ class Tile extends GameObject {
   /**
    * The Tile to the 'East' of this one (x+1, y). Null if out of bounds of the map.
    *
-   * @type {Tile}
+   * @type {Stumped.Tile}
    */
   get tileEast() {
     return client.gameManager.getMemberValue(this, 'tileEast');
@@ -152,7 +152,7 @@ class Tile extends GameObject {
   /**
    * The Tile to the 'North' of this one (x, y-1). Null if out of bounds of the map.
    *
-   * @type {Tile}
+   * @type {Stumped.Tile}
    */
   get tileNorth() {
     return client.gameManager.getMemberValue(this, 'tileNorth');
@@ -166,7 +166,7 @@ class Tile extends GameObject {
   /**
    * The Tile to the 'South' of this one (x, y+1). Null if out of bounds of the map.
    *
-   * @type {Tile}
+   * @type {Stumped.Tile}
    */
   get tileSouth() {
     return client.gameManager.getMemberValue(this, 'tileSouth');
@@ -180,7 +180,7 @@ class Tile extends GameObject {
   /**
    * The Tile to the 'West' of this one (x-1, y). Null if out of bounds of the map.
    *
-   * @type {Tile}
+   * @type {Stumped.Tile}
    */
   get tileWest() {
     return client.gameManager.getMemberValue(this, 'tileWest');

@@ -14,13 +14,13 @@ const BaseGameObject = require(`${__basedir}/joueur/baseGameObject`);
 /**
  * An object in the game. The most basic class that all game classes should inherit from automatically.
  * @extends BaseGameObject
+ * @memberof Checkers
  */
 class GameObject extends BaseGameObject {
   /**
-   * initializes a GameObject with basic logic as provided by the Creer code generator
-   *
-   * @memberof GameObject
-   * @private
+   * Initializes a GameObject with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);

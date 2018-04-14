@@ -1,4 +1,10 @@
 // DO NOT MODIFY THIS FILE
+
+/**
+ * Use cowboys to have a good time and play some music on a Piano, while brawling with enemy Cowboys.
+ * @namespace Saloon
+ */
+
 // This manages the game for you
 
 const GameManager = require(`${__basedir}/joueur/gameManager`);

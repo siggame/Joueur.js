@@ -13,14 +13,14 @@ const Building = require('./building');
 
 /**
  * Can be bribed to change the next Forecast in some way.
- * @extends Building
+ * @extends Anarchy.Building
+ * @memberof Anarchy
  */
 class WeatherStation extends Building {
   /**
-   * initializes a WeatherStation with basic logic as provided by the Creer code generator
-   *
-   * @memberof WeatherStation
-   * @private
+   * Initializes a WeatherStation with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);

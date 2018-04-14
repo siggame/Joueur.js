@@ -2,8 +2,6 @@ import os
 import os.path
 import shutil
 import subprocess
-import argparse
-import re
 import sys
 
 def run(*args, **kwargs):
@@ -11,34 +9,39 @@ def run(*args, **kwargs):
     if error_code != 0: # an error happened
         sys.exit(error_code)
 
-parser = argparse.ArgumentParser(description='Runs the python 3 client doc generation script.')
-parser.add_argument('game', action='store', help='the name of the game you want to document. Must exist in ../games/')
-
-args = parser.parse_args()
-
-game_name = args.game[0].upper() + args.game[1:]
-lower_game_name = game_name[0].lower() + game_name[1:]
-
 if os.path.isdir("./output"):
     shutil.rmtree("./output")
 
-with open("_conf.json", "r") as template_conf:
-    with open("conf.json", "w+") as temp_conf:
-        temp_conf.write(template_conf.read().replace("###GAME_NAME###", game_name))
+if os.path.isdir("./temp"):
+    shutil.rmtree("./temp")
 
-with open("../README.md", "r") as f:
-    readme = f.read()
+shutil.copytree("../games", "./temp/games")
 
-readme = readme.replace("GAME_NAME", game_name).replace("game_name", lower_game_name)
+for root, dirnames, filenames in os.walk("./temp/games"):
+    for filename in filenames:
+        if filename != "gameManager.js":
+            continue
+        path = os.path.join(root, filename)
+        lower_game_name = os.path.split(root)[1]
+        game_name = lower_game_name[0].upper() + lower_game_name[1:]
+        with open(path, "r+") as file:
+            contents = file.read()
+            index = contents.find(" * @namespace")
 
-with open("README.md", "w+") as f:
-    f.write(readme)
+            file.seek(0)
+            file.write(contents[:index] + """ *
+ * <h3 class="subsection-title">Rules</h3>
+ * <p>
+ * The full game rules for {0} can be found on <a href="https://github.com/siggame/Cadre/blob/master/Games/{0}/rules.md">GitHub</a>.
+ * </p>
+ * <p>
+ * Additional materials, such as the <a href="https://github.com/siggame/Cadre/blob/master/Games/{0}/story.md">story</a> and <a href="https://github.com/siggame/Cadre/blob/master/Games/{0}/creer.yaml">game template</a> can be found on <a href="https://github.com/siggame/Cadre/blob/master/Games/{0}/">GitHub</a> as well.
+ * </p>
+""".format(game_name) + contents[index:])
 
-
-run(["npm install"], shell=True)
-run(["./node_modules/.bin/jsdoc -t node_modules/jaguarjs-jsdoc -c conf.json -r README.md -d ./output ../games/{}/".format(lower_game_name)], shell=True)
+run("npm install", shell=True)
+run("npm run docs", shell=True)
 
 # cleanup files we made
-os.remove("conf.json")
-os.remove("README.md")
-shutil.rmtree("./node_modules")
+#shutil.rmtree("./node_modules")
+shutil.rmtree("./temp")

@@ -13,14 +13,14 @@ const Building = require('./building');
 
 /**
  * Can put out fires completely.
- * @extends Building
+ * @extends Anarchy.Building
+ * @memberof Anarchy
  */
 class FireDepartment extends Building {
   /**
-   * initializes a FireDepartment with basic logic as provided by the Creer code generator
-   *
-   * @memberof FireDepartment
-   * @private
+   * Initializes a FireDepartment with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -57,7 +57,7 @@ class FireDepartment extends Building {
   /**
    * Bribes this FireDepartment to extinguish the some of the fire in a building.
    *
-   * @param {Building} building - The Building you want to extinguish.
+   * @param {Anarchy.Building} building - The Building you want to extinguish.
    * @returns {boolean} - True if the bribe worked, false otherwise.
    */
   extinguish(building) {

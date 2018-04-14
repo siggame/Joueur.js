@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A player in this game. Every AI controls one player.
- * @extends GameObject
+ * @extends Stumped.GameObject
+ * @memberof Stumped
  */
 class Player extends GameObject {
   /**
-   * initializes a Player with basic logic as provided by the Creer code generator
-   *
-   * @memberof Player
-   * @private
+   * Initializes a Player with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -52,7 +52,7 @@ class Player extends GameObject {
   /**
    * The list of Beavers owned by this Player.
    *
-   * @type {Array.<Beaver>}
+   * @type {Array.<Stumped.Beaver>}
    */
   get beavers() {
     return client.gameManager.getMemberValue(this, 'beavers');
@@ -94,7 +94,7 @@ class Player extends GameObject {
   /**
    * A list of Tiles that contain lodges owned by this player.
    *
-   * @type {Array.<Tile>}
+   * @type {Array.<Stumped.Tile>}
    */
   get lodges() {
     return client.gameManager.getMemberValue(this, 'lodges');
@@ -136,7 +136,7 @@ class Player extends GameObject {
   /**
    * This player's opponent in the game.
    *
-   * @type {Player}
+   * @type {Stumped.Player}
    */
   get opponent() {
     return client.gameManager.getMemberValue(this, 'opponent');

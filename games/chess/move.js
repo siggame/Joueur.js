@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * Contains all details about a Piece's move in the game.
- * @extends GameObject
+ * @extends Chess.GameObject
+ * @memberof Chess
  */
 class Move extends GameObject {
   /**
-   * initializes a Move with basic logic as provided by the Creer code generator
-   *
-   * @memberof Move
-   * @private
+   * Initializes a Move with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -49,7 +49,7 @@ class Move extends GameObject {
   /**
    * The Piece captured by this Move, null if no capture.
    *
-   * @type {Piece}
+   * @type {Chess.Piece}
    */
   get captured() {
     return client.gameManager.getMemberValue(this, 'captured');
@@ -91,7 +91,7 @@ class Move extends GameObject {
   /**
    * The Piece that was moved.
    *
-   * @type {Piece}
+   * @type {Chess.Piece}
    */
   get piece() {
     return client.gameManager.getMemberValue(this, 'piece');

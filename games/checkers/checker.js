@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A checker on the game board.
- * @extends GameObject
+ * @extends Checkers.GameObject
+ * @memberof Checkers
  */
 class Checker extends GameObject {
   /**
-   * initializes a Checker with basic logic as provided by the Creer code generator
-   *
-   * @memberof Checker
-   * @private
+   * Initializes a Checker with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -59,7 +59,7 @@ class Checker extends GameObject {
   /**
    * The player that controls this Checker.
    *
-   * @type {Player}
+   * @type {Checkers.Player}
    */
   get owner() {
     return client.gameManager.getMemberValue(this, 'owner');
@@ -115,7 +115,7 @@ class Checker extends GameObject {
    *
    * @param {number} x - The x coordinate to move to.
    * @param {number} y - The y coordinate to move to.
-   * @returns {Checker} - Returns the same checker that moved if the move was successful. null otherwise.
+   * @returns {Checkers.Checker} - Returns the same checker that moved if the move was successful. null otherwise.
    */
   move(x, y) {
     return client.runOnServer(this, 'move', {

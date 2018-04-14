@@ -7,5 +7,8 @@
   "dependencies": {
     "jaguarjs-jsdoc": "JacobFischer/jaguarjs-jsdoc",
     "jsdoc": "3.5.5"
+  },
+  "scripts": {
+    "docs": "jsdoc -t node_modules/jaguarjs-jsdoc -c conf.json -r ../README.md -d ./output ./temp/games/ ../joueur/"
   }
 }

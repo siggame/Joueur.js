@@ -13,14 +13,14 @@ const Spider = require('./spider');
 
 /**
  * A Spider spawned by the BroodMother.
- * @extends Spider
+ * @extends Spiders.Spider
+ * @memberof Spiders
  */
 class Spiderling extends Spider {
   /**
-   * initializes a Spiderling with basic logic as provided by the Creer code generator
-   *
-   * @memberof Spiderling
-   * @private
+   * Initializes a Spiderling with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -60,7 +60,7 @@ class Spiderling extends Spider {
   /**
    * The Web this Spiderling is using to move. Null if it is not moving.
    *
-   * @type {Web}
+   * @type {Spiders.Web}
    */
   get movingOnWeb() {
     return client.gameManager.getMemberValue(this, 'movingOnWeb');
@@ -74,7 +74,7 @@ class Spiderling extends Spider {
   /**
    * The Nest this Spiderling is moving to. Null if it is not moving.
    *
-   * @type {Nest}
+   * @type {Spiders.Nest}
    */
   get movingToNest() {
     return client.gameManager.getMemberValue(this, 'movingToNest');
@@ -117,7 +117,7 @@ class Spiderling extends Spider {
   /**
    * Attacks another Spiderling
    *
-   * @param {Spiderling} spiderling - The Spiderling to attack.
+   * @param {Spiders.Spiderling} spiderling - The Spiderling to attack.
    * @returns {boolean} - True if the attack was successful, false otherwise.
    */
   attack(spiderling) {
@@ -130,7 +130,7 @@ class Spiderling extends Spider {
   /**
    * Starts moving the Spiderling across a Web to another Nest.
    *
-   * @param {Web} web - The Web you want to move across to the other Nest.
+   * @param {Spiders.Web} web - The Web you want to move across to the other Nest.
    * @returns {boolean} - True if the move was successful, false otherwise.
    */
   move(web) {
