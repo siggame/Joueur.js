@@ -83,7 +83,7 @@ class Game extends BaseGame {
 
 
   /**
-   * Forsyth–Edwards Notation, a notation that describes the game board.
+   * Forsythâ€“Edwards Notation, a notation that describes the game board.
    *
    * @type {string}
    */

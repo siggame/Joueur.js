@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A unit group in the game. This may consist of a ship and any number of crew.
- * @extends GameObject
+ * @extends Pirates.GameObject
+ * @memberof Pirates
  */
 class Unit extends GameObject {
   /**
-   * initializes a Unit with basic logic as provided by the Creer code generator
-   *
-   * @memberof Unit
-   * @private
+   * Initializes a Unit with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -122,7 +122,7 @@ class Unit extends GameObject {
   /**
    * The Player that owns and can control this Unit, or null if the Unit is neutral.
    *
-   * @type {Player}
+   * @type {Pirates.Player}
    */
   get owner() {
     return client.gameManager.getMemberValue(this, 'owner');
@@ -136,7 +136,7 @@ class Unit extends GameObject {
   /**
    * (Merchants only) The path this Unit will follow. The first element is the Tile this Unit will move to next.
    *
-   * @type {Array.<Tile>}
+   * @type {Array.<Pirates.Tile>}
    */
   get path() {
     return client.gameManager.getMemberValue(this, 'path');
@@ -178,7 +178,7 @@ class Unit extends GameObject {
   /**
    * (Merchants only) The Port this Unit is moving to.
    *
-   * @type {Port}
+   * @type {Pirates.Port}
    */
   get targetPort() {
     return client.gameManager.getMemberValue(this, 'targetPort');
@@ -192,7 +192,7 @@ class Unit extends GameObject {
   /**
    * The Tile this Unit is on.
    *
-   * @type {Tile}
+   * @type {Pirates.Tile}
    */
   get tile() {
     return client.gameManager.getMemberValue(this, 'tile');
@@ -207,7 +207,7 @@ class Unit extends GameObject {
   /**
    * Attacks either the 'crew' or 'ship' on a Tile in range.
    *
-   * @param {Tile} tile - The Tile to attack.
+   * @param {Pirates.Tile} tile - The Tile to attack.
    * @param {string} target - Whether to attack 'crew' or 'ship'. Crew deal damage to crew and ships deal damage to ships. Consumes any remaining moves.
    * @returns {boolean} - True if successfully attacked, false otherwise.
    */
@@ -269,7 +269,7 @@ class Unit extends GameObject {
   /**
    * Moves this Unit from its current Tile to an adjacent Tile. If this Unit merges with another one, the other Unit will be destroyed and its tile will be set to null. Make sure to check that your Unit's tile is not null before doing things with it.
    *
-   * @param {Tile} tile - The Tile this Unit should move to.
+   * @param {Pirates.Tile} tile - The Tile this Unit should move to.
    * @returns {boolean} - True if it moved, false otherwise.
    */
   move(tile) {
@@ -293,7 +293,7 @@ class Unit extends GameObject {
   /**
    * Moves a number of crew from this Unit to the given Tile. This will consume a move from those crew.
    *
-   * @param {Tile} tile - The Tile to move the crew to.
+   * @param {Pirates.Tile} tile - The Tile to move the crew to.
    * @param {number} [amount] - The number of crew to move onto that Tile. Amount <= 0 will move all the crew to that Tile.
    * @param {number} [gold] - The amount of gold the crew should take with them. Gold < 0 will move all the gold to that Tile.
    * @returns {boolean} - True if successfully split, false otherwise.

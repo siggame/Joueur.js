@@ -14,13 +14,13 @@ const BaseGame = require(`${__basedir}/joueur/baseGame`);
 /**
  * Steal from merchants and become the most infamous pirate.
  * @extends BaseGame
+ * @memberof Pirates
  */
 class Game extends BaseGame {
   /**
-   * initializes a Game with basic logic as provided by the Creer code generator
-   *
-   * @memberof Game
-   * @private
+   * Initializes a Game with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -30,6 +30,7 @@ class Game extends BaseGame {
 
     /**
      * The name of the game.
+     * @type {string}
      */
     this.name = 'Pirates';
 
@@ -157,7 +158,7 @@ class Game extends BaseGame {
   /**
    * The player whose turn it is currently. That player can send commands. Other players cannot.
    *
-   * @type {Player}
+   * @type {Pirates.Player}
    */
   get currentPlayer() {
     return client.gameManager.getMemberValue(this, 'currentPlayer');
@@ -185,7 +186,7 @@ class Game extends BaseGame {
   /**
    * A mapping of every game object's ID to the actual game object. Primarily used by the server and client to easily refer to the game objects via ID.
    *
-   * @type {Object.<string, GameObject>}
+   * @type {Object.<string, Pirates.GameObject>}
    */
   get gameObjects() {
     return client.gameManager.getMemberValue(this, 'gameObjects');
@@ -297,7 +298,7 @@ class Game extends BaseGame {
   /**
    * List of all the players in the game.
    *
-   * @type {Array.<Player>}
+   * @type {Array.<Pirates.Player>}
    */
   get players() {
     return client.gameManager.getMemberValue(this, 'players');
@@ -311,7 +312,7 @@ class Game extends BaseGame {
   /**
    * Every Port in the game. Merchant ports have owner set to null.
    *
-   * @type {Array.<Port>}
+   * @type {Array.<Pirates.Port>}
    */
   get ports() {
     return client.gameManager.getMemberValue(this, 'ports');
@@ -423,7 +424,7 @@ class Game extends BaseGame {
   /**
    * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
    *
-   * @type {Array.<Tile>}
+   * @type {Array.<Pirates.Tile>}
    */
   get tiles() {
     return client.gameManager.getMemberValue(this, 'tiles');
@@ -437,7 +438,7 @@ class Game extends BaseGame {
   /**
    * Every Unit in the game. Merchant units have targetPort set to a port.
    *
-   * @type {Array.<Unit>}
+   * @type {Array.<Pirates.Unit>}
    */
   get units() {
     return client.gameManager.getMemberValue(this, 'units');

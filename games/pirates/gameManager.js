@@ -1,4 +1,10 @@
 // DO NOT MODIFY THIS FILE
+
+/**
+ * Steal from merchants and become the most infamous pirate.
+ * @namespace Pirates
+ */
+
 // This manages the game for you
 
 const GameManager = require(`${__basedir}/joueur/gameManager`);
