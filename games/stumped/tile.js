@@ -19,7 +19,7 @@ const GameObject = require('./gameObject');
 class Tile extends GameObject {
   /**
    * Initializes a Tile with basic logic as provided by the Creer code generator.
-   * 
+   *
    * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
@@ -267,7 +267,7 @@ class Tile extends GameObject {
    */
   isPathable() {
     // <<-- Creer-Merge: is_pathable_builtin -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    return false; // DEVELOPER ADD LOGIC HERE
+    return !this.beaver && !this.spawner && !this.lodgeOwner;
     // <<-- /Creer-Merge: is_pathable_builtin -->>
   }
 

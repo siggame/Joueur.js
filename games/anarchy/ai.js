@@ -6,6 +6,10 @@ const BaseAI = require(`${__basedir}/joueur/baseAI`);
 // any additional requires you want can be required here safely between creer runs
 // <<-- /Creer-Merge: requires -->>
 
+function rand(items) {
+    return items[Math.floor(Math.random()*items.length)];
+}
+
 /**
  * This is the class to play the Anarchy game. This is where you should build your AI.
  * @memberof Anarchy
@@ -40,6 +44,7 @@ class AI extends BaseAI {
   start() {
     // <<-- Creer-Merge: start -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // pass
+    console.log("sturt")
     // <<-- /Creer-Merge: start -->>
   }
 
@@ -72,9 +77,85 @@ class AI extends BaseAI {
    */
   runTurn() {
     // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // Put your game logic here for runTurn
+    console.log("my turn", this.game.currentTurn);
+    // return true;
+    /*
+    for (const warehouse of this.player.warehouses) {
+        if (this.canBribe(warehouse)) {
+            var building = rand(this.player.opponent.buildings);
+            if(!building.isHeadquarters) {
+                console.log(`${warehouse} is going to ignite ${building}`);
+                warehouse.ignite(building);
+            }
+        }
+    }
+
+    return true;
+    */
+    // return true;
+    var warehouse = rand(this.player.warehouses);
+    if(this.canBribe(warehouse)) {
+        //ignite the first enemy building
+        var building = rand(this.player.opponent.buildings);
+        if(!building.isHeadquarters) {
+            console.log(`${warehouse} is going to ignite ${building}`);
+            warehouse.ignite(building);
+        }
+    }
+
+    // Get my first fire department
+    var fireDepartment = rand(this.player.fireDepartments);
+    if(this.canBribe(fireDepartment)) {
+        // extinguish my first building if it's not my headquarters
+        var myBuilding = rand(this.player.buildings);
+        if(!myBuilding.isHeadquarters) {
+            console.log(`${fireDepartment} is going to extinguish ${myBuilding}`);
+            fireDepartment.extinguish(myBuilding);
+        }
+    }
+
+    // Get my first police department
+    var policeDepartment = rand(this.player.policeDepartments);
+    if(this.canBribe(policeDepartment)) {
+        // Get the first enemy warehouse
+        var toRaid = rand(this.player.opponent.warehouses);
+        // Make sure it is alive to be raided
+        if(toRaid.health > 0 && !toRaid.isHeadquarters) {
+            // Raid the first enemy warehouse if it's alive and not a headquarters
+            console.log(`${policeDepartment} is going to raid ${toRaid}`);
+            policeDepartment.raid(toRaid);
+        }
+    }
+
+    // Get my first weather station
+    var weatherStation1 = rand(this.player.weatherStations);
+    if(this.canBribe(weatherStation1) && this.game.nextForecast) {
+        // Make sure the intensity isn't at max
+        if(this.game.nextForecast.intensity < this.game.maxForecastIntensity) {
+            console.log(`${weatherStation1} is going to intensify pos`);
+            weatherStation1.intensify();
+        }
+        else {
+            // Otherwise decrease the intensity
+            console.log(`${weatherStation1} is going to intensify neg`);
+            weatherStation1.intensify(true);
+        }
+    }
+
+    // Get my second weather station
+    var weatherStation2 = rand(this.player.weatherStations);
+    if(this.canBribe(weatherStation2) && this.game.nextForecast) {
+        // Rotate clockwise
+        console.log(`${weatherStation2} is going to rotate`);
+        weatherStation2.rotate();
+    }
+
     return true;
     // <<-- /Creer-Merge: runTurn -->>
+  }
+
+  canBribe(building) {
+    return (building && building.health > 0 && !building.bribed && building.owner == this.player && this.player.bribesRemaining > 0)
   }
 
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

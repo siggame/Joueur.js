@@ -3,7 +3,22 @@
 const BaseAI = require(`${__basedir}/joueur/baseAI`);
 
 // <<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// any additional requires you want can be required here safely between creer runs
+function randomElement(items) {
+  return items[Math.floor(Math.random()*items.length)];
+}
+
+// Simply returns a shuffled copy of an array
+function shuffled(a) {
+  a = a.slice();
+  var j, x, i;
+  for (i = a.length; i; i--) {
+    j = Math.floor(Math.random() * i);
+    x = a[i - 1];
+    a[i - 1] = a[j];
+    a[j] = x;
+  }
+  return a;
+}
 // <<-- /Creer-Merge: requires -->>
 
 /**
@@ -72,8 +87,177 @@ class AI extends BaseAI {
    */
   runTurn() {
     // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // Put your game logic here for runTurn
-    return true;
+    // This is your Stumped ShellAI
+    // ShellAI is intended to be a simple AI that does everything possible in the game, but plays the game very poorly
+    // This example code does the following:
+    // 1. Grabs a single beaver
+    // 2. tries to move the beaver
+    // 3. tries to do one of the 5 actions on it
+    // 4. Grabs a lodge and tries to recruit a new beaver
+
+    // First let's do a simple print statement telling us what turn we are on
+    console.log(`My Turn ${this.game.currentTurn} with ${this.player.beavers.length} Beavers`);
+
+    // 1. get the first beaver to try to do things with
+    const beaver = this.player.beavers[0];
+
+    // if we have a beaver, and it's not distracted, and it is alive (health greater than 0)
+    if (beaver && beaver.turnsDistracted === 0 && beaver.health > 0) {
+      // then let's try to do stuff with it
+
+      // 2. Try to move the beaver
+      if (beaver.moves >= 3) {
+        // then it has enough moves to move in any direction, so let's move it
+
+        // find a spawner to move to
+        let target = null;
+        for (const tile of this.game.tiles) {
+          if (tile.spawner && tile.spawner.health > 1) {
+            // then we found a healthy spawner, let's target that tile to move to
+            target = tile;
+            break;
+          }
+        }
+
+        // If we found a target tile, path to it
+        if (target) {
+          // use the pathfinding algorithm below to make a path to the spawner's target tile
+          const path = this.findPath(beaver.tile, target);
+
+          // if there is a path, move to it
+          //      length 0 means no path could be found to the tile
+          //      length 1 means the target is adjacent, and we can't move onto the same tile as the spawner
+          //      length 2+ means we have to move towards it
+          if (path.length > 1) {
+            console.log(`Moving ${beaver} towards ${target}`);
+            beaver.move(path[0]);
+          }
+        }
+      }
+
+      // 3. Try to do an action on the beaver
+      if (beaver.actions > 0) {
+        // then let's try to do an action!
+
+        // Do a random action!
+        const action = randomElement(['buildLodge', 'attack', 'pickup', 'drop', 'harvest']);
+
+        // how much this beaver is carrying, used for calculations
+        const load = beaver.branches + beaver.food;
+
+        switch (action) {
+          case 'buildLodge':
+            // if the beaver has enough branches to build a lodge
+            //   and the tile does not already have a lodge, then do so
+            if ((beaver.branches + beaver.tile.branches) >= this.player.branchesToBuildLodge && !beaver.tile.lodgeOwner) {
+              console.log(`${beaver} building lodge`);
+              beaver.buildLodge();
+            }
+            break;
+          case 'attack':
+            // look at all our neighbor tiles and if they have a beaver attack it!
+            for (const neighbor of shuffled(beaver.tile.getNeighbors())) {
+              if (neighbor.beaver) {
+                console.log(`${beaver} attacking ${neighbor.beaver}`);
+                beaver.attack(neighbor.beaver);
+                break;
+              }
+            }
+            break;
+          case 'pickup':
+            // make an array of our neighboring tiles + our tile as all can be picked up from
+            const pickupTiles = shuffled(beaver.tile.getNeighbors().concat([beaver.tile]));
+
+            // if the beaver can carry more resources, try to pick something up
+            if (load < beaver.job.carryLimit) {
+              for (const tile of pickupTiles) {
+                // try to pickup branches
+                if (tile.branches > 0) {
+                  console.log(`${beaver} picking up branches`);
+                  beaver.pickup(tile, 'branches', 1);
+                  break;
+                }
+                // try to pickup food
+                else if (tile.food > 0) {
+                  console.log(`${beaver} picking up food`);
+                  beaver.pickup(tile, 'food', 1);
+                  break;
+                }
+              }
+            }
+            break;
+          case 'drop':
+            // choose a random tile from our neighbors + out tile to drop stuff on
+            const dropTiles = shuffled(beaver.tile.getNeighbors().concat([beaver.tile]));
+
+            // find a valid tile to drop resources onto
+            let tileToDropOn = null;
+            for (const tile of dropTiles) {
+              if (!tile.spawner) {
+                tileToDropOn = tile;
+                break;
+              }
+            }
+
+            // if there is a tile that resources can be dropped on
+            if (tileToDropOn) {
+              // if we have branches to drop
+              if (beaver.branches > 0) {
+                console.log(`${beaver} dropping 1 branch`);
+                beaver.drop(tileToDropOn, 'branches', 1);
+              }
+              // or if we have food to drop
+              else if (beaver.food > 0) {
+                console.log(`${beaver} dropping 1 food`);
+                beaver.drop(tileToDropOn, 'food', 1);
+              }
+            }
+            break;
+          case 'harvest':
+            // if we can carry more, try to harvest something
+            if (load < beaver.job.carryLimit) {
+              // try to find a neighboring tile with a spawner on it to harvest from
+              for (const neighbor of shuffled(beaver.tile.getNeighbors())) {
+                // if it has a spawner on that tile, harvest from it
+                if(neighbor.spawner) {
+                  console.log(`${beaver} harvesting ${neighbor.spawner}`);
+                  beaver.harvest(neighbor.spawner);
+                  break;
+                }
+              }
+            }
+            break;
+        }
+      }
+    }
+
+    // now try to spawn a beaver if we have lodges
+
+    // 4. Get a lodge to try to spawn something at
+    const lodge = randomElement(this.player.lodges);
+
+    // if we found a lodge and it has no beaver blocking it
+    if (lodge && !lodge.beaver) {
+      // then this lodge can have a new beaver appear here
+
+      // We need to know how many beavers we have to see if they are free to spawn
+      let aliveBeavers = this.player.beavers.filter((b) => b.health > 0).length;
+
+      // and we need a Job to spawn
+      const job = randomElement(this.game.jobs);
+
+      // if we have less beavers than the freeBeavers count, it is free to spawn
+      //    otherwise if that lodge has enough food on it to cover the job's cost
+      if (aliveBeavers < this.game.freeBeaversCount || lodge.food >= job.cost) {
+        // then spawn a new beaver of that job!
+        console.log(`recruiting ${job} to ${lodge}`);
+        job.recruit(lodge);
+        aliveBeavers++;
+      }
+    }
+
+    console.log('Done with our turn');
+    return true; // to signify that we are truly done with this turn
     // <<-- /Creer-Merge: runTurn -->>
   }
 
