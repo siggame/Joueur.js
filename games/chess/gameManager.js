@@ -13,8 +13,6 @@ class ChessGameManager extends GameManager {}
 
 ChessGameManager.prototype._gameObjectClasses = {
   GameObject: require('./gameObject'),
-  Move: require('./move'),
-  Piece: require('./piece'),
   Player: require('./player'),
 };
 

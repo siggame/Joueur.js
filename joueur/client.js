@@ -1,9 +1,66 @@
+const fs = require("fs");
 const Serializer = require('./serializer');
 const handleError = require('./handleError');
 const color = require('./ansiColorCoder');
 const EOT_CHAR = String.fromCharCode(4);
 let netlinkwrapper = null;
 let SyncSocket = null;
+
+function getAllProperties(obj){
+  var allProps = []
+    , curr = obj
+  do{
+      var props = Object.getOwnPropertyNames(curr)
+      props.forEach(function(prop){
+          if (allProps.indexOf(prop) === -1)
+              allProps.push(prop)
+      })
+  }while(curr = Object.getPrototypeOf(curr))
+  return allProps
+}
+
+allProps = getAllProperties({}).concat([
+  "ai",
+  "settings",
+  "deltaMergeable",
+  "manager",
+  "game",
+  "settingsManager",
+  "__proto__"
+]);
+
+const jsonStates = [];
+const BaseGameObject = require("./baseGameObject");
+function jsonGameState(obj, loc) {
+  if (typeof(obj) !== "object") {
+      return obj;
+  }
+
+  if (obj === null) {
+    return undefined;
+  }
+
+  const json = {};
+  for (const key of Object.keys(obj).concat(getAllProperties(obj)).sort()) {
+      if (allProps.includes(key) || key.startsWith("_")) {
+          continue; // don't record these
+      }
+
+      const val = obj[key];
+      if (typeof(val) === "function") {
+          continue;
+      }
+
+      if ((val instanceof BaseGameObject) && loc !== "gameObjects") {
+          // just a delta reference
+          json[key] = { id: val.id };
+      }
+      else {
+          json[key] = jsonGameState(val, key);
+      }
+  }
+  return json;
+}
 
 try {
   netlinkwrapper = require('netlinkwrapper');
@@ -206,6 +263,7 @@ class Client{
 
   _autoHandleDelta(delta) {
     try {
+      //console.log(Object.keys(delta));
       this.gameManager.applyDeltaState(delta);
     }
     catch (err) {
@@ -223,6 +281,7 @@ class Client{
   }
 
   _autoHandleInvalid(data) {
+    jsonStates.push(jsonGameState(this.game, 'gameRoot'));
     try {
       this.ai.invalid(data.message);
     }
@@ -252,6 +311,8 @@ class Client{
       const message = data.message.replace('__HOSTNAME__', this.hostname);
       console.log(color.text('cyan') + message + color.reset());
     }
+
+    fs.writeFileSync(`wut-${this.ai.player.id}.json`, JSON.stringify(jsonStates, null, 2));
 
     this.disconnect();
     process.exit(0);
