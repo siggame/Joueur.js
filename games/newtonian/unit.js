@@ -93,7 +93,7 @@ class Unit extends GameObject {
 
 
   /**
-   * If a ship is on this Tile, how much health it has remaining.
+   * The remaining health of a unit.
    *
    * @type {number}
    */
@@ -248,12 +248,14 @@ class Unit extends GameObject {
   /**
    * Drops material at the units feat
    *
+   * @param {Newtonian.Tile} tile - The tile the materials will be dropped on.
    * @param {number} amount - The amount of materials to dropped. Amounts <= 0 will drop all the materials on the Unit.
    * @param {string} material - The material the unit will drop.
    * @returns {boolean} - True if successfully deposited, false otherwise.
    */
-  drop(amount, material) {
+  drop(tile, amount, material) {
     return client.runOnServer(this, 'drop', {
+      tile: tile,
       amount: amount,
       material: material,
     });
@@ -276,12 +278,14 @@ class Unit extends GameObject {
   /**
    * Picks up material at the units feat
    *
+   * @param {Newtonian.Tile} tile - The tile the materials will be dropped on.
    * @param {number} amount - The amount of materials to pick up. Amounts <= 0 will pick up all the materials on the Unit.
    * @param {string} material - The material the unit will pick up.
    * @returns {boolean} - True if successfully deposited, false otherwise.
    */
-  pickup(amount, material) {
+  pickup(tile, amount, material) {
     return client.runOnServer(this, 'pickup', {
+      tile: tile,
       amount: amount,
       material: material,
     });
