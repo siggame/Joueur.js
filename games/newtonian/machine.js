@@ -29,9 +29,7 @@ class Machine extends GameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
-    this.input = 0;
     this.oreType = '';
-    this.output = 0;
     this.refineInput = 0;
     this.refineOutput = 0;
     this.refineTime = 0;
@@ -48,20 +46,6 @@ class Machine extends GameObject {
   // Member variables
 
   /**
-   * The amount of ore that is in the machine. Cannot be higher than the refineInput value.
-   *
-   * @type {number}
-   */
-  get input() {
-    return client.gameManager.getMemberValue(this, 'input');
-  }
-
-  set input(value) {
-    client.gameManager.setMemberValue(this, 'input', value);
-  }
-
-
-  /**
    * What type of ore the machine takes it, also determins the type of material it outputs.
    *
    * @type {string}
@@ -72,20 +56,6 @@ class Machine extends GameObject {
 
   set oreType(value) {
     client.gameManager.setMemberValue(this, 'oreType', value);
-  }
-
-
-  /**
-   * The amount of material that is waiting to be collected in the machine.
-   *
-   * @type {number}
-   */
-  get output() {
-    return client.gameManager.getMemberValue(this, 'output');
-  }
-
-  set output(value) {
-    client.gameManager.setMemberValue(this, 'output', value);
   }
 
 

@@ -30,7 +30,6 @@ class Player extends GameObject {
 
     // default values for private member values
     this.clientType = '';
-    this.generatorTiles = [];
     this.heat = 0;
     this.internSpawn = 0;
     this.lost = false;
@@ -64,20 +63,6 @@ class Player extends GameObject {
 
   set clientType(value) {
     client.gameManager.setMemberValue(this, 'clientType', value);
-  }
-
-
-  /**
-   * Every generator tile owned by this Player.
-   *
-   * @type {Array.<Newtonian.Tile>}
-   */
-  get generatorTiles() {
-    return client.gameManager.getMemberValue(this, 'generatorTiles');
-  }
-
-  set generatorTiles(value) {
-    client.gameManager.setMemberValue(this, 'generatorTiles', value);
   }
 
 

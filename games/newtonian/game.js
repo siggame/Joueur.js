@@ -51,8 +51,10 @@ class Game extends BaseGame {
     this.refinedValue = 0;
     this.session = '';
     this.spawnTime = 0;
+    this.stunTime = 0;
     this.tiles = [];
     this.timeAddedPerTurn = 0;
+    this.timeImmune = 0;
     this.units = [];
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -288,6 +290,20 @@ class Game extends BaseGame {
 
 
   /**
+   * How many turns a unit is stunned.
+   *
+   * @type {number}
+   */
+  get stunTime() {
+    return client.gameManager.getMemberValue(this, 'stunTime');
+  }
+
+  set stunTime(value) {
+    client.gameManager.setMemberValue(this, 'stunTime', value);
+  }
+
+
+  /**
    * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
    *
    * @type {Array.<Newtonian.Tile>}
@@ -312,6 +328,20 @@ class Game extends BaseGame {
 
   set timeAddedPerTurn(value) {
     client.gameManager.setMemberValue(this, 'timeAddedPerTurn', value);
+  }
+
+
+  /**
+   * How many turns a unit is immune to being stunned.
+   *
+   * @type {number}
+   */
+  get timeImmune() {
+    return client.gameManager.getMemberValue(this, 'timeImmune');
+  }
+
+  set timeImmune(value) {
+    client.gameManager.setMemberValue(this, 'timeImmune', value);
   }
 
 
