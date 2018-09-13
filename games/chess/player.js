@@ -31,13 +31,9 @@ class Player extends GameObject {
     // default values for private member values
     this.clientType = '';
     this.color = '';
-    this.inCheck = false;
     this.lost = false;
-    this.madeMove = false;
     this.name = '';
     this.opponent = null;
-    this.pieces = [];
-    this.rankDirection = 0;
     this.reasonLost = '';
     this.reasonWon = '';
     this.timeRemaining = 0;
@@ -66,7 +62,7 @@ class Player extends GameObject {
 
 
   /**
-   * The color (side) of this player. Either 'White' or 'Black', with the 'White' player having the first move.
+   * The color (side) of this player. Either 'white' or 'black', with the 'white' player having the first move.
    *
    * @type {string}
    */
@@ -76,20 +72,6 @@ class Player extends GameObject {
 
   set color(value) {
     client.gameManager.setMemberValue(this, 'color', value);
-  }
-
-
-  /**
-   * True if this player is currently in check, and must move out of check, false otherwise.
-   *
-   * @type {boolean}
-   */
-  get inCheck() {
-    return client.gameManager.getMemberValue(this, 'inCheck');
-  }
-
-  set inCheck(value) {
-    client.gameManager.setMemberValue(this, 'inCheck', value);
   }
 
 
@@ -104,20 +86,6 @@ class Player extends GameObject {
 
   set lost(value) {
     client.gameManager.setMemberValue(this, 'lost', value);
-  }
-
-
-  /**
-   * If the Player has made their move for the turn. true means they can no longer move a Piece this turn.
-   *
-   * @type {boolean}
-   */
-  get madeMove() {
-    return client.gameManager.getMemberValue(this, 'madeMove');
-  }
-
-  set madeMove(value) {
-    client.gameManager.setMemberValue(this, 'madeMove', value);
   }
 
 
@@ -146,34 +114,6 @@ class Player extends GameObject {
 
   set opponent(value) {
     client.gameManager.setMemberValue(this, 'opponent', value);
-  }
-
-
-  /**
-   * All the uncaptured chess Pieces owned by this player.
-   *
-   * @type {Array.<Chess.Piece>}
-   */
-  get pieces() {
-    return client.gameManager.getMemberValue(this, 'pieces');
-  }
-
-  set pieces(value) {
-    client.gameManager.setMemberValue(this, 'pieces', value);
-  }
-
-
-  /**
-   * The direction your Pieces must go along the rank axis until they reach the other side. Will be +1 if the Player is 'White', or -1 if the Player is 'Black'.
-   *
-   * @type {number}
-   */
-  get rankDirection() {
-    return client.gameManager.getMemberValue(this, 'rankDirection');
-  }
-
-  set rankDirection(value) {
-    client.gameManager.setMemberValue(this, 'rankDirection', value);
   }
 
 

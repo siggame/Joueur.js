@@ -3,7 +3,8 @@
 const BaseAI = require(`${__basedir}/joueur/baseAI`);
 
 // <<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// any additional requires you want can be required here safely between creer runs
+const chess = require("chess.js");
+const randomElement = (items) => items[Math.floor(Math.random()*items.length)];
 // <<-- /Creer-Merge: requires -->>
 
 /**
@@ -39,7 +40,7 @@ class AI extends BaseAI {
    */
   start() {
     // <<-- Creer-Merge: start -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // pass
+    this.chess = new chess.Chess(this.game.fen);
     // <<-- /Creer-Merge: start -->>
   }
 
@@ -48,7 +49,7 @@ class AI extends BaseAI {
    */
   gameUpdated() {
     // <<-- Creer-Merge: gameUpdated -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // pass
+    this.chess.load(this.game.fen);
     // <<-- /Creer-Merge: gameUpdated -->>
   }
 
@@ -66,15 +67,16 @@ class AI extends BaseAI {
 
 
   /**
-   * This is called every time it is this AI.player's turn.
+   * This is called every time it is this AI.player's turn to make a move.
    *
-   * @returns {boolean} - Represents if you want to end your turn. True means end your turn, False means to keep your turn going and re-call this function.
+   * @returns {string} - A string in Standard Algebriac Notation (SAN) for the move you want to make. If the move is invalid or not properly formatted you will lose the game.
    */
-  runTurn() {
-    // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // Put your game logic here for runTurn
-    return true;
-    // <<-- /Creer-Merge: runTurn -->>
+  makeMove() {
+    // <<-- Creer-Merge: makeMove -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
+    const move = randomElement(this.chess.moves());
+    console.log("Making move:", move);
+    return move;
+    // <<-- /Creer-Merge: makeMove -->>
   }
 
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

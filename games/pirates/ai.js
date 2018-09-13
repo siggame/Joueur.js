@@ -8,7 +8,6 @@ const BaseAI = require(`${__basedir}/joueur/baseAI`);
 
 /**
  * This is the class to play the Pirates game. This is where you should build your AI.
- * @memberof Pirates
  */
 class AI extends BaseAI {
   /**
@@ -72,7 +71,68 @@ class AI extends BaseAI {
    */
   runTurn() {
     // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // Put your game logic here for runTurn
+
+    // Since this will come up as a question, when your units merge (while moving),
+    // the unit you're merging into will "die". This means its tile will be set to null.
+    // Make sure to check that your unit's tile is not null before trying to control it!
+
+    if(this.player.units.length === 0) {
+        // Spawn a crew if we have no units
+        this.player.port.spawn("crew");
+    }
+    else if(this.player.units[0].shipHealth === 0) {
+        // Spawn a ship so our crew can sail
+        this.player.port.spawn("ship");
+    }
+    else if(this.player.units[0].shipHealth < this.game.shipHealth / 2) {
+        // Heal our unit if the ship is almost dead
+        // Note: Crew also have their own health. Maybe try adding a check to see if the crew need healing?
+        const unit = this.player.units[0];
+
+        // Find a path to our port so we can heal
+        let path = this.findPath(unit.tile, this.player.port.tile, unit);
+        if(path.length > 0) {
+            // Move along the path if there is one
+            unit.move(path[0]);
+        }
+        else {
+            // Try to deposit any gold we have while we're here
+            unit.deposit();
+
+            // Try to rest
+            unit.rest();
+        }
+    }
+    else {
+        // Try to attack a merchant
+        const unit = this.player.units[0];
+
+        // Look for a merchant ship
+        let merchant = null;
+        for(let u of this.game.units) {
+            if(u.targetPort) {
+                // Found one
+                merchant = u;
+                break;
+            }
+        }
+
+        // If we found a merchant, move to it, then attack it
+        if(merchant) {
+            // Find a path to this merchant
+            let path = this.findPath(unit.tile, merchant.tile, unit);
+            if(path.length > this.game.shipRange) {
+                // Move until we're within firing range of the merchant
+                // Note: Range is *circular* in pirates, so this can be improved on
+                unit.move(path[0]);
+            }
+            else {
+                // Try to attack the merchant's ship
+                unit.attack(merchant.tile, "ship");
+            }
+        }
+    }
+
     return true;
     // <<-- /Creer-Merge: runTurn -->>
   }
@@ -82,9 +142,10 @@ class AI extends BaseAI {
    *
    * @param {Tile} start - the starting Tile
    * @param {Tile} goal - the goal Tile
+   * @param {Unit} unit - the Unit that will move
    * @returns {Array.<Tile>} An array of Tiles representing the path, the the first element being a valid adjacent Tile to the start, and the last element being the goal.
    */
-  findPath(start, goal) {
+  findPath(start, goal, unit) {
     if (start === goal) {
       // no need to make a path to here...
       return [];
@@ -122,7 +183,7 @@ class AI extends BaseAI {
         // else we did not find the goal, so enqueue this tile's neighbors to be inspected
 
         // if the tile exists, has not been explored or added to the fringe yet, and it is pathable
-        if (neighbor && neighbor.id && !cameFrom[neighbor.id] && neighbor.isPathable()) {
+        if (neighbor && neighbor.id && !cameFrom[neighbor.id] && neighbor.isPathable(unit)) {
           // add it to the tiles to be explored and add where it came from for path reconstruction.
           fringe.push(neighbor);
           cameFrom[neighbor.id] = inspect;
