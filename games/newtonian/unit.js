@@ -51,7 +51,7 @@ class Unit extends GameObject {
   // Member variables
 
   /**
-   * Whether this Unit has performed its action this turn.
+   * Whether or not this Unit has performed its action this turn.
    *
    * @type {boolean}
    */
@@ -65,7 +65,7 @@ class Unit extends GameObject {
 
 
   /**
-   * The amount of blueium carried by this unit.
+   * The amount of blueium carried by this unit. (0 to job carry capacity - other carried items).
    *
    * @type {number}
    */
@@ -79,7 +79,7 @@ class Unit extends GameObject {
 
 
   /**
-   * The amount of blueium ore carried by this unit.
+   * The amount of blueium ore carried by this unit. (0 to job carry capacity - other carried items).
    *
    * @type {number}
    */
@@ -107,7 +107,7 @@ class Unit extends GameObject {
 
 
   /**
-   * The Job this Unit does.
+   * The Job this Unit has.
    *
    * @type {Newtonian.Job}
    */
@@ -121,7 +121,7 @@ class Unit extends GameObject {
 
 
   /**
-   * How many more times this Unit may move this turn.
+   * The number of moves this unit has left this turn.
    *
    * @type {number}
    */
@@ -149,7 +149,7 @@ class Unit extends GameObject {
 
 
   /**
-   * The amount of redium carried by this unit.
+   * The amount of redium carried by this unit. (0 to job carry capacity - other carried items).
    *
    * @type {number}
    */
@@ -163,7 +163,7 @@ class Unit extends GameObject {
 
 
   /**
-   * The amount of redium ore carried by this unit.
+   * The amount of redium ore carried by this unit. (0 to job carry capacity - other carried items).
    *
    * @type {number}
    */
@@ -177,7 +177,7 @@ class Unit extends GameObject {
 
 
   /**
-   * Duration of stun immunity.
+   * Duration of stun immunity. (0 to timeImmune).
    *
    * @type {number}
    */
@@ -191,7 +191,7 @@ class Unit extends GameObject {
 
 
   /**
-   * Duration the unit is stunned.
+   * Duration the unit is stunned. (0 to the game constant stunTime).
    *
    * @type {number}
    */
@@ -220,7 +220,7 @@ class Unit extends GameObject {
 
 
   /**
-   * Makes the unit do something to a machine on its tile. Interns sabotage, physicists run, and managers protect.
+   * Makes the unit do something to a machine adjacent to its tile. Interns sabotage, physicists work. Interns stun physicist, physicist stuns manager, manager stuns intern.
    *
    * @param {Newtonian.Tile} tile - The tile the unit acts on.
    * @returns {boolean} - True if successfully acted, false otherwise.
@@ -233,7 +233,7 @@ class Unit extends GameObject {
 
 
   /**
-   * Attacks a unit on a ajacent tile.
+   * Attacks a unit on an adjacent tile.
    *
    * @param {Newtonian.Tile} tile - The Tile to attack.
    * @returns {boolean} - True if successfully attacked, false otherwise.
@@ -246,10 +246,10 @@ class Unit extends GameObject {
 
 
   /**
-   * Drops material at the units feat
+   * Drops materials at the units feet or adjacent tile.
    *
    * @param {Newtonian.Tile} tile - The tile the materials will be dropped on.
-   * @param {number} amount - The amount of materials to dropped. Amounts <= 0 will drop all the materials on the Unit.
+   * @param {number} amount - The number of materials to dropped. Amounts <= 0 will drop all the materials.
    * @param {string} material - The material the unit will drop.
    * @returns {boolean} - True if successfully deposited, false otherwise.
    */
@@ -276,10 +276,10 @@ class Unit extends GameObject {
 
 
   /**
-   * Picks up material at the units feat
+   * Picks up material at the units feet or adjacent tile.
    *
-   * @param {Newtonian.Tile} tile - The tile the materials will be dropped on.
-   * @param {number} amount - The amount of materials to pick up. Amounts <= 0 will pick up all the materials on the Unit.
+   * @param {Newtonian.Tile} tile - The tile the materials will be picked up from.
+   * @param {number} amount - The amount of materials to pick up. Amounts <= 0 will pick up all the materials that the unit can.
    * @param {string} material - The material the unit will pick up.
    * @returns {boolean} - True if successfully deposited, false otherwise.
    */

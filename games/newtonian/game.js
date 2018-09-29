@@ -45,6 +45,7 @@ class Game extends BaseGame {
     this.managerCap = 0;
     this.mapHeight = 0;
     this.mapWidth = 0;
+    this.materialSpawn = 0;
     this.maxTurns = 0;
     this.physicistCap = 0;
     this.players = [];
@@ -94,7 +95,7 @@ class Game extends BaseGame {
 
 
   /**
-   * Determins the rate at which the highest value victory points degrade.
+   * Percent loss from the difference of Heat and Pressure. (0 to 1).
    *
    * @type {number}
    */
@@ -122,7 +123,7 @@ class Game extends BaseGame {
 
 
   /**
-   * How many interns a player can have.
+   * The maximum number of interns a player can have.
    *
    * @type {number}
    */
@@ -136,7 +137,7 @@ class Game extends BaseGame {
 
 
   /**
-   * Every job in the game.
+   * A list of all jobs. first item is intern, second is physicists, and third is manager.
    *
    * @type {Array.<Newtonian.Job>}
    */
@@ -164,7 +165,7 @@ class Game extends BaseGame {
 
 
   /**
-   * How many managers a player can have.
+   * The maximum number of managers a player can have.
    *
    * @type {number}
    */
@@ -206,6 +207,20 @@ class Game extends BaseGame {
 
 
   /**
+   * The number of materials that spawn per spawn cycle.
+   *
+   * @type {number}
+   */
+  get materialSpawn() {
+    return client.gameManager.getMemberValue(this, 'materialSpawn');
+  }
+
+  set materialSpawn(value) {
+    client.gameManager.setMemberValue(this, 'materialSpawn', value);
+  }
+
+
+  /**
    * The maximum number of turns before the game will automatically end.
    *
    * @type {number}
@@ -220,7 +235,7 @@ class Game extends BaseGame {
 
 
   /**
-   * How many physicists a player can have.
+   * The maximum number of physicists a player can have.
    *
    * @type {number}
    */
@@ -248,7 +263,7 @@ class Game extends BaseGame {
 
 
   /**
-   * How much each refined ore adds when put in the generator.
+   * The amount of victory points added when a refined ore is consumed by the generator.
    *
    * @type {number}
    */
@@ -276,7 +291,7 @@ class Game extends BaseGame {
 
 
   /**
-   * The number of turns between spawning unit waves.
+   * The amount of turns it takes a unit to spawn.
    *
    * @type {number}
    */
@@ -290,7 +305,7 @@ class Game extends BaseGame {
 
 
   /**
-   * How many turns a unit is stunned.
+   * The amount of turns a unit cannot do anything when stunned.
    *
    * @type {number}
    */
@@ -332,7 +347,7 @@ class Game extends BaseGame {
 
 
   /**
-   * How many turns a unit is immune to being stunned.
+   * The number turns a unit is immune to being stunned.
    *
    * @type {number}
    */

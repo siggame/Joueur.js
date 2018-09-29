@@ -84,7 +84,7 @@ class Tile extends GameObject {
 
 
   /**
-   * (Visualizer only) Different tile tipes, cracked, slightly dirty, ect. This has no effect on gameplay, but feel free to use it if you want.
+   * (Visualizer only) Different tile types, cracked, slightly dirty, etc. This has no effect on gameplay, but feel free to use it if you want.
    *
    * @type {number}
    */
@@ -98,7 +98,7 @@ class Tile extends GameObject {
 
 
   /**
-   * The direction of a conveyor belt ('blank', 'north', 'east', 'south', or 'west'). blank mean no conveyor.
+   * The direction of a conveyor belt ('blank', 'north', 'east', 'south', or 'west'). blank means conveyor doesn't move.
    *
    * @type {string}
    */
@@ -112,7 +112,7 @@ class Tile extends GameObject {
 
 
   /**
-   * Weither or not the tile is a wall.
+   * Whether or not the tile is a wall.
    *
    * @type {boolean}
    */
@@ -126,7 +126,7 @@ class Tile extends GameObject {
 
 
   /**
-   * The machine on this Tile if present, otherwise null.
+   * The Machine on this Tile if present, otherwise null.
    *
    * @type {Newtonian.Machine}
    */

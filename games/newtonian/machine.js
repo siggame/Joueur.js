@@ -1,4 +1,4 @@
-// Machine: A machine on a tile.
+// Machine: A machine in the game. Used to refine ore.
 
 // DO NOT MODIFY THIS FILE
 // Never try to directly create an instance of this class, or modify its member variables.
@@ -12,7 +12,7 @@ const GameObject = require('./gameObject');
 //<<-- /Creer-Merge: requires -->>
 
 /**
- * A machine on a tile.
+ * A machine in the game. Used to refine ore.
  * @extends Newtonian.GameObject
  * @memberof Newtonian
  */
@@ -34,7 +34,6 @@ class Machine extends GameObject {
     this.refineOutput = 0;
     this.refineTime = 0;
     this.tile = null;
-    this.timeLeft = 0;
     this.worked = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -46,7 +45,7 @@ class Machine extends GameObject {
   // Member variables
 
   /**
-   * What type of ore the machine takes it, also determins the type of material it outputs.
+   * What type of ore the machine takes it. Also determines the type of material it outputs. (redium or blueium).
    *
    * @type {string}
    */
@@ -60,7 +59,7 @@ class Machine extends GameObject {
 
 
   /**
-   * The amount of ore that needs to be inputted into the machine.
+   * The amount of ore that needs to be inputted into the machine for it to be worked.
    *
    * @type {number}
    */
@@ -74,7 +73,7 @@ class Machine extends GameObject {
 
 
   /**
-   * The amount of material that out of the machine after running.
+   * The amount of refined ore that is returned after the machine has been fully worked.
    *
    * @type {number}
    */
@@ -88,7 +87,7 @@ class Machine extends GameObject {
 
 
   /**
-   * The amount of turns this machine takes to refine the ore.
+   * The number of times this machine needs to be worked to refine ore.
    *
    * @type {number}
    */
@@ -116,21 +115,7 @@ class Machine extends GameObject {
 
 
   /**
-   * Time till the machine finishes running.
-   *
-   * @type {number}
-   */
-  get timeLeft() {
-    return client.gameManager.getMemberValue(this, 'timeLeft');
-  }
-
-  set timeLeft(value) {
-    client.gameManager.setMemberValue(this, 'timeLeft', value);
-  }
-
-
-  /**
-   * Tracks how many times this machine has been worked.
+   * Tracks how many times this machine has been worked. (0 to refineTime).
    *
    * @type {number}
    */

@@ -30,6 +30,7 @@ class Player extends GameObject {
 
     // default values for private member values
     this.clientType = '';
+    this.generatorTiles = [];
     this.heat = 0;
     this.internSpawn = 0;
     this.lost = false;
@@ -40,6 +41,7 @@ class Player extends GameObject {
     this.pressure = 0;
     this.reasonLost = '';
     this.reasonWon = '';
+    this.spawnTiles = [];
     this.timeRemaining = 0;
     this.units = [];
     this.won = false;
@@ -67,6 +69,20 @@ class Player extends GameObject {
 
 
   /**
+   * Every generator Tile owned by this Player. (listed from the outer edges inward, from top to bottom).
+   *
+   * @type {Array.<Newtonian.Tile>}
+   */
+  get generatorTiles() {
+    return client.gameManager.getMemberValue(this, 'generatorTiles');
+  }
+
+  set generatorTiles(value) {
+    client.gameManager.setMemberValue(this, 'generatorTiles', value);
+  }
+
+
+  /**
    * The amount of heat this Player has.
    *
    * @type {number}
@@ -81,7 +97,7 @@ class Player extends GameObject {
 
 
   /**
-   * Time left till a intern spawns.
+   * The time left till a intern spawns. (0 to spawnTime).
    *
    * @type {number}
    */
@@ -109,7 +125,7 @@ class Player extends GameObject {
 
 
   /**
-   * Time left till a manager spawns.
+   * The time left till a manager spawns. (0 to spawnTime).
    *
    * @type {number}
    */
@@ -151,7 +167,7 @@ class Player extends GameObject {
 
 
   /**
-   * Time left till a physicist spawns.
+   * The time left till a physicist spawns. (0 to spawnTime).
    *
    * @type {number}
    */
@@ -203,6 +219,20 @@ class Player extends GameObject {
 
   set reasonWon(value) {
     client.gameManager.setMemberValue(this, 'reasonWon', value);
+  }
+
+
+  /**
+   * All the tiles this Player's units can spawn on. (listed from the outer edges inward, from top to bottom).
+   *
+   * @type {Array.<Newtonian.Tile>}
+   */
+  get spawnTiles() {
+    return client.gameManager.getMemberValue(this, 'spawnTiles');
+  }
+
+  set spawnTiles(value) {
+    client.gameManager.setMemberValue(this, 'spawnTiles', value);
   }
 
 
