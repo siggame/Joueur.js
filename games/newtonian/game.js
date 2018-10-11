@@ -57,6 +57,7 @@ class Game extends BaseGame {
     this.timeAddedPerTurn = 0;
     this.timeImmune = 0;
     this.units = [];
+    this.victoryAmount = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // any additional init logic you want can go here
@@ -371,6 +372,20 @@ class Game extends BaseGame {
 
   set units(value) {
     client.gameManager.setMemberValue(this, 'units', value);
+  }
+
+
+  /**
+   * The amount of combined heat and pressure that you need to win.
+   *
+   * @type {number}
+   */
+  get victoryAmount() {
+    return client.gameManager.getMemberValue(this, 'victoryAmount');
+  }
+
+  set victoryAmount(value) {
+    client.gameManager.setMemberValue(this, 'victoryAmount', value);
   }
 
 

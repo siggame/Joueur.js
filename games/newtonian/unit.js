@@ -250,7 +250,7 @@ class Unit extends GameObject {
    *
    * @param {Newtonian.Tile} tile - The tile the materials will be dropped on.
    * @param {number} amount - The number of materials to dropped. Amounts <= 0 will drop all the materials.
-   * @param {string} material - The material the unit will drop.
+   * @param {string} material - The material the unit will drop. 'redium', 'blueium', 'redium ore', or 'blueium ore'.
    * @returns {boolean} - True if successfully deposited, false otherwise.
    */
   drop(tile, amount, material) {
@@ -280,7 +280,7 @@ class Unit extends GameObject {
    *
    * @param {Newtonian.Tile} tile - The tile the materials will be picked up from.
    * @param {number} amount - The amount of materials to pick up. Amounts <= 0 will pick up all the materials that the unit can.
-   * @param {string} material - The material the unit will pick up.
+   * @param {string} material - The material the unit will pick up. 'redium', 'blueium', 'redium ore', or 'blueium ore'.
    * @returns {boolean} - True if successfully deposited, false otherwise.
    */
   pickup(tile, amount, material) {
