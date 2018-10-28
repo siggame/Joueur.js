@@ -100,7 +100,7 @@ class Job extends GameObject {
 
 
   /**
-   * The Job title.
+   * The Job title. 'intern', 'manager', or 'physicist'.
    *
    * @type {string}
    */
