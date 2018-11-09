@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A Tile in the game that makes up the 2D map grid.
- * @extends GameObject
+ * @extends Pirates.GameObject
+ * @memberof Pirates
  */
 class Tile extends GameObject {
   /**
-   * initializes a Tile with basic logic as provided by the Creer code generator
-   *
-   * @memberof Tile
-   * @private
+   * Initializes a Tile with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -80,7 +80,7 @@ class Tile extends GameObject {
   /**
    * The Port on this Tile if present, otherwise null.
    *
-   * @type {Port}
+   * @type {Pirates.Port}
    */
   get port() {
     return client.gameManager.getMemberValue(this, 'port');
@@ -94,7 +94,7 @@ class Tile extends GameObject {
   /**
    * The Tile to the 'East' of this one (x+1, y). Null if out of bounds of the map.
    *
-   * @type {Tile}
+   * @type {Pirates.Tile}
    */
   get tileEast() {
     return client.gameManager.getMemberValue(this, 'tileEast');
@@ -108,7 +108,7 @@ class Tile extends GameObject {
   /**
    * The Tile to the 'North' of this one (x, y-1). Null if out of bounds of the map.
    *
-   * @type {Tile}
+   * @type {Pirates.Tile}
    */
   get tileNorth() {
     return client.gameManager.getMemberValue(this, 'tileNorth');
@@ -122,7 +122,7 @@ class Tile extends GameObject {
   /**
    * The Tile to the 'South' of this one (x, y+1). Null if out of bounds of the map.
    *
-   * @type {Tile}
+   * @type {Pirates.Tile}
    */
   get tileSouth() {
     return client.gameManager.getMemberValue(this, 'tileSouth');
@@ -136,7 +136,7 @@ class Tile extends GameObject {
   /**
    * The Tile to the 'West' of this one (x-1, y). Null if out of bounds of the map.
    *
-   * @type {Tile}
+   * @type {Pirates.Tile}
    */
   get tileWest() {
     return client.gameManager.getMemberValue(this, 'tileWest');
@@ -164,7 +164,7 @@ class Tile extends GameObject {
   /**
    * The Unit on this Tile if present, otherwise null.
    *
-   * @type {Unit}
+   * @type {Pirates.Unit}
    */
   get unit() {
     return client.gameManager.getMemberValue(this, 'unit');

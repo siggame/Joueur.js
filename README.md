@@ -35,7 +35,7 @@ Then from a powershell:
 
 ```
 npm install
-node main.js GAME_NAME -s r99acm.device.mst.edu -r MyOwnGameSession
+node main.js GAME_NAME -s game.siggame.io -r MyOwnGameSession
 ```
 
 ## Other Notes

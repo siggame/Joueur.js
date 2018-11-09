@@ -13,14 +13,14 @@ const GameObject = require('./gameObject');
 
 /**
  * A port on a Tile.
- * @extends GameObject
+ * @extends Pirates.GameObject
+ * @memberof Pirates
  */
 class Port extends GameObject {
   /**
-   * initializes a Port with basic logic as provided by the Creer code generator
-   *
-   * @memberof Port
-   * @private
+   * Initializes a Port with basic logic as provided by the Creer code generator.
+   * 
+   * Never use this directly. It is for internal Joueur use.
    */
   constructor(...args) {
     super(...args);
@@ -73,7 +73,7 @@ class Port extends GameObject {
   /**
    * The owner of this Port, or null if owned by merchants.
    *
-   * @type {Player}
+   * @type {Pirates.Player}
    */
   get owner() {
     return client.gameManager.getMemberValue(this, 'owner');
@@ -87,7 +87,7 @@ class Port extends GameObject {
   /**
    * The Tile this Port is on.
    *
-   * @type {Tile}
+   * @type {Pirates.Tile}
    */
   get tile() {
     return client.gameManager.getMemberValue(this, 'tile');
