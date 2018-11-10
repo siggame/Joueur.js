@@ -35,9 +35,9 @@ class Game extends BaseGame {
     this.name = 'Newtonian';
 
     // default values for private member values
+    this.RegenerateRate = 0;
     this.currentPlayer = null;
     this.currentTurn = 0;
-    this.degradeRate = 0;
     this.gameObjects = {};
     this.internCap = 0;
     this.jobs = [];
@@ -68,6 +68,20 @@ class Game extends BaseGame {
   // Member variables
 
   /**
+   * The percent of max HP regained when a unit end their turn on a tile owned by their player.
+   *
+   * @type {number}
+   */
+  get RegenerateRate() {
+    return client.gameManager.getMemberValue(this, 'RegenerateRate');
+  }
+
+  set RegenerateRate(value) {
+    client.gameManager.setMemberValue(this, 'RegenerateRate', value);
+  }
+
+
+  /**
    * The player whose turn it is currently. That player can send commands. Other players cannot.
    *
    * @type {Newtonian.Player}
@@ -92,20 +106,6 @@ class Game extends BaseGame {
 
   set currentTurn(value) {
     client.gameManager.setMemberValue(this, 'currentTurn', value);
-  }
-
-
-  /**
-   * Percent loss from the difference of Heat and Pressure. (0 to 1).
-   *
-   * @type {number}
-   */
-  get degradeRate() {
-    return client.gameManager.getMemberValue(this, 'degradeRate');
-  }
-
-  set degradeRate(value) {
-    client.gameManager.setMemberValue(this, 'degradeRate', value);
   }
 
 
