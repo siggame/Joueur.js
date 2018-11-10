@@ -327,7 +327,7 @@ class Tile extends GameObject {
    */
   isPathable() {
     // <<-- Creer-Merge: is_pathable_builtin -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    return false; // DEVELOPER ADD LOGIC HERE
+    return (!this.isWall && !this.unit && !this.machine); // DEVELOPER ADD LOGIC HERE
     // <<-- /Creer-Merge: is_pathable_builtin -->>
   }
 
