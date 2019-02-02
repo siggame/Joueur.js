@@ -1,10 +1,10 @@
-# JavaScript Joueur Client (via Node.js)
+# Chess JavaScript Joueur Client (via Node.js)
 
 This is the client for the [Cadre][cadre] AI framework. It can play multiple different games, though you will probably only be interested in one at a time.
 
 In general, try to stay out of the `joueur/` folder, it does most of the heavy lifting to play on our game servers.
 
-Each AI, and the game objects it manipulates are all in `games/game_name/`, with your very own AI living in `games/game_name/ai.js` for you to make smarter.
+Each AI, and the game objects it manipulates are all in `games/chess/`, with your very own AI living in `games/chess/ai.js` for you to make smarter.
 
 ## How to Run
 
@@ -35,7 +35,7 @@ Then from a powershell:
 
 ```
 npm install
-node main.js GAME_NAME -s game.siggame.io -r MyOwnGameSession
+node main.js chess -s game.siggame.io -r MyOwnGameSession
 ```
 
 ## Other Notes

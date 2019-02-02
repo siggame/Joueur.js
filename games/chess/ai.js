@@ -2,9 +2,45 @@
 
 const BaseAI = require(`${__basedir}/joueur/baseAI`);
 
-// <<-- Creer-Merge: requires -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// any additional requires you want can be required here safely between creer runs
-// <<-- /Creer-Merge: requires -->>
+/**
+ * Pretty formats an FEN string to a human readable string.
+ *
+ * For more information on FEN (Forsyth-Edwards Notation) strings see:
+ * https://wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
+ */
+function prettyFEN(fen, us) {
+  // split the FEN string up to help parse it
+  const split = fen.split(' ');
+  const first = split[0]; // the first part is always the board locations
+
+  const sideToMove = split[1]; // always the second part for side to move
+  const usOrThem = sideToMove === us[0] ? 'us'  : 'them';
+
+  const fullmove = split[5]; // always the sixth part for the full move
+
+  const lines = first.split('/');
+  const strings = [`Move: ${fullmove}\nSide to move: ${sideToMove} (${usOrThem})\n   +-----------------+`];
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    strings.push(`\n ${8 - i} |`);
+    for (const char of line) {
+      const charAsNumber = Number(char);
+      if (isNaN(charAsNumber)) {
+        strings.push(` ${char}`);
+      }
+      else { // it is a number, so that many blank lines
+        for (let j = 0; j < charAsNumber; j++) {
+          strings.push(' .');
+        }
+      }
+    }
+    strings.push(' |');
+  }
+  strings.push('\n   +-----------------+\n     a b c d e f g h\n');
+
+  return strings.join('');
+}
 
 /**
  * This is the class to play the Chess game. This is where you should build your AI.
@@ -29,27 +65,22 @@ class AI extends BaseAI {
    * @returns {string} - The name of your Player.
    */
   getName() {
-    // <<-- Creer-Merge: getName -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
+    // TODO: Rename your player here!
     return 'Chess JavaScript Player';
-    // <<-- /Creer-Merge: getName -->>
   }
 
   /**
    * This is called once the game starts and your AI knows its playerID and game. You can initialize your AI here.
    */
   start() {
-    // <<-- Creer-Merge: start -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // pass
-    // <<-- /Creer-Merge: start -->>
   }
 
   /**
    * This is called every time the game's state updates, so if you are tracking anything you can update it here.
    */
   gameUpdated() {
-    // <<-- Creer-Merge: gameUpdated -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // pass
-    // <<-- /Creer-Merge: gameUpdated -->>
   }
 
   /**
@@ -59,28 +90,23 @@ class AI extends BaseAI {
    * @param {string} reason - The human readable string explaining why you won or lost.
    */
   ended(won, reason) {
-    // <<-- Creer-Merge: ended -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // pass
-    // <<-- /Creer-Merge: ended -->>
   }
 
 
   /**
    * This is called every time it is this AI.player's turn to make a move.
    *
-   * @returns {string} - A string in Standard Algebriac Notation (SAN) for the move you want to make. If the move is invalid or not properly formatted you will lose the game.
+   * @returns {string} - A string in Standard Algebraic Notation (SAN) for the move you want to make. If the move is invalid or not properly formatted you will lose the game.
    */
   makeMove() {
-    // <<-- Creer-Merge: makeMove -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // Put your game logic here for makeMove
-    return '';
-    // <<-- /Creer-Merge: makeMove -->>
+    console.log(prettyFEN(this.game.fen, this.player.color));
+
+    // This will only work if we are black move the pawn at b2 to b3.
+    // Otherwise we will lose.
+    // Your job is to code SOMETHING to parse the FEN string in some way to determine a valid move, in SAN format.
+    return 'b3';
   }
-
-  //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-  // any additional functions you want to add for your AI
-  //<<-- /Creer-Merge: functions -->>
-
 }
 
 module.exports = AI;
