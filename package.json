@@ -1,5 +1,5 @@
 {
-  "name": "Joueur.js",
+  "name": "joueurjs-chess-tester",
   "version": "1.0.0",
   "description": "JavaScript client for the Cerveau game server.",
   "license": "MIT",
@@ -10,6 +10,7 @@
   "private": true,
   "dependencies": {
     "argparse": "1.0.10",
+    "chess.js": "0.10.2",
     "sync-socket": "1.1.0",
     "syntax-error": "1.4.0"
   },
