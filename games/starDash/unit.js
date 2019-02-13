@@ -13,8 +13,8 @@ const GameObject = require('./gameObject');
 
 /**
  * A unit in the game. May be a corvette, missleboat, martyr, transport, miner.
- * @extends StarDash.GameObject
- * @memberof StarDash
+ * @extends Stardash.GameObject
+ * @memberof Stardash
  */
 class Unit extends GameObject {
   /**
@@ -110,7 +110,7 @@ class Unit extends GameObject {
   /**
    * The Job this Unit has.
    *
-   * @type {StarDash.Job}
+   * @type {Stardash.Job}
    */
   get job() {
     return client.gameManager.getMemberValue(this, 'job');
@@ -166,7 +166,7 @@ class Unit extends GameObject {
   /**
    * The Player that owns and can control this Unit.
    *
-   * @type {StarDash.Player}
+   * @type {Stardash.Player}
    */
   get owner() {
     return client.gameManager.getMemberValue(this, 'owner');
@@ -237,7 +237,7 @@ class Unit extends GameObject {
   /**
    * Attacks the specified unit.
    *
-   * @param {StarDash.Unit} enemy - The Unit being attacked.
+   * @param {Stardash.Unit} enemy - The Unit being attacked.
    * @returns {boolean} - True if successfully attacked, false otherwise.
    */
   attack(enemy) {
@@ -250,7 +250,7 @@ class Unit extends GameObject {
   /**
    * allows a miner to mine a asteroid
    *
-   * @param {StarDash.Body} body - The object to be mined.
+   * @param {Stardash.Body} body - The object to be mined.
    * @returns {boolean} - True if successfully acted, false otherwise.
    */
   mine(body) {
@@ -308,7 +308,7 @@ class Unit extends GameObject {
   /**
    * Grab materials from a friendly unit. Doesn't use a action.
    *
-   * @param {StarDash.Unit} unit - The unit you are grabbing the resources from.
+   * @param {Stardash.Unit} unit - The unit you are grabbing the resources from.
    * @param {number} amount - The amount of materials to you with to grab. Amounts <= 0 will pick up all the materials that the unit can.
    * @param {string} material - The material the unit will pick up. 'resource1', 'resource2', or 'resource3'.
    * @returns {boolean} - True if successfully taken, false otherwise.

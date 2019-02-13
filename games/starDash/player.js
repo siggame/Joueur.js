@@ -13,8 +13,8 @@ const GameObject = require('./gameObject');
 
 /**
  * A player in this game. Every AI controls one player.
- * @extends StarDash.GameObject
- * @memberof StarDash
+ * @extends Stardash.GameObject
+ * @memberof Stardash
  */
 class Player extends GameObject {
   /**
@@ -67,7 +67,7 @@ class Player extends GameObject {
   /**
    * The home base of the player.
    *
-   * @type {StarDash.Body}
+   * @type {Stardash.Body}
    */
   get homeBase() {
     return client.gameManager.getMemberValue(this, 'homeBase');
@@ -123,7 +123,7 @@ class Player extends GameObject {
   /**
    * This player's opponent in the game.
    *
-   * @type {StarDash.Player}
+   * @type {Stardash.Player}
    */
   get opponent() {
     return client.gameManager.getMemberValue(this, 'opponent');
@@ -179,7 +179,7 @@ class Player extends GameObject {
   /**
    * Every Unit owned by this Player.
    *
-   * @type {Array.<StarDash.Unit>}
+   * @type {Array.<Stardash.Unit>}
    */
   get units() {
     return client.gameManager.getMemberValue(this, 'units');

@@ -14,7 +14,7 @@ const BaseGame = require(`${__basedir}/joueur/baseGame`);
 /**
  * Collect of the most of the rarest mineral orbiting aroung the sun and outcompete your competetor.
  * @extends BaseGame
- * @memberof StarDash
+ * @memberof Stardash
  */
 class Game extends BaseGame {
   /**
@@ -32,7 +32,7 @@ class Game extends BaseGame {
      * The name of the game.
      * @type {string}
      */
-    this.name = 'StarDash';
+    this.name = 'Stardash';
 
     // default values for private member values
     this.bodies = [];
@@ -67,7 +67,7 @@ class Game extends BaseGame {
   /**
    * All the celestial bodies in the game.
    *
-   * @type {Array.<StarDash.Body>}
+   * @type {Array.<Stardash.Body>}
    */
   get bodies() {
     return client.gameManager.getMemberValue(this, 'bodies');
@@ -81,7 +81,7 @@ class Game extends BaseGame {
   /**
    * The player whose turn it is currently. That player can send commands. Other players cannot.
    *
-   * @type {StarDash.Player}
+   * @type {Stardash.Player}
    */
   get currentPlayer() {
     return client.gameManager.getMemberValue(this, 'currentPlayer');
@@ -123,7 +123,7 @@ class Game extends BaseGame {
   /**
    * A mapping of every game object's ID to the actual game object. Primarily used by the server and client to easily refer to the game objects via ID.
    *
-   * @type {Object.<string, StarDash.GameObject>}
+   * @type {Object.<string, Stardash.GameObject>}
    */
   get gameObjects() {
     return client.gameManager.getMemberValue(this, 'gameObjects');
@@ -137,7 +137,7 @@ class Game extends BaseGame {
   /**
    * A list of all jobs. first item is corvette, second is missleboat, third is martyr, fourth is transport, and fifth is miner.
    *
-   * @type {Array.<StarDash.Job>}
+   * @type {Array.<Stardash.Job>}
    */
   get jobs() {
     return client.gameManager.getMemberValue(this, 'jobs');
@@ -249,7 +249,7 @@ class Game extends BaseGame {
   /**
    * List of all the players in the game.
    *
-   * @type {Array.<StarDash.Player>}
+   * @type {Array.<Stardash.Player>}
    */
   get players() {
     return client.gameManager.getMemberValue(this, 'players');
@@ -333,7 +333,7 @@ class Game extends BaseGame {
   /**
    * Every Unit in the game.
    *
-   * @type {Array.<StarDash.Unit>}
+   * @type {Array.<Stardash.Unit>}
    */
   get units() {
     return client.gameManager.getMemberValue(this, 'units');

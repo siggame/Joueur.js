@@ -13,8 +13,8 @@ const GameObject = require('./gameObject');
 
 /**
  * A celestial body located within the game.
- * @extends StarDash.GameObject
- * @memberof StarDash
+ * @extends Stardash.GameObject
+ * @memberof Stardash
  */
 class Body extends GameObject {
   /**

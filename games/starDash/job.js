@@ -13,8 +13,8 @@ const GameObject = require('./gameObject');
 
 /**
  * Information about a unit's job.
- * @extends StarDash.GameObject
- * @memberof StarDash
+ * @extends Stardash.GameObject
+ * @memberof Stardash
  */
 class Job extends GameObject {
   /**
