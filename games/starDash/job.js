@@ -35,6 +35,7 @@ class Job extends GameObject {
     this.moves = 0;
     this.shield = 0;
     this.title = '';
+    this.unitCost = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // any additional init logic you want can go here
@@ -125,6 +126,20 @@ class Job extends GameObject {
 
   set title(value) {
     client.gameManager.setMemberValue(this, 'title', value);
+  }
+
+
+  /**
+   * How much money it costs to spawn a unit.
+   *
+   * @type {number}
+   */
+  get unitCost() {
+    return client.gameManager.getMemberValue(this, 'unitCost');
+  }
+
+  set unitCost(value) {
+    client.gameManager.setMemberValue(this, 'unitCost', value);
   }
 
 
