@@ -51,6 +51,7 @@ class Game extends BaseGame {
     this.planetRechargeRate = 0;
     this.players = [];
     this.projectileSpeed = 0;
+    this.projectiles = [];
     this.regenerateRate = 0;
     this.session = '';
     this.sizeX = 0;
@@ -287,6 +288,20 @@ class Game extends BaseGame {
 
   set projectileSpeed(value) {
     client.gameManager.setMemberValue(this, 'projectileSpeed', value);
+  }
+
+
+  /**
+   * Every projectile in the game.
+   *
+   * @type {Array.<Stardash.Projectile>}
+   */
+  get projectiles() {
+    return client.gameManager.getMemberValue(this, 'projectiles');
+  }
+
+  set projectiles(value) {
+    client.gameManager.setMemberValue(this, 'projectiles', value);
   }
 
 
