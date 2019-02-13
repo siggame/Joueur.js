@@ -1,4 +1,4 @@
-// This is where you build your AI for the StarDash game.
+// This is where you build your AI for the Stardash game.
 
 const BaseAI = require(`${__basedir}/joueur/baseAI`);
 
@@ -7,8 +7,8 @@ const BaseAI = require(`${__basedir}/joueur/baseAI`);
 // <<-- /Creer-Merge: requires -->>
 
 /**
- * This is the class to play the StarDash game. This is where you should build your AI.
- * @memberof StarDash
+ * This is the class to play the Stardash game. This is where you should build your AI.
+ * @memberof Stardash
  */
 class AI extends BaseAI {
   /**
@@ -30,7 +30,7 @@ class AI extends BaseAI {
    */
   getName() {
     // <<-- Creer-Merge: getName -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    return 'StarDash JavaScript Player';
+    return 'Stardash JavaScript Player';
     // <<-- /Creer-Merge: getName -->>
   }
 

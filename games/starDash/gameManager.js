@@ -2,16 +2,16 @@
 
 /**
  * Collect of the most of the rarest mineral orbiting aroung the sun and outcompete your competetor.
- * @namespace StarDash
+ * @namespace Stardash
  */
 
 // This manages the game for you
 
 const GameManager = require(`${__basedir}/joueur/gameManager`);
 
-class StarDashGameManager extends GameManager {}
+class StardashGameManager extends GameManager {}
 
-StarDashGameManager.prototype._gameObjectClasses = {
+StardashGameManager.prototype._gameObjectClasses = {
   Body: require('./body'),
   GameObject: require('./gameObject'),
   Job: require('./job'),
@@ -19,4 +19,4 @@ StarDashGameManager.prototype._gameObjectClasses = {
   Unit: require('./unit'),
 };
 
-module.exports = StarDashGameManager;
+module.exports = StardashGameManager;

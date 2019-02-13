@@ -14,7 +14,7 @@ const BaseGameObject = require(`${__basedir}/joueur/baseGameObject`);
 /**
  * An object in the game. The most basic class that all game classes should inherit from automatically.
  * @extends BaseGameObject
- * @memberof StarDash
+ * @memberof Stardash
  */
 class GameObject extends BaseGameObject {
   /**
