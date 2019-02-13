@@ -16,6 +16,7 @@ StardashGameManager.prototype._gameObjectClasses = {
   GameObject: require('./gameObject'),
   Job: require('./job'),
   Player: require('./player'),
+  Projectile: require('./projectile'),
   Unit: require('./unit'),
 };
 

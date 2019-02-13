@@ -44,11 +44,13 @@ class Game extends BaseGame {
     this.maxAsteroid = 0;
     this.maxTurns = 0;
     this.minAsteroid = 0;
+    this.miningSpeed = 0;
     this.oreRarity1 = 0;
     this.oreRarity2 = 0;
     this.oreRarity3 = 0;
     this.planetRechargeRate = 0;
     this.players = [];
+    this.projectileSpeed = 0;
     this.regenerateRate = 0;
     this.session = '';
     this.sizeX = 0;
@@ -191,6 +193,20 @@ class Game extends BaseGame {
 
 
   /**
+   * The rate at which miners grab minerals from asteroids.
+   *
+   * @type {number}
+   */
+  get miningSpeed() {
+    return client.gameManager.getMemberValue(this, 'miningSpeed');
+  }
+
+  set miningSpeed(value) {
+    client.gameManager.setMemberValue(this, 'miningSpeed', value);
+  }
+
+
+  /**
    * The rarity modifier of the most common ore. This controls how much spawns.
    *
    * @type {number}
@@ -257,6 +273,20 @@ class Game extends BaseGame {
 
   set players(value) {
     client.gameManager.setMemberValue(this, 'players', value);
+  }
+
+
+  /**
+   * The amount of distance missiles travel through space.
+   *
+   * @type {number}
+   */
+  get projectileSpeed() {
+    return client.gameManager.getMemberValue(this, 'projectileSpeed');
+  }
+
+  set projectileSpeed(value) {
+    client.gameManager.setMemberValue(this, 'projectileSpeed', value);
   }
 
 

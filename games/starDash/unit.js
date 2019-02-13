@@ -291,16 +291,14 @@ class Unit extends GameObject {
 
 
   /**
-   * tell you if there is a open path to that location.
+   * Attacks the specified projectile.
    *
-   * @param {number} x - The x position of the destination you wish to check to.
-   * @param {number} y - The y position of the destination you wish to check to.
-   * @returns {boolean} - True if pathable by this unit, false otherwise.
+   * @param {Stardash.Projectile} missile - The projectile being shot down.
+   * @returns {boolean} - True if successfully attacked, false otherwise.
    */
-  pathable(x, y) {
-    return client.runOnServer(this, 'pathable', {
-      x: x,
-      y: y,
+  shootDown(missile) {
+    return client.runOnServer(this, 'shootDown', {
+      missile: missile,
     });
   }
 
