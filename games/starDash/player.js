@@ -35,6 +35,7 @@ class Player extends GameObject {
     this.money = 0;
     this.name = '';
     this.opponent = null;
+    this.projectiles = [];
     this.reasonLost = '';
     this.reasonWon = '';
     this.timeRemaining = 0;
@@ -131,6 +132,20 @@ class Player extends GameObject {
 
   set opponent(value) {
     client.gameManager.setMemberValue(this, 'opponent', value);
+  }
+
+
+  /**
+   * Every Projectile owned by this Player.
+   *
+   * @type {Array.<Stardash.Projectile>}
+   */
+  get projectiles() {
+    return client.gameManager.getMemberValue(this, 'projectiles');
+  }
+
+  set projectiles(value) {
+    client.gameManager.setMemberValue(this, 'projectiles', value);
   }
 
 
