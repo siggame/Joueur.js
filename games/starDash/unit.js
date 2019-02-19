@@ -38,6 +38,7 @@ class Unit extends GameObject {
     this.moves = 0;
     this.mythicite = 0;
     this.owner = null;
+    this.protector = null;
     this.radius = 0;
     this.rarium = 0;
     this.x = 0;
@@ -174,6 +175,20 @@ class Unit extends GameObject {
 
   set owner(value) {
     client.gameManager.setMemberValue(this, 'owner', value);
+  }
+
+
+  /**
+   * The martyr ship that is currently shielding this ship if any.
+   *
+   * @type {Stardash.Unit}
+   */
+  get protector() {
+    return client.gameManager.getMemberValue(this, 'protector');
+  }
+
+  set protector(value) {
+    client.gameManager.setMemberValue(this, 'protector', value);
   }
 
 
