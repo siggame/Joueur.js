@@ -33,6 +33,7 @@ class Job extends GameObject {
     this.damage = 0;
     this.energy = 0;
     this.moves = 0;
+    this.range = 0;
     this.shield = 0;
     this.title = '';
     this.unitCost = 0;
@@ -98,6 +99,20 @@ class Job extends GameObject {
 
   set moves(value) {
     client.gameManager.setMemberValue(this, 'moves', value);
+  }
+
+
+  /**
+   * The distance at which this job can effect things.
+   *
+   * @type {number}
+   */
+  get range() {
+    return client.gameManager.getMemberValue(this, 'range');
+  }
+
+  set range(value) {
+    client.gameManager.setMemberValue(this, 'range', value);
   }
 
 
