@@ -30,6 +30,8 @@ class Unit extends GameObject {
 
     // default values for private member values
     this.acted = false;
+    this.dashX = 0;
+    this.dashY = 0;
     this.energy = 0;
     this.genarium = 0;
     this.isDashing = false;
@@ -63,6 +65,34 @@ class Unit extends GameObject {
 
   set acted(value) {
     client.gameManager.setMemberValue(this, 'acted', value);
+  }
+
+
+  /**
+   * The x value this unit is dashing to.
+   *
+   * @type {number}
+   */
+  get dashX() {
+    return client.gameManager.getMemberValue(this, 'dashX');
+  }
+
+  set dashX(value) {
+    client.gameManager.setMemberValue(this, 'dashX', value);
+  }
+
+
+  /**
+   * The y value this unit is dashing to.
+   *
+   * @type {number}
+   */
+  get dashY() {
+    return client.gameManager.getMemberValue(this, 'dashY');
+  }
+
+  set dashY(value) {
+    client.gameManager.setMemberValue(this, 'dashY', value);
   }
 
 
@@ -291,7 +321,7 @@ class Unit extends GameObject {
 
 
   /**
-   * tells you if your ship can be at that location.
+   * tells you if your ship can dash to that location.
    *
    * @param {number} x - The x position of the location you wish to check.
    * @param {number} y - The y position of the location you wish to check.
