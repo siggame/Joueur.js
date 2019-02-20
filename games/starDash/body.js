@@ -32,6 +32,7 @@ class Body extends GameObject {
     this.amount = 0;
     this.bodyType = '';
     this.materialType = '';
+    this.owner = null;
     this.radius = 0;
     this.x = 0;
     this.y = 0;
@@ -83,6 +84,20 @@ class Body extends GameObject {
 
   set materialType(value) {
     client.gameManager.setMemberValue(this, 'materialType', value);
+  }
+
+
+  /**
+   * The Player that owns and can control this Unit.
+   *
+   * @type {Stardash.Player}
+   */
+  get owner() {
+    return client.gameManager.getMemberValue(this, 'owner');
+  }
+
+  set owner(value) {
+    client.gameManager.setMemberValue(this, 'owner', value);
   }
 
 

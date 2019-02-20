@@ -38,6 +38,7 @@ class Game extends BaseGame {
     this.bodies = [];
     this.currentPlayer = null;
     this.currentTurn = 0;
+    this.dashBlock = 0;
     this.dashDistance = 0;
     this.gameObjects = {};
     this.jobs = [];
@@ -54,6 +55,7 @@ class Game extends BaseGame {
     this.projectiles = [];
     this.regenerateRate = 0;
     this.session = '';
+    this.shipRadius = 0;
     this.sizeX = 0;
     this.sizeY = 0;
     this.timeAddedPerTurn = 0;
@@ -106,6 +108,20 @@ class Game extends BaseGame {
 
   set currentTurn(value) {
     client.gameManager.setMemberValue(this, 'currentTurn', value);
+  }
+
+
+  /**
+   * Radius of the no dash zone around the sun.
+   *
+   * @type {number}
+   */
+  get dashBlock() {
+    return client.gameManager.getMemberValue(this, 'dashBlock');
+  }
+
+  set dashBlock(value) {
+    client.gameManager.setMemberValue(this, 'dashBlock', value);
   }
 
 
@@ -330,6 +346,20 @@ class Game extends BaseGame {
 
   set session(value) {
     client.gameManager.setMemberValue(this, 'session', value);
+  }
+
+
+  /**
+   * The standard size of ships.
+   *
+   * @type {number}
+   */
+  get shipRadius() {
+    return client.gameManager.getMemberValue(this, 'shipRadius');
+  }
+
+  set shipRadius(value) {
+    client.gameManager.setMemberValue(this, 'shipRadius', value);
   }
 
 
