@@ -46,11 +46,12 @@ class Game extends BaseGame {
     this.maxTurns = 0;
     this.minAsteroid = 0;
     this.miningSpeed = 0;
-    this.oreRarity1 = 0;
-    this.oreRarity2 = 0;
-    this.oreRarity3 = 0;
+    this.oreRarityGenarium = 0;
+    this.oreRarityRarium = 0;
+    this.oreRaritylegendarium = 0;
     this.planetRechargeRate = 0;
     this.players = [];
+    this.projectileRadius = 0;
     this.projectileSpeed = 0;
     this.projectiles = [];
     this.regenerateRate = 0;
@@ -228,12 +229,12 @@ class Game extends BaseGame {
    *
    * @type {number}
    */
-  get oreRarity1() {
-    return client.gameManager.getMemberValue(this, 'oreRarity1');
+  get oreRarityGenarium() {
+    return client.gameManager.getMemberValue(this, 'oreRarityGenarium');
   }
 
-  set oreRarity1(value) {
-    client.gameManager.setMemberValue(this, 'oreRarity1', value);
+  set oreRarityGenarium(value) {
+    client.gameManager.setMemberValue(this, 'oreRarityGenarium', value);
   }
 
 
@@ -242,12 +243,12 @@ class Game extends BaseGame {
    *
    * @type {number}
    */
-  get oreRarity2() {
-    return client.gameManager.getMemberValue(this, 'oreRarity2');
+  get oreRarityRarium() {
+    return client.gameManager.getMemberValue(this, 'oreRarityRarium');
   }
 
-  set oreRarity2(value) {
-    client.gameManager.setMemberValue(this, 'oreRarity2', value);
+  set oreRarityRarium(value) {
+    client.gameManager.setMemberValue(this, 'oreRarityRarium', value);
   }
 
 
@@ -256,12 +257,12 @@ class Game extends BaseGame {
    *
    * @type {number}
    */
-  get oreRarity3() {
-    return client.gameManager.getMemberValue(this, 'oreRarity3');
+  get oreRaritylegendarium() {
+    return client.gameManager.getMemberValue(this, 'oreRaritylegendarium');
   }
 
-  set oreRarity3(value) {
-    client.gameManager.setMemberValue(this, 'oreRarity3', value);
+  set oreRaritylegendarium(value) {
+    client.gameManager.setMemberValue(this, 'oreRaritylegendarium', value);
   }
 
 
@@ -290,6 +291,20 @@ class Game extends BaseGame {
 
   set players(value) {
     client.gameManager.setMemberValue(this, 'players', value);
+  }
+
+
+  /**
+   * The standard size of ships.
+   *
+   * @type {number}
+   */
+  get projectileRadius() {
+    return client.gameManager.getMemberValue(this, 'projectileRadius');
+  }
+
+  set projectileRadius(value) {
+    client.gameManager.setMemberValue(this, 'projectileRadius', value);
   }
 
 

@@ -31,7 +31,6 @@ class Projectile extends GameObject {
     // default values for private member values
     this.fuel = 0;
     this.owner = null;
-    this.radius = 0;
     this.target = null;
     this.x = 0;
     this.y = 0;
@@ -69,20 +68,6 @@ class Projectile extends GameObject {
 
   set owner(value) {
     client.gameManager.setMemberValue(this, 'owner', value);
-  }
-
-
-  /**
-   * The radius of the circle this projectile occupies.
-   *
-   * @type {number}
-   */
-  get radius() {
-    return client.gameManager.getMemberValue(this, 'radius');
-  }
-
-  set radius(value) {
-    client.gameManager.setMemberValue(this, 'radius', value);
   }
 
 
