@@ -41,8 +41,8 @@ class Unit extends GameObject {
     this.mythicite = 0;
     this.owner = null;
     this.protector = null;
-    this.radius = 0;
     this.rarium = 0;
+    this.shield = 0;
     this.x = 0;
     this.y = 0;
 
@@ -223,20 +223,6 @@ class Unit extends GameObject {
 
 
   /**
-   * The radius of the circle this unit occupies.
-   *
-   * @type {number}
-   */
-  get radius() {
-    return client.gameManager.getMemberValue(this, 'radius');
-  }
-
-  set radius(value) {
-    client.gameManager.setMemberValue(this, 'radius', value);
-  }
-
-
-  /**
    * The amount of Rarium carried by this unit. (0 to job carry capacity - other carried items).
    *
    * @type {number}
@@ -247,6 +233,20 @@ class Unit extends GameObject {
 
   set rarium(value) {
     client.gameManager.setMemberValue(this, 'rarium', value);
+  }
+
+
+  /**
+   * The sheild that a martyr ship has.
+   *
+   * @type {number}
+   */
+  get shield() {
+    return client.gameManager.getMemberValue(this, 'shield');
+  }
+
+  set shield(value) {
+    client.gameManager.setMemberValue(this, 'shield', value);
   }
 
 
@@ -293,6 +293,21 @@ class Unit extends GameObject {
 
 
   /**
+   * Causes the unit to dash towards the designated destination.
+   *
+   * @param {number} x - The x value of the destination's coordinates.
+   * @param {number} y - The y value of the destination's coordinates.
+   * @returns {boolean} - True if it moved, false otherwise.
+   */
+  dash(x, y) {
+    return client.runOnServer(this, 'dash', {
+      x: x,
+      y: y,
+    });
+  }
+
+
+  /**
    * allows a miner to mine a asteroid
    *
    * @param {Stardash.Body} body - The object to be mined.
@@ -321,7 +336,7 @@ class Unit extends GameObject {
 
 
   /**
-   * tells you if your ship can dash to that location.
+   * tells you if your ship can be at that location.
    *
    * @param {number} x - The x position of the location you wish to check.
    * @param {number} y - The y position of the location you wish to check.
