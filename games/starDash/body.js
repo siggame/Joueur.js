@@ -46,7 +46,7 @@ class Body extends GameObject {
   // Member variables
 
   /**
-   * The amount of material the object has.
+   * The amount of material the object has, or energy if it is a planet.
    *
    * @type {number}
    */
