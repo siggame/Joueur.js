@@ -41,19 +41,24 @@ class Game extends BaseGame {
     this.dashBlock = 0;
     this.dashDistance = 0;
     this.gameObjects = {};
+    this.genariumValue = 0;
     this.jobs = [];
+    this.legendariumValue = 0;
     this.maxAsteroid = 0;
     this.maxTurns = 0;
     this.minAsteroid = 0;
     this.miningSpeed = 0;
+    this.mythiciteAmount = 0;
     this.oreRarityGenarium = 0;
+    this.oreRarityLegendarium = 0;
     this.oreRarityRarium = 0;
-    this.oreRaritylegendarium = 0;
+    this.planetEnergyCap = 0;
     this.planetRechargeRate = 0;
     this.players = [];
     this.projectileRadius = 0;
     this.projectileSpeed = 0;
     this.projectiles = [];
+    this.rariumValue = 0;
     this.regenerateRate = 0;
     this.session = '';
     this.shipRadius = 0;
@@ -155,6 +160,20 @@ class Game extends BaseGame {
 
 
   /**
+   * The value of every unit of genarium.
+   *
+   * @type {number}
+   */
+  get genariumValue() {
+    return client.gameManager.getMemberValue(this, 'genariumValue');
+  }
+
+  set genariumValue(value) {
+    client.gameManager.setMemberValue(this, 'genariumValue', value);
+  }
+
+
+  /**
    * A list of all jobs. first item is corvette, second is missleboat, third is martyr, fourth is transport, and fifth is miner.
    *
    * @type {Array.<Stardash.Job>}
@@ -165,6 +184,20 @@ class Game extends BaseGame {
 
   set jobs(value) {
     client.gameManager.setMemberValue(this, 'jobs', value);
+  }
+
+
+  /**
+   * The value of every unit of legendarium.
+   *
+   * @type {number}
+   */
+  get legendariumValue() {
+    return client.gameManager.getMemberValue(this, 'legendariumValue');
+  }
+
+  set legendariumValue(value) {
+    client.gameManager.setMemberValue(this, 'legendariumValue', value);
   }
 
 
@@ -225,6 +258,20 @@ class Game extends BaseGame {
 
 
   /**
+   * The amount of mythicite that spawns at the start of the game.
+   *
+   * @type {number}
+   */
+  get mythiciteAmount() {
+    return client.gameManager.getMemberValue(this, 'mythiciteAmount');
+  }
+
+  set mythiciteAmount(value) {
+    client.gameManager.setMemberValue(this, 'mythiciteAmount', value);
+  }
+
+
+  /**
    * The rarity modifier of the most common ore. This controls how much spawns.
    *
    * @type {number}
@@ -235,6 +282,20 @@ class Game extends BaseGame {
 
   set oreRarityGenarium(value) {
     client.gameManager.setMemberValue(this, 'oreRarityGenarium', value);
+  }
+
+
+  /**
+   * The rarity modifier of the rarest ore. This controls how much spawns.
+   *
+   * @type {number}
+   */
+  get oreRarityLegendarium() {
+    return client.gameManager.getMemberValue(this, 'oreRarityLegendarium');
+  }
+
+  set oreRarityLegendarium(value) {
+    client.gameManager.setMemberValue(this, 'oreRarityLegendarium', value);
   }
 
 
@@ -253,16 +314,16 @@ class Game extends BaseGame {
 
 
   /**
-   * The rarity modifier of the rarest ore. This controls how much spawns.
+   * The amount of energy a planet can hold at once.
    *
    * @type {number}
    */
-  get oreRaritylegendarium() {
-    return client.gameManager.getMemberValue(this, 'oreRaritylegendarium');
+  get planetEnergyCap() {
+    return client.gameManager.getMemberValue(this, 'planetEnergyCap');
   }
 
-  set oreRaritylegendarium(value) {
-    client.gameManager.setMemberValue(this, 'oreRaritylegendarium', value);
+  set planetEnergyCap(value) {
+    client.gameManager.setMemberValue(this, 'planetEnergyCap', value);
   }
 
 
@@ -333,6 +394,20 @@ class Game extends BaseGame {
 
   set projectiles(value) {
     client.gameManager.setMemberValue(this, 'projectiles', value);
+  }
+
+
+  /**
+   * The value of every unit of rarium.
+   *
+   * @type {number}
+   */
+  get rariumValue() {
+    return client.gameManager.getMemberValue(this, 'rariumValue');
+  }
+
+  set rariumValue(value) {
+    client.gameManager.setMemberValue(this, 'rariumValue', value);
   }
 
 
