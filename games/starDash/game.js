@@ -39,6 +39,7 @@ class Game extends BaseGame {
     this.currentPlayer = null;
     this.currentTurn = 0;
     this.dashBlock = 0;
+    this.dashCost = 0;
     this.dashDistance = 0;
     this.gameObjects = {};
     this.genariumValue = 0;
@@ -49,6 +50,7 @@ class Game extends BaseGame {
     this.minAsteroid = 0;
     this.miningSpeed = 0;
     this.mythiciteAmount = 0;
+    this.orbitsProtected = 0;
     this.oreRarityGenarium = 0;
     this.oreRarityLegendarium = 0;
     this.oreRarityRarium = 0;
@@ -65,6 +67,7 @@ class Game extends BaseGame {
     this.sizeX = 0;
     this.sizeY = 0;
     this.timeAddedPerTurn = 0;
+    this.turnsToOrbit = 0;
     this.units = [];
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -76,7 +79,7 @@ class Game extends BaseGame {
   // Member variables
 
   /**
-   * All the celestial bodies in the game.
+   * All the celestial bodies in the game. The first two are planets and the third is the sun. The fourth is the VP asteroid. Everything else is normal asteroids.
    *
    * @type {Array.<Stardash.Body>}
    */
@@ -128,6 +131,20 @@ class Game extends BaseGame {
 
   set dashBlock(value) {
     client.gameManager.setMemberValue(this, 'dashBlock', value);
+  }
+
+
+  /**
+   * The cost of dashing.
+   *
+   * @type {number}
+   */
+  get dashCost() {
+    return client.gameManager.getMemberValue(this, 'dashCost');
+  }
+
+  set dashCost(value) {
+    client.gameManager.setMemberValue(this, 'dashCost', value);
   }
 
 
@@ -202,7 +219,7 @@ class Game extends BaseGame {
 
 
   /**
-   * The highest amount of material, barring rarity, that can be in a asteroid.
+   * The highest amount of material, that can be in a asteroid.
    *
    * @type {number}
    */
@@ -230,7 +247,7 @@ class Game extends BaseGame {
 
 
   /**
-   * The smallest amount of material, barring rarity, that can be in a asteroid.
+   * The smallest amount of material, that can be in a asteroid.
    *
    * @type {number}
    */
@@ -268,6 +285,20 @@ class Game extends BaseGame {
 
   set mythiciteAmount(value) {
     client.gameManager.setMemberValue(this, 'mythiciteAmount', value);
+  }
+
+
+  /**
+   * The number of orbit updates you cannot mine the mithicite asteroid.
+   *
+   * @type {number}
+   */
+  get orbitsProtected() {
+    return client.gameManager.getMemberValue(this, 'orbitsProtected');
+  }
+
+  set orbitsProtected(value) {
+    client.gameManager.setMemberValue(this, 'orbitsProtected', value);
   }
 
 
@@ -492,6 +523,20 @@ class Game extends BaseGame {
 
   set timeAddedPerTurn(value) {
     client.gameManager.setMemberValue(this, 'timeAddedPerTurn', value);
+  }
+
+
+  /**
+   * The number of turns it takes for a asteroid to orbit the sun. (Asteroids move after each players turn).
+   *
+   * @type {number}
+   */
+  get turnsToOrbit() {
+    return client.gameManager.getMemberValue(this, 'turnsToOrbit');
+  }
+
+  set turnsToOrbit(value) {
+    client.gameManager.setMemberValue(this, 'turnsToOrbit', value);
   }
 
 

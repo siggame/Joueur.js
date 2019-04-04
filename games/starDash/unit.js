@@ -342,8 +342,8 @@ class Unit extends GameObject {
    * @param {number} y - The y position of the location you wish to check.
    * @returns {boolean} - True if pathable by this unit, false otherwise.
    */
-  open(x, y) {
-    return client.runOnServer(this, 'open', {
+  safe(x, y) {
+    return client.runOnServer(this, 'safe', {
       x: x,
       y: y,
     });

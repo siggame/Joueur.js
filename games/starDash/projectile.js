@@ -58,7 +58,7 @@ class Projectile extends GameObject {
 
 
   /**
-   * The Player that owns and can control this Unit.
+   * The Player that owns and can control this Projectile.
    *
    * @type {Stardash.Player}
    */
