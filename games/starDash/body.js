@@ -88,7 +88,7 @@ class Body extends GameObject {
 
 
   /**
-   * The Player that owns and can control this Unit.
+   * The Player that owns and can control this Body.
    *
    * @type {Stardash.Player}
    */
@@ -142,6 +142,32 @@ class Body extends GameObject {
     client.gameManager.setMemberValue(this, 'y', value);
   }
 
+
+
+  /**
+   * The x value of this body a number of turns from now. (0-how many you want).
+   *
+   * @param {number} num - The number of turns in the future you wish to check.
+   * @returns {number} - The x position of the body the input number of turns in the future.
+   */
+  nextX(num) {
+    return client.runOnServer(this, 'nextX', {
+      num: num,
+    });
+  }
+
+
+  /**
+   * The x value of this body a number of turns from now. (0-how many you want).
+   *
+   * @param {number} num - The number of turns in the future you wish to check.
+   * @returns {number} - The x position of the body the input number of turns in the future.
+   */
+  nextY(num) {
+    return client.runOnServer(this, 'nextY', {
+      num: num,
+    });
+  }
 
 
   /**
