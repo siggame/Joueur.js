@@ -111,7 +111,7 @@ class Unit extends GameObject {
 
 
   /**
-   * The amount of Generium ore carried by this unit. (0 to job carry capacity - other carried items).
+   * The amount of Genarium ore carried by this unit. (0 to job carry capacity - other carried items).
    *
    * @type {number}
    */
@@ -308,6 +308,21 @@ class Unit extends GameObject {
 
 
   /**
+   * tells you if your ship dash to that location.
+   *
+   * @param {number} x - The x position of the location you wish to arrive.
+   * @param {number} y - The y position of the location you wish to arrive.
+   * @returns {boolean} - True if pathable by this unit, false otherwise.
+   */
+  dashable(x, y) {
+    return client.runOnServer(this, 'dashable', {
+      x: x,
+      y: y,
+    });
+  }
+
+
+  /**
    * allows a miner to mine a asteroid
    *
    * @param {Stardash.Body} body - The object to be mined.
@@ -336,10 +351,10 @@ class Unit extends GameObject {
 
 
   /**
-   * tells you if your ship can be at that location.
+   * tells you if your ship can move to that location.
    *
-   * @param {number} x - The x position of the location you wish to check.
-   * @param {number} y - The y position of the location you wish to check.
+   * @param {number} x - The x position of the location you wish to arrive.
+   * @param {number} y - The y position of the location you wish to arrive.
    * @returns {boolean} - True if pathable by this unit, false otherwise.
    */
   safe(x, y) {
