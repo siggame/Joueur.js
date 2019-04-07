@@ -34,7 +34,7 @@ class Unit extends GameObject {
     this.dashY = 0;
     this.energy = 0;
     this.genarium = 0;
-    this.isDashing = false;
+    this.isBusy = false;
     this.job = null;
     this.legendarium = 0;
     this.moves = 0;
@@ -125,16 +125,16 @@ class Unit extends GameObject {
 
 
   /**
-   * Tracks wheither or not the ship is dashing.
+   * Tracks wheither or not the ship is dashing or Mining. If true, it cannot do anything else.
    *
    * @type {boolean}
    */
-  get isDashing() {
-    return client.gameManager.getMemberValue(this, 'isDashing');
+  get isBusy() {
+    return client.gameManager.getMemberValue(this, 'isBusy');
   }
 
-  set isDashing(value) {
-    client.gameManager.setMemberValue(this, 'isDashing', value);
+  set isBusy(value) {
+    client.gameManager.setMemberValue(this, 'isBusy', value);
   }
 
 
