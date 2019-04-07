@@ -38,7 +38,6 @@ class Game extends BaseGame {
     this.bodies = [];
     this.currentPlayer = null;
     this.currentTurn = 0;
-    this.dashBlock = 0;
     this.dashCost = 0;
     this.dashDistance = 0;
     this.gameObjects = {};
@@ -121,20 +120,6 @@ class Game extends BaseGame {
 
 
   /**
-   * Radius of the no dash zone around the sun.
-   *
-   * @type {number}
-   */
-  get dashBlock() {
-    return client.gameManager.getMemberValue(this, 'dashBlock');
-  }
-
-  set dashBlock(value) {
-    client.gameManager.setMemberValue(this, 'dashBlock', value);
-  }
-
-
-  /**
    * The cost of dashing.
    *
    * @type {number}
@@ -191,7 +176,7 @@ class Game extends BaseGame {
 
 
   /**
-   * A list of all jobs. first item is corvette, second is missleboat, third is martyr, fourth is transport, and fifth is miner.
+   * A list of all jobs. first item is corvette, second is missileboat, third is martyr, fourth is transport, and fifth is miner.
    *
    * @type {Array.<Stardash.Job>}
    */

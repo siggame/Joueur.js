@@ -131,7 +131,7 @@ class Job extends GameObject {
 
 
   /**
-   * The Job title. 'corvette', 'missleboat', 'martyr', 'transport', or 'miner'. (in this order from 0-4).
+   * The Job title. 'corvette', 'missileboat', 'martyr', 'transport', or 'miner'. (in this order from 0-4).
    *
    * @type {string}
    */
