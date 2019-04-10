@@ -97,7 +97,7 @@ class Unit extends GameObject {
 
 
   /**
-   * The remaining health of a unit.
+   * The remaining health of the unit.
    *
    * @type {number}
    */

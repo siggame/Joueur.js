@@ -29,6 +29,7 @@ class Projectile extends GameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
+    this.energy = 0;
     this.fuel = 0;
     this.owner = null;
     this.target = null;
@@ -42,6 +43,20 @@ class Projectile extends GameObject {
 
 
   // Member variables
+
+  /**
+   * The remaining health of the projectile.
+   *
+   * @type {number}
+   */
+  get energy() {
+    return client.gameManager.getMemberValue(this, 'energy');
+  }
+
+  set energy(value) {
+    client.gameManager.setMemberValue(this, 'energy', value);
+  }
+
 
   /**
    * The amount of remaining distance the projectile can move.
