@@ -136,7 +136,7 @@ class Player extends GameObject {
 
 
   /**
-   * Every Projectile owned by this Player.
+   * Every Projectile owned by this Player. The earlier in the list the older they are.
    *
    * @type {Array.<Stardash.Projectile>}
    */
@@ -192,7 +192,7 @@ class Player extends GameObject {
 
 
   /**
-   * Every Unit owned by this Player.
+   * Every Unit owned by this Player. The earlier in the list the older they are.
    *
    * @type {Array.<Stardash.Unit>}
    */

@@ -60,7 +60,7 @@ class Body extends GameObject {
 
 
   /**
-   * The type of celestial body it is.
+   * The type of celestial body it is. Either 'planet', 'asteroid', or 'sun'.
    *
    * @type {string}
    */
@@ -74,7 +74,7 @@ class Body extends GameObject {
 
 
   /**
-   * The type of material the celestial body has.
+   * The type of material the celestial body has. Either 'none', 'genarium', 'rarium', 'legendarium', or 'mythicite'.
    *
    * @type {string}
    */

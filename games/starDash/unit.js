@@ -356,8 +356,8 @@ class Unit extends GameObject {
    * @param {Stardash.Projectile} missile - The projectile being shot down.
    * @returns {boolean} - True if successfully attacked, false otherwise.
    */
-  shootDown(missile) {
-    return client.runOnServer(this, 'shootDown', {
+  shootdown(missile) {
+    return client.runOnServer(this, 'shootdown', {
       missile: missile,
     });
   }
@@ -368,7 +368,7 @@ class Unit extends GameObject {
    *
    * @param {Stardash.Unit} unit - The unit you are grabbing the resources from.
    * @param {number} amount - The amount of materials to you with to grab. Amounts <= 0 will pick up all the materials that the unit can.
-   * @param {string} material - The material the unit will pick up. 'resource1', 'resource2', or 'resource3'.
+   * @param {string} material - The material the unit will pick up. 'genarium', 'rarium', 'legendarium', or 'mythicite'.
    * @returns {boolean} - True if successfully taken, false otherwise.
    */
   transfer(unit, amount, material) {
