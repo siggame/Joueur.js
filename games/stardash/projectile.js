@@ -1,4 +1,4 @@
-// Checker: A checker on the game board.
+// Projectile: Tracks any projectiles moving through space.
 
 // DO NOT MODIFY THIS FILE
 // Never try to directly create an instance of this class, or modify its member variables.
@@ -12,13 +12,13 @@ const GameObject = require('./gameObject');
 //<<-- /Creer-Merge: requires -->>
 
 /**
- * A checker on the game board.
- * @extends Checkers.GameObject
- * @memberof Checkers
+ * Tracks any projectiles moving through space.
+ * @extends Stardash.GameObject
+ * @memberof Stardash
  */
-class Checker extends GameObject {
+class Projectile extends GameObject {
   /**
-   * Initializes a Checker with basic logic as provided by the Creer code generator.
+   * Initializes a Projectile with basic logic as provided by the Creer code generator.
    * 
    * Never use this directly. It is for internal Joueur use.
    */
@@ -29,8 +29,10 @@ class Checker extends GameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
-    this.kinged = false;
+    this.energy = 0;
+    this.fuel = 0;
     this.owner = null;
+    this.target = null;
     this.x = 0;
     this.y = 0;
 
@@ -43,23 +45,37 @@ class Checker extends GameObject {
   // Member variables
 
   /**
-   * If the checker has been kinged and can move backwards.
+   * The remaining health of the projectile.
    *
-   * @type {boolean}
+   * @type {number}
    */
-  get kinged() {
-    return client.gameManager.getMemberValue(this, 'kinged');
+  get energy() {
+    return client.gameManager.getMemberValue(this, 'energy');
   }
 
-  set kinged(value) {
-    client.gameManager.setMemberValue(this, 'kinged', value);
+  set energy(value) {
+    client.gameManager.setMemberValue(this, 'energy', value);
   }
 
 
   /**
-   * The player that controls this Checker.
+   * The amount of remaining distance the projectile can move.
    *
-   * @type {Checkers.Player}
+   * @type {number}
+   */
+  get fuel() {
+    return client.gameManager.getMemberValue(this, 'fuel');
+  }
+
+  set fuel(value) {
+    client.gameManager.setMemberValue(this, 'fuel', value);
+  }
+
+
+  /**
+   * The Player that owns and can control this Projectile.
+   *
+   * @type {Stardash.Player}
    */
   get owner() {
     return client.gameManager.getMemberValue(this, 'owner');
@@ -71,7 +87,21 @@ class Checker extends GameObject {
 
 
   /**
-   * The x coordinate of the checker.
+   * The unit that is being attacked by this projectile.
+   *
+   * @type {Stardash.Unit}
+   */
+  get target() {
+    return client.gameManager.getMemberValue(this, 'target');
+  }
+
+  set target(value) {
+    client.gameManager.setMemberValue(this, 'target', value);
+  }
+
+
+  /**
+   * The x value this projectile is on.
    *
    * @type {number}
    */
@@ -85,7 +115,7 @@ class Checker extends GameObject {
 
 
   /**
-   * The y coordinate of the checker.
+   * The y value this projectile is on.
    *
    * @type {number}
    */
@@ -98,35 +128,9 @@ class Checker extends GameObject {
   }
 
 
-
-  /**
-   * Returns if the checker is owned by your player or not.
-   *
-   * @returns {boolean} - True if it is yours, false if it is not yours.
-   */
-  isMine() {
-    return client.runOnServer(this, 'isMine', {
-    });
-  }
-
-
-  /**
-   * Moves the checker from its current location to the given (x, y).
-   *
-   * @param {number} x - The x coordinate to move to.
-   * @param {number} y - The y coordinate to move to.
-   * @returns {Checkers.Checker} - Returns the same checker that moved if the move was successful. null otherwise.
-   */
-  move(x, y) {
-    return client.runOnServer(this, 'move', {
-      x: x,
-      y: y,
-    });
-  }
-
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
   // any additional functions you want to add to this class can be preserved here
   //<<-- /Creer-Merge: functions -->>
 }
 
-module.exports = Checker;
+module.exports = Projectile;

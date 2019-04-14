@@ -13,8 +13,8 @@ const GameObject = require('./gameObject');
 
 /**
  * A player in this game. Every AI controls one player.
- * @extends Checkers.GameObject
- * @memberof Checkers
+ * @extends Stardash.GameObject
+ * @memberof Stardash
  */
 class Player extends GameObject {
   /**
@@ -29,16 +29,19 @@ class Player extends GameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
-    this.checkers = [];
     this.clientType = '';
+    this.homeBase = null;
     this.lost = false;
+    this.money = 0;
     this.name = '';
     this.opponent = null;
+    this.projectiles = [];
     this.reasonLost = '';
     this.reasonWon = '';
     this.timeRemaining = 0;
+    this.units = [];
+    this.victoryPoints = 0;
     this.won = false;
-    this.yDirection = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // any additional init logic you want can go here
@@ -47,20 +50,6 @@ class Player extends GameObject {
 
 
   // Member variables
-
-  /**
-   * All the checkers currently in the game owned by this player.
-   *
-   * @type {Array.<Checkers.Checker>}
-   */
-  get checkers() {
-    return client.gameManager.getMemberValue(this, 'checkers');
-  }
-
-  set checkers(value) {
-    client.gameManager.setMemberValue(this, 'checkers', value);
-  }
-
 
   /**
    * What type of client this is, e.g. 'Python', 'JavaScript', or some other language. For potential data mining purposes.
@@ -77,6 +66,20 @@ class Player extends GameObject {
 
 
   /**
+   * The home base of the player.
+   *
+   * @type {Stardash.Body}
+   */
+  get homeBase() {
+    return client.gameManager.getMemberValue(this, 'homeBase');
+  }
+
+  set homeBase(value) {
+    client.gameManager.setMemberValue(this, 'homeBase', value);
+  }
+
+
+  /**
    * If the player lost the game or not.
    *
    * @type {boolean}
@@ -87,6 +90,20 @@ class Player extends GameObject {
 
   set lost(value) {
     client.gameManager.setMemberValue(this, 'lost', value);
+  }
+
+
+  /**
+   * The amount of money this Player has.
+   *
+   * @type {number}
+   */
+  get money() {
+    return client.gameManager.getMemberValue(this, 'money');
+  }
+
+  set money(value) {
+    client.gameManager.setMemberValue(this, 'money', value);
   }
 
 
@@ -107,7 +124,7 @@ class Player extends GameObject {
   /**
    * This player's opponent in the game.
    *
-   * @type {Checkers.Player}
+   * @type {Stardash.Player}
    */
   get opponent() {
     return client.gameManager.getMemberValue(this, 'opponent');
@@ -115,6 +132,20 @@ class Player extends GameObject {
 
   set opponent(value) {
     client.gameManager.setMemberValue(this, 'opponent', value);
+  }
+
+
+  /**
+   * Every Projectile owned by this Player. The earlier in the list the older they are.
+   *
+   * @type {Array.<Stardash.Projectile>}
+   */
+  get projectiles() {
+    return client.gameManager.getMemberValue(this, 'projectiles');
+  }
+
+  set projectiles(value) {
+    client.gameManager.setMemberValue(this, 'projectiles', value);
   }
 
 
@@ -161,6 +192,34 @@ class Player extends GameObject {
 
 
   /**
+   * Every Unit owned by this Player. The earlier in the list the older they are.
+   *
+   * @type {Array.<Stardash.Unit>}
+   */
+  get units() {
+    return client.gameManager.getMemberValue(this, 'units');
+  }
+
+  set units(value) {
+    client.gameManager.setMemberValue(this, 'units', value);
+  }
+
+
+  /**
+   * The number of victory points the player has.
+   *
+   * @type {number}
+   */
+  get victoryPoints() {
+    return client.gameManager.getMemberValue(this, 'victoryPoints');
+  }
+
+  set victoryPoints(value) {
+    client.gameManager.setMemberValue(this, 'victoryPoints', value);
+  }
+
+
+  /**
    * If the player won the game or not.
    *
    * @type {boolean}
@@ -171,20 +230,6 @@ class Player extends GameObject {
 
   set won(value) {
     client.gameManager.setMemberValue(this, 'won', value);
-  }
-
-
-  /**
-   * The direction your checkers must go along the y-axis until kinged.
-   *
-   * @type {number}
-   */
-  get yDirection() {
-    return client.gameManager.getMemberValue(this, 'yDirection');
-  }
-
-  set yDirection(value) {
-    client.gameManager.setMemberValue(this, 'yDirection', value);
   }
 
 

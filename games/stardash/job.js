@@ -1,4 +1,4 @@
-// Job: Information about a beaver's job.
+// Job: Information about a unit's job.
 
 // DO NOT MODIFY THIS FILE
 // Never try to directly create an instance of this class, or modify its member variables.
@@ -12,9 +12,9 @@ const GameObject = require('./gameObject');
 //<<-- /Creer-Merge: requires -->>
 
 /**
- * Information about a beaver's job.
- * @extends Stumped.GameObject
- * @memberof Stumped
+ * Information about a unit's job.
+ * @extends Stardash.GameObject
+ * @memberof Stardash
  */
 class Job extends GameObject {
   /**
@@ -29,16 +29,14 @@ class Job extends GameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
-    this.actions = 0;
     this.carryLimit = 0;
-    this.chopping = 0;
-    this.cost = 0;
     this.damage = 0;
-    this.distractionPower = 0;
-    this.health = 0;
+    this.energy = 0;
     this.moves = 0;
-    this.munching = 0;
+    this.range = 0;
+    this.shield = 0;
     this.title = '';
+    this.unitCost = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // any additional init logic you want can go here
@@ -49,21 +47,7 @@ class Job extends GameObject {
   // Member variables
 
   /**
-   * The number of actions this Job can make per turn.
-   *
-   * @type {number}
-   */
-  get actions() {
-    return client.gameManager.getMemberValue(this, 'actions');
-  }
-
-  set actions(value) {
-    client.gameManager.setMemberValue(this, 'actions', value);
-  }
-
-
-  /**
-   * How many combined resources a beaver with this Job can hold at once.
+   * How many combined resources a unit with this Job can hold at once.
    *
    * @type {number}
    */
@@ -73,34 +57,6 @@ class Job extends GameObject {
 
   set carryLimit(value) {
     client.gameManager.setMemberValue(this, 'carryLimit', value);
-  }
-
-
-  /**
-   * Scalar for how many branches this Job harvests at once.
-   *
-   * @type {number}
-   */
-  get chopping() {
-    return client.gameManager.getMemberValue(this, 'chopping');
-  }
-
-  set chopping(value) {
-    client.gameManager.setMemberValue(this, 'chopping', value);
-  }
-
-
-  /**
-   * How much food this Job costs to recruit.
-   *
-   * @type {number}
-   */
-  get cost() {
-    return client.gameManager.getMemberValue(this, 'cost');
-  }
-
-  set cost(value) {
-    client.gameManager.setMemberValue(this, 'cost', value);
   }
 
 
@@ -119,35 +75,21 @@ class Job extends GameObject {
 
 
   /**
-   * How many turns a beaver attacked by this Job is distracted by.
-   *
-   * @type {number}
-   */
-  get distractionPower() {
-    return client.gameManager.getMemberValue(this, 'distractionPower');
-  }
-
-  set distractionPower(value) {
-    client.gameManager.setMemberValue(this, 'distractionPower', value);
-  }
-
-
-  /**
    * The amount of starting health this Job has.
    *
    * @type {number}
    */
-  get health() {
-    return client.gameManager.getMemberValue(this, 'health');
+  get energy() {
+    return client.gameManager.getMemberValue(this, 'energy');
   }
 
-  set health(value) {
-    client.gameManager.setMemberValue(this, 'health', value);
+  set energy(value) {
+    client.gameManager.setMemberValue(this, 'energy', value);
   }
 
 
   /**
-   * The number of moves this Job can make per turn.
+   * The distance this job can move per turn.
    *
    * @type {number}
    */
@@ -161,21 +103,35 @@ class Job extends GameObject {
 
 
   /**
-   * Scalar for how much food this Job harvests at once.
+   * The distance at which this job can effect things.
    *
    * @type {number}
    */
-  get munching() {
-    return client.gameManager.getMemberValue(this, 'munching');
+  get range() {
+    return client.gameManager.getMemberValue(this, 'range');
   }
 
-  set munching(value) {
-    client.gameManager.setMemberValue(this, 'munching', value);
+  set range(value) {
+    client.gameManager.setMemberValue(this, 'range', value);
   }
 
 
   /**
-   * The Job title.
+   * The reserve the martyr use to protect allies.
+   *
+   * @type {number}
+   */
+  get shield() {
+    return client.gameManager.getMemberValue(this, 'shield');
+  }
+
+  set shield(value) {
+    client.gameManager.setMemberValue(this, 'shield', value);
+  }
+
+
+  /**
+   * The Job title. 'corvette', 'missileboat', 'martyr', 'transport', or 'miner'. (in this order from 0-4).
    *
    * @type {string}
    */
@@ -188,17 +144,17 @@ class Job extends GameObject {
   }
 
 
-
   /**
-   * Recruits a Beaver of this Job to a lodge
+   * How much money it costs to spawn a unit.
    *
-   * @param {Stumped.Tile} tile - The Tile that is a lodge owned by you that you wish to spawn the Beaver of this Job on.
-   * @returns {Stumped.Beaver} - The recruited Beaver if successful, null otherwise.
+   * @type {number}
    */
-  recruit(tile) {
-    return client.runOnServer(this, 'recruit', {
-      tile: tile,
-    });
+  get unitCost() {
+    return client.gameManager.getMemberValue(this, 'unitCost');
+  }
+
+  set unitCost(value) {
+    client.gameManager.setMemberValue(this, 'unitCost', value);
   }
 
 

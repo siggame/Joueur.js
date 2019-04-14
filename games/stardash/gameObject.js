@@ -14,7 +14,7 @@ const BaseGameObject = require(`${__basedir}/joueur/baseGameObject`);
 /**
  * An object in the game. The most basic class that all game classes should inherit from automatically.
  * @extends BaseGameObject
- * @memberof Stumped
+ * @memberof Stardash
  */
 class GameObject extends BaseGameObject {
   /**
@@ -94,7 +94,6 @@ class GameObject extends BaseGameObject {
       message: message,
     });
   }
-
 
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
   // any additional functions you want to add to this class can be preserved here
