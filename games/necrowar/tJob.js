@@ -41,6 +41,7 @@ class tJob extends GameObject {
     this.manaCost = 0;
     this.range = 0;
     this.title = '';
+    this.turnsBetweenAttacks = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // any additional init logic you want can go here
@@ -215,6 +216,20 @@ class tJob extends GameObject {
 
   set title(value) {
     client.gameManager.setMemberValue(this, 'title', value);
+  }
+
+
+  /**
+   * How many turns this tower type needs to take between attacks.
+   *
+   * @type {number}
+   */
+  get turnsBetweenAttacks() {
+    return client.gameManager.getMemberValue(this, 'turnsBetweenAttacks');
+  }
+
+  set turnsBetweenAttacks(value) {
+    client.gameManager.setMemberValue(this, 'turnsBetweenAttacks', value);
   }
 
 

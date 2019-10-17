@@ -40,7 +40,6 @@ class Game extends BaseGame {
     this.gameObjects = {};
     this.goldIncomePerUnit = 0;
     this.islandIncomePerUnit = 0;
-    this.islandUnitCap = 0;
     this.manaIncomePerUnit = 0;
     this.mapHeight = 0;
     this.mapWidth = 0;
@@ -131,20 +130,6 @@ class Game extends BaseGame {
 
   set islandIncomePerUnit(value) {
     client.gameManager.setMemberValue(this, 'islandIncomePerUnit', value);
-  }
-
-
-  /**
-   * The maximum number of workers that can occupy the mine on the island at a given time.
-   *
-   * @type {number}
-   */
-  get islandUnitCap() {
-    return client.gameManager.getMemberValue(this, 'islandUnitCap');
-  }
-
-  set islandUnitCap(value) {
-    client.gameManager.setMemberValue(this, 'islandUnitCap', value);
   }
 
 
