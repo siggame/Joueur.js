@@ -30,12 +30,6 @@ class tJob extends GameObject {
 
     // default values for private member values
     this.allUnits = false;
-    this.damageVsAbomination = 0;
-    this.damageVsGhoul = 0;
-    this.damageVsHorseman = 0;
-    this.damageVsHound = 0;
-    this.damageVsWraith = 0;
-    this.damageVsZombie = 0;
     this.goldCost = 0;
     this.health = 0;
     this.manaCost = 0;
@@ -62,90 +56,6 @@ class tJob extends GameObject {
 
   set allUnits(value) {
     client.gameManager.setMemberValue(this, 'allUnits', value);
-  }
-
-
-  /**
-   * The amount of damage this type does per attack against abominations.
-   *
-   * @type {number}
-   */
-  get damageVsAbomination() {
-    return client.gameManager.getMemberValue(this, 'damageVsAbomination');
-  }
-
-  set damageVsAbomination(value) {
-    client.gameManager.setMemberValue(this, 'damageVsAbomination', value);
-  }
-
-
-  /**
-   * The amount of damage this type does per attack against ghouls.
-   *
-   * @type {number}
-   */
-  get damageVsGhoul() {
-    return client.gameManager.getMemberValue(this, 'damageVsGhoul');
-  }
-
-  set damageVsGhoul(value) {
-    client.gameManager.setMemberValue(this, 'damageVsGhoul', value);
-  }
-
-
-  /**
-   * The amount of damage this type does per attack against horseman.
-   *
-   * @type {number}
-   */
-  get damageVsHorseman() {
-    return client.gameManager.getMemberValue(this, 'damageVsHorseman');
-  }
-
-  set damageVsHorseman(value) {
-    client.gameManager.setMemberValue(this, 'damageVsHorseman', value);
-  }
-
-
-  /**
-   * The amount of damage this type does per attack against hounds.
-   *
-   * @type {number}
-   */
-  get damageVsHound() {
-    return client.gameManager.getMemberValue(this, 'damageVsHound');
-  }
-
-  set damageVsHound(value) {
-    client.gameManager.setMemberValue(this, 'damageVsHound', value);
-  }
-
-
-  /**
-   * The amount of damage this type does per attack against wraiths.
-   *
-   * @type {number}
-   */
-  get damageVsWraith() {
-    return client.gameManager.getMemberValue(this, 'damageVsWraith');
-  }
-
-  set damageVsWraith(value) {
-    client.gameManager.setMemberValue(this, 'damageVsWraith', value);
-  }
-
-
-  /**
-   * The amount of damage this type does per attack against zombies.
-   *
-   * @type {number}
-   */
-  get damageVsZombie() {
-    return client.gameManager.getMemberValue(this, 'damageVsZombie');
-  }
-
-  set damageVsZombie(value) {
-    client.gameManager.setMemberValue(this, 'damageVsZombie', value);
   }
 
 

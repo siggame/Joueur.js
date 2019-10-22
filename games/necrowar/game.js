@@ -44,7 +44,6 @@ class Game extends BaseGame {
     this.mapHeight = 0;
     this.mapWidth = 0;
     this.maxTurns = 0;
-    this.mineUnitCap = 0;
     this.players = [];
     this.riverPhase = 0;
     this.session = '';
@@ -186,20 +185,6 @@ class Game extends BaseGame {
 
   set maxTurns(value) {
     client.gameManager.setMemberValue(this, 'maxTurns', value);
-  }
-
-
-  /**
-   * The maximum number of workers that can occupy a mine at a given time.
-   *
-   * @type {number}
-   */
-  get mineUnitCap() {
-    return client.gameManager.getMemberValue(this, 'mineUnitCap');
-  }
-
-  set mineUnitCap(value) {
-    client.gameManager.setMemberValue(this, 'mineUnitCap', value);
   }
 
 

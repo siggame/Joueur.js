@@ -282,7 +282,7 @@ class Tile extends GameObject {
 
 
   /**
-   * The Unit on this Tile if present, otherwise null.
+   * The list of Units on this Tile if present, otherwise null.
    *
    * @type {Necrowar.Unit}
    */
