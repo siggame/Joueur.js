@@ -30,6 +30,7 @@ class tJob extends GameObject {
 
     // default values for private member values
     this.allUnits = false;
+    this.damage = 0;
     this.goldCost = 0;
     this.health = 0;
     this.manaCost = 0;
@@ -56,6 +57,20 @@ class tJob extends GameObject {
 
   set allUnits(value) {
     client.gameManager.setMemberValue(this, 'allUnits', value);
+  }
+
+
+  /**
+   * How much damage this tower type does in a single turn of attack.
+   *
+   * @type {number}
+   */
+  get damage() {
+    return client.gameManager.getMemberValue(this, 'damage');
+  }
+
+  set damage(value) {
+    client.gameManager.setMemberValue(this, 'damage', value);
   }
 
 

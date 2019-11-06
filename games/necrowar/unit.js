@@ -29,8 +29,10 @@ class Unit extends GameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
-    this.acted = false;
+    this.attacked = false;
+    this.built = false;
     this.health = 0;
+    this.moved = false;
     this.moves = 0;
     this.owner = null;
     this.tile = null;
@@ -45,16 +47,30 @@ class Unit extends GameObject {
   // Member variables
 
   /**
-   * Whether or not this Unit has performed its action this turn (attack or build).
+   * Whether or not this Unit has attacked this turn or not.
    *
    * @type {boolean}
    */
-  get acted() {
-    return client.gameManager.getMemberValue(this, 'acted');
+  get attacked() {
+    return client.gameManager.getMemberValue(this, 'attacked');
   }
 
-  set acted(value) {
-    client.gameManager.setMemberValue(this, 'acted', value);
+  set attacked(value) {
+    client.gameManager.setMemberValue(this, 'attacked', value);
+  }
+
+
+  /**
+   * Whether or not this Unit has built a tower (workers only) this turn or not.
+   *
+   * @type {boolean}
+   */
+  get built() {
+    return client.gameManager.getMemberValue(this, 'built');
+  }
+
+  set built(value) {
+    client.gameManager.setMemberValue(this, 'built', value);
   }
 
 
@@ -69,6 +85,20 @@ class Unit extends GameObject {
 
   set health(value) {
     client.gameManager.setMemberValue(this, 'health', value);
+  }
+
+
+  /**
+   * Whether or not this Unit has moved yet this turn.
+   *
+   * @type {boolean}
+   */
+  get moved() {
+    return client.gameManager.getMemberValue(this, 'moved');
+  }
+
+  set moved(value) {
+    client.gameManager.setMemberValue(this, 'moved', value);
   }
 
 

@@ -30,12 +30,15 @@ class Tile extends GameObject {
 
     // default values for private member values
     this.corpses = 0;
+    this.isCastle = false;
     this.isGoldMine = false;
+    this.isGrass = false;
     this.isIslandGoldMine = false;
     this.isPath = false;
     this.isRiver = false;
     this.isTower = false;
-    this.isWall = false;
+    this.isUnitSpawn = false;
+    this.isWorkerSpawn = false;
     this.numOfGhouls = 0;
     this.numOfHounds = 0;
     this.numOfZombies = 0;
@@ -72,6 +75,20 @@ class Tile extends GameObject {
 
 
   /**
+   * Whether or not the tile is where a player's castle rests.
+   *
+   * @type {boolean}
+   */
+  get isCastle() {
+    return client.gameManager.getMemberValue(this, 'isCastle');
+  }
+
+  set isCastle(value) {
+    client.gameManager.setMemberValue(this, 'isCastle', value);
+  }
+
+
+  /**
    * Whether or not the tile is considered to be a gold mine or not.
    *
    * @type {boolean}
@@ -82,6 +99,20 @@ class Tile extends GameObject {
 
   set isGoldMine(value) {
     client.gameManager.setMemberValue(this, 'isGoldMine', value);
+  }
+
+
+  /**
+   * Whether or not the tile can be moved on by workers.
+   *
+   * @type {boolean}
+   */
+  get isGrass() {
+    return client.gameManager.getMemberValue(this, 'isGrass');
+  }
+
+  set isGrass(value) {
+    client.gameManager.setMemberValue(this, 'isGrass', value);
   }
 
 
@@ -142,16 +173,30 @@ class Tile extends GameObject {
 
 
   /**
-   * Whether or not the tile can be moved on by workers.
+   * Whether or not this tile is this player's Unit spawn.
    *
    * @type {boolean}
    */
-  get isWall() {
-    return client.gameManager.getMemberValue(this, 'isWall');
+  get isUnitSpawn() {
+    return client.gameManager.getMemberValue(this, 'isUnitSpawn');
   }
 
-  set isWall(value) {
-    client.gameManager.setMemberValue(this, 'isWall', value);
+  set isUnitSpawn(value) {
+    client.gameManager.setMemberValue(this, 'isUnitSpawn', value);
+  }
+
+
+  /**
+   * Whether or not this tile is this player's Worker spawn.
+   *
+   * @type {boolean}
+   */
+  get isWorkerSpawn() {
+    return client.gameManager.getMemberValue(this, 'isWorkerSpawn');
+  }
+
+  set isWorkerSpawn(value) {
+    client.gameManager.setMemberValue(this, 'isWorkerSpawn', value);
   }
 
 
@@ -268,7 +313,7 @@ class Tile extends GameObject {
 
 
   /**
-   * The type of Tile this is ('normal', 'path', 'river', 'mine', 'castle', 'pathSpawn', or 'workerSpawn').
+   * The type of Tile this is ('grass', 'path', 'river', 'mine', 'castle', 'pathSpawn', or 'workerSpawn').
    *
    * @type {string}
    */
