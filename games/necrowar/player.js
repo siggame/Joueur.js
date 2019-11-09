@@ -82,7 +82,7 @@ class Player extends GameObject {
 
 
   /**
-   * The amount of health remaining for this player's Castle.
+   * The amount of health remaining for this player's main unit.
    *
    * @type {number}
    */
@@ -96,7 +96,7 @@ class Player extends GameObject {
 
 
   /**
-   * The tiles that the home base is located on.
+   * The tile that the home base is located on.
    *
    * @type {Array.<Necrowar.Tile>}
    */
@@ -262,32 +262,6 @@ class Player extends GameObject {
     client.gameManager.setMemberValue(this, 'won', value);
   }
 
-
-
-  /**
-   * Spawn a fighting Unit on this player's path spawn tile.
-   *
-   * @param {string} type - What type of Unit to create (ghoul, hound, abomination, wraith, or horseman).
-   * @returns {boolean} - True if Unit was created successfully, false otherwise.
-   */
-  spawnUnit(type) {
-    return client.runOnServer(this, 'spawnUnit', {
-      type: type,
-    });
-  }
-
-
-  /**
-   * Spawn a worker Unit on this player's worker spawn tile.
-   *
-   * @param {string} type - What type of Unit to create (worker, zombie, ghoul).
-   * @returns {boolean} - True if Unit was created successfully, false otherwise.
-   */
-  spawnWorker(type) {
-    return client.runOnServer(this, 'spawnWorker', {
-      type: type,
-    });
-  }
 
 
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

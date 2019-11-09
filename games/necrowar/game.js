@@ -40,10 +40,12 @@ class Game extends BaseGame {
     this.gameObjects = {};
     this.goldIncomePerUnit = 0;
     this.islandIncomePerUnit = 0;
+    this.islandUnitCap = 0;
     this.manaIncomePerUnit = 0;
     this.mapHeight = 0;
     this.mapWidth = 0;
     this.maxTurns = 0;
+    this.mineUnitCap = 0;
     this.players = [];
     this.riverPhase = 0;
     this.session = '';
@@ -133,6 +135,20 @@ class Game extends BaseGame {
 
 
   /**
+   * The maximum number of workers that can occupy the mine on the island at a given time.
+   *
+   * @type {number}
+   */
+  get islandUnitCap() {
+    return client.gameManager.getMemberValue(this, 'islandUnitCap');
+  }
+
+  set islandUnitCap(value) {
+    client.gameManager.setMemberValue(this, 'islandUnitCap', value);
+  }
+
+
+  /**
    * The Amount of gold income per turn per unit fishing on the river side.
    *
    * @type {number}
@@ -185,6 +201,20 @@ class Game extends BaseGame {
 
   set maxTurns(value) {
     client.gameManager.setMemberValue(this, 'maxTurns', value);
+  }
+
+
+  /**
+   * The maximum number of workers that can occupy a mine at a given time.
+   *
+   * @type {number}
+   */
+  get mineUnitCap() {
+    return client.gameManager.getMemberValue(this, 'mineUnitCap');
+  }
+
+  set mineUnitCap(value) {
+    client.gameManager.setMemberValue(this, 'mineUnitCap', value);
   }
 
 

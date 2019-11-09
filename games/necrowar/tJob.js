@@ -61,7 +61,7 @@ class tJob extends GameObject {
 
 
   /**
-   * How much damage this tower type does in a single turn of attack.
+   * The amount of damage this type does per attack.
    *
    * @type {number}
    */
@@ -145,7 +145,7 @@ class tJob extends GameObject {
 
 
   /**
-   * How many turns this tower type needs to take between attacks.
+   * How many turns have to take place between this type's attacks.
    *
    * @type {number}
    */

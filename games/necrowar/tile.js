@@ -38,10 +38,8 @@ class Tile extends GameObject {
     this.isRiver = false;
     this.isTower = false;
     this.isUnitSpawn = false;
+    this.isWall = false;
     this.isWorkerSpawn = false;
-    this.numOfGhouls = 0;
-    this.numOfHounds = 0;
-    this.numOfZombies = 0;
     this.tileEast = null;
     this.tileNorth = null;
     this.tileSouth = null;
@@ -75,7 +73,7 @@ class Tile extends GameObject {
 
 
   /**
-   * Whether or not the tile is where a player's castle rests.
+   * Whether or not the tile is a castle tile.
    *
    * @type {boolean}
    */
@@ -103,7 +101,7 @@ class Tile extends GameObject {
 
 
   /**
-   * Whether or not the tile can be moved on by workers.
+   * Whether or not the tile is considered grass or not (Workers can walk on grass).
    *
    * @type {boolean}
    */
@@ -131,7 +129,7 @@ class Tile extends GameObject {
 
 
   /**
-   * Whether or not the tile is considered a path or not.
+   * Whether or not the tile is considered a path or not (Units can walk on paths).
    *
    * @type {boolean}
    */
@@ -173,7 +171,7 @@ class Tile extends GameObject {
 
 
   /**
-   * Whether or not this tile is this player's Unit spawn.
+   * Whether or not the tile is the unit spawn.
    *
    * @type {boolean}
    */
@@ -187,7 +185,21 @@ class Tile extends GameObject {
 
 
   /**
-   * Whether or not this tile is this player's Worker spawn.
+   * Whether or not the tile can be moved on by workers.
+   *
+   * @type {boolean}
+   */
+  get isWall() {
+    return client.gameManager.getMemberValue(this, 'isWall');
+  }
+
+  set isWall(value) {
+    client.gameManager.setMemberValue(this, 'isWall', value);
+  }
+
+
+  /**
+   * Whether or not the tile is the worker spawn.
    *
    * @type {boolean}
    */
@@ -197,48 +209,6 @@ class Tile extends GameObject {
 
   set isWorkerSpawn(value) {
     client.gameManager.setMemberValue(this, 'isWorkerSpawn', value);
-  }
-
-
-  /**
-   * The amount of Ghouls on this tile at the moment.
-   *
-   * @type {number}
-   */
-  get numOfGhouls() {
-    return client.gameManager.getMemberValue(this, 'numOfGhouls');
-  }
-
-  set numOfGhouls(value) {
-    client.gameManager.setMemberValue(this, 'numOfGhouls', value);
-  }
-
-
-  /**
-   * The amount of Hell Hounds on this tile at the moment.
-   *
-   * @type {number}
-   */
-  get numOfHounds() {
-    return client.gameManager.getMemberValue(this, 'numOfHounds');
-  }
-
-  set numOfHounds(value) {
-    client.gameManager.setMemberValue(this, 'numOfHounds', value);
-  }
-
-
-  /**
-   * The amount of animated zombies on this tile at the moment.
-   *
-   * @type {number}
-   */
-  get numOfZombies() {
-    return client.gameManager.getMemberValue(this, 'numOfZombies');
-  }
-
-  set numOfZombies(value) {
-    client.gameManager.setMemberValue(this, 'numOfZombies', value);
   }
 
 
@@ -313,7 +283,7 @@ class Tile extends GameObject {
 
 
   /**
-   * The type of Tile this is ('grass', 'path', 'river', 'mine', 'castle', 'pathSpawn', or 'workerSpawn').
+   * The type of Tile this is ('normal', 'path', 'river', or 'spawn').
    *
    * @type {string}
    */
@@ -327,7 +297,7 @@ class Tile extends GameObject {
 
 
   /**
-   * The list of Units on this Tile if present, otherwise null.
+   * The Unit on this Tile if present, otherwise null.
    *
    * @type {Necrowar.Unit}
    */
@@ -370,14 +340,38 @@ class Tile extends GameObject {
 
 
   /**
-   * Resurrect the corpses on this tile into zombies.
+   * Resurrect the corpses on this tile into Zombies.
    *
-   * @param {number} number - Number of zombies on the tile that are being resurrected.
-   * @returns {boolean} - True if Unit was created successfully, false otherwise.
+   * @param {number} number - Number of zombies to resurrect.
+   * @returns {boolean} - True if successful res, false otherwise.
    */
   res(number) {
     return client.runOnServer(this, 'res', {
       number: number,
+    });
+  }
+
+
+  /**
+   * Spawns a fighting unit on the correct tile.
+   *
+   * @param {string} title - The title of the desired unit type.
+   * @returns {boolean} - True if successfully spawned, false otherwise.
+   */
+  spawnUnit(title) {
+    return client.runOnServer(this, 'spawnUnit', {
+      title: title,
+    });
+  }
+
+
+  /**
+   * Spawns a worker on the correct tile.
+   *
+   * @returns {boolean} - True if successfully spawned, false otherwise.
+   */
+  spawnWorker() {
+    return client.runOnServer(this, 'spawnWorker', {
     });
   }
 
