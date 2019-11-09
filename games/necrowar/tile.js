@@ -40,6 +40,9 @@ class Tile extends GameObject {
     this.isUnitSpawn = false;
     this.isWall = false;
     this.isWorkerSpawn = false;
+    this.numGhouls = 0;
+    this.numHounds = 0;
+    this.numZombies = 0;
     this.tileEast = null;
     this.tileNorth = null;
     this.tileSouth = null;
@@ -213,6 +216,48 @@ class Tile extends GameObject {
 
 
   /**
+   * The amount of Ghouls on this tile.
+   *
+   * @type {number}
+   */
+  get numGhouls() {
+    return client.gameManager.getMemberValue(this, 'numGhouls');
+  }
+
+  set numGhouls(value) {
+    client.gameManager.setMemberValue(this, 'numGhouls', value);
+  }
+
+
+  /**
+   * The amount of Hounds on this tile.
+   *
+   * @type {number}
+   */
+  get numHounds() {
+    return client.gameManager.getMemberValue(this, 'numHounds');
+  }
+
+  set numHounds(value) {
+    client.gameManager.setMemberValue(this, 'numHounds', value);
+  }
+
+
+  /**
+   * The amount of Zombies on this tile.
+   *
+   * @type {number}
+   */
+  get numZombies() {
+    return client.gameManager.getMemberValue(this, 'numZombies');
+  }
+
+  set numZombies(value) {
+    client.gameManager.setMemberValue(this, 'numZombies', value);
+  }
+
+
+  /**
    * The Tile to the 'East' of this one (x+1, y). Null if out of bounds of the map.
    *
    * @type {Necrowar.Tile}
@@ -342,12 +387,12 @@ class Tile extends GameObject {
   /**
    * Resurrect the corpses on this tile into Zombies.
    *
-   * @param {number} number - Number of zombies to resurrect.
+   * @param {number} num - Number of zombies to resurrect.
    * @returns {boolean} - True if successful res, false otherwise.
    */
-  res(number) {
+  res(num) {
     return client.runOnServer(this, 'res', {
-      number: number,
+      num: num,
     });
   }
 
