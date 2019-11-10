@@ -145,14 +145,12 @@ class Unit extends GameObject {
   /**
    * Unit, if it is a worker, builds a tower on the tile it is on, only workers can do this.
    *
-   * @param {Necrowar.Tile} tile - The tile the unit is on/builds on.
-   * @param {tJob} tJob - The type of tower that is being built. 'arrow', 'aoe', 'ballista', or 'cleansing'.
+   * @param {string} title - The tower type to build, as a string.
    * @returns {boolean} - True if successfully built, false otherwise.
    */
-  build(tile, tJob) {
+  build(title) {
     return client.runOnServer(this, 'build', {
-      tile: tile,
-      tJob: tJob,
+      title: title,
     });
   }
 
