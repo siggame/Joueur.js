@@ -31,9 +31,9 @@ class Tower extends GameObject {
     // default values for private member values
     this.attacked = false;
     this.health = 0;
+    this.job = null;
     this.owner = null;
     this.tile = null;
-    this.type = null;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // any additional init logic you want can go here
@@ -72,6 +72,20 @@ class Tower extends GameObject {
 
 
   /**
+   * What type of tower this is (it's job).
+   *
+   * @type {Necrowar.TowerJob}
+   */
+  get job() {
+    return client.gameManager.getMemberValue(this, 'job');
+  }
+
+  set job(value) {
+    client.gameManager.setMemberValue(this, 'job', value);
+  }
+
+
+  /**
    * The player that built / owns this tower.
    *
    * @type {Necrowar.Player}
@@ -96,20 +110,6 @@ class Tower extends GameObject {
 
   set tile(value) {
     client.gameManager.setMemberValue(this, 'tile', value);
-  }
-
-
-  /**
-   * What type of tower this is (it's job).
-   *
-   * @type {tJob}
-   */
-  get type() {
-    return client.gameManager.getMemberValue(this, 'type');
-  }
-
-  set type(value) {
-    client.gameManager.setMemberValue(this, 'type', value);
   }
 
 

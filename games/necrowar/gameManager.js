@@ -16,9 +16,9 @@ NecrowarGameManager.prototype._gameObjectClasses = {
   Player: require('./player'),
   Tile: require('./tile'),
   Tower: require('./tower'),
+  TowerJob: require('./towerJob'),
   Unit: require('./unit'),
-  tJob: require('./tJob'),
-  uJob: require('./uJob'),
+  UnitJob: require('./unitJob'),
 };
 
 module.exports = NecrowarGameManager;

@@ -31,10 +31,10 @@ class Unit extends GameObject {
     // default values for private member values
     this.acted = false;
     this.health = 0;
+    this.job = null;
     this.moves = 0;
     this.owner = null;
     this.tile = null;
-    this.uJob = null;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // any additional init logic you want can go here
@@ -69,6 +69,20 @@ class Unit extends GameObject {
 
   set health(value) {
     client.gameManager.setMemberValue(this, 'health', value);
+  }
+
+
+  /**
+   * The type of unit this is.
+   *
+   * @type {Necrowar.UnitJob}
+   */
+  get job() {
+    return client.gameManager.getMemberValue(this, 'job');
+  }
+
+  set job(value) {
+    client.gameManager.setMemberValue(this, 'job', value);
   }
 
 
@@ -111,20 +125,6 @@ class Unit extends GameObject {
 
   set tile(value) {
     client.gameManager.setMemberValue(this, 'tile', value);
-  }
-
-
-  /**
-   * The type of unit this is.
-   *
-   * @type {uJob}
-   */
-  get uJob() {
-    return client.gameManager.getMemberValue(this, 'uJob');
-  }
-
-  set uJob(value) {
-    client.gameManager.setMemberValue(this, 'uJob', value);
   }
 
 

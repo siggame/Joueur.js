@@ -35,6 +35,8 @@ class Game extends BaseGame {
     this.name = 'Necrowar';
 
     // default values for private member values
+    this.TowerJobs = [];
+    this.UnitJobs = [];
     this.currentPlayer = null;
     this.currentTurn = 0;
     this.gameObjects = {};
@@ -47,11 +49,9 @@ class Game extends BaseGame {
     this.players = [];
     this.riverPhase = 0;
     this.session = '';
-    this.tJobs = [];
     this.tiles = [];
     this.timeAddedPerTurn = 0;
     this.towers = [];
-    this.uJobs = [];
     this.units = [];
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -61,6 +61,34 @@ class Game extends BaseGame {
 
 
   // Member variables
+
+  /**
+   * A list of every tower type / job.
+   *
+   * @type {Array.<Necrowar.TowerJob>}
+   */
+  get TowerJobs() {
+    return client.gameManager.getMemberValue(this, 'TowerJobs');
+  }
+
+  set TowerJobs(value) {
+    client.gameManager.setMemberValue(this, 'TowerJobs', value);
+  }
+
+
+  /**
+   * A list of every unit type / job.
+   *
+   * @type {Array.<Necrowar.UnitJob>}
+   */
+  get UnitJobs() {
+    return client.gameManager.getMemberValue(this, 'UnitJobs');
+  }
+
+  set UnitJobs(value) {
+    client.gameManager.setMemberValue(this, 'UnitJobs', value);
+  }
+
 
   /**
    * The player whose turn it is currently. That player can send commands. Other players cannot.
@@ -231,20 +259,6 @@ class Game extends BaseGame {
 
 
   /**
-   * A list of every tower type / job.
-   *
-   * @type {Array.<tJob>}
-   */
-  get tJobs() {
-    return client.gameManager.getMemberValue(this, 'tJobs');
-  }
-
-  set tJobs(value) {
-    client.gameManager.setMemberValue(this, 'tJobs', value);
-  }
-
-
-  /**
    * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
    *
    * @type {Array.<Necrowar.Tile>}
@@ -283,20 +297,6 @@ class Game extends BaseGame {
 
   set towers(value) {
     client.gameManager.setMemberValue(this, 'towers', value);
-  }
-
-
-  /**
-   * A list of every unit type / job.
-   *
-   * @type {Array.<uJob>}
-   */
-  get uJobs() {
-    return client.gameManager.getMemberValue(this, 'uJobs');
-  }
-
-  set uJobs(value) {
-    client.gameManager.setMemberValue(this, 'uJobs', value);
   }
 
 
