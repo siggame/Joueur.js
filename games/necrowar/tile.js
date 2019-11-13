@@ -43,12 +43,12 @@ class Tile extends GameObject {
     this.numGhouls = 0;
     this.numHounds = 0;
     this.numZombies = 0;
+    this.owner = null;
     this.tileEast = null;
     this.tileNorth = null;
     this.tileSouth = null;
     this.tileWest = null;
     this.tower = null;
-    this.type = '';
     this.unit = null;
     this.x = 0;
     this.y = 0;
@@ -258,6 +258,20 @@ class Tile extends GameObject {
 
 
   /**
+   * Which player owns this tile, only applies to grass tiles for workers, NULL otherwise.
+   *
+   * @type {Necrowar.Player}
+   */
+  get owner() {
+    return client.gameManager.getMemberValue(this, 'owner');
+  }
+
+  set owner(value) {
+    client.gameManager.setMemberValue(this, 'owner', value);
+  }
+
+
+  /**
    * The Tile to the 'East' of this one (x+1, y). Null if out of bounds of the map.
    *
    * @type {Necrowar.Tile}
@@ -324,20 +338,6 @@ class Tile extends GameObject {
 
   set tower(value) {
     client.gameManager.setMemberValue(this, 'tower', value);
-  }
-
-
-  /**
-   * The type of Tile this is ('normal', 'path', 'river', or 'spawn').
-   *
-   * @type {string}
-   */
-  get type() {
-    return client.gameManager.getMemberValue(this, 'type');
-  }
-
-  set type(value) {
-    client.gameManager.setMemberValue(this, 'type', value);
   }
 
 

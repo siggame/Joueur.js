@@ -131,7 +131,7 @@ class TowerJob extends GameObject {
 
 
   /**
-   * The type title. 'arrow', 'aoe', 'ballista', or 'cleansing'.
+   * The type title. 'arrow', 'aoe', 'ballista', 'cleansing', or 'castle'.
    *
    * @type {string}
    */
