@@ -87,6 +87,15 @@ module.exports = function(args) {
 
   let lobbyData = client.waitForEvent('lobbied');
 
+  if (lobbyData.gameVersion !== gameManagerClass.gameVersion) {
+    console.warn(
+`${color.text('yellow')}WARNING: Game versions do not match.
+-> Your local game version is:     ${gameManagerClass.gameVersion.substr(0, 8)}
+-> Game Server's game version is:  ${lobbyData.gameVersion.substr(0, 8)}
+
+Version mismatch means that unexpected crashes may happen due to differing game structures!${color.reset()}`);
+}
+
   console.log(`${color.text('cyan')}In lobby for game '${lobbyData.gameName}' in session '${lobbyData.gameSession}'.${color.reset()}`);
 
   client.gameManager.setConstants(lobbyData.constants, game);

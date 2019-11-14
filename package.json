@@ -1,5 +1,5 @@
 {
-  "name": "Joueur.js",
+  "name": "joueur.js",
   "version": "1.0.0",
   "description": "JavaScript client for the Cerveau game server.",
   "license": "MIT",
@@ -14,9 +14,12 @@
     "syntax-error": "1.4.0"
   },
   "optionalDependencies": {
-    "netlinkwrapper": "1.1.1"
+    "netlinkwrapper": "1.1.2"
   },
   "engines": {
     "node": ">=6.0.0"
+  },
+  "scripts": {
+    "start": "node main.js"
   }
 }

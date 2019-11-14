@@ -42,11 +42,13 @@ class Game extends BaseGame {
     this.gameObjects = {};
     this.initialWebStrength = 0;
     this.maxTurns = 0;
+    this.maxWebStrength = 0;
     this.movementSpeed = 0;
     this.nests = [];
     this.players = [];
     this.session = '';
     this.spitSpeed = 0;
+    this.timeAddedPerTurn = 0;
     this.weavePower = 0;
     this.weaveSpeed = 0;
     this.webs = [];
@@ -158,6 +160,20 @@ class Game extends BaseGame {
 
 
   /**
+   * The maximum strength a web can be strengthened to.
+   *
+   * @type {number}
+   */
+  get maxWebStrength() {
+    return client.gameManager.getMemberValue(this, 'maxWebStrength');
+  }
+
+  set maxWebStrength(value) {
+    client.gameManager.setMemberValue(this, 'maxWebStrength', value);
+  }
+
+
+  /**
    * The speed at which Spiderlings move on Webs.
    *
    * @type {number}
@@ -224,6 +240,20 @@ class Game extends BaseGame {
 
   set spitSpeed(value) {
     client.gameManager.setMemberValue(this, 'spitSpeed', value);
+  }
+
+
+  /**
+   * The amount of time (in nano-seconds) added after each player performs a turn.
+   *
+   * @type {number}
+   */
+  get timeAddedPerTurn() {
+    return client.gameManager.getMemberValue(this, 'timeAddedPerTurn');
+  }
+
+  set timeAddedPerTurn(value) {
+    client.gameManager.setMemberValue(this, 'timeAddedPerTurn', value);
   }
 
 

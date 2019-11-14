@@ -11,6 +11,8 @@ const GameManager = require(`${__basedir}/joueur/gameManager`);
 
 class NewtonianGameManager extends GameManager {}
 
+NewtonianGameManager.gameVersion = '7c19f909ee5faa0ac3faf4e989032b5a37ba94aeb5d6ae7654a15a2bb1401bbe';
+
 NewtonianGameManager.prototype._gameObjectClasses = {
   GameObject: require('./gameObject'),
   Job: require('./job'),

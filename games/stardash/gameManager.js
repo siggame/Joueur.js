@@ -11,6 +11,8 @@ const GameManager = require(`${__basedir}/joueur/gameManager`);
 
 class StardashGameManager extends GameManager {}
 
+StardashGameManager.gameVersion = '0fa378e83ac567ebdf3e9805d3f130023f936e2740acda173d238b37f2b5d541';
+
 StardashGameManager.prototype._gameObjectClasses = {
   Body: require('./body'),
   GameObject: require('./gameObject'),

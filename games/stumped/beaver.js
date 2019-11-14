@@ -217,7 +217,7 @@ class Beaver extends GameObject {
    * Drops some of the given resource on the beaver's Tile.
    *
    * @param {Stumped.Tile} tile - The Tile to drop branches/food on. Must be the same Tile that the Beaver is on, or an adjacent one.
-   * @param {string} resource - The type of resource to drop ('branch' or 'food').
+   * @param {string} resource - The type of resource to drop ('branches' or 'food').
    * @param {number} [amount] - The amount of the resource to drop, numbers <= 0 will drop all the resource type.
    * @returns {boolean} - True if successfully dropped the resource, false otherwise.
    */
@@ -264,7 +264,7 @@ class Beaver extends GameObject {
    * Picks up some branches or food on the beaver's tile.
    *
    * @param {Stumped.Tile} tile - The Tile to pickup branches/food from. Must be the same Tile that the Beaver is on, or an adjacent one.
-   * @param {string} resource - The type of resource to pickup ('branch' or 'food').
+   * @param {string} resource - The type of resource to pickup ('branches' or 'food').
    * @param {number} [amount] - The amount of the resource to drop, numbers <= 0 will pickup all of the resource type.
    * @returns {boolean} - True if successfully picked up a resource, false otherwise.
    */

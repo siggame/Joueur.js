@@ -51,9 +51,11 @@ class Game extends BaseGame {
     this.players = [];
     this.session = '';
     this.shelterMaterials = 0;
+    this.startingFood = 0;
     this.starvingEnergyMult = 0;
     this.structures = [];
     this.tiles = [];
+    this.timeAddedPerTurn = 0;
     this.turnsBetweenHarvests = 0;
     this.turnsToCreateHuman = 0;
     this.turnsToLowerHarvest = 0;
@@ -293,6 +295,20 @@ class Game extends BaseGame {
 
 
   /**
+   * The amount of food Players start with.
+   *
+   * @type {number}
+   */
+  get startingFood() {
+    return client.gameManager.getMemberValue(this, 'startingFood');
+  }
+
+  set startingFood(value) {
+    client.gameManager.setMemberValue(this, 'startingFood', value);
+  }
+
+
+  /**
    * The multiplier for the amount of energy regenerated when resting while starving.
    *
    * @type {number}
@@ -331,6 +347,20 @@ class Game extends BaseGame {
 
   set tiles(value) {
     client.gameManager.setMemberValue(this, 'tiles', value);
+  }
+
+
+  /**
+   * The amount of time (in nano-seconds) added after each player performs a turn.
+   *
+   * @type {number}
+   */
+  get timeAddedPerTurn() {
+    return client.gameManager.getMemberValue(this, 'timeAddedPerTurn');
+  }
+
+  set timeAddedPerTurn(value) {
+    client.gameManager.setMemberValue(this, 'timeAddedPerTurn', value);
   }
 
 
