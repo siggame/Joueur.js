@@ -73,6 +73,108 @@ class AI extends BaseAI {
   runTurn() {
     // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // Put your game logic here for runTurn
+
+    let gold = this.player.gold;
+    let mana = this.player.mana;
+
+    //go through all the units that you own
+    let target = null;
+    for (let unit of this.player.units) {
+      //only tries to do something if the unit actually exists.
+      if (unit !== null && unit.tile !== null) {
+        if (unit.job.title = "worker") {
+          //if the unit is a worker, go mine for gold
+
+          //Goes through all tiles in the game and finds a mine
+          for (let tile of this.game.tiles) {
+            //if the mine is on my side and has no units on it
+            if (tile.isGoldMine && (tile.owner === this.player) && (tile.unit === null)) {
+              //send it to that tile
+              target = tile;
+            }
+          }
+
+          //else, try fishing
+          if (target === null) {
+            //all river spots
+            let riverSpots = [];
+            for (let tile of this.game.tiles) {
+              //gathers all river spots
+              if (tile.isRiver) {
+                riverSpots.add(tile);
+              }
+            }
+            //go through all game tiles and find all adjacent spots to river
+            for (let tile of this.game.tile) {
+              let foundRiverSpot = false;
+              for (let spot of riverSpots) {
+                foundRiverSpot = tile.getNeighbors().contains(spot);
+              }
+              //only does anything if adjacent tile is river
+              if (foundRiverSpot) {
+                while((unit.moves > 0) && (!this.findPath(unit.tile, tile).isEmpty())) {
+                  //Moves unit until there are no moves left or worker made it
+                  if (!unit.move(findPath(unit.tile, tile)[0])) {
+                    unit.move(target);
+                  }
+                }
+                if (!unit.acted) {
+                  unit.fish(tile);
+                  break;
+                }
+              }
+            }
+          } else {
+            //move to target, and mine
+            while((unit.moves > 0) && (!this.findPath(unit.tile, target).isEmpty())) {
+              if (!unit.move(findPath(unit.tile, target)[0])) {
+                unit.move(target);
+              }
+              if (!unit.acted && target.isGoldMine) {
+                unit.mine(target.tile);
+              }
+            }
+          }
+        } else if (unit.job.title === "ghoul") {
+          //finds enemy towers
+          target = null;
+
+          for (let tile of this.game.tiles) {
+            if (tile.isTower && tile.getNeighbors().contains(tile.isPath)) {
+              target = tile;
+              //moves toward target until out of moves or right next to it
+              while ((unit.moves > 0) && (length(findPath(unit.tile, target)) > 1)) {
+                if (!unit.move(findPath(unit.tile, target)[0])) {
+                  unit.move(target);
+                }
+                if (!unit.acted) {
+                  unit.attack(target);
+                }
+              }
+            }
+            //otherwise, target the enemy castle
+            else if (target === null) {
+              target = null;
+              for (let tileTarget of this.game.tiles) {
+                if (tileTarget.isCastle) {
+                  target = tileTarget;
+                  //Moves toward castle until out of moves or in range
+                  while ((unit.moves > 0) && (length(findPath(unit.tile, target)) > 1)) {
+                    if (!unit.move(findPath(unit.tile, target)[0])) {
+                      unit.move(target);
+                    }
+                    if (!unit.acted) {
+                      unit.attack(target);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
     return true;
     // <<-- /Creer-Merge: runTurn -->>
   }
