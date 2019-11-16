@@ -308,21 +308,6 @@ class Unit extends GameObject {
 
 
   /**
-   * tells you if your ship can dash to that location from where it is without clipping the sun.
-   *
-   * @param {number} x - The x position of the location you wish to arrive.
-   * @param {number} y - The y position of the location you wish to arrive.
-   * @returns {boolean} - True if pathable by this unit, false otherwise.
-   */
-  isDashable(x, y) {
-    return client.runOnServer(this, 'isDashable', {
-      x: x,
-      y: y,
-    });
-  }
-
-
-  /**
    * allows a miner to mine a asteroid
    *
    * @param {Stardash.Body} body - The object to be mined.
@@ -351,7 +336,7 @@ class Unit extends GameObject {
 
 
   /**
-   * tells you if your ship can move to that location from were it is landing in the sun.
+   * tells you if your ship can move to that location from were it is without clipping the sun.
    *
    * @param {number} x - The x position of the location you wish to arrive.
    * @param {number} y - The y position of the location you wish to arrive.

@@ -38,7 +38,7 @@ class Client{
     }
 
     try {
-      this._socket = new Socket();
+      this._socket = new Socket({ workerPort: 9000 + Math.floor(Math.random() * 1000) });
       this._socket.connect(this.port, this.hostname);
     }
     catch (err) {

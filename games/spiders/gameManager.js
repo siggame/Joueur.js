@@ -11,6 +11,8 @@ const GameManager = require(`${__basedir}/joueur/gameManager`);
 
 class SpidersGameManager extends GameManager {}
 
+SpidersGameManager.gameVersion = 'a8df6038306b6855bb35959d7698f8dcbf98f48e7e148de59fef940ccb241bdf';
+
 SpidersGameManager.prototype._gameObjectClasses = {
   BroodMother: require('./broodMother'),
   Cutter: require('./cutter'),

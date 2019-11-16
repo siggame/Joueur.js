@@ -11,6 +11,8 @@ const GameManager = require(`${__basedir}/joueur/gameManager`);
 
 class AnarchyGameManager extends GameManager {}
 
+AnarchyGameManager.gameVersion = '2bc66f9a5d7babd553079e149c7466feb6f553935b608ff722872e195fbadab8';
+
 AnarchyGameManager.prototype._gameObjectClasses = {
   Building: require('./building'),
   FireDepartment: require('./fireDepartment'),

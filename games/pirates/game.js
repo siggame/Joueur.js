@@ -61,6 +61,7 @@ class Game extends BaseGame {
     this.shipMoves = 0;
     this.shipRange = 0;
     this.tiles = [];
+    this.timeAddedPerTurn = 0;
     this.units = [];
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -432,6 +433,20 @@ class Game extends BaseGame {
 
   set tiles(value) {
     client.gameManager.setMemberValue(this, 'tiles', value);
+  }
+
+
+  /**
+   * The amount of time (in nano-seconds) added after each player performs a turn.
+   *
+   * @type {number}
+   */
+  get timeAddedPerTurn() {
+    return client.gameManager.getMemberValue(this, 'timeAddedPerTurn');
+  }
+
+  set timeAddedPerTurn(value) {
+    client.gameManager.setMemberValue(this, 'timeAddedPerTurn', value);
   }
 
 

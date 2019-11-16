@@ -192,7 +192,7 @@ class Tile extends GameObject {
 
 
   /**
-   * What type of Tile this is, either 'Water' or 'Land'.
+   * What type of Tile this is, either 'water' or 'land'.
    *
    * @type {string}
    */

@@ -29,6 +29,7 @@ class Nest extends GameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
+    this.controllingPlayer = null;
     this.spiders = [];
     this.webs = [];
     this.x = 0;
@@ -41,6 +42,20 @@ class Nest extends GameObject {
 
 
   // Member variables
+
+  /**
+   * The Player that 'controls' this Nest as they have the most Spiders on this nest.
+   *
+   * @type {Spiders.Player}
+   */
+  get controllingPlayer() {
+    return client.gameManager.getMemberValue(this, 'controllingPlayer');
+  }
+
+  set controllingPlayer(value) {
+    client.gameManager.setMemberValue(this, 'controllingPlayer', value);
+  }
+
 
   /**
    * All the Spiders currently located on this Nest.

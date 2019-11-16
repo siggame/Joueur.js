@@ -50,6 +50,7 @@ class Game extends BaseGame {
     this.nextForecast = null;
     this.players = [];
     this.session = '';
+    this.timeAddedPerTurn = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // any additional init logic you want can go here
@@ -266,6 +267,20 @@ class Game extends BaseGame {
 
   set session(value) {
     client.gameManager.setMemberValue(this, 'session', value);
+  }
+
+
+  /**
+   * The amount of time (in nano-seconds) added after each player performs a turn.
+   *
+   * @type {number}
+   */
+  get timeAddedPerTurn() {
+    return client.gameManager.getMemberValue(this, 'timeAddedPerTurn');
+  }
+
+  set timeAddedPerTurn(value) {
+    client.gameManager.setMemberValue(this, 'timeAddedPerTurn', value);
   }
 
 

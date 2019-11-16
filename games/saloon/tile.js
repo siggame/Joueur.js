@@ -51,7 +51,7 @@ class Tile extends GameObject {
   // Member variables
 
   /**
-   * The beer Bottle currently flying over this Tile.
+   * The beer Bottle currently flying over this Tile, null otherwise.
    *
    * @type {Saloon.Bottle}
    */

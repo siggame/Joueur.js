@@ -34,6 +34,7 @@ class Player extends GameObject {
     this.lost = false;
     this.maxSpiderlings = 0;
     this.name = '';
+    this.numberOfNestsControlled = 0;
     this.opponent = null;
     this.reasonLost = '';
     this.reasonWon = '';
@@ -116,6 +117,20 @@ class Player extends GameObject {
 
   set name(value) {
     client.gameManager.setMemberValue(this, 'name', value);
+  }
+
+
+  /**
+   * The number of nests this player controls.
+   *
+   * @type {number}
+   */
+  get numberOfNestsControlled() {
+    return client.gameManager.getMemberValue(this, 'numberOfNestsControlled');
+  }
+
+  set numberOfNestsControlled(value) {
+    client.gameManager.setMemberValue(this, 'numberOfNestsControlled', value);
   }
 
 

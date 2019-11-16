@@ -290,7 +290,7 @@ class Unit extends GameObject {
    * Drops some of the given resource on or adjacent to the Unit's Tile. Does not count as an action.
    *
    * @param {Catastrophe.Tile} tile - The Tile to drop materials/food on.
-   * @param {string} resource - The type of resource to drop ('material' or 'food').
+   * @param {string} resource - The type of resource to drop ('materials' or 'food').
    * @param {number} [amount] - The amount of the resource to drop. Amounts <= 0 will drop as much as possible.
    * @returns {boolean} - True if successfully dropped the resource, false otherwise.
    */
@@ -337,7 +337,7 @@ class Unit extends GameObject {
    * Picks up some materials or food on or adjacent to the Unit's Tile. Does not count as an action.
    *
    * @param {Catastrophe.Tile} tile - The Tile to pickup materials/food from.
-   * @param {string} resource - The type of resource to pickup ('material' or 'food').
+   * @param {string} resource - The type of resource to pickup ('materials' or 'food').
    * @param {number} [amount] - The amount of the resource to pickup. Amounts <= 0 will pickup as much as possible.
    * @returns {boolean} - True if successfully picked up a resource, false otherwise.
    */
