@@ -30,6 +30,7 @@ class Tower extends GameObject {
 
     // default values for private member values
     this.attacked = false;
+    this.cooldown = 0;
     this.health = 0;
     this.job = null;
     this.owner = null;
@@ -54,6 +55,20 @@ class Tower extends GameObject {
 
   set attacked(value) {
     client.gameManager.setMemberValue(this, 'attacked', value);
+  }
+
+
+  /**
+   * How many turns are left before it can fire again.
+   *
+   * @type {number}
+   */
+  get cooldown() {
+    return client.gameManager.getMemberValue(this, 'cooldown');
+  }
+
+  set cooldown(value) {
+    client.gameManager.setMemberValue(this, 'cooldown', value);
   }
 
 
