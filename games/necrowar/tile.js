@@ -454,7 +454,10 @@ class Tile extends GameObject {
    */
   isPathable() {
     // <<-- Creer-Merge: is_pathable_builtin -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    return false; // DEVELOPER ADD LOGIC HERE
+    // DEVELOPER ADD LOGIC HERE
+    if (this.isPath && this.unit == undefined && !this.isTower)
+      return true;
+    return false;
     // <<-- /Creer-Merge: is_pathable_builtin -->>
   }
 
@@ -469,6 +472,9 @@ class Tile extends GameObject {
 
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
   // any additional functions you want to add to this class can be preserved here
+  isPathableWorker(tile) {
+    return !(this.isRiver || this.isWall || this.isUnitSpawn || this.unit != undefined);
+  }
   //<<-- /Creer-Merge: functions -->>
 }
 

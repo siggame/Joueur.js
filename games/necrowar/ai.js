@@ -39,7 +39,33 @@ class AI extends BaseAI {
    */
   start() {
     // <<-- Creer-Merge: start -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // pass
+    // add your own start logic here
+    // Set up varibales to track all relevant information
+    this.spawnUnitTile = None
+    this.spawnWorkerTile = None
+    this.goldMines = []
+    this.miners = []
+    this.builders = []
+    this.units = []
+    this.grassByPath = []
+    this.enemyCastle = this.player.opponent.towers[0]
+    this.myCastle = this.player.towers[0]
+
+    // Fill our variables with tile data
+    for (let tile of this.player.side) {
+      if (tile.isUnitSpawn)
+            this.spawnUnitTile = tile
+        else if (tile.isUnitSpawn)
+            this.spawnWorkerTile = tile
+        else if (tile.isGoldMine)
+            this.goldMines.append(tile)
+        else if (tile.isGrass)
+            for (let neighbor of tile.getNeighbors())
+                if (neighbor.isPath)
+                    this.grassByPath.append(tile)
+    }
+        
+    // Now we should have our spawn tiles, mines, and tower building locations!
     // <<-- /Creer-Merge: start -->>
   }
 
@@ -74,107 +100,68 @@ class AI extends BaseAI {
     // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // Put your game logic here for runTurn
 
-    let gold = this.player.gold;
-    let mana = this.player.mana;
+    // Remove dead units from our lists
+    this.miners = this.miners.filter((miner) => {miner.health > 0});
+    this.builders = this.builders.filter((builder) => {builder.health > 0});
+    this.units = this.units.filter((unit) => {unit.health > 0});
 
-    //go through all the units that you own
-    let target = null;
-    for (let unit of this.player.units) {
-      //only tries to do something if the unit actually exists.
-      if (unit !== null && unit.tile !== null) {
-        if (unit.job.title = "worker") {
-          //if the unit is a worker, go mine for gold
-
-          //Goes through all tiles in the game and finds a mine
-          for (let tile of this.game.tiles) {
-            //if the mine is on my side and has no units on it
-            if (tile.isGoldMine && (tile.owner === this.player) && (tile.unit === null)) {
-              //send it to that tile
-              target = tile;
-            }
-          }
-
-          //else, try fishing
-          if (target === null) {
-            //all river spots
-            let riverSpots = [];
-            for (let tile of this.game.tiles) {
-              //gathers all river spots
-              if (tile.isRiver) {
-                riverSpots.add(tile);
-              }
-            }
-            //go through all game tiles and find all adjacent spots to river
-            for (let tile of this.game.tile) {
-              let foundRiverSpot = false;
-              for (let spot of riverSpots) {
-                foundRiverSpot = tile.getNeighbors().contains(spot);
-              }
-              //only does anything if adjacent tile is river
-              if (foundRiverSpot) {
-                while((unit.moves > 0) && (!this.findPath(unit.tile, tile).isEmpty())) {
-                  //Moves unit until there are no moves left or worker made it
-                  if (!unit.move(findPath(unit.tile, tile)[0])) {
-                    unit.move(target);
-                  }
-                }
-                if (!unit.acted) {
-                  unit.fish(tile);
-                  break;
-                }
-              }
-            }
-          } else {
-            //move to target, and mine
-            while((unit.moves > 0) && (!this.findPath(unit.tile, target).isEmpty())) {
-              if (!unit.move(findPath(unit.tile, target)[0])) {
-                unit.move(target);
-              }
-              if (!unit.acted && target.isGoldMine) {
-                unit.mine(target.tile);
-              }
-            }
-          }
-        } else if (unit.job.title === "ghoul") {
-          //finds enemy towers
-          target = null;
-
-          for (let tile of this.game.tiles) {
-            if (tile.isTower && tile.getNeighbors().contains(tile.isPath)) {
-              target = tile;
-              //moves toward target until out of moves or right next to it
-              while ((unit.moves > 0) && (length(findPath(unit.tile, target)) > 1)) {
-                if (!unit.move(findPath(unit.tile, target)[0])) {
-                  unit.move(target);
-                }
-                if (!unit.acted) {
-                  unit.attack(target);
-                }
-              }
-            }
-            //otherwise, target the enemy castle
-            else if (target === null) {
-              target = null;
-              for (let tileTarget of this.game.tiles) {
-                if (tileTarget.isCastle) {
-                  target = tileTarget;
-                  //Moves toward castle until out of moves or in range
-                  while ((unit.moves > 0) && (length(findPath(unit.tile, target)) > 1)) {
-                    if (!unit.move(findPath(unit.tile, target)[0])) {
-                      unit.move(target);
-                    }
-                    if (!unit.acted) {
-                      unit.attack(target);
-                    }
-                  }
-                }
-              }
-            }
-          }
+    // Spawn all three of our chosen unit types if necessary
+    if (this.miners.length == 0)
+      if (this.spawnWorkerTile.spawnWorker())
+        this.miners.push(this.player.units[this.player.units.length-1]);
+    
+    if (this.builders.length == 0)
+      if (this.spawnWorkerTile.spawnWorker())
+        this.builders.push(this.player.units[this.player.units.length-1]);
+    
+    if (this.units.length == 0)
+      if (this.spawnUnitTile.spawnUnit("ghoul"))
+        this.units.push(this.player.units[this.player.units.length-1]);
+    
+    // Activate the units
+    for (let miner of this.miners) {
+      if (miner.tile.isGoldMine)
+        miner.mine(miner.tile);
+      else {
+        path = this.findPathWorker(miner.tile, this.enemyCastle);
+        for (let tile of path) {
+          if (miner.moves <= 0)
+            break;
+          miner.move(tile);
         }
       }
     }
 
+    for (let builder of this.builders) {
+      path = this.findPathWorker(builder.tile, this.goldMines[0]);
+      for (let tile of path) {
+        if (builder.moves <= 0)
+          break;
+        builder.move(tile);
+      }
+      if (path.length == 0 && builder.moves > 0)
+        builder.build("arrow");
+    }
+
+    for (let unit of this.units) {
+      path = this.findPath(unit.tile, this.enemyCastle.tile);
+      for (let tile of path) {
+        if (unit.moves <= 0)
+          break;
+        unit.move(tile);
+      }
+      if (path.length == 0 && unit.moves > 0)
+        unit.attack(this.enemyCastle.tile);
+    }
+
+    // Make towers attack anything adjacent to them
+    // Note that they are not using their full range
+    for (let tower of this.player.towers)
+        adjacent = tower.tile.getNeighbors();
+        for (let tile of adjacent)
+            if (tile.unit && tile.unit.owner == this.player.opponent)
+                tower.attack(tile)
+    
     return true;
     // <<-- /Creer-Merge: runTurn -->>
   }
@@ -238,6 +225,55 @@ class AI extends BaseAI {
 
   //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
   // any additional functions you want to add for your AI
+  findPathWorker(start, goal) {
+    if (start === goal) {
+      // no need to make a path to here...
+      return [];
+    }
+
+    // queue of the tiles that will have their neighbors searched for 'goal'
+    let fringe = [];
+
+    // How we got to each tile that went into the fringe.
+    let cameFrom = {};
+
+    // Enqueue start as the first tile to have its neighbors searched.
+    fringe.push(start);
+
+    // keep exploring neighbors of neighbors... until there are no more.
+    while (fringe.length > 0) {
+      // the tile we are currently exploring.
+      let inspect = fringe.shift();
+
+      // cycle through the tile's neighbors.
+      for (const neighbor of inspect.getNeighbors()) {
+        // if we found the goal, we have the path!
+        if (neighbor === goal) {
+          // Follow the path backward to the start from the goal and return it.
+          let path = [goal];
+
+          // Starting at the tile we are currently at, insert them retracing our steps till we get to the starting tile
+          while (inspect !== start) {
+            path.unshift(inspect);
+            inspect = cameFrom[inspect.id];
+          }
+
+          return path;
+        }
+        // else we did not find the goal, so enqueue this tile's neighbors to be inspected
+
+        // if the tile exists, has not been explored or added to the fringe yet, and it is pathable
+        if (neighbor && neighbor.id && !cameFrom[neighbor.id] && neighbor.isPathableWorker()) {
+          // add it to the tiles to be explored and add where it came from for path reconstruction.
+          fringe.push(neighbor);
+          cameFrom[neighbor.id] = inspect;
+        }
+      }
+    }
+
+    // if we got here, no path was found
+    return [];
+  }
   //<<-- /Creer-Merge: functions -->>
 
 }
