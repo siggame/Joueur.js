@@ -42,6 +42,7 @@ class Tile extends GameObject {
     this.tileNorth = null;
     this.tileSouth = null;
     this.tileWest = null;
+    this.units = [];
     this.x = 0;
     this.y = 0;
 
@@ -236,6 +237,20 @@ class Tile extends GameObject {
 
 
   /**
+   * An array of the Units on this Tile.
+   *
+   * @type {Array.<Coreminer.Unit>}
+   */
+  get units() {
+    return client.gameManager.getMemberValue(this, 'units');
+  }
+
+  set units(value) {
+    client.gameManager.setMemberValue(this, 'units', value);
+  }
+
+
+  /**
    * The x (horizontal) position of this Tile.
    *
    * @type {number}
@@ -262,6 +277,17 @@ class Tile extends GameObject {
     client.gameManager.setMemberValue(this, 'y', value);
   }
 
+
+
+  /**
+   * Spawns a Miner Unit on this Tile - Must be on the surface on their side of the map.
+   *
+   * @returns {boolean} - True if successfully spawned, false otherwise.
+   */
+  spawnMiner() {
+    return client.runOnServer(this, 'spawnMiner', {
+    });
+  }
 
   /**
    * Gets the valid directions that tiles can be in, "North", "East", "South", or "West"
