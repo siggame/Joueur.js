@@ -40,6 +40,8 @@ node main.js chess -s game.siggame.io -r MyOwnGameSession
 
 ## Other Notes
 
+For advanced JavaScript users, we reccomend using the [TypeScript] client, [Joueur.ts]. It has all the advantages of JavaScript, with strict type checking to ensure your code it type safe before you even have to run it.
+
 If you wish to use a different version of node, edit your `.nvmrc`, which will tell [Node Version Manager][nvm] your desired node version.
 
 It is possible that on your Missouri S&T S-Drive this client will not run properly. This is not a fault with the client, but rather the school's S-Drive implementation changing some file permissions during run time. We cannot control this. Instead, we recommend cloning your repo outside the S-Drive and use an SCP program like [WinSCP][winscp] to edit the files in Windows using whatever IDE you want if you want to code in Windows, but compile in Linux.
@@ -58,3 +60,5 @@ The only file you should ever modify to create your AI is the `ai.js` file. All 
 [vagrant-guide]: https://www.vagrantup.com/docs/getting-started/
 [virtualbox]: https://www.virtualbox.org/wiki/Downloads
 [gitbash]: https://git-scm.com/downloads
+[Typescript]: https://www.typescriptlang.org/
+[Joueur.ts]: https://github.com/siggame/Joueur.ts
