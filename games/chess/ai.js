@@ -86,11 +86,11 @@ class AI extends BaseAI {
     console.log(`>> Start of ${owner} turn: ${Math.floor(this.game.history.length / 2)}`);
     console.log(this.chess.ascii());
 
-    const moves = this.chess.moves();
+    const moves = this.chess.moves({ verbose: true });
 
-    console.log(`   ${owner} valid moves in SAN:`);
+    console.log(`   ${owner} valid moves in UCI:`);
     for (const move of moves) {
-      console.log(`   - ${move}`);
+      console.log(`   - ${move.from}${move.to}${move.promotion || ''}`);
     }
     console.log("----------\n");
   }
