@@ -78,7 +78,7 @@ class Game extends BaseGame {
 
 
   /**
-   * The list of [known] moves that have occurred in the game, in Standard Algebraic Notation (SAN) format. The first element is the first move, with the last being the most recent.
+   * The list of [known] moves that have occurred in the game, in Universal Chess Inferface (UCI) format. The first element is the first move, with the last element being the most recent.
    *
    * @type {Array.<string>}
    */
