@@ -104,8 +104,8 @@ class AI extends BaseAI {
 
     // This will only work if we are black move the pawn at b2 to b3.
     // Otherwise we will lose.
-    // Your job is to code SOMETHING to parse the FEN string in some way to determine a valid move, in SAN format.
-    return 'b3';
+    // Your job is to code SOMETHING to parse the FEN string in some way to determine a valid move, in UCI format.
+    return 'b2b3';
   }
 }
 
