@@ -190,10 +190,10 @@ class Unit extends GameObject {
 
 
   /**
-   * Builds a support, shield, ladder, or bomb on Unit's tile, or an adjacent Tile.
+   * Builds a support, shield, or ladder on Unit's tile, or an adjacent Tile.
    *
    * @param {Coreminer.Tile} tile - The Tile to build on.
-   * @param {string} type - The structure to build (support, ladder, shield, or bomb).
+   * @param {string} type - The structure to build (support, ladder, or shield).
    * @returns {boolean} - True if successfully built, False otherwise.
    */
   build(tile, type) {
@@ -208,7 +208,7 @@ class Unit extends GameObject {
    * Dumps materials from cargo to an adjacent tile.
    *
    * @param {Coreminer.Tile} tile - The tile the materials will be dumped on.
-   * @param {string} material - The material the Unit will drop. 'dirt' or 'ore'.
+   * @param {string} material - The material the Unit will drop. 'dirt', 'ore', or 'bomb'.
    * @param {number} amount - The number of materials to drop. Amounts <= 0 will drop all the materials.
    * @returns {boolean} - True if successfully dumped materials, false otherwise.
    */
