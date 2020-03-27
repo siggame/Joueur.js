@@ -97,7 +97,7 @@ class Tile extends GameObject {
 
 
   /**
-   * Whether or not a hopper is placed on this Tile.
+   * Whether or not a hopper is on this Tile.
    *
    * @type {boolean}
    */
@@ -153,7 +153,7 @@ class Tile extends GameObject {
 
 
   /**
-   * The owner of this Tile, or null if owned by no-one. Only for bases and hoppers.
+   * The owner of this Tile, or undefined if owned by no-one. Only for bases and hoppers.
    *
    * @type {Coreminer.Player}
    */

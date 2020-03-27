@@ -34,6 +34,10 @@ class Unit extends GameObject {
     this.dirt = 0;
     this.health = 0;
     this.job = null;
+    this.maxCargoCapacity = 0;
+    this.maxHealth = 0;
+    this.maxMiningPower = 0;
+    this.maxMoves = 0;
     this.miningPower = 0;
     this.moves = 0;
     this.ore = 0;
@@ -115,6 +119,62 @@ class Unit extends GameObject {
 
   set job(value) {
     client.gameManager.setMemberValue(this, 'job', value);
+  }
+
+
+  /**
+   * The maximum amount of cargo this Unit can carry.
+   *
+   * @type {number}
+   */
+  get maxCargoCapacity() {
+    return client.gameManager.getMemberValue(this, 'maxCargoCapacity');
+  }
+
+  set maxCargoCapacity(value) {
+    client.gameManager.setMemberValue(this, 'maxCargoCapacity', value);
+  }
+
+
+  /**
+   * The maximum health of this Unit.
+   *
+   * @type {number}
+   */
+  get maxHealth() {
+    return client.gameManager.getMemberValue(this, 'maxHealth');
+  }
+
+  set maxHealth(value) {
+    client.gameManager.setMemberValue(this, 'maxHealth', value);
+  }
+
+
+  /**
+   * The maximum mining power of this Unit.
+   *
+   * @type {number}
+   */
+  get maxMiningPower() {
+    return client.gameManager.getMemberValue(this, 'maxMiningPower');
+  }
+
+  set maxMiningPower(value) {
+    client.gameManager.setMemberValue(this, 'maxMiningPower', value);
+  }
+
+
+  /**
+   * The maximum moves this Unit can have.
+   *
+   * @type {number}
+   */
+  get maxMoves() {
+    return client.gameManager.getMemberValue(this, 'maxMoves');
+  }
+
+  set maxMoves(value) {
+    client.gameManager.setMemberValue(this, 'maxMoves', value);
   }
 
 

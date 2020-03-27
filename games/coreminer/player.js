@@ -30,13 +30,17 @@ class Player extends GameObject {
 
     // default values for private member values
     this.baseTile = null;
+    this.bombs = 0;
     this.clientType = '';
     this.hopperTiles = [];
     this.lost = false;
+    this.money = 0;
     this.name = '';
     this.opponent = null;
     this.reasonLost = '';
     this.reasonWon = '';
+    this.side = [];
+    this.spawnTiles = [];
     this.timeRemaining = 0;
     this.units = [];
     this.value = 0;
@@ -61,6 +65,20 @@ class Player extends GameObject {
 
   set baseTile(value) {
     client.gameManager.setMemberValue(this, 'baseTile', value);
+  }
+
+
+  /**
+   * The bombs stored in the Player's supply.
+   *
+   * @type {number}
+   */
+  get bombs() {
+    return client.gameManager.getMemberValue(this, 'bombs');
+  }
+
+  set bombs(value) {
+    client.gameManager.setMemberValue(this, 'bombs', value);
   }
 
 
@@ -103,6 +121,20 @@ class Player extends GameObject {
 
   set lost(value) {
     client.gameManager.setMemberValue(this, 'lost', value);
+  }
+
+
+  /**
+   * The amount of money this Player currently has.
+   *
+   * @type {number}
+   */
+  get money() {
+    return client.gameManager.getMemberValue(this, 'money');
+  }
+
+  set money(value) {
+    client.gameManager.setMemberValue(this, 'money', value);
   }
 
 
@@ -159,6 +191,34 @@ class Player extends GameObject {
 
   set reasonWon(value) {
     client.gameManager.setMemberValue(this, 'reasonWon', value);
+  }
+
+
+  /**
+   * The Tiles on this Player's side of the map.
+   *
+   * @type {Array.<Coreminer.Tile>}
+   */
+  get side() {
+    return client.gameManager.getMemberValue(this, 'side');
+  }
+
+  set side(value) {
+    client.gameManager.setMemberValue(this, 'side', value);
+  }
+
+
+  /**
+   * The Tiles this Player may spawn Units on.
+   *
+   * @type {Array.<Coreminer.Tile>}
+   */
+  get spawnTiles() {
+    return client.gameManager.getMemberValue(this, 'spawnTiles');
+  }
+
+  set spawnTiles(value) {
+    client.gameManager.setMemberValue(this, 'spawnTiles', value);
   }
 
 

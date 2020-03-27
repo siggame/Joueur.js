@@ -40,12 +40,15 @@ class Game extends BaseGame {
     this.freeBombInterval = 0;
     this.gameObjects = {};
     this.jobs = [];
+    this.ladderCost = 0;
     this.mapHeight = 0;
     this.mapWidth = 0;
     this.maxTurns = 0;
     this.oreValue = 0;
     this.players = [];
     this.session = '';
+    this.shieldCost = 0;
+    this.supportCost = 0;
     this.tiles = [];
     this.timeAddedPerTurn = 0;
     this.units = [];
@@ -130,6 +133,20 @@ class Game extends BaseGame {
 
 
   /**
+   * The amount of building material required to build a ladder.
+   *
+   * @type {number}
+   */
+  get ladderCost() {
+    return client.gameManager.getMemberValue(this, 'ladderCost');
+  }
+
+  set ladderCost(value) {
+    client.gameManager.setMemberValue(this, 'ladderCost', value);
+  }
+
+
+  /**
    * The number of Tiles in the map along the y (vertical) axis.
    *
    * @type {number}
@@ -210,6 +227,34 @@ class Game extends BaseGame {
 
   set session(value) {
     client.gameManager.setMemberValue(this, 'session', value);
+  }
+
+
+  /**
+   * The amount of building material required to shield a Tile.
+   *
+   * @type {number}
+   */
+  get shieldCost() {
+    return client.gameManager.getMemberValue(this, 'shieldCost');
+  }
+
+  set shieldCost(value) {
+    client.gameManager.setMemberValue(this, 'shieldCost', value);
+  }
+
+
+  /**
+   * The amount of building material required to build a support.
+   *
+   * @type {number}
+   */
+  get supportCost() {
+    return client.gameManager.getMemberValue(this, 'supportCost');
+  }
+
+  set supportCost(value) {
+    client.gameManager.setMemberValue(this, 'supportCost', value);
   }
 
 

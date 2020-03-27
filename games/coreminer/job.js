@@ -29,14 +29,11 @@ class Job extends GameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
-    this.cargoCapacity = 0;
-    this.health = 0;
-    this.maxCargoCapacity = 0;
-    this.maxHealth = 0;
-    this.maxMiningPower = 0;
-    this.maxMoves = 0;
-    this.miningPower = 0;
-    this.moves = 0;
+    this.cargoCapacity = [];
+    this.cost = 0;
+    this.health = [];
+    this.miningPower = [];
+    this.moves = [];
     this.title = '';
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -48,9 +45,9 @@ class Job extends GameObject {
   // Member variables
 
   /**
-   * The amount of cargo capacity this Unit starts with.
+   * The amount of cargo capacity this Unit starts with per level.
    *
-   * @type {number}
+   * @type {Array.<number>}
    */
   get cargoCapacity() {
     return client.gameManager.getMemberValue(this, 'cargoCapacity');
@@ -62,9 +59,23 @@ class Job extends GameObject {
 
 
   /**
-   * The amount of starting health this Job has.
+   * The cost of spawning a Unit with this Job.
    *
    * @type {number}
+   */
+  get cost() {
+    return client.gameManager.getMemberValue(this, 'cost');
+  }
+
+  set cost(value) {
+    client.gameManager.setMemberValue(this, 'cost', value);
+  }
+
+
+  /**
+   * The amount of starting health this Job has per level.
+   *
+   * @type {Array.<number>}
    */
   get health() {
     return client.gameManager.getMemberValue(this, 'health');
@@ -76,65 +87,9 @@ class Job extends GameObject {
 
 
   /**
-   * The maximum amount of cargo capacity this Unit can have.
+   * The amount of mining power this Unit has per turn per level.
    *
-   * @type {number}
-   */
-  get maxCargoCapacity() {
-    return client.gameManager.getMemberValue(this, 'maxCargoCapacity');
-  }
-
-  set maxCargoCapacity(value) {
-    client.gameManager.setMemberValue(this, 'maxCargoCapacity', value);
-  }
-
-
-  /**
-   * The maximum amount of health this Job can have.
-   *
-   * @type {number}
-   */
-  get maxHealth() {
-    return client.gameManager.getMemberValue(this, 'maxHealth');
-  }
-
-  set maxHealth(value) {
-    client.gameManager.setMemberValue(this, 'maxHealth', value);
-  }
-
-
-  /**
-   * The maximum amount of mining power this Unit can have.
-   *
-   * @type {number}
-   */
-  get maxMiningPower() {
-    return client.gameManager.getMemberValue(this, 'maxMiningPower');
-  }
-
-  set maxMiningPower(value) {
-    client.gameManager.setMemberValue(this, 'maxMiningPower', value);
-  }
-
-
-  /**
-   * The maximum number of moves this Job can have.
-   *
-   * @type {number}
-   */
-  get maxMoves() {
-    return client.gameManager.getMemberValue(this, 'maxMoves');
-  }
-
-  set maxMoves(value) {
-    client.gameManager.setMemberValue(this, 'maxMoves', value);
-  }
-
-
-  /**
-   * The amount of mining power this Unit has per turn.
-   *
-   * @type {number}
+   * @type {Array.<number>}
    */
   get miningPower() {
     return client.gameManager.getMemberValue(this, 'miningPower');
@@ -146,9 +101,9 @@ class Job extends GameObject {
 
 
   /**
-   * The number of moves this Job can make per turn.
+   * The number of moves this Job can make per turn per level.
    *
-   * @type {number}
+   * @type {Array.<number>}
    */
   get moves() {
     return client.gameManager.getMemberValue(this, 'moves');
