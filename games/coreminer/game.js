@@ -35,6 +35,8 @@ class Game extends BaseGame {
     this.name = 'Coreminer';
 
     // default values for private member values
+    this.bombCost = 0;
+    this.buildingMaterialCost = 0;
     this.currentPlayer = null;
     this.currentTurn = 0;
     this.freeBombInterval = 0;
@@ -61,6 +63,34 @@ class Game extends BaseGame {
 
 
   // Member variables
+
+  /**
+   * The price of buying a bomb.
+   *
+   * @type {number}
+   */
+  get bombCost() {
+    return client.gameManager.getMemberValue(this, 'bombCost');
+  }
+
+  set bombCost(value) {
+    client.gameManager.setMemberValue(this, 'bombCost', value);
+  }
+
+
+  /**
+   * The price of buying building materials.
+   *
+   * @type {number}
+   */
+  get buildingMaterialCost() {
+    return client.gameManager.getMemberValue(this, 'buildingMaterialCost');
+  }
+
+  set buildingMaterialCost(value) {
+    client.gameManager.setMemberValue(this, 'buildingMaterialCost', value);
+  }
+
 
   /**
    * The player whose turn it is currently. That player can send commands. Other players cannot.
