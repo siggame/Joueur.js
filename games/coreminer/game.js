@@ -36,6 +36,7 @@ class Game extends BaseGame {
 
     // default values for private member values
     this.bombCost = 0;
+    this.bombSize = 0;
     this.buildingMaterialCost = 0;
     this.currentPlayer = null;
     this.currentTurn = 0;
@@ -75,6 +76,20 @@ class Game extends BaseGame {
 
   set bombCost(value) {
     client.gameManager.setMemberValue(this, 'bombCost', value);
+  }
+
+
+  /**
+   * The amount of cargo space taken up by a bomb.
+   *
+   * @type {number}
+   */
+  get bombSize() {
+    return client.gameManager.getMemberValue(this, 'bombSize');
+  }
+
+  set bombSize(value) {
+    client.gameManager.setMemberValue(this, 'bombSize', value);
   }
 
 
