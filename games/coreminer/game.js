@@ -55,6 +55,10 @@ class Game extends BaseGame {
     this.tiles = [];
     this.timeAddedPerTurn = 0;
     this.units = [];
+    this.upgradeCargoCapacityCost = 0;
+    this.upgradeHealthCost = 0;
+    this.upgradeMiningPowerCost = 0;
+    this.upgradeMovesCost = 0;
     this.victoryAmount = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -342,6 +346,62 @@ class Game extends BaseGame {
 
   set units(value) {
     client.gameManager.setMemberValue(this, 'units', value);
+  }
+
+
+  /**
+   * The cost to upgrade a Unit's cargo capacity.
+   *
+   * @type {number}
+   */
+  get upgradeCargoCapacityCost() {
+    return client.gameManager.getMemberValue(this, 'upgradeCargoCapacityCost');
+  }
+
+  set upgradeCargoCapacityCost(value) {
+    client.gameManager.setMemberValue(this, 'upgradeCargoCapacityCost', value);
+  }
+
+
+  /**
+   * The cost to upgrade a Unit's health.
+   *
+   * @type {number}
+   */
+  get upgradeHealthCost() {
+    return client.gameManager.getMemberValue(this, 'upgradeHealthCost');
+  }
+
+  set upgradeHealthCost(value) {
+    client.gameManager.setMemberValue(this, 'upgradeHealthCost', value);
+  }
+
+
+  /**
+   * The cost to upgrade a Unit's mining power.
+   *
+   * @type {number}
+   */
+  get upgradeMiningPowerCost() {
+    return client.gameManager.getMemberValue(this, 'upgradeMiningPowerCost');
+  }
+
+  set upgradeMiningPowerCost(value) {
+    client.gameManager.setMemberValue(this, 'upgradeMiningPowerCost', value);
+  }
+
+
+  /**
+   * The cost to upgrade a Unit's movement speed.
+   *
+   * @type {number}
+   */
+  get upgradeMovesCost() {
+    return client.gameManager.getMemberValue(this, 'upgradeMovesCost');
+  }
+
+  set upgradeMovesCost(value) {
+    client.gameManager.setMemberValue(this, 'upgradeMovesCost', value);
   }
 
 
