@@ -43,6 +43,7 @@ class Unit extends GameObject {
     this.ore = 0;
     this.owner = null;
     this.tile = null;
+    this.upgradeLevel = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // any additional init logic you want can go here
@@ -248,6 +249,20 @@ class Unit extends GameObject {
   }
 
 
+  /**
+   * The upgrade level of this unit. Starts at 0.
+   *
+   * @type {number}
+   */
+  get upgradeLevel() {
+    return client.gameManager.getMemberValue(this, 'upgradeLevel');
+  }
+
+  set upgradeLevel(value) {
+    client.gameManager.setMemberValue(this, 'upgradeLevel', value);
+  }
+
+
 
   /**
    * Builds a support, shield, or ladder on Unit's tile, or an adjacent Tile.
@@ -265,7 +280,7 @@ class Unit extends GameObject {
 
 
   /**
-   * Dumps materials from cargo to an adjacent tile.
+   * Dumps materials from cargo to an adjacent tile. If the tile is a base or hopper tile, materials are sold instead of placed.
    *
    * @param {Coreminer.Tile} tile - The tile the materials will be dumped on.
    * @param {string} material - The material the Unit will drop. 'dirt', 'ore', or 'bomb'.
@@ -310,14 +325,29 @@ class Unit extends GameObject {
 
 
   /**
-   * Upgrade an attribute of this Unit. "health", "miningPower", "moves", or "capacity".
+   * Transfers a resource from the one Unit to another.
    *
-   * @param {string} attribute - The attribute of the Unit to be upgraded.
+   * @param {Coreminer.Unit} unit - The Unit to transfer materials to.
+   * @param {string} resource - The type of resource to transfer.
+   * @param {number} amount - The amount of resource to transfer.
+   * @returns {boolean} - True if successfully transfered, false otherwise.
+   */
+  transfer(unit, resource, amount) {
+    return client.runOnServer(this, 'transfer', {
+      unit: unit,
+      resource: resource,
+      amount: amount,
+    });
+  }
+
+
+  /**
+   * Upgrade this Unit.
+   *
    * @returns {boolean} - True if successfully upgraded, False otherwise.
    */
-  upgrade(attribute) {
+  upgrade() {
     return client.runOnServer(this, 'upgrade', {
-      attribute: attribute,
     });
   }
 

@@ -1,4 +1,4 @@
-// Game: Mine resources to obtain more wealth than your opponent.
+// Game: Mine resources to obtain more value than your opponent.
 
 // DO NOT MODIFY THIS FILE
 // Never try to directly create an instance of this class, or modify its member variables.
@@ -12,7 +12,7 @@ const BaseGame = require(`${__basedir}/joueur/baseGame`);
 //<<-- /Creer-Merge: requires -->>
 
 /**
- * Mine resources to obtain more wealth than your opponent.
+ * Mine resources to obtain more value than your opponent.
  * @extends BaseGame
  * @memberof Coreminer
  */
@@ -35,30 +35,29 @@ class Game extends BaseGame {
     this.name = 'Coreminer';
 
     // default values for private member values
-    this.bombCost = 0;
+    this.bombPrice = 0;
     this.bombSize = 0;
-    this.buildingMaterialCost = 0;
+    this.buildingMaterialPrice = 0;
     this.currentPlayer = null;
     this.currentTurn = 0;
-    this.freeBombInterval = 0;
+    this.dirtPrice = 0;
     this.gameObjects = {};
     this.jobs = [];
     this.ladderCost = 0;
     this.mapHeight = 0;
     this.mapWidth = 0;
     this.maxTurns = 0;
+    this.orePrice = 0;
     this.oreValue = 0;
     this.players = [];
     this.session = '';
     this.shieldCost = 0;
+    this.spawnPrice = 0;
     this.supportCost = 0;
     this.tiles = [];
     this.timeAddedPerTurn = 0;
     this.units = [];
-    this.upgradeCargoCapacityCost = 0;
-    this.upgradeHealthCost = 0;
-    this.upgradeMiningPowerCost = 0;
-    this.upgradeMovesCost = 0;
+    this.upgradePrice = [];
     this.victoryAmount = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -70,16 +69,16 @@ class Game extends BaseGame {
   // Member variables
 
   /**
-   * The price of buying a bomb.
+   * The monetary price of a bomb when bought or sold.
    *
    * @type {number}
    */
-  get bombCost() {
-    return client.gameManager.getMemberValue(this, 'bombCost');
+  get bombPrice() {
+    return client.gameManager.getMemberValue(this, 'bombPrice');
   }
 
-  set bombCost(value) {
-    client.gameManager.setMemberValue(this, 'bombCost', value);
+  set bombPrice(value) {
+    client.gameManager.setMemberValue(this, 'bombPrice', value);
   }
 
 
@@ -98,16 +97,16 @@ class Game extends BaseGame {
 
 
   /**
-   * The price of buying building materials.
+   * The monetary price of building materials when bought.
    *
    * @type {number}
    */
-  get buildingMaterialCost() {
-    return client.gameManager.getMemberValue(this, 'buildingMaterialCost');
+  get buildingMaterialPrice() {
+    return client.gameManager.getMemberValue(this, 'buildingMaterialPrice');
   }
 
-  set buildingMaterialCost(value) {
-    client.gameManager.setMemberValue(this, 'buildingMaterialCost', value);
+  set buildingMaterialPrice(value) {
+    client.gameManager.setMemberValue(this, 'buildingMaterialPrice', value);
   }
 
 
@@ -140,16 +139,16 @@ class Game extends BaseGame {
 
 
   /**
-   * The amount of turns it takes to gain a free Bomb.
+   * The monetary price of dirt when bought or sold.
    *
    * @type {number}
    */
-  get freeBombInterval() {
-    return client.gameManager.getMemberValue(this, 'freeBombInterval');
+  get dirtPrice() {
+    return client.gameManager.getMemberValue(this, 'dirtPrice');
   }
 
-  set freeBombInterval(value) {
-    client.gameManager.setMemberValue(this, 'freeBombInterval', value);
+  set dirtPrice(value) {
+    client.gameManager.setMemberValue(this, 'dirtPrice', value);
   }
 
 
@@ -238,7 +237,21 @@ class Game extends BaseGame {
 
 
   /**
-   * The amount of victory points awarded when ore is deposited in the base.
+   * The amount of money awarded when ore is dumped in the base and sold.
+   *
+   * @type {number}
+   */
+  get orePrice() {
+    return client.gameManager.getMemberValue(this, 'orePrice');
+  }
+
+  set orePrice(value) {
+    client.gameManager.setMemberValue(this, 'orePrice', value);
+  }
+
+
+  /**
+   * The amount of victory points awarded when ore is dumped in the base and sold.
    *
    * @type {number}
    */
@@ -290,6 +303,20 @@ class Game extends BaseGame {
 
   set shieldCost(value) {
     client.gameManager.setMemberValue(this, 'shieldCost', value);
+  }
+
+
+  /**
+   * The monetary price of spawning a Miner.
+   *
+   * @type {number}
+   */
+  get spawnPrice() {
+    return client.gameManager.getMemberValue(this, 'spawnPrice');
+  }
+
+  set spawnPrice(value) {
+    client.gameManager.setMemberValue(this, 'spawnPrice', value);
   }
 
 
@@ -350,58 +377,16 @@ class Game extends BaseGame {
 
 
   /**
-   * The cost to upgrade a Unit's cargo capacity.
+   * The cost to upgrade a Unit at each level.
    *
-   * @type {number}
+   * @type {Array.<number>}
    */
-  get upgradeCargoCapacityCost() {
-    return client.gameManager.getMemberValue(this, 'upgradeCargoCapacityCost');
+  get upgradePrice() {
+    return client.gameManager.getMemberValue(this, 'upgradePrice');
   }
 
-  set upgradeCargoCapacityCost(value) {
-    client.gameManager.setMemberValue(this, 'upgradeCargoCapacityCost', value);
-  }
-
-
-  /**
-   * The cost to upgrade a Unit's health.
-   *
-   * @type {number}
-   */
-  get upgradeHealthCost() {
-    return client.gameManager.getMemberValue(this, 'upgradeHealthCost');
-  }
-
-  set upgradeHealthCost(value) {
-    client.gameManager.setMemberValue(this, 'upgradeHealthCost', value);
-  }
-
-
-  /**
-   * The cost to upgrade a Unit's mining power.
-   *
-   * @type {number}
-   */
-  get upgradeMiningPowerCost() {
-    return client.gameManager.getMemberValue(this, 'upgradeMiningPowerCost');
-  }
-
-  set upgradeMiningPowerCost(value) {
-    client.gameManager.setMemberValue(this, 'upgradeMiningPowerCost', value);
-  }
-
-
-  /**
-   * The cost to upgrade a Unit's movement speed.
-   *
-   * @type {number}
-   */
-  get upgradeMovesCost() {
-    return client.gameManager.getMemberValue(this, 'upgradeMovesCost');
-  }
-
-  set upgradeMovesCost(value) {
-    client.gameManager.setMemberValue(this, 'upgradeMovesCost', value);
+  set upgradePrice(value) {
+    client.gameManager.setMemberValue(this, 'upgradePrice', value);
   }
 
 

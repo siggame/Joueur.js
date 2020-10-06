@@ -69,7 +69,7 @@ class Tile extends GameObject {
 
 
   /**
-   * Whether or not the tile is an indestructible base Tile.
+   * Whether or not the tile is a base Tile.
    *
    * @type {boolean}
    */
@@ -153,7 +153,7 @@ class Tile extends GameObject {
 
 
   /**
-   * The owner of this Tile, or undefined if owned by no-one. Only for bases and hoppers.
+   * The owner of this Tile, or undefined if owned by no-one.
    *
    * @type {Coreminer.Player}
    */
@@ -277,17 +277,6 @@ class Tile extends GameObject {
     client.gameManager.setMemberValue(this, 'y', value);
   }
 
-
-
-  /**
-   * Spawns a Miner Unit on this Tile - Must be on the surface on their side of the map.
-   *
-   * @returns {boolean} - True if successfully spawned, false otherwise.
-   */
-  spawnMiner() {
-    return client.runOnServer(this, 'spawnMiner', {
-    });
-  }
 
   /**
    * Gets the valid directions that tiles can be in, "North", "East", "South", or "West"

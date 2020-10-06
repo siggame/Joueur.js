@@ -30,10 +30,7 @@ class Player extends GameObject {
 
     // default values for private member values
     this.baseTile = null;
-    this.bombs = 0;
-    this.buildingMaterials = 0;
     this.clientType = '';
-    this.dirt = 0;
     this.hopperTiles = [];
     this.lost = false;
     this.money = 0;
@@ -71,34 +68,6 @@ class Player extends GameObject {
 
 
   /**
-   * The bombs stored in the Player's supply.
-   *
-   * @type {number}
-   */
-  get bombs() {
-    return client.gameManager.getMemberValue(this, 'bombs');
-  }
-
-  set bombs(value) {
-    client.gameManager.setMemberValue(this, 'bombs', value);
-  }
-
-
-  /**
-   * The building material stored in the Player's supply.
-   *
-   * @type {number}
-   */
-  get buildingMaterials() {
-    return client.gameManager.getMemberValue(this, 'buildingMaterials');
-  }
-
-  set buildingMaterials(value) {
-    client.gameManager.setMemberValue(this, 'buildingMaterials', value);
-  }
-
-
-  /**
    * What type of client this is, e.g. 'Python', 'JavaScript', or some other language. For potential data mining purposes.
    *
    * @type {string}
@@ -109,20 +78,6 @@ class Player extends GameObject {
 
   set clientType(value) {
     client.gameManager.setMemberValue(this, 'clientType', value);
-  }
-
-
-  /**
-   * The dirt stored in the Player's supply.
-   *
-   * @type {number}
-   */
-  get dirt() {
-    return client.gameManager.getMemberValue(this, 'dirt');
-  }
-
-  set dirt(value) {
-    client.gameManager.setMemberValue(this, 'dirt', value);
   }
 
 
@@ -310,33 +265,12 @@ class Player extends GameObject {
 
 
   /**
-   * Purchases a resource and adds it to the Player's supply.
+   * Spawns a Miner Unit on this Player's base tile.
    *
-   * @param {string} resource - The type of resource to buy.
-   * @param {number} amount - The amount of resource to buy.
-   * @returns {boolean} - True if successfully purchased, false otherwise.
+   * @returns {boolean} - True if successfully spawned, false otherwise.
    */
-  buy(resource, amount) {
-    return client.runOnServer(this, 'buy', {
-      resource: resource,
-      amount: amount,
-    });
-  }
-
-
-  /**
-   * Transfers a resource from the Player's supply to a Unit.
-   *
-   * @param {Coreminer.Unit} unit - The Unit to transfer materials to.
-   * @param {string} resource - The type of resource to transfer.
-   * @param {number} amount - The amount of resource to transfer.
-   * @returns {boolean} - True if successfully transfered, false otherwise.
-   */
-  transfer(unit, resource, amount) {
-    return client.runOnServer(this, 'transfer', {
-      unit: unit,
-      resource: resource,
-      amount: amount,
+  spawnMiner() {
+    return client.runOnServer(this, 'spawnMiner', {
     });
   }
 
