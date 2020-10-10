@@ -57,7 +57,7 @@ class Game extends BaseGame {
     this.tiles = [];
     this.timeAddedPerTurn = 0;
     this.units = [];
-    this.upgradePrice = [];
+    this.upgradePrice = 0;
     this.victoryAmount = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -377,9 +377,9 @@ class Game extends BaseGame {
 
 
   /**
-   * The cost to upgrade a Unit at each level.
+   * The cost to upgrade a Unit.
    *
-   * @type {Array.<number>}
+   * @type {number}
    */
   get upgradePrice() {
     return client.gameManager.getMemberValue(this, 'upgradePrice');

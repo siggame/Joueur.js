@@ -11,7 +11,7 @@ const GameManager = require(`${__basedir}/joueur/gameManager`);
 
 class CoreminerGameManager extends GameManager {}
 
-CoreminerGameManager.gameVersion = '230d41da5f9e95a58b66fbaa7d6d61f4853e459517e93b553d829607b0286082';
+CoreminerGameManager.gameVersion = 'cf0da2dd981969e39b8de1dd6332be0ea8f725b9b62baa0cb102a1d12a7179bf';
 
 CoreminerGameManager.prototype._gameObjectClasses = {
   GameObject: require('./gameObject'),

@@ -30,7 +30,6 @@ class Job extends GameObject {
 
     // default values for private member values
     this.cargoCapacity = [];
-    this.cost = 0;
     this.health = [];
     this.miningPower = [];
     this.moves = [];
@@ -55,20 +54,6 @@ class Job extends GameObject {
 
   set cargoCapacity(value) {
     client.gameManager.setMemberValue(this, 'cargoCapacity', value);
-  }
-
-
-  /**
-   * The cost of spawning a Unit with this Job.
-   *
-   * @type {number}
-   */
-  get cost() {
-    return client.gameManager.getMemberValue(this, 'cost');
-  }
-
-  set cost(value) {
-    client.gameManager.setMemberValue(this, 'cost', value);
   }
 
 
