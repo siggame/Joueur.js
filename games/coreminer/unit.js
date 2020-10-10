@@ -280,6 +280,21 @@ class Unit extends GameObject {
 
 
   /**
+   * Purchase a resource from the player's base or hopper.
+   *
+   * @param {string} resource - The type of resource to buy.
+   * @param {number} amount - The amount of resource to buy.
+   * @returns {boolean} - True if successfully purchased, false otherwise.
+   */
+  buy(resource, amount) {
+    return client.runOnServer(this, 'buy', {
+      resource: resource,
+      amount: amount,
+    });
+  }
+
+
+  /**
    * Dumps materials from cargo to an adjacent tile. If the tile is a base or hopper tile, materials are sold instead of placed.
    *
    * @param {Coreminer.Tile} tile - The tile the materials will be dumped on.

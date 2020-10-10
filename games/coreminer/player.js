@@ -39,7 +39,6 @@ class Player extends GameObject {
     this.reasonLost = '';
     this.reasonWon = '';
     this.side = [];
-    this.spawnTiles = [];
     this.timeRemaining = 0;
     this.units = [];
     this.value = 0;
@@ -190,20 +189,6 @@ class Player extends GameObject {
 
   set side(value) {
     client.gameManager.setMemberValue(this, 'side', value);
-  }
-
-
-  /**
-   * The Tiles this Player may spawn Units on.
-   *
-   * @type {Array.<Coreminer.Tile>}
-   */
-  get spawnTiles() {
-    return client.gameManager.getMemberValue(this, 'spawnTiles');
-  }
-
-  set spawnTiles(value) {
-    client.gameManager.setMemberValue(this, 'spawnTiles', value);
   }
 
 
