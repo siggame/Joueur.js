@@ -31,6 +31,7 @@ class Miner extends GameObject {
     // default values for private member values
     this.bombs = 0;
     this.buildingMaterials = 0;
+    this.currentUpgrade = null;
     this.dirt = 0;
     this.health = 0;
     this.miningPower = 0;
@@ -38,7 +39,6 @@ class Miner extends GameObject {
     this.ore = 0;
     this.owner = null;
     this.tile = null;
-    this.upgrade = null;
     this.upgradeLevel = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -74,6 +74,20 @@ class Miner extends GameObject {
 
   set buildingMaterials(value) {
     client.gameManager.setMemberValue(this, 'buildingMaterials', value);
+  }
+
+
+  /**
+   * The Upgrade this Miner is on.
+   *
+   * @type {Coreminer.Upgrade}
+   */
+  get currentUpgrade() {
+    return client.gameManager.getMemberValue(this, 'currentUpgrade');
+  }
+
+  set currentUpgrade(value) {
+    client.gameManager.setMemberValue(this, 'currentUpgrade', value);
   }
 
 
@@ -172,20 +186,6 @@ class Miner extends GameObject {
 
   set tile(value) {
     client.gameManager.setMemberValue(this, 'tile', value);
-  }
-
-
-  /**
-   * The Upgrade this Miner is on.
-   *
-   * @type {Coreminer.Upgrade}
-   */
-  get upgrade() {
-    return client.gameManager.getMemberValue(this, 'upgrade');
-  }
-
-  set upgrade(value) {
-    client.gameManager.setMemberValue(this, 'upgrade', value);
   }
 
 
