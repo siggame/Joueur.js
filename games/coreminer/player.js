@@ -30,17 +30,17 @@ class Player extends GameObject {
 
     // default values for private member values
     this.baseTile = null;
+    this.bombs = [];
     this.clientType = '';
     this.hopperTiles = [];
     this.lost = false;
+    this.miners = [];
     this.money = 0;
     this.name = '';
     this.opponent = null;
     this.reasonLost = '';
     this.reasonWon = '';
-    this.side = [];
     this.timeRemaining = 0;
-    this.units = [];
     this.value = 0;
     this.won = false;
 
@@ -63,6 +63,20 @@ class Player extends GameObject {
 
   set baseTile(value) {
     client.gameManager.setMemberValue(this, 'baseTile', value);
+  }
+
+
+  /**
+   * Every Bomb owned by this Player.
+   *
+   * @type {Array.<Coreminer.Bomb>}
+   */
+  get bombs() {
+    return client.gameManager.getMemberValue(this, 'bombs');
+  }
+
+  set bombs(value) {
+    client.gameManager.setMemberValue(this, 'bombs', value);
   }
 
 
@@ -105,6 +119,20 @@ class Player extends GameObject {
 
   set lost(value) {
     client.gameManager.setMemberValue(this, 'lost', value);
+  }
+
+
+  /**
+   * Every Miner owned by this Player.
+   *
+   * @type {Array.<Coreminer.Miner>}
+   */
+  get miners() {
+    return client.gameManager.getMemberValue(this, 'miners');
+  }
+
+  set miners(value) {
+    client.gameManager.setMemberValue(this, 'miners', value);
   }
 
 
@@ -179,20 +207,6 @@ class Player extends GameObject {
 
 
   /**
-   * The Tiles on this Player's side of the map.
-   *
-   * @type {Array.<Coreminer.Tile>}
-   */
-  get side() {
-    return client.gameManager.getMemberValue(this, 'side');
-  }
-
-  set side(value) {
-    client.gameManager.setMemberValue(this, 'side', value);
-  }
-
-
-  /**
    * The amount of time (in ns) remaining for this AI to send commands.
    *
    * @type {number}
@@ -203,20 +217,6 @@ class Player extends GameObject {
 
   set timeRemaining(value) {
     client.gameManager.setMemberValue(this, 'timeRemaining', value);
-  }
-
-
-  /**
-   * Every Unit owned by this Player.
-   *
-   * @type {Array.<Coreminer.Unit>}
-   */
-  get units() {
-    return client.gameManager.getMemberValue(this, 'units');
-  }
-
-  set units(value) {
-    client.gameManager.setMemberValue(this, 'units', value);
   }
 
 
@@ -250,7 +250,7 @@ class Player extends GameObject {
 
 
   /**
-   * Spawns a Miner Unit on this Player's base tile.
+   * Spawns a Miner on this Player's base Tile.
    *
    * @returns {boolean} - True if successfully spawned, false otherwise.
    */

@@ -29,12 +29,14 @@ class Tile extends GameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
+    this.bombs = [];
     this.dirt = 0;
     this.isBase = false;
     this.isFalling = false;
     this.isHopper = false;
     this.isLadder = false;
     this.isSupport = false;
+    this.miners = [];
     this.ore = 0;
     this.owner = null;
     this.shielding = 0;
@@ -42,7 +44,6 @@ class Tile extends GameObject {
     this.tileNorth = null;
     this.tileSouth = null;
     this.tileWest = null;
-    this.units = [];
     this.x = 0;
     this.y = 0;
 
@@ -53,6 +54,20 @@ class Tile extends GameObject {
 
 
   // Member variables
+
+  /**
+   * An array of Bombs on this Tile.
+   *
+   * @type {Array.<Coreminer.Bomb>}
+   */
+  get bombs() {
+    return client.gameManager.getMemberValue(this, 'bombs');
+  }
+
+  set bombs(value) {
+    client.gameManager.setMemberValue(this, 'bombs', value);
+  }
+
 
   /**
    * The amount of dirt on this Tile.
@@ -69,7 +84,7 @@ class Tile extends GameObject {
 
 
   /**
-   * Whether or not the tile is a base Tile.
+   * Whether or not the Tile is a base Tile.
    *
    * @type {boolean}
    */
@@ -83,7 +98,7 @@ class Tile extends GameObject {
 
 
   /**
-   * Whether or not this tile is about to fall.
+   * Whether or not this Tile is about to fall after this turn.
    *
    * @type {boolean}
    */
@@ -135,6 +150,20 @@ class Tile extends GameObject {
 
   set isSupport(value) {
     client.gameManager.setMemberValue(this, 'isSupport', value);
+  }
+
+
+  /**
+   * An array of the Miners on this Tile.
+   *
+   * @type {Array.<Coreminer.Miner>}
+   */
+  get miners() {
+    return client.gameManager.getMemberValue(this, 'miners');
+  }
+
+  set miners(value) {
+    client.gameManager.setMemberValue(this, 'miners', value);
   }
 
 
@@ -233,20 +262,6 @@ class Tile extends GameObject {
 
   set tileWest(value) {
     client.gameManager.setMemberValue(this, 'tileWest', value);
-  }
-
-
-  /**
-   * An array of the Units on this Tile.
-   *
-   * @type {Array.<Coreminer.Unit>}
-   */
-  get units() {
-    return client.gameManager.getMemberValue(this, 'units');
-  }
-
-  set units(value) {
-    client.gameManager.setMemberValue(this, 'units', value);
   }
 
 

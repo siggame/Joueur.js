@@ -11,14 +11,15 @@ const GameManager = require(`${__basedir}/joueur/gameManager`);
 
 class CoreminerGameManager extends GameManager {}
 
-CoreminerGameManager.gameVersion = 'd9d8a113b95637751dbb349edb0a873d53ebb6df7c375956772b72fba4dff9f3';
+CoreminerGameManager.gameVersion = '3418447660e65ea28b97e2a74d8d95ebd694f36bbb0b6f4bd8d43fc97a3ecd9e';
 
 CoreminerGameManager.prototype._gameObjectClasses = {
+  Bomb: require('./bomb'),
   GameObject: require('./gameObject'),
-  Job: require('./job'),
+  Miner: require('./miner'),
   Player: require('./player'),
   Tile: require('./tile'),
-  Unit: require('./unit'),
+  Upgrade: require('./upgrade'),
 };
 
 module.exports = CoreminerGameManager;

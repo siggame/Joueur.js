@@ -37,27 +37,39 @@ class Game extends BaseGame {
     // default values for private member values
     this.bombPrice = 0;
     this.bombSize = 0;
+    this.bombs = [];
     this.buildingMaterialPrice = 0;
     this.currentPlayer = null;
     this.currentTurn = 0;
     this.dirtPrice = 0;
+    this.fallDamage = 0;
+    this.fallWeightDamage = 0;
     this.gameObjects = {};
-    this.jobs = [];
     this.ladderCost = 0;
+    this.ladderHealth = 0;
+    this.largeCargoSize = 0;
+    this.largeMaterialSize = 0;
     this.mapHeight = 0;
     this.mapWidth = 0;
+    this.maxShielding = 0;
     this.maxTurns = 0;
+    this.maxUpgradeLevel = 0;
+    this.miners = [];
     this.orePrice = 0;
     this.oreValue = 0;
     this.players = [];
     this.session = '';
     this.shieldCost = 0;
+    this.shieldHealth = 0;
     this.spawnPrice = 0;
+    this.suffocationDamage = 0;
+    this.suffocationWeightDamage = 0;
     this.supportCost = 0;
+    this.supportHealth = 0;
     this.tiles = [];
     this.timeAddedPerTurn = 0;
-    this.units = [];
     this.upgradePrice = 0;
+    this.upgrades = [];
     this.victoryAmount = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -83,7 +95,7 @@ class Game extends BaseGame {
 
 
   /**
-   * The amount of cargo space taken up by a bomb.
+   * The amount of cargo space taken up by a Bomb.
    *
    * @type {number}
    */
@@ -93,6 +105,20 @@ class Game extends BaseGame {
 
   set bombSize(value) {
     client.gameManager.setMemberValue(this, 'bombSize', value);
+  }
+
+
+  /**
+   * Every Bomb in the game.
+   *
+   * @type {Array.<Coreminer.Bomb>}
+   */
+  get bombs() {
+    return client.gameManager.getMemberValue(this, 'bombs');
+  }
+
+  set bombs(value) {
+    client.gameManager.setMemberValue(this, 'bombs', value);
   }
 
 
@@ -153,6 +179,34 @@ class Game extends BaseGame {
 
 
   /**
+   * The amount of damage taken per Tile fallen.
+   *
+   * @type {number}
+   */
+  get fallDamage() {
+    return client.gameManager.getMemberValue(this, 'fallDamage');
+  }
+
+  set fallDamage(value) {
+    client.gameManager.setMemberValue(this, 'fallDamage', value);
+  }
+
+
+  /**
+   * The amount of extra damage taken for falling while carrying a large amount of cargo.
+   *
+   * @type {number}
+   */
+  get fallWeightDamage() {
+    return client.gameManager.getMemberValue(this, 'fallWeightDamage');
+  }
+
+  set fallWeightDamage(value) {
+    client.gameManager.setMemberValue(this, 'fallWeightDamage', value);
+  }
+
+
+  /**
    * A mapping of every game object's ID to the actual game object. Primarily used by the server and client to easily refer to the game objects via ID.
    *
    * @type {Object.<string, Coreminer.GameObject>}
@@ -167,20 +221,6 @@ class Game extends BaseGame {
 
 
   /**
-   * A list of all jobs.
-   *
-   * @type {Array.<Coreminer.Job>}
-   */
-  get jobs() {
-    return client.gameManager.getMemberValue(this, 'jobs');
-  }
-
-  set jobs(value) {
-    client.gameManager.setMemberValue(this, 'jobs', value);
-  }
-
-
-  /**
    * The amount of building material required to build a ladder.
    *
    * @type {number}
@@ -191,6 +231,48 @@ class Game extends BaseGame {
 
   set ladderCost(value) {
     client.gameManager.setMemberValue(this, 'ladderCost', value);
+  }
+
+
+  /**
+   * The amount of mining power needed to remove a ladder from a Tile.
+   *
+   * @type {number}
+   */
+  get ladderHealth() {
+    return client.gameManager.getMemberValue(this, 'ladderHealth');
+  }
+
+  set ladderHealth(value) {
+    client.gameManager.setMemberValue(this, 'ladderHealth', value);
+  }
+
+
+  /**
+   * The amount deemed as a large amount of cargo.
+   *
+   * @type {number}
+   */
+  get largeCargoSize() {
+    return client.gameManager.getMemberValue(this, 'largeCargoSize');
+  }
+
+  set largeCargoSize(value) {
+    client.gameManager.setMemberValue(this, 'largeCargoSize', value);
+  }
+
+
+  /**
+   * The amount deemed as a large amount of material.
+   *
+   * @type {number}
+   */
+  get largeMaterialSize() {
+    return client.gameManager.getMemberValue(this, 'largeMaterialSize');
+  }
+
+  set largeMaterialSize(value) {
+    client.gameManager.setMemberValue(this, 'largeMaterialSize', value);
   }
 
 
@@ -223,6 +305,20 @@ class Game extends BaseGame {
 
 
   /**
+   * The maximum amount of shielding possible on a Tile.
+   *
+   * @type {number}
+   */
+  get maxShielding() {
+    return client.gameManager.getMemberValue(this, 'maxShielding');
+  }
+
+  set maxShielding(value) {
+    client.gameManager.setMemberValue(this, 'maxShielding', value);
+  }
+
+
+  /**
    * The maximum number of turns before the game will automatically end.
    *
    * @type {number}
@@ -233,6 +329,34 @@ class Game extends BaseGame {
 
   set maxTurns(value) {
     client.gameManager.setMemberValue(this, 'maxTurns', value);
+  }
+
+
+  /**
+   * The highest upgrade level allowed on a Miner.
+   *
+   * @type {number}
+   */
+  get maxUpgradeLevel() {
+    return client.gameManager.getMemberValue(this, 'maxUpgradeLevel');
+  }
+
+  set maxUpgradeLevel(value) {
+    client.gameManager.setMemberValue(this, 'maxUpgradeLevel', value);
+  }
+
+
+  /**
+   * Every Miner in the game.
+   *
+   * @type {Array.<Coreminer.Miner>}
+   */
+  get miners() {
+    return client.gameManager.getMemberValue(this, 'miners');
+  }
+
+  set miners(value) {
+    client.gameManager.setMemberValue(this, 'miners', value);
   }
 
 
@@ -251,7 +375,7 @@ class Game extends BaseGame {
 
 
   /**
-   * The amount of victory points awarded when ore is dumped in the base and sold.
+   * The amount of value awarded when ore is dumped in the base and sold.
    *
    * @type {number}
    */
@@ -307,6 +431,20 @@ class Game extends BaseGame {
 
 
   /**
+   * The amount of mining power needed to remove one unit of shielding off a Tile.
+   *
+   * @type {number}
+   */
+  get shieldHealth() {
+    return client.gameManager.getMemberValue(this, 'shieldHealth');
+  }
+
+  set shieldHealth(value) {
+    client.gameManager.setMemberValue(this, 'shieldHealth', value);
+  }
+
+
+  /**
    * The monetary price of spawning a Miner.
    *
    * @type {number}
@@ -321,6 +459,34 @@ class Game extends BaseGame {
 
 
   /**
+   * The amount of damage taken when suffocating inside a filled Tile.
+   *
+   * @type {number}
+   */
+  get suffocationDamage() {
+    return client.gameManager.getMemberValue(this, 'suffocationDamage');
+  }
+
+  set suffocationDamage(value) {
+    client.gameManager.setMemberValue(this, 'suffocationDamage', value);
+  }
+
+
+  /**
+   * The amount of extra damage taken for suffocating under a large amount of material.
+   *
+   * @type {number}
+   */
+  get suffocationWeightDamage() {
+    return client.gameManager.getMemberValue(this, 'suffocationWeightDamage');
+  }
+
+  set suffocationWeightDamage(value) {
+    client.gameManager.setMemberValue(this, 'suffocationWeightDamage', value);
+  }
+
+
+  /**
    * The amount of building material required to build a support.
    *
    * @type {number}
@@ -331,6 +497,20 @@ class Game extends BaseGame {
 
   set supportCost(value) {
     client.gameManager.setMemberValue(this, 'supportCost', value);
+  }
+
+
+  /**
+   * The amount of mining power needed to remove a support from a Tile.
+   *
+   * @type {number}
+   */
+  get supportHealth() {
+    return client.gameManager.getMemberValue(this, 'supportHealth');
+  }
+
+  set supportHealth(value) {
+    client.gameManager.setMemberValue(this, 'supportHealth', value);
   }
 
 
@@ -363,21 +543,7 @@ class Game extends BaseGame {
 
 
   /**
-   * Every Unit in the game.
-   *
-   * @type {Array.<Coreminer.Unit>}
-   */
-  get units() {
-    return client.gameManager.getMemberValue(this, 'units');
-  }
-
-  set units(value) {
-    client.gameManager.setMemberValue(this, 'units', value);
-  }
-
-
-  /**
-   * The cost to upgrade a Unit.
+   * The cost to upgrade a Miner.
    *
    * @type {number}
    */
@@ -391,7 +557,21 @@ class Game extends BaseGame {
 
 
   /**
-   * The amount of victory points required to win.
+   * Every Upgrade for a Miner in the game.
+   *
+   * @type {Array.<Coreminer.Upgrade>}
+   */
+  get upgrades() {
+    return client.gameManager.getMemberValue(this, 'upgrades');
+  }
+
+  set upgrades(value) {
+    client.gameManager.setMemberValue(this, 'upgrades', value);
+  }
+
+
+  /**
+   * The amount of victory points (value) required to win.
    *
    * @type {number}
    */
