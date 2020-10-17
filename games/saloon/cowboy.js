@@ -176,7 +176,7 @@ class Cowboy extends GameObject {
 
 
   /**
-   * How many times this unit has been drunk before taking their siesta and reseting this to 0.
+   * How many times this unit has been drunk before taking their siesta and resetting this to 0.
    *
    * @type {number}
    */

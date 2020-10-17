@@ -115,7 +115,7 @@ class Checker extends GameObject {
    *
    * @param {number} x - The x coordinate to move to.
    * @param {number} y - The y coordinate to move to.
-   * @returns {Checkers.Checker} - Returns the same checker that moved if the move was successful. null otherwise.
+   * @returns {Checkers.Checker} - Returns the same checker that moved if the move was successful. Otherwise null.
    */
   move(x, y) {
     return client.runOnServer(this, 'move', {

@@ -233,7 +233,7 @@ class Unit extends GameObject {
 
 
   /**
-   * Changes this Unit's Job. Must be at max energy (100.0) to change Jobs.
+   * Changes this Unit's Job. Must be at max energy (100) to change Jobs.
    *
    * @param {string} job - The name of the Job to change to.
    * @returns {boolean} - True if successfully changed Jobs, false otherwise.
@@ -274,7 +274,7 @@ class Unit extends GameObject {
 
 
   /**
-   * Removes materials from an adjacent Tile's Structure. You cannot deconstruct friendly structures (see Unit.attack).
+   * Removes materials from an adjacent Tile's Structure. You cannot deconstruct friendly structures (see `Unit.attack`).
    *
    * @param {Catastrophe.Tile} tile - The Tile to deconstruct. It must have a Structure on it.
    * @returns {boolean} - True if successfully deconstructed, false otherwise.

@@ -1,7 +1,7 @@
 // DO NOT MODIFY THIS FILE
 
 /**
- * Collect of the most of the rarest mineral orbiting aroung the sun and outcompete your competetor.
+ * Collect of the most of the rarest mineral orbiting around the sun and out-compete your competitor.
  * @namespace Stardash
  */
 

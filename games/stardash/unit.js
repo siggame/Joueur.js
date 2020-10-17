@@ -125,7 +125,7 @@ class Unit extends GameObject {
 
 
   /**
-   * Tracks wheither or not the ship is dashing or Mining. If true, it cannot do anything else.
+   * Tracks whether or not the ship is dashing or Mining. If true, it cannot do anything else.
    *
    * @type {boolean}
    */
@@ -237,7 +237,7 @@ class Unit extends GameObject {
 
 
   /**
-   * The sheild that a martyr ship has.
+   * The shield that a martyr ship has.
    *
    * @type {number}
    */
@@ -308,7 +308,7 @@ class Unit extends GameObject {
 
 
   /**
-   * allows a miner to mine a asteroid
+   * Allows a miner to mine a asteroid.
    *
    * @param {Stardash.Body} body - The object to be mined.
    * @returns {boolean} - True if successfully acted, false otherwise.
@@ -336,7 +336,7 @@ class Unit extends GameObject {
 
 
   /**
-   * tells you if your ship can move to that location from were it is without clipping the sun.
+   * Tells you if your ship can move to that location from were it is without clipping the sun.
    *
    * @param {number} x - The x position of the location you wish to arrive.
    * @param {number} y - The y position of the location you wish to arrive.

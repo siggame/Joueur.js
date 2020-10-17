@@ -86,7 +86,7 @@ class BroodMother extends Spider {
    * Spawns a new Spiderling on the same Nest as this BroodMother, consuming an egg.
    *
    * @param {string} spiderlingType - The string name of the Spiderling class you want to Spawn. Must be 'Spitter', 'Weaver', or 'Cutter'.
-   * @returns {Spiders.Spiderling} - The newly spwaned Spiderling if successful. Null otherwise.
+   * @returns {Spiders.Spiderling} - The newly spawned Spiderling if successful. Null otherwise.
    */
   spawn(spiderlingType) {
     return client.runOnServer(this, 'spawn', {

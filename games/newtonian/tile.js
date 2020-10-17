@@ -98,7 +98,7 @@ class Tile extends GameObject {
 
 
   /**
-   * The direction of a conveyor belt ('blank', 'north', 'east', 'south', or 'west'). blank means conveyor doesn't move.
+   * The direction of a conveyor belt ('blank', 'north', 'east', 'south', or 'west'). Blank means conveyor doesn't move.
    *
    * @type {string}
    */
