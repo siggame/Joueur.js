@@ -29,6 +29,7 @@ class Bomb extends GameObject {
     // The following values should get overridden when delta states are merged, but we set them here as a reference for you to see what variables this class has.
 
     // default values for private member values
+    this.tile = null;
     this.timer = 0;
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -38,6 +39,20 @@ class Bomb extends GameObject {
 
 
   // Member variables
+
+  /**
+   * The Tile this Miner is on.
+   *
+   * @type {Coreminer.Tile}
+   */
+  get tile() {
+    return client.gameManager.getMemberValue(this, 'tile');
+  }
+
+  set tile(value) {
+    client.gameManager.setMemberValue(this, 'tile', value);
+  }
+
 
   /**
    * The number of turns before this Bomb explodes. Zero means it will explode after the current turn.
