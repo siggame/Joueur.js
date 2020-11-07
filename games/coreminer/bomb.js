@@ -41,7 +41,7 @@ class Bomb extends GameObject {
   // Member variables
 
   /**
-   * The Tile this Miner is on.
+   * The Tile this Bomb is on.
    *
    * @type {Coreminer.Tile}
    */
@@ -55,7 +55,7 @@ class Bomb extends GameObject {
 
 
   /**
-   * The number of turns before this Bomb explodes. Zero means it will explode after the current turn.
+   * The number of turns before this Bomb explodes. One means it will explode after the current turn.
    *
    * @type {number}
    */
