@@ -11,6 +11,8 @@ const GameManager = require(`${__basedir}/joueur/gameManager`);
 
 class NecrowarGameManager extends GameManager {}
 
+NecrowarGameManager.gameVersion = '935f0e64ba290cdce31688a40bd90d1eb5375f36aeebd67482238fc0da25ef86';
+
 NecrowarGameManager.prototype._gameObjectClasses = {
   GameObject: require('./gameObject'),
   Player: require('./player'),

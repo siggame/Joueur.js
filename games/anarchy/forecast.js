@@ -70,7 +70,7 @@ class Forecast extends GameObject {
 
 
   /**
-   * How much of a Building's fire that can be blown in the direction of this Forecast. Fire is duplicated (copied), not moved (transfered).
+   * How much of a Building's fire that can be blown in the direction of this Forecast. Fire is duplicated (copied), not moved (transferred).
    *
    * @type {number}
    */

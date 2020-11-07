@@ -100,7 +100,7 @@ class Spiderling extends Spider {
 
 
   /**
-   * How much work needs to be done for this Spiderling to finish being busy. See docs for the Work forumla.
+   * How much work needs to be done for this Spiderling to finish being busy. See docs for the Work formula.
    *
    * @type {number}
    */
@@ -115,7 +115,7 @@ class Spiderling extends Spider {
 
 
   /**
-   * Attacks another Spiderling
+   * Attacks another Spiderling.
    *
    * @param {Spiders.Spiderling} spiderling - The Spiderling to attack.
    * @returns {boolean} - True if the attack was successful, false otherwise.

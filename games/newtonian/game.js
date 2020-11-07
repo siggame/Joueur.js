@@ -124,7 +124,7 @@ class Game extends BaseGame {
 
 
   /**
-   * A list of all jobs. first item is intern, second is physicists, and third is manager.
+   * A list of all jobs. The first element is intern, second is physicists, and third is manager.
    *
    * @type {Array.<Newtonian.Job>}
    */

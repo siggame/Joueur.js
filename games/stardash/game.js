@@ -1,4 +1,4 @@
-// Game: Collect of the most of the rarest mineral orbiting aroung the sun and outcompete your competetor.
+// Game: Collect of the most of the rarest mineral orbiting around the sun and out-compete your competitor.
 
 // DO NOT MODIFY THIS FILE
 // Never try to directly create an instance of this class, or modify its member variables.
@@ -12,7 +12,7 @@ const BaseGame = require(`${__basedir}/joueur/baseGame`);
 //<<-- /Creer-Merge: requires -->>
 
 /**
- * Collect of the most of the rarest mineral orbiting aroung the sun and outcompete your competetor.
+ * Collect of the most of the rarest mineral orbiting around the sun and out-compete your competitor.
  * @extends BaseGame
  * @memberof Stardash
  */
@@ -176,7 +176,7 @@ class Game extends BaseGame {
 
 
   /**
-   * A list of all jobs. first item is corvette, second is missileboat, third is martyr, fourth is transport, and fifth is miner.
+   * A list of all jobs. The first element is corvette, second is missileboat, third is martyr, fourth is transport, and fifth is miner.
    *
    * @type {Array.<Stardash.Job>}
    */

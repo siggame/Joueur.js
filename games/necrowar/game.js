@@ -35,8 +35,6 @@ class Game extends BaseGame {
     this.name = 'Necrowar';
 
     // default values for private member values
-    this.TowerJobs = [];
-    this.UnitJobs = [];
     this.currentPlayer = null;
     this.currentTurn = 0;
     this.gameObjects = {};
@@ -51,7 +49,9 @@ class Game extends BaseGame {
     this.session = '';
     this.tiles = [];
     this.timeAddedPerTurn = 0;
+    this.towerJobs = [];
     this.towers = [];
+    this.unitJobs = [];
     this.units = [];
 
     //<<-- Creer-Merge: init -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -61,34 +61,6 @@ class Game extends BaseGame {
 
 
   // Member variables
-
-  /**
-   * A list of every tower type / job.
-   *
-   * @type {Array.<Necrowar.TowerJob>}
-   */
-  get TowerJobs() {
-    return client.gameManager.getMemberValue(this, 'TowerJobs');
-  }
-
-  set TowerJobs(value) {
-    client.gameManager.setMemberValue(this, 'TowerJobs', value);
-  }
-
-
-  /**
-   * A list of every unit type / job.
-   *
-   * @type {Array.<Necrowar.UnitJob>}
-   */
-  get UnitJobs() {
-    return client.gameManager.getMemberValue(this, 'UnitJobs');
-  }
-
-  set UnitJobs(value) {
-    client.gameManager.setMemberValue(this, 'UnitJobs', value);
-  }
-
 
   /**
    * The player whose turn it is currently. That player can send commands. Other players cannot.
@@ -287,6 +259,20 @@ class Game extends BaseGame {
 
 
   /**
+   * A list of every tower type / job.
+   *
+   * @type {Array.<Necrowar.TowerJob>}
+   */
+  get towerJobs() {
+    return client.gameManager.getMemberValue(this, 'towerJobs');
+  }
+
+  set towerJobs(value) {
+    client.gameManager.setMemberValue(this, 'towerJobs', value);
+  }
+
+
+  /**
    * Every Tower in the game.
    *
    * @type {Array.<Necrowar.Tower>}
@@ -297,6 +283,20 @@ class Game extends BaseGame {
 
   set towers(value) {
     client.gameManager.setMemberValue(this, 'towers', value);
+  }
+
+
+  /**
+   * A list of every unit type / job.
+   *
+   * @type {Array.<Necrowar.UnitJob>}
+   */
+  get unitJobs() {
+    return client.gameManager.getMemberValue(this, 'unitJobs');
+  }
+
+  set unitJobs(value) {
+    client.gameManager.setMemberValue(this, 'unitJobs', value);
   }
 
 

@@ -1,4 +1,4 @@
-// Warehouse: A typical abandoned warehouse... that anarchists hang out in and can be bribed to burn down Buildings.
+// Warehouse: A typical abandoned warehouse that anarchists hang out in and can be bribed to burn down Buildings.
 
 // DO NOT MODIFY THIS FILE
 // Never try to directly create an instance of this class, or modify its member variables.
@@ -12,7 +12,7 @@ const Building = require('./building');
 //<<-- /Creer-Merge: requires -->>
 
 /**
- * A typical abandoned warehouse... that anarchists hang out in and can be bribed to burn down Buildings.
+ * A typical abandoned warehouse that anarchists hang out in and can be bribed to burn down Buildings.
  * @extends Anarchy.Building
  * @memberof Anarchy
  */
@@ -70,7 +70,7 @@ class Warehouse extends Building {
 
 
   /**
-   * Bribes the Warehouse to light a Building on fire. This adds this building's fireAdded to their fire, and then this building's exposure is increased based on the Manhatten distance between the two buildings.
+   * Bribes the Warehouse to light a Building on fire. This adds this building's fireAdded to their fire, and then this building's exposure is increased based on the Manhattan distance between the two buildings.
    *
    * @param {Anarchy.Building} building - The Building you want to light on fire.
    * @returns {number} - The exposure added to this Building's exposure. -1 is returned if there was an error.
